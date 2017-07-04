@@ -8,7 +8,7 @@
 	position:relative;
 	-moz-user-select: none;
 	-khtml-user-select: none;
-	user-select: none;  
+	user-select: none;
 	background:#f6f6f6;
 	white-space:nowrap;
 }
@@ -16,10 +16,10 @@
 .str_wrap.str_active {
 	background:#f1f1f1;
 }
-.str_move { 
+.str_move {
 	white-space:nowrap;
-	position:absolute; 
-	top:0; 
+	position:absolute;
+	top:0;
 	left:0;
 	cursor:move;
 }
@@ -28,7 +28,7 @@
 	//display:inline;
 	//zoom:1;
 	vertical-align:top;
-	position:absolute; 
+	position:absolute;
 	left:100%;
 	top:0;
 }
@@ -51,5 +51,139 @@
 	cursor:inherit;
 }
 .str_wrap img {
-	max-width:none !important;	
+	max-width:none !important;
 }
+		.mostrarInfoH {
+			-moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
+			-webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
+			-ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
+			transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
+			display: -moz-flex;
+			display: -webkit-flex;
+			display: -ms-flex;
+			display: flex;
+			-moz-flex-direction: column;
+			-webkit-flex-direction: column;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			-moz-justify-content: center;
+			-webkit-justify-content: center;
+			-ms-justify-content: center;
+			justify-content: center;
+			-moz-align-items: center;
+			-webkit-align-items: center;
+			-ms-align-items: center;
+			align-items: center;
+			display: -ms-flexbox;
+			-ms-flex-align: center;
+			-ms-flex-pack: center;
+			z-index: 8000;
+			cursor: default;
+		}
+			.mostrarInfoH .content {
+				-moz-transition: opacity 1s ease-in-out;
+				-webkit-transition: opacity 1s ease-in-out;
+				-ms-transition: opacity 1s ease-in-out;
+				transition: opacity 1s ease-in-out;
+				border-radius: 100%;
+				position: fixed;
+				left: 30%;
+				width: 35em;
+				height: 35em;
+				padding: 4em;
+				text-align: center;
+				cursor: default;
+			}
+
+			.mostrarInfoH .content  h1 {
+					font-size: 4em;
+					font-family: 'Pattaya', sans-serif;
+					margin: 0 0 .25em 0;
+					color: #fff;
+				}
+
+				.mostrarInfoH .content  h2 {
+					font-size: 1.5em;
+					margin: 0 0 1em 0;
+					color: #fff;
+				}
+
+			.mostrarInfoH .mostrarMas {
+				-moz-transition: background 1s ease-in-out;
+				-webkit-transition: background 1s ease-in-out;
+				-ms-transition: background 1s ease-in-out;
+				transition: background 1s ease-in-out;
+				margin: 0;
+			}
+
+			.mostrarInfoH.hidden .mostrarMas {
+					display: none;
+					cursor: pointer;
+				}
+
+			.mostrarInfoH .hidden  {
+				display: none;
+			}
+
+		.mostrarInfoH .hidden, .mostrarInfoH.preview {
+			-moz-transition: background 0.2s ease-in-out, height 1s ease-in-out;
+			-webkit-transition: background 0.2s ease-in-out, height 1s ease-in-out;
+			-ms-transition: background 0.2s ease-in-out, height 1s ease-in-out;
+			transition: background 0.2s ease-in-out, height 1s ease-in-out;
+			background: none;
+			height: 0;
+		}
+
+			.mostrarInfoH .hide .content, .mostrarInfoH .preview .content {
+				height: 6em;
+				width: 6em;
+				padding: 2em;
+			}
+
+				.mostrarInfoH.hide .content, .mostrarInfoH.preview  .content {
+					opacity: 0;
+				}
+
+					.mostrarInfoH.hide .content h1, .mostrarInfoH.preview  .content h1 {
+						display: none;
+					}
+
+					.mostrarInfoH.hide  .content h2, .mostrarInfoH.preview  .content h2 {
+						display: none;
+					}
+
+			.mostrarInfoH.hide .mostrarMas.big, .mostrarInfoH.preview .mostrarMas.big {
+				display: none;
+			}
+
+			.mostrarInfoH.hide .mostrarMas.hidden, .mostrarInfoH.preview .mostrarMas.hidden {
+				text-decoration: none;
+				padding-top: 1.5em;
+				padding-left: 0;
+				padding-right: 0;
+				background: none;
+				display: inline-block;
+			}
+
+				.mostrarInfoH.hide .mostrarMas.hidden:before, .mostrarInfoH.preview .mostrarMas.hidden:before {
+					-moz-osx-font-smoothing: grayscale;
+					-webkit-font-smoothing: antialiased;
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					text-transform: none !important;
+				}
+	.mostrarInfoH.hide .mostrarMas.hidden:before, .mostrarInfoH.preview .mostrarMas.hidden:before {
+					content: url(../../images/fl.png);
+					color: #FFF;
+					font-size: 1.5em;
+				}
+
+				.mostrarInfoH.hide .mostrarMas.hidden span, .mostrarInfoH.preview .mostrarMas.hidden span {
+					display: none;
+				}
+
+				.castores {
+					background: #c0a062;
+					box-shadow: 0 0 0 1em #996633;
+				}
