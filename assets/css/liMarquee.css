@@ -54,6 +54,8 @@
 	max-width:none !important;
 }
 		.mostrarInfoH {
+				transition: left 0.2s ease-in-out;
+				-moz-transition: left 0.2s ease-in-out;
 			-moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
 			-webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
 			-ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
@@ -81,13 +83,13 @@
 			cursor: default;
 		}
 			.mostrarInfoH .content {
+				transition: left 0.2s ease-in-out;
+				-moz-transition: left 0.2s ease-in-out;
 				-moz-transition: opacity 1s ease-in-out;
 				-webkit-transition: opacity 1s ease-in-out;
 				-ms-transition: opacity 1s ease-in-out;
 				transition: opacity 1s ease-in-out;
 				border-radius: 100%;
-				position: fixed;
-				left: 30%;
 				width: 35em;
 				height: 35em;
 				padding: 4em;
@@ -116,13 +118,26 @@
 				margin: 0;
 			}
 
-			.mostrarInfoH.hidden .mostrarMas {
-					display: none;
-					cursor: pointer;
+			.show .mostrarMas {
+					/*display: none;
+					cursor: pointer;*/
+				}
+
+			.mostrarInfoH .show {
+				position: fixed!important;
+				left: 35%!important;
+				top: 10%!important;
 				}
 
 			.mostrarInfoH .hidden  {
 				display: none;
+			}
+
+
+			.show .content {
+				position: fixed!important;
+				left: 35%!important;
+				top: 10%!important;
 			}
 
 		.mostrarInfoH .hidden, .mostrarInfoH.preview {

@@ -69,12 +69,13 @@ $('.mostrarInfoH').each( function() {
 				enlace.click(function(e) {
 
 					t.toggleClass('hide');
+					t.toggleClass('show');
 
-					if ( t.hasClass('preview') ) {
+					/*if ( t.hasClass('preview') ) {
 						return true;
 					} else {
 						e.preventDefault();
-					}
+					}*/
 
 				});
 
