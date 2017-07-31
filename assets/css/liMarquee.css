@@ -54,8 +54,8 @@
 	max-width:none !important;
 }
 		.mostrarInfoH {
-				transition: left 0.2s ease-in-out;
-				-moz-transition: left 0.2s ease-in-out;
+			transition: left 0.2s ease-in-out;
+			-moz-transition: left 0.2s ease-in-out;
 			-moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
 			-webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
 			-ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
@@ -83,7 +83,10 @@
 			cursor: default;
 		}
 			.mostrarInfoH .content {
-				transition: left 0.2s ease-in-out;
+				position: fixed!important;
+				top: 10%!important;
+				left: 0%!important;
+				transition: 2s;
 				-moz-transition: left 0.2s ease-in-out;
 				-moz-transition: opacity 1s ease-in-out;
 				-webkit-transition: opacity 1s ease-in-out;
@@ -111,6 +114,7 @@
 				}
 
 			.mostrarInfoH .mostrarMas {
+				transition: 0.2s;
 				-moz-transition: background 1s ease-in-out;
 				-webkit-transition: background 1s ease-in-out;
 				-ms-transition: background 1s ease-in-out;
@@ -119,25 +123,30 @@
 			}
 
 			.show .mostrarMas {
-					/*display: none;
-					cursor: pointer;*/
+				transition: 0.2s;
+					display: none;
+					cursor: pointer;
+				}
+
+			.show .interno{
+					display: block!important;
 				}
 
 			.mostrarInfoH .show {
-				position: fixed!important;
+				transition: 2s;
 				left: 35%!important;
-				top: 10%!important;
 				}
 
 			.mostrarInfoH .hidden  {
+				transition: 2s;
+				left: 0%!important;
 				display: none;
 			}
 
 
 			.show .content {
-				position: fixed!important;
+				transition: 2s;
 				left: 35%!important;
-				top: 10%!important;
 			}
 
 		.mostrarInfoH .hidden, .mostrarInfoH.preview {
@@ -156,6 +165,7 @@
 			}
 
 				.mostrarInfoH.hide .content, .mostrarInfoH.preview  .content {
+				transition: 2s;
 					opacity: 0;
 				}
 
@@ -168,10 +178,12 @@
 					}
 
 			.mostrarInfoH.hide .mostrarMas.big, .mostrarInfoH.preview .mostrarMas.big {
+				transition: 0.2s;
 				display: none;
 			}
 
 			.mostrarInfoH.hide .mostrarMas.hidden, .mostrarInfoH.preview .mostrarMas.hidden {
+				transition: 0.2s;
 				text-decoration: none;
 				padding-top: 1.5em;
 				padding-left: 0;
@@ -181,6 +193,7 @@
 			}
 
 				.mostrarInfoH.hide .mostrarMas.hidden:before, .mostrarInfoH.preview .mostrarMas.hidden:before {
+					transition: 0.2s;
 					-moz-osx-font-smoothing: grayscale;
 					-webkit-font-smoothing: antialiased;
 					font-family: FontAwesome;
@@ -189,16 +202,25 @@
 					text-transform: none !important;
 				}
 	.mostrarInfoH.hide .mostrarMas.hidden:before, .mostrarInfoH.preview .mostrarMas.hidden:before {
+
+					transition: 0.2s;
 					content: url(../../images/fl.png);
 					color: #FFF;
 					font-size: 1.5em;
 				}
 
 				.mostrarInfoH.hide .mostrarMas.hidden span, .mostrarInfoH.preview .mostrarMas.hidden span {
+					transition: 0.2s;
 					display: none;
 				}
 
 				.castores {
 					background: #c0a062;
 					box-shadow: 0 0 0 1em #996633;
+				}
+
+				.btnCastores {
+					background: #996633;
+					color: white;
+					font-size: 1.2em;
 				}
