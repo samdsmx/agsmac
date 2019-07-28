@@ -1,13 +1,23 @@
 /* main.js */
 
-/*Fucncion de las peticiones asincrona*/
+/*Funcion de las peticiones asincrona*/
 function includeHTML(elmnt) {
 	var getUrl = window.location;
 	var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 	var elmnt, file;
 	file = elmnt.getAttribute("includedHtml");
 	if (file) {
-		return $.ajax(baseUrl+file);
+		return $.ajax({
+			url: baseUrl+file,
+			type:'get',
+			success: function ( html ) {
+				console.log("Se carga componente");
+				elmnt.innerHTML = html;
+			}, 
+			error: function () {
+				// TODO: Configuraciones de componente de muestra de error
+			}
+		});
 	}
 }
 
@@ -19,27 +29,13 @@ function getAllIncludedHtml(){
 		var dfrt = includeHTML(elementos[i]);
 		promises.push( dfrt );
 	}
-	$.when(promises).done(function(data){
-		$.each( data, function(i,e){
-			e.done( function( html ){
-				($('[includedHtml]')[i]).innerHTML = html;
-			}).fail(function(){
-				console.log("Hubo un erro en la ensercion de: "+$('[includedHtml]')[i] );
-			});
-		});
-	}).fail( function(){
-		console.log("Hubo un error en la carga de elementos");
-	}).then(function(){
+	$.when.apply($,promises).done( function () {
 		$.each( $('[includedHtml]'), function(i,e){
 			e.setAttribute("includedHtml", undefined);
 		} );
 	}).then(function(){
 		afterIncluded();
-	}).then( function () {
-		setTimeout(function(){
-			afterAfterInclude();
-		}, 2000);
-	} );
+	});
 }
 
 // En esta función haremos lo que se espera que se haga en el script inicial.
@@ -160,6 +156,7 @@ function afterIncluded(){
 			e.preventDefault();
 		});
 	});
+	afterAfterInclude();
 }
 
 function afterAfterInclude(){
