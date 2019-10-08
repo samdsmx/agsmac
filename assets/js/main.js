@@ -213,7 +213,18 @@ function afterAfterInclude(){
 			width:'30px'
 		}, 100);
 	});
-
+	$('.str3').liMarquee({
+		direction: 'left',
+		loop: -1,
+		scrolldelay: 0,
+		scrollamount: 100,
+		circular: true,
+		drag: true,
+		touchEvent: true
+	});
+	$("a.panioleta").click(function(event){
+		alert( $(this).attr("data") );
+	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();
 		if( !$('.mostrarInfoH').hasClass('show') ){
@@ -224,6 +235,7 @@ function afterAfterInclude(){
 			window.location.href = "detail1.html";
 		}
 	});
+	
 }
 
 $(document).ready( function () {

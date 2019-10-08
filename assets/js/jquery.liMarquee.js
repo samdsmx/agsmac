@@ -103,9 +103,6 @@
 							height:strMove.height()
 						}).appendTo(strMove);
 					}
-					
-					
-					
 					if (p.direction == 'left') {
 						strWrap.height(strMove.outerHeight())
 						if (strMove.width() > strWrap.width()) {
