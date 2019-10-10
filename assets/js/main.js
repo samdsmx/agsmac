@@ -223,7 +223,13 @@ function afterAfterInclude(){
 		touchEvent: true
 	});
 	$("a.panioleta").click(function(event){
-		alert( $(this).attr("data") );
+		var data = $(this).attr("data");
+		// mandamos a llamar la información de los grupos
+		var gruposRequest = $.get('includes/data/grupos.json', function(grupos){
+
+		}).fail(function(){
+
+		});
 	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();
