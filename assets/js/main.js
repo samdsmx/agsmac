@@ -13,7 +13,7 @@ function includeHTML(elmnt) {
 			success: function ( html ) {
 				console.log("Se carga componente");
 				elmnt.innerHTML = html;
-			}, 
+			},
 			error: function () {
 				// TODO: Configuraciones de componente de muestra de error
 			}
@@ -229,12 +229,16 @@ function afterAfterInclude(){
 			var gruposRequest = $.get('includes/data/grupos.json', function(grupos){
 				dataPanioletas = grupos;
 			}).fail(function(){
-
+				console.log("Hubo un problema en la carga de la información");
 			});
+		} 
+		if( $(".columns").attr("data") == "panioletasContent" ){
+
 		} else {
-			alert("dataObtained");
+			$(".columns").empty();
 		}
 		
+
 	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();
@@ -243,15 +247,14 @@ function afterAfterInclude(){
 			// por lo que podemos abrir la nueva pagina.
 			var pagina = $(this).attr("data");
 			localStorage.setItem("page", pagina);
-			window.location.href = "detail1.html";
 		}
 	});
-	
-}
 
+}
+/* Declararemos un variable global para las panioletas*/
+var dataPanioletas = null;
 $(document).ready( function () {
 	/*Llamaremos a la función que hace la insercion de todos los html*/
 	getAllIncludedHtml();
-	/* Declararemos un variable global para las panioletas*/
-	var dataPanioletas = null;
+	
 });
