@@ -224,12 +224,17 @@ function afterAfterInclude(){
 	});
 	$("a.panioleta").click(function(event){
 		var data = $(this).attr("data");
-		// mandamos a llamar la información de los grupos
-		var gruposRequest = $.get('includes/data/grupos.json', function(grupos){
+		if( dataPanioletas == null ){
+			// mandamos a llamar la información de los grupos
+			var gruposRequest = $.get('includes/data/grupos.json', function(grupos){
+				dataPanioletas = grupos;
+			}).fail(function(){
 
-		}).fail(function(){
-
-		});
+			});
+		} else {
+			alert("dataObtained");
+		}
+		
 	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();
@@ -247,4 +252,6 @@ function afterAfterInclude(){
 $(document).ready( function () {
 	/*Llamaremos a la función que hace la insercion de todos los html*/
 	getAllIncludedHtml();
+	/* Declararemos un variable global para las panioletas*/
+	var dataPanioletas = null;
 });
