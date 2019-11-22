@@ -236,6 +236,7 @@ function afterAfterInclude(){
 
 		} else {
 			$(".columns").empty();
+			$(".columns").attr("data", "panioletasContent");
 		}
 		
 
