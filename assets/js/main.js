@@ -222,6 +222,11 @@ function afterAfterInclude(){
 		drag: true,
 		touchEvent: true
 	});
+	// declaramos el funcionamiento gral. del boton para esconder el dialog
+	$("#panioletaSearcher").find(".button").click( function(e){
+		e.preventDefault();
+		$("#panioletaSearcher").toggleClass('hide');
+	} )
 	$("a.panioleta").click(function(event){
 		var data = $(this).attr("data");
 		if( dataPanioletas == null ){
@@ -231,15 +236,12 @@ function afterAfterInclude(){
 			}).fail(function(){
 				console.log("Hubo un problema en la carga de la información");
 			});
-		} 
-		if( $(".columns").attr("data") == "panioletasContent" ){
-
+			
 		} else {
-			$(".columns").empty();
-			$(".columns").attr("data", "panioletasContent");
-		}
-		
 
+		}
+		$("#panioletaSearcher").toggleClass('hide');
+		
 	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();
