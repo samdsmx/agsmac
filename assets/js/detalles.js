@@ -1,6 +1,6 @@
 /* main.js */
 
-/*Fucncion de las peticiones asincrona*/
+/* Función de las peticiones asíncronas */
 function includeHTML(elmnt) {
 	var getUrl = window.location;
 	var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
