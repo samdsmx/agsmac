@@ -2,10 +2,10 @@
 
 /*Funcion de las peticiones asincrona*/
 function includeHTML(elmnt) {
-	var getUrl = window.location;
-	var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-	var elmnt, file;
-	file = elmnt.getAttribute("includedHtml");
+       var getUrl = window.location;
+       var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+       var file;
+       file = elmnt.getAttribute("includedHtml");
 	if (file) {
 		return $.ajax({
 			url: baseUrl+file,
