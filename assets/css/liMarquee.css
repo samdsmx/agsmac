@@ -390,3 +390,554 @@ ul.negra{
     list-style: none;
     color: #000000;
 }
+
+/* ============================================================
+   REDISEÑO PANEL CÍRCULOS — Armonización visual
+   Tokens por sección + tabs pill + card interna + scrollbar
+   ============================================================ */
+
+/* Tokens de tema por sección (bg, anillo, acento, texto) */
+.content.CC  { --sec-bg:#996633; --sec-ring:#c0a062; --sec-accent:#FFD27A; --sec-text:#FFFFFF; }
+.content.MG  { --sec-bg:#EF473F; --sec-ring:#FFE066; --sec-accent:#FFE066; --sec-text:#FFFFFF; }
+.content.ML  { --sec-bg:#28166F; --sec-ring:#FFE066; --sec-accent:#FFE066; --sec-text:#FFFFFF; }
+.content.TMS { --sec-bg:#244d40; --sec-ring:#B8DB7C; --sec-accent:#B8DB7C; --sec-text:#FFFFFF; }
+.content.TS  { --sec-bg:#244d40; --sec-ring:#7CB342; --sec-accent:#9CCC65; --sec-text:#FFFFFF; }
+.content.CP  { --sec-bg:#DA251D; --sec-ring:#FFFFFF; --sec-accent:#FFFFFF; --sec-text:#FFFFFF; }
+.content.CR  { --sec-bg:#DA251D; --sec-ring:#1F1A17; --sec-accent:#FFFFFF; --sec-text:#FFFFFF; }
+.content.SD  { --sec-bg:#1F1A17; --sec-ring:#FFFFFF; --sec-accent:#E5C158; --sec-text:#FFFFFF; }
+
+/* Aplicar tokens al círculo expandido y suavizar el anillo */
+.mostrarInfoH .content.CC,
+.mostrarInfoH .content.MG,
+.mostrarInfoH .content.ML,
+.mostrarInfoH .content.TMS,
+.mostrarInfoH .content.TS,
+.mostrarInfoH .content.CP,
+.mostrarInfoH .content.CR,
+.mostrarInfoH .content.SD {
+    background: radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--sec-bg) 88%, white) 0%, var(--sec-bg) 70%);
+    box-shadow:
+        0 0 0 0.65em var(--sec-ring),
+        0 25px 60px rgba(0,0,0,0.45),
+        inset 0 0 80px rgba(0,0,0,0.18);
+    color: var(--sec-text);
+    padding: 5.5em 5em;
+    overflow: hidden;
+}
+
+/* Título del círculo: tipografía coherente */
+.show .content h1,
+.show .content h2 {
+    font-family: 'Pattaya', 'Antique', sans-serif !important;
+    color: var(--sec-text) !important;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    text-align: center;
+}
+.show .content h2 {
+    font-family: 'Work Sans', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Card interna: contiene el contenido sin pegarlo al borde curvo */
+.mostrarInfoH .contenido {
+    width: 78%;
+    max-width: 30vw;
+    margin: 1.2em auto 0;
+    padding: 1em 1.2em 1.4em;
+    background: rgba(0,0,0,0.18);
+    border-radius: 18px;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+/* Tabs tipo pill */
+.contenedorTabs .tab {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    padding: 0;
+    margin-bottom: 1em;
+    background: transparent;
+}
+
+.contenedorTabs .tab > button.tablinks {
+    width: auto;
+    float: none;
+    flex: 0 1 auto;
+    padding: 0.5em 1.2em;
+    border-radius: 999px;
+    background: transparent !important;
+    color: var(--sec-text) !important;
+    border: 1.5px solid color-mix(in srgb, var(--sec-accent) 70%, transparent) !important;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.85em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.contenedorTabs .tab > button.tablinks:hover {
+    background: color-mix(in srgb, var(--sec-accent) 22%, transparent) !important;
+    filter: none;
+    transform: translateY(-1px);
+}
+
+.contenedorTabs .tab > button.tablinks.active {
+    background: var(--sec-accent) !important;
+    color: var(--sec-bg) !important;
+    filter: none;
+    border-color: var(--sec-accent) !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+/* Contenido de cada tab */
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small {
+    padding: 0.5em 0.5em;
+    color: var(--sec-text);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.95em;
+    line-height: 1.5;
+    max-height: 18vw;
+    overflow-y: auto;
+}
+
+.contenedorTabs .tabcontent p,
+.contenedorTabs .tabcontent-small p {
+    color: var(--sec-text) !important;
+    margin: 0;
+}
+
+.contenedorTabs .tabcontent ul,
+.contenedorTabs .tabcontent-small ul {
+    color: var(--sec-text) !important;
+    text-align: left;
+    padding-left: 1.2em;
+    margin: 0.4em 0;
+}
+
+/* Panel de descripción y adelanto: igual estructura visual que tabs */
+.mostrarInfoH .contenidoLargoCirculos {
+    width: 78%;
+    max-width: 30vw;
+    height: auto;
+    max-height: 28vw;
+    margin: 1.2em auto 0;
+    padding: 1.4em 1.6em;
+    background: rgba(0,0,0,0.18);
+    border-radius: 18px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+    text-align: left;
+    color: var(--sec-text);
+}
+
+.mostrarInfoH .contenidoLargoCirculos h1,
+.mostrarInfoH .contenidoLargoCirculos h2 {
+    color: var(--sec-text) !important;
+    font-family: 'Work Sans', sans-serif !important;
+    font-weight: 600;
+    text-align: left;
+    text-shadow: none;
+    margin: 0.4em 0 0.3em;
+}
+
+.mostrarInfoH .contenidoLargoCirculos h1 {
+    font-size: 1.4em;
+    color: var(--sec-accent) !important;
+}
+
+.mostrarInfoH .contenidoLargoCirculos h2 {
+    font-size: 1.05em;
+    opacity: 0.95;
+}
+
+.mostrarInfoH .contenidoLargoCirculos p,
+.mostrarInfoH .contenidoLargoCirculos li {
+    color: var(--sec-text) !important;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 0.92em !important;
+    line-height: 1.5;
+}
+
+.mostrarInfoH .contenidoLargoCirculos ul {
+    color: var(--sec-text) !important;
+    padding-left: 1.2em;
+    margin: 0.4em 0 0.8em;
+}
+
+/* Scrollbar custom, delgado y a tono con la sección */
+.mostrarInfoH .contenidoLargoCirculos,
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--sec-accent) 70%, transparent) transparent;
+}
+.mostrarInfoH .contenidoLargoCirculos::-webkit-scrollbar,
+.contenedorTabs .tabcontent::-webkit-scrollbar,
+.contenedorTabs .tabcontent-small::-webkit-scrollbar {
+    width: 6px;
+}
+.mostrarInfoH .contenidoLargoCirculos::-webkit-scrollbar-thumb,
+.contenedorTabs .tabcontent::-webkit-scrollbar-thumb,
+.contenedorTabs .tabcontent-small::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--sec-accent) 70%, transparent);
+    border-radius: 999px;
+}
+.mostrarInfoH .contenidoLargoCirculos::-webkit-scrollbar-track,
+.contenedorTabs .tabcontent::-webkit-scrollbar-track,
+.contenedorTabs .tabcontent-small::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Flechas de navegación: halo circular para anclarlas al borde */
+.mostrarInfoH .content img.leftArrow,
+.mostrarInfoH .content img.rigthArrow {
+    top: 50% !important;
+    transform: translateY(-50%);
+    padding: 14px;
+    width: 30px !important;
+    height: 22px !important;
+    box-sizing: content-box;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid color-mix(in srgb, var(--sec-accent) 55%, transparent);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.mostrarInfoH .content img.leftArrow  { left: 1.5em !important; }
+.mostrarInfoH .content img.rigthArrow { right: 1.5em !important; }
+
+.mostrarInfoH .content img.leftArrow:hover,
+.mostrarInfoH .content img.rigthArrow:hover {
+    background: color-mix(in srgb, var(--sec-accent) 35%, rgba(0,0,0,0.3));
+}
+
+/* Anular textos de color codificados en HTML que ahora deben heredar */
+.show .content h2[style*="color"] {
+    color: var(--sec-text) !important;
+}
+
+/* Reescalado responsivo del padding interno */
+@media screen and (max-width: 1280px) {
+    .mostrarInfoH .content {
+        padding: 4em 3.5em !important;
+    }
+    .mostrarInfoH .contenido,
+    .mostrarInfoH .contenidoLargoCirculos {
+        max-width: 32vw;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    .mostrarInfoH .content {
+        width: 78vw !important;
+        height: 78vw !important;
+        padding: 3em 2.5em !important;
+    }
+    .mostrarInfoH .contenido,
+    .mostrarInfoH .contenidoLargoCirculos {
+        width: 86%;
+        max-width: 60vw;
+    }
+    .contenedorTabs .tab > button.tablinks {
+        padding: 0.4em 0.9em;
+        font-size: 0.75em;
+    }
+    .mostrarInfoH .content img.leftArrow,
+    .mostrarInfoH .content img.rigthArrow {
+        padding: 10px;
+        width: 22px !important;
+        height: 16px !important;
+    }
+    .mostrarInfoH .content img.leftArrow  { left: 0.4em !important; }
+    .mostrarInfoH .content img.rigthArrow { right: 0.4em !important; }
+}
+
+/* ============================================================
+   AJUSTES v2 — legibilidad, orden, tema MG/ML, botones Adelante
+   ============================================================ */
+
+/* === Orden inicial: la intro se muestra primero, no los tabs === */
+.contenido > .contenedorTabs { display: none; }
+.contenido > .contenidoLargoCirculos.intro-seccion { display: block; }
+.contenido > .contenidoLargoCirculos.adelanto-seccion { display: none; }
+
+/* === Manada de Gacelas y Lobatos: fondo amarillo === */
+.content.MG  {
+    --sec-bg: #FFE600;
+    --sec-ring: #EF473F;
+    --sec-accent: #EF473F;
+    --sec-text: #1a1a1a;
+}
+.content.ML  {
+    --sec-bg: #FFE600;
+    --sec-ring: #28166F;
+    --sec-accent: #28166F;
+    --sec-text: #1a1a1a;
+}
+
+/* Para secciones con texto oscuro, quitamos sombra blanca y dejamos limpio */
+.show .content.MG h1, .show .content.MG h2,
+.show .content.ML h1, .show .content.ML h2 {
+    text-shadow: none;
+}
+
+/* === Sin doble marco: panel intro y adelanto fluyen con el círculo === */
+.mostrarInfoH .contenidoLargoCirculos.intro-seccion,
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0.8em 0.6em !important;
+    max-width: 32vw;
+    max-height: 28vw;
+}
+
+/* Tabs sin marco tampoco — los botones tipo "Adelante" se sostienen solos */
+.mostrarInfoH .contenido > .contenedorTabs {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0.4em 0.6em !important;
+    max-width: 32vw;
+    margin: 1em auto 0;
+}
+
+/* === Botones de tabs estilo "¡Adelante!" === */
+.contenedorTabs .tab {
+    display: flex;
+    justify-content: center;
+    gap: 0.6em;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0 0 1.2em;
+    background: transparent;
+}
+
+.contenedorTabs .tab > button.tablinks {
+    width: auto;
+    float: none;
+    flex: 0 1 auto;
+    margin: 0;
+    padding: 0.7em 1.6em;
+    border-radius: 10px !important;
+    border: 0 !important;
+    background-image: linear-gradient(to right, #C0A062 0%, #fda085 51%, #C0A062 100%) !important;
+    background-size: 200% auto !important;
+    background-color: transparent !important;
+    color: #FFFFFF !important;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    text-transform: capitalize;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: 0.5s;
+    filter: none !important;
+}
+.contenedorTabs .tab > button.tablinks:hover {
+    background-position: right center;
+    transform: none;
+}
+.contenedorTabs .tab > button.tablinks.active {
+    background-position: right center;
+    box-shadow:
+        0 0 20px rgba(255,255,255,0.45),
+        inset 0 0 0 2px rgba(255,255,255,0.7);
+}
+
+/* === Contenido de tabs: legibilidad y consistencia === */
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small {
+    padding: 1em 0.6em !important;
+    color: var(--sec-text) !important;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.1em !important;
+    line-height: 1.55;
+    max-height: 20vw;
+    overflow-y: auto;
+    text-align: center;
+}
+.contenedorTabs .tabcontent p,
+.contenedorTabs .tabcontent-small p {
+    color: var(--sec-text) !important;
+    margin: 0;
+    font-size: 1em;
+}
+.contenedorTabs .tabcontent ul,
+.contenedorTabs .tabcontent-small ul {
+    color: var(--sec-text) !important;
+    text-align: left;
+    padding-left: 1.4em;
+    margin: 0.5em auto;
+    display: inline-block;
+}
+.contenedorTabs .tabcontent strong,
+.contenedorTabs .tabcontent-small strong {
+    color: var(--sec-text) !important;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.4em;
+}
+
+/* === Tipografía coherente dentro de intro/adelanto === */
+.mostrarInfoH .contenidoLargoCirculos p,
+.mostrarInfoH .contenidoLargoCirculos li {
+    color: var(--sec-text) !important;
+    font-family: 'Work Sans', sans-serif !important;
+    font-size: 1.02em !important;
+    line-height: 1.55 !important;
+    text-align: left;
+}
+
+.mostrarInfoH .contenidoLargoCirculos p.cafe,
+.mostrarInfoH .contenidoLargoCirculos p.gacelas,
+.mostrarInfoH .contenidoLargoCirculos p.lobatos,
+.mostrarInfoH .contenidoLargoCirculos p.negro,
+.mostrarInfoH .contenidoLargoCirculos p.verde,
+.mostrarInfoH .contenidoLargoCirculos p.blanco {
+    color: var(--sec-text) !important;
+}
+
+.mostrarInfoH .contenidoLargoCirculos h1 {
+    font-family: 'Pattaya', sans-serif !important;
+    font-size: 1.7em !important;
+    color: var(--sec-accent) !important;
+    text-align: center;
+    margin: 0.4em 0 0.5em;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+}
+.mostrarInfoH .contenidoLargoCirculos h2 {
+    font-family: 'Work Sans', sans-serif !important;
+    font-weight: 600;
+    font-size: 1.2em !important;
+    color: var(--sec-text) !important;
+    text-align: left;
+    margin: 0.7em 0 0.3em;
+    text-shadow: none;
+}
+
+/* Anular el <p style="font-size:20px"> inline de cierre intro -> usa nuestro tamaño armonioso */
+.mostrarInfoH .contenidoLargoCirculos.intro-seccion > p[style*="font-size"]:last-of-type {
+    font-size: 1.15em !important;
+    font-style: italic;
+    text-align: center !important;
+    margin-top: 0.8em;
+    opacity: 0.95;
+}
+
+/* Anular colores inline en adelanto (rojo, negro) — usan acento de sección */
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion h1[style*="color"],
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion h2[style*="color"] {
+    color: var(--sec-accent) !important;
+}
+
+/* Anular color blanco hardcodeado en <ul style="color:#ffffff"> */
+.mostrarInfoH .contenidoLargoCirculos ul[style*="color"] {
+    color: var(--sec-text) !important;
+}
+.mostrarInfoH .contenidoLargoCirculos ul[style*="color"] li {
+    color: var(--sec-text) !important;
+}
+
+/* === Thumbnail decorativo de la sección en la intro === */
+.mostrarInfoH img.seccion-decor {
+    display: block;
+    float: right;
+    width: 90px;
+    height: 90px;
+    margin: 0 0 0.6em 0.8em;
+    object-fit: contain;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+/* Scrollbar custom (mantener) */
+.mostrarInfoH .contenidoLargoCirculos,
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--sec-accent) 70%, transparent) transparent;
+}
+
+/* Responsivo */
+@media screen and (max-width: 1280px) {
+    .mostrarInfoH .contenidoLargoCirculos.intro-seccion,
+    .mostrarInfoH .contenidoLargoCirculos.adelanto-seccion,
+    .mostrarInfoH .contenido > .contenedorTabs {
+        max-width: 34vw;
+    }
+    .contenedorTabs .tab > button.tablinks {
+        padding: 0.6em 1.2em;
+        font-size: 0.92em;
+    }
+}
+@media screen and (max-width: 736px) {
+    .mostrarInfoH .contenidoLargoCirculos.intro-seccion,
+    .mostrarInfoH .contenidoLargoCirculos.adelanto-seccion,
+    .mostrarInfoH .contenido > .contenedorTabs {
+        max-width: 62vw;
+    }
+    .mostrarInfoH img.seccion-decor {
+        width: 60px;
+        height: 60px;
+    }
+    .contenedorTabs .tab > button.tablinks {
+        padding: 0.5em 1em;
+        font-size: 0.85em;
+    }
+}
+
+/* === Botón cerrar (X) del círculo expandido === */
+/* === Botón cerrar (X) del círculo expandido, inline junto al título === */
+.circle-close {
+    display: none;
+    vertical-align: middle;
+    margin-left: 0.6em;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    color: #fff !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7em;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 20;
+    text-decoration: none !important;
+    transition: background 0.2s ease, transform 0.15s ease;
+    position: relative;
+    top: -0.2em;
+    left: 6em;
+}
+.circle-close:hover { background: rgba(255,255,255,0.45); transform: scale(1.08); }
+.circle-close:active { transform: scale(0.95); }
+.mostrarInfoH.show .content .circle-close { display: inline-flex; }
+
+/* Para secciones amarillas (MG / ML) el X queda en oscuro */
+.show .content.MG .circle-close,
+.show .content.ML .circle-close {
+    background: rgba(0,0,0,0.18);
+    color: #1a1a1a !important;
+}
+.show .content.MG .circle-close:hover,
+.show .content.ML .circle-close:hover {
+    background: rgba(0,0,0,0.34);
+}
+
+@media screen and (max-width: 736px) {
+    .circle-close { width: 1.4em; height: 1.4em; margin-left: 0.4em; font-size: 0.65em; }
+}

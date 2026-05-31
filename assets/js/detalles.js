@@ -2,12 +2,22 @@
 
 /* Función de las peticiones asíncronas */
 function includeHTML(elmnt) {
-       var getUrl = window.location;
-       var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-       var file;
-       file = elmnt.getAttribute("includedHtml");
+	var file = elmnt.getAttribute("includedHtml");
 	if (file) {
-		return $.ajax(baseUrl+file);
+		// Quitamos un eventual '/' inicial para que la URL sea relativa al
+		// directorio donde se sirve el sitio (funciona tanto en localhost
+		// como en GitHub Pages con o sin subruta).
+		if (file.charAt(0) === '/') file = file.substring(1);
+		return $.ajax({
+			url: file,
+			type: 'get',
+			success: function ( html ) {
+				elmnt.innerHTML = html;
+			},
+			error: function () {
+				console.log("Hubo un error en la inserción de: " + file);
+			}
+		});
 	}
 }
 
@@ -19,26 +29,14 @@ function getAllIncludedHtml(){
 		var dfrt = includeHTML(elementos[i]);
 		promises.push( dfrt );
 	}
-	$.when(promises).done(function(data){
-		$.each( data, function(i,e){
-			e.done( function( html ){
-				($('[includedHtml]')[i]).innerHTML = html;
-			}).fail(function(){
-				console.log("Hubo un erro en la ensercion de: "+$('[includedHtml]')[i] );
-			});
-		});
-	}).fail( function(){
-		console.log("Hubo un error en la carga de elementos");
-	}).then(function(){
+	$.when.apply($,promises).done( function () {
 		$.each( $('[includedHtml]'), function(i,e){
 			e.setAttribute("includedHtml", undefined);
 		} );
 	}).then(function(){
 		afterIncluded();
 	}).then( function () {
-		setTimeout(function(){
-			afterAfterInclude();
-		}, 1000);
+		afterAfterInclude();
 	} );
 }
 
@@ -129,6 +127,11 @@ function afterAfterInclude(){
 $(document).ready( function () {
 	// Primero obtendremos la pagina.
 	var pagina = localStorage.getItem("page");
+	if (!pagina) {
+		// Fallback: si entran a detail1.html directo sin haber pasado por
+		// la home, mandamos al primer slot.
+		pagina = "uno.html";
+	}
 	var include = $("#mainInclude").attr('includedHtml');
 	$("#mainInclude").attr("includedHtml", include+pagina);
 	/*Llamaremos a la función que hace la insercion de todos los html*/

@@ -12,6 +12,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="assets/css/liMarquee.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<style>html.no-anim #header,html.no-anim #header *{transition:none !important;animation:none !important;}</style>
+	<script>try{if(sessionStorage.getItem('agsmacWelcomeSeen'))document.documentElement.classList.add('no-anim','welcome-seen');}catch(e){}</script>
 </head>
 
 <body>
@@ -26,6 +28,7 @@
 			<a href="#" class="button hidden"></a>
 		</div>
 	</header>
+	<script>try{if(document.documentElement.classList.contains('welcome-seen'))document.getElementById('header').classList.add('hide');}catch(e){}</script>
 
 	<div id="main">
 		
@@ -173,92 +176,97 @@
 			</div>
 		</div>
 
-		<div class="columns">
-			<!-- Column 1 (horizontal, vertical, horizontal, vertical) -->
-			<div class="image fit">
-				<a class="detalles" data="uno.html">
-					<img src="images/pic01.jpg" alt="" />
-				</a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="dos.html">
-					<img src="images/pic02.jpg" alt="" />
-				</a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="tres.html">
-					<img src="images/pic03.jpg" alt="" />
-				</a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="cuatro.html">
-					<img src="images/pic04.jpg" alt="" />
+		<div class="columns metro-grid">
+			<a class="metro-tile metro-cobalt detalles" data="quienes-somos.html">
+				<div class="metro-icon"><i class="fa fa-info-circle"></i></div>
+				<div class="metro-text"><h3>Quiénes somos</h3><p>Conoce AGSMAC</p></div>
+			</a>
+
+			<a class="metro-tile metro-image detalles" data="constitucion.html" style="background-image: url('images/pic02.jpg');">
+				<div class="metro-overlay"></div>
+				<div class="metro-text"><h3>Constitución</h3><p>Documento rector</p></div>
+			</a>
+
+			<div class="metro-tile metro-large metro-media">
+				<video preload="metadata" controls>
+					<source src="images/agsmac.mp4" type="video/mp4">
+				</video>
+				<a class="metro-label-link" href="https://www.youtube.com/channel/UCyalbBV3m4uWD9SxwSPUbEw" target="_blank">
+					<i class="fa fa-youtube-play"></i> Canal de YouTube
 				</a>
 			</div>
 
-			<!-- Column 2 (vertical, horizontal, vertical, horizontal) -->
-			<div class="image fit">
-				<a class="link" href="https://www.flickr.com/photos/agsmac/albums" target="_blank">
-					<img src="images/pic06.jpg" alt="" />
-				</a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="cinco.html">
-					<img src="images/pic05.jpg" alt="" /></a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="ocho.html">
-					<img src="images/pic08.jpg" alt="" />
-				</a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="siete.html">
-					<img src="images/pic07.jpg" alt="" />
+			<a class="metro-tile metro-green detalles" data="seguro.html">
+				<div class="metro-icon"><i class="fa fa-shield"></i></div>
+				<div class="metro-text"><h3>Seguro</h3><p>Cobertura scout</p></div>
+			</a>
+
+			<a class="metro-tile metro-violet detalles" data="marco-simbolico.html">
+				<div class="metro-icon"><i class="fa fa-star"></i></div>
+				<div class="metro-text"><h3>Marco Simbólico</h3><p>Lo que nos representa</p></div>
+			</a>
+
+			<a class="metro-tile metro-large metro-image detalles bandera-tile" data="bandera.html" style="background-image: url('images/pic01.jpg'); background-color: #0b1d4d;">
+				<div class="metro-text"><h3>Bandera</h3><p>Nuestro símbolo</p></div>
+			</a>
+
+			<a class="metro-tile metro-wide metro-image detalles" data="libro-de-oro.html" style="background-image: url('images/pic06.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #9AD9EA">
+				<div class="metro-icon"><i class="fa fa-camera"></i></div>
+				<div class="metro-text"><h3>Libro de Oro</h3><p>Galería de momentos</p></div>
+			</a>
+
+			<a class="metro-tile metro-teal detalles" data="biblioteca.html">
+				<div class="metro-icon"><i class="fa fa-book"></i></div>
+				<div class="metro-text"><h3>Biblioteca</h3><p>Literatura y fichas</p></div>
+			</a>
+
+			<a class="metro-tile metro-indigo detalles" data="cuadro-de-adelanto.html">
+				<div class="metro-icon"><i class="fa fa-tasks"></i></div>
+				<div class="metro-text"><h3>Cuadro de Adelanto</h3><p>Progreso por sección</p></div>
+			</a>
+
+			<div class="metro-tile metro-large metro-media">
+				<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" frameborder="0" allowfullscreen></iframe>
+				<a class="metro-label-link" href="https://www.google.com/maps/d/u/0/edit?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" target="_blank">
+					<i class="fa fa-map-marker"></i> Grupos en México
 				</a>
 			</div>
 
-			<!-- Column 3 (horizontal, vertical, horizontal, vertical) -->
-			<div class="image fit" style="overflow: visible">
-				<a href="https://www.youtube.com/channel/UCyalbBV3m4uWD9SxwSPUbEw" target="_blank">
-					<video width="100%" controls>
-						<source src="images/agsmac.mp4" type="video/mp4">
-						<img src="images/agsmac.mp4"/>
-					</video>
-				</a>
-				<!--<a class="detalles" data="nueve.html">
-					<img src="images/pic09.jpg" alt="" />
-				</a>-->
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="doce.html">
-					<img src="images/pic12.jpg" alt="" /></a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="once.html">
-					<img src="images/pic11.jpg" alt="" /></a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="diez.html">
-					<img src="images/pic10.jpg" alt="" /></a>
-			</div>
+			<a class="metro-tile metro-amber detalles" data="ruta-critica.html">
+				<div class="metro-icon"><i class="fa fa-road"></i></div>
+				<div class="metro-text"><h3>Ruta Crítica</h3><p>Hitos del adelanto</p></div>
+			</a>
 
-			<!-- Column 4 (vertical, horizontal, vertical, horizontal) -->
-			<div class="image fit">
-				<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" width="850" height="880"></iframe>
-				<!-- <a class="detalles" data="trece.html">
-					<img src="images/pic13.jpg" alt="" /></a> -->
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="catorce.html">
-					<img src="images/pic14.jpg" alt="" /></a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="quince.html">
-					<img src="images/pic15.jpg" alt="" /></a>
-			</div>
-			<div class="image fit">
-				<a class="detalles" data="dieciseis.html">
-					<img src="images/pic16.jpg" alt="" /></a>
+			<a class="metro-tile metro-wide metro-cyan detalles" data="calendario.html">
+				<div class="metro-icon"><i class="fa fa-calendar"></i></div>
+				<div class="metro-text"><h3>Calendario</h3><p>Próximas actividades</p></div>
+			</a>
+
+			<a class="metro-tile metro-image detalles" data="cumpleanos.html" style="background-image: url('images/pic12.jpg');">
+				<div class="metro-overlay"></div>
+				<div class="metro-icon"><i class="fa fa-birthday-cake"></i></div>
+				<div class="metro-text"><h3>Cumpleaños</h3><p>Celebra con nosotros</p></div>
+			</a>
+
+			<a class="metro-tile metro-mauve detalles" data="redes-sociales.html">
+				<div class="metro-icon"><i class="fa fa-share-alt"></i></div>
+				<div class="metro-text"><h3>Redes sociales</h3><p>Síguenos</p></div>
+			</a>
+
+			<a class="metro-tile metro-tall metro-image link" href="https://www.flickr.com/photos/agsmac/albums" target="_blank" style="background-image: url('images/pic08.jpg');">
+				<div class="metro-overlay"></div>
+				<div class="metro-icon"><i class="fa fa-flickr"></i></div>
+				<div class="metro-text"><h3>Flickr</h3><p>Todos los álbumes</p></div>
+			</a>
+
+			<a class="metro-tile metro-dark link" href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576" target="_blank">
+				<div class="metro-icon"><i class="fa fa-facebook"></i></div>
+				<div class="metro-text"><h3>Facebook</h3><p>Noticias y eventos</p></div>
+			</a>
+
+			<div class="metro-tile metro-image" style="background-image: url('images/pic04.jpg');">
+				<div class="metro-overlay"></div>
+				<div class="metro-text"><h3>Aventura scout</h3><p>Naturaleza, servicio, fraternidad</p></div>
 			</div>
 		</div>
 	</div>
@@ -300,19 +308,24 @@
 	<script src="assets/js/jquery.liMarquee.js"></script>
 	<script>
 		function openInfo(evt, section) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
+			// Limitar la operación al contenedor de tabs donde se hizo clic
+			// para evitar afectar otras secciones y para asegurar que se
+			// oculten tanto .tabcontent como .tabcontent-small.
+			var container = evt.currentTarget.closest('.contenedorTabs') || document;
+			var tabcontent = container.querySelectorAll('.tabcontent, .tabcontent-small');
+			for (var i = 0; i < tabcontent.length; i++) {
 				tabcontent[i].style.display = "none";
 			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			var tablinks = container.querySelectorAll('.tablinks');
+			for (var j = 0; j < tablinks.length; j++) {
+				tablinks[j].className = tablinks[j].className.replace(" active", "");
 			}
-			document.getElementById(section).style.display = "block";
+			var target = document.getElementById(section);
+			if (target) target.style.display = "block";
 			evt.currentTarget.className += " active";
 		}
 	</script>
 	<script src="assets/js/main.js"></script>
+	<script>requestAnimationFrame(function(){document.documentElement.classList.remove('no-anim');});</script>
 </body>
 </html>

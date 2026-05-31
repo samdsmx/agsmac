@@ -1,0 +1,51 @@
+<div id="preview" class="vertical">
+    <div class="inner">
+        <div class="content">
+            <header>
+                <h2>Redes Sociales</h2>
+            </header>
+            <p>[Completar: invitación a seguir las cuentas oficiales de AGSMAC para mantenerse al día con noticias y eventos.]</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5em; margin-top: 1.5em;">
+
+                <!-- Facebook Page Plugin.
+                     Reemplazar data-href con la URL de la página oficial de AGSMAC.
+                     Requiere que el dominio del sitio esté permitido en Facebook for Developers. -->
+                <div>
+                    <h3>Facebook</h3>
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous"
+                        src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v18.0"></script>
+                    <div class="fb-page"
+                         data-href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576"
+                         data-tabs="timeline"
+                         data-width="500"
+                         data-height="600"
+                         data-small-header="false"
+                         data-adapt-container-width="true"
+                         data-hide-cover="false"
+                         data-show-facepile="true"></div>
+                </div>
+
+                <!-- Twitter/X timeline embed.
+                     Reemplazar el href con el handle real (ej. https://twitter.com/agsmac_oficial). -->
+                <div>
+                    <h3>Twitter / X</h3>
+                    <a class="twitter-timeline"
+                       data-height="600"
+                       href="https://twitter.com/agsmac?ref_src=twsrc%5Etfw">
+                       Tweets de @agsmac
+                    </a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+
+            </div>
+
+            <p style="margin-top: 2em; font-size: 0.9em; opacity: 0.7;">
+                Si los widgets no cargan, revisa que el dominio donde está publicado el sitio esté permitido en la configuración de cada red.
+            </p>
+        </div>
+    </div>
+    <a id="previo" data="cumpleanos.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>
+    <a id="sigue" data="trece.html" class="nav next"><span class="fa fa-chevron-right"></span></a>
+</div>

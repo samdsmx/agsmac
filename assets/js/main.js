@@ -2,13 +2,14 @@
 
 /* Función de las peticiones asíncronas */
 function includeHTML(elmnt) {
-       var getUrl = window.location;
-       var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-       var file;
-       file = elmnt.getAttribute("includedHtml");
+       var file = elmnt.getAttribute("includedHtml");
 	if (file) {
+		// Quitamos un eventual '/' inicial para que la URL sea relativa al
+		// directorio donde se sirve el sitio (funciona tanto en localhost
+		// como en GitHub Pages con o sin subruta).
+		if (file.charAt(0) === '/') file = file.substring(1);
 		return $.ajax({
-			url: baseUrl+file,
+			url: file,
 			type:'get',
 			success: function ( html ) {
 				console.log("Se carga componente");
@@ -89,45 +90,75 @@ function afterIncluded(){
 		var t 		= jQuery(this),
 			button 	= t.find('.button');
 
+		// Si el usuario ya vio el círculo de bienvenida en esta sesión,
+		// lo ocultamos de inmediato (evita que reaparezca al volver al Home).
+		try {
+			if (!t.hasClass('preview') && sessionStorage.getItem('agsmacWelcomeSeen')) {
+				t.addClass('hide');
+			}
+		} catch (err) { /* sessionStorage puede no estar disponible */ }
+
+		function marcarVisto() {
+			try { sessionStorage.setItem('agsmacWelcomeSeen', '1'); } catch (err) {}
+		}
+
 		button.click(function(e) {
 			t.toggleClass('hide');
+			if (t.hasClass('hide')) { marcarVisto(); }
 			if ( t.hasClass('preview') ) {
 				return true;
 			} else {
 				e.preventDefault();
 			}
 		});
-	});
-	// Inicializamos algunas cosas
-	$(document).click(function(e){
-		var claseIdentificadora = e.target.parentElement;
-		claseIdentificadora = claseIdentificadora.parentElement.className;
-		if(claseIdentificadora != "mostrarMas"
-			&& claseIdentificadora.indexOf("right") === -1
-			&& claseIdentificadora.indexOf("left") === -1
-			&& claseIdentificadora.indexOf("content") === -1
-			&& claseIdentificadora.indexOf("contenedorTabs") === -1
-			&& claseIdentificadora.indexOf("contenido") === -1
-			&& claseIdentificadora.indexOf("interno") === -1){
-			var count = 0;
 
-      $('.mostrarInfoH').each(function(){
-				if( $(this).hasClass("show") )
-				{
-					$(this).removeClass("show");
-					$(this).addClass("hide");
-					count++;
-				}
-			});
-		}
-		if(count != 0) {
-			e.preventDefault();
-		}
+		// Permitir cerrar el círculo de bienvenida haciendo clic fuera de él.
+		t.on('click', function(e) {
+			if (t.hasClass('hide') || t.hasClass('preview')) { return; }
+			if (!jQuery(e.target).closest('.inner').length) {
+				t.addClass('hide');
+				marcarVisto();
+			}
+		});
+	});
+	// Cerrar el círculo expandido sólo si el click ocurre fuera de cualquier
+	// `.mostrarInfoH` (es decir, fuera del propio círculo). Cualquier click
+	// dentro del círculo no debe cerrarlo — para eso está el botón X.
+	$(document).on('click', function(e){
+		var $target = jQuery(e.target);
+		// Si el click es sobre el botón X o sobre el ícono interno, dejamos
+		// que su propio handler lo cierre.
+		if ($target.closest('.circle-close').length) { return; }
+		// Si el click ocurre dentro de un círculo abierto o sobre los
+		// disparadores (round / mostrarMas) no cerramos nada.
+		if ($target.closest('.mostrarInfoH').length) { return; }
+		var count = 0;
+		$('.mostrarInfoH').each(function(){
+			if( $(this).hasClass("show") )
+			{
+				$(this).removeClass("show");
+				$(this).addClass("hide");
+				count++;
+			}
+		});
+		if (count !== 0) { e.preventDefault(); }
 	});
 	//Efecto imágenes laterales
 	$('.mostrarInfoH').each( function() {
 		var t 		= jQuery(this);
 		var enlace 	= t.find('.mostrarMas');
+		// Inyectamos un botón X de cerrar junto al título de la sección.
+		var $content = t.children('.content');
+		var $title = $content.children('h2').first();
+		if (!$title.length) { $title = $content.children('h1, h2').first(); }
+		if ($title.length && !$title.find('.circle-close').length) {
+			$title.append('<a href="#" class="circle-close" aria-label="Cerrar"><i class="fa fa-times"></i></a>');
+		}
+		$content.find('.circle-close').on('click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			t.removeClass('show').addClass('hide');
+		});
 		enlace.click( function(){
 			// Eliminamos todos los que tengan esta cla
 			$('.mostrarInfoH').each(function(){
@@ -222,6 +253,17 @@ function afterAfterInclude(){
 		drag: true,
 		touchEvent: true
 	});
+	// Seleccionar por default el primer tab (Promesa) en cada contenedorTabs
+	$('.contenedorTabs').each(function () {
+		var firstBtn = $(this).find('.tablinks').first();
+		var firstContent = $(this).find('.tabcontent, .tabcontent-small').first();
+		if (firstBtn.length && !firstBtn.hasClass('active')) {
+			firstBtn.addClass('active');
+		}
+		if (firstContent.length) {
+			firstContent.css('display', 'block');
+		}
+	});
 	// declaramos el funcionamiento gral. del boton para esconder el dialog
 	$("#panioletaSearcher").find(".button").click( function(e){
 		e.preventDefault();
@@ -306,6 +348,7 @@ function afterAfterInclude(){
 			// por lo que podemos abrir la nueva pagina.
 			var pagina = $(this).attr("data");
 			localStorage.setItem("page", pagina);
+			window.location.href = "detail1.html";
 		}
 	});
 

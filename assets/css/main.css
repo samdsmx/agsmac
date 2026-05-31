@@ -258,12 +258,15 @@ a.green:hover {
 }
 
 .wrapper {
-	margin: 0 auto;
+	margin: 0 auto -35px;
 	width: 20%;
 	position: relative;
 	z-index: 999;
 	top: 10px;
+	pointer-events: none;
 }
+
+.wrapper .str3 a { pointer-events: auto; }
 
 .str3 .str_item {
 	font-size: 0;
@@ -2040,4 +2043,267 @@ table.alt tbody tr td {
 	#footer .inner .content, #footer .inner .copyright {
 		padding: 1em;
 	}
+}
+
+/* ============================================================
+   METRO TILES (Windows 8 inspired) — mosaico de la home
+   ============================================================ */
+
+.metro-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-auto-rows: 180px;
+	grid-auto-flow: dense;
+	gap: 10px;
+	padding: 10px;
+	width: auto;
+	margin: 0 -2em;
+	box-sizing: border-box;
+}
+
+@media (min-width: 1600px) {
+	.metro-grid {
+		grid-template-columns: repeat(6, 1fr);
+		grid-auto-rows: 200px;
+	}
+}
+
+.metro-tile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 18px;
+	overflow: hidden;
+	color: #fff !important;
+	text-decoration: none !important;
+	background-size: cover;
+	background-position: center;
+	cursor: pointer;
+	transition: transform 120ms ease-out, box-shadow 120ms ease-out, filter 200ms ease-out;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+	user-select: none;
+	border-radius: 14px;
+}
+
+/* Asegura que los hijos multimedia (video/iframe) respeten las esquinas */
+.metro-tile.metro-media > video,
+.metro-tile.metro-media > iframe,
+.metro-tile > img {
+	border-radius: inherit;
+}
+
+.metro-tile:hover {
+	filter: brightness(1.08);
+	box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.metro-tile:active {
+	transform: scale(0.97);
+}
+
+.metro-tile.metro-wide {
+	grid-column: span 2;
+}
+
+.metro-tile.metro-tall {
+	grid-row: span 2;
+}
+
+.metro-tile.metro-large {
+	grid-column: span 2;
+	grid-row: span 2;
+}
+
+/* Tile que contiene un iframe o un video — sin padding, contenido full-bleed */
+.metro-tile.metro-media {
+	padding: 0;
+	background: #000;
+	cursor: default;
+}
+
+.metro-tile.metro-media > video,
+.metro-tile.metro-media > iframe {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	display: block;
+}
+
+.metro-tile.metro-media:hover {
+	filter: none;
+}
+
+.metro-tile.metro-media:active {
+	transform: none;
+}
+
+/* Label flotante para tiles de medios — link al recurso externo */
+.metro-label-link {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	z-index: 2;
+	padding: 8px 14px;
+	background: rgba(0,0,0,0.65);
+	color: #fff !important;
+	text-decoration: none !important;
+	font-size: 0.85em;
+	font-weight: 500;
+	border-top-right-radius: 4px;
+	transition: background 150ms ease-out;
+	pointer-events: auto;
+}
+
+.metro-label-link:hover {
+	background: rgba(0,0,0,0.85);
+}
+
+.metro-label-link i {
+	margin-right: 6px;
+}
+
+.metro-tile .metro-overlay {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,0,0,0.15));
+	z-index: 0;
+}
+
+.metro-tile .metro-icon,
+.metro-tile .metro-text {
+	position: relative;
+	z-index: 1;
+}
+
+.metro-tile .metro-icon {
+	font-size: 2.4em;
+	line-height: 1;
+	opacity: 0.95;
+}
+
+.metro-tile .metro-text h3 {
+	margin: 0 0 4px 0;
+	font-size: 1.05em;
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	line-height: 1.2;
+	color: #fff;
+}
+
+.metro-tile .metro-text p {
+	margin: 0;
+	font-size: 0.78em;
+	font-weight: 300;
+	opacity: 0.85;
+	line-height: 1.3;
+}
+
+.metro-tile.metro-wide .metro-icon { font-size: 3em; }
+.metro-tile.metro-wide .metro-text h3 { font-size: 1.25em; }
+.metro-tile.metro-large .metro-icon { font-size: 3.6em; }
+.metro-tile.metro-large .metro-text h3 { font-size: 1.5em; }
+.metro-tile.metro-large .metro-text p { font-size: 0.9em; }
+.metro-tile.metro-tall .metro-text h3 { font-size: 1.15em; }
+
+/* Paleta Metro (Windows 8 inspired) */
+.metro-cobalt   { background-color: #0050EF; }
+.metro-cyan     { background-color: #1BA1E2; }
+.metro-teal     { background-color: #00ABA9; }
+.metro-emerald  { background-color: #008A00; }
+.metro-green    { background-color: #2DA445; }
+.metro-amber    { background-color: #F0A30A; color: #1a1a1a !important; }
+.metro-amber .metro-text h3, .metro-amber .metro-text p { color: #1a1a1a; }
+.metro-orange   { background-color: #FA6800; }
+.metro-red      { background-color: #E51400; }
+.metro-crimson  { background-color: #A20025; }
+.metro-pink     { background-color: #F472D0; color: #1a1a1a !important; }
+.metro-pink .metro-text h3, .metro-pink .metro-text p { color: #1a1a1a; }
+.metro-magenta  { background-color: #D80073; }
+.metro-violet   { background-color: #AA00FF; }
+.metro-indigo   { background-color: #1F2E5C; }
+.metro-mauve    { background-color: #76608A; }
+.metro-steel    { background-color: #647687; }
+.metro-dark     { background-color: #1F1F1F; }
+
+/* Cuando la tile tiene imagen de fondo, asegurar contraste */
+.metro-tile[style*="background-image"] .metro-text h3,
+.metro-tile[style*="background-image"] .metro-text p {
+	text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Responsivo: en pantallas medianas pasamos a 3 columnas, luego 2, luego 1 */
+@media (max-width: 1280px) {
+	.metro-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 800px) {
+	.metro-grid {
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: 150px;
+		padding: 12px;
+		gap: 8px;
+	}
+	.metro-tile.metro-wide { grid-column: span 2; }
+	.metro-tile.metro-large { grid-column: span 2; grid-row: span 2; }
+	.metro-tile.metro-tall { grid-row: span 2; }
+	.metro-tile .metro-icon { font-size: 2em; }
+	.metro-tile .metro-text h3 { font-size: 0.95em; }
+}
+
+@media (max-width: 480px) {
+	.metro-grid {
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-rows: 130px;
+	}
+	.metro-tile { padding: 12px; }
+}
+
+/* Reset: como .metro-grid reemplaza al viejo .columns, neutralizamos los
+   estilos heredados de .columns sobre los hijos directos metro */
+.columns.metro-grid > .metro-tile { width: auto; padding-left: 18px; padding-right: 18px; }
+
+/* Tile de la Bandera de la asociación: contener la imagen entera (no recortar) */
+.metro-tile.bandera-tile {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	justify-content: flex-end;
+}
+.metro-tile.bandera-tile .metro-text h3,
+.metro-tile.bandera-tile .metro-text p {
+	text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* === Botón fijo de Inicio en páginas de detalle === */
+.home-btn {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 10005;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.55em 1.1em;
+    background: #2E2270;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.95em;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.home-btn i { font-size: 1.05em; }
+.home-btn:hover { background: #3a2c8c; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.3); }
+.home-btn:active { transform: translateY(0); }
+@media screen and (max-width: 736px) {
+    .home-btn { top: 10px; left: 10px; padding: 0.45em 0.9em; font-size: 0.85em; }
+    .home-btn span { display: none; }
 }
