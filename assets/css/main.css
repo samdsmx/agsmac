@@ -1379,6 +1379,32 @@ ul.alt li {
 	margin: 0;
 }
 
+/* Layout no-vertical (imagen arriba): mostrarla como banner con altura controlada
+   para evitar que ocupe casi toda la pantalla. */
+#preview:not(.vertical) .inner > .image.fit {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	margin: 0 auto 1.5em auto;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+#preview:not(.vertical) .inner > .image.fit img {
+	width: 100%;
+	height: 280px;
+	max-height: 32vh;
+	object-fit: cover;
+	object-position: center;
+	display: block;
+}
+
+@media screen and (max-width: 736px) {
+	#preview:not(.vertical) .inner > .image.fit img {
+		height: 180px;
+	}
+}
+
 #preview.vertical .inner {
 	display: -ms-flexbox;
 	display: -moz-flex;
@@ -2277,6 +2303,117 @@ table.alt tbody tr td {
 .metro-tile.bandera-tile .metro-text h3,
 .metro-tile.bandera-tile .metro-text p {
 	text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}
+
+/* === Tile de Cumpleaños con animación embebida (reemplaza birthday.swf) === */
+.metro-tile.birthday-tile {
+	padding: 0;
+	background: #0a1838;
+	cursor: default;
+	overflow: hidden;
+}
+.metro-tile.birthday-tile:hover { filter: none; }
+.metro-tile.birthday-tile:active { transform: none; }
+
+.birthday-tile .bd-stage {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background:
+		radial-gradient(ellipse at 50% 110%, rgba(58,166,255,0.18), transparent 60%),
+		linear-gradient(180deg, #0a1838 0%, #061026 100%);
+}
+
+.birthday-tile .bd-balloons {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+.birthday-tile .bd-balloons-back  { z-index: 1; }
+.birthday-tile .bd-balloons-front { z-index: 3; }
+
+.birthday-tile .bd-balloon {
+	position: absolute;
+	bottom: -60px;
+	will-change: transform;
+	animation: bd-rise var(--bd-dur, 7s) linear forwards;
+	filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+}
+
+@keyframes bd-rise {
+	0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+	8%   { opacity: 1; }
+	50%  { transform: translate3d(calc(var(--bd-sway, 20px) * 1), calc(var(--bd-rise, -300px) * 0.5), 0); }
+	100% { transform: translate3d(calc(var(--bd-sway, 20px) * -0.5), var(--bd-rise, -300px), 0); opacity: 1; }
+}
+
+.birthday-tile .bd-text-wrap {
+	position: absolute;
+	left: 0; right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 4px 16px 22px 8px;
+	text-align: left;
+	pointer-events: none;
+	max-height: calc(100% - 12px);
+	z-index: 2;
+}
+
+.birthday-tile .bd-text {
+	color: #fff;
+	font-family: 'Comic Sans MS', 'Marker Felt', 'Bradley Hand', cursive;
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1.15;
+	letter-spacing: 0.01em;
+	min-height: 1.2em;
+	text-shadow: 0 2px 3px rgba(0,0,0,0.7);
+	transition: opacity 0.5s ease;
+	white-space: nowrap;
+	overflow: visible;
+}
+
+.birthday-tile .bd-text.bd-fade-out { opacity: 0; }
+
+.birthday-tile .bd-char {
+	display: inline-block;
+	opacity: 0.15;
+	transform: translateY(-180%) scale(5);
+	transform-origin: 50% 50%;
+	transition:
+		opacity 0.8s ease-out,
+		transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+	color: #fff;
+	will-change: transform, opacity;
+}
+.birthday-tile .bd-char.bd-in {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+.birthday-tile .bd-char.bd-space {
+	transition: none;
+	transform: none;
+	opacity: 1;
+}
+
+.birthday-tile .bd-label {
+	position: absolute;
+	bottom: 8px;
+	left: 12px;
+	color: rgba(255,255,255,0.85);
+	font-size: 0.85em;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+	pointer-events: none;
+}
+.birthday-tile .bd-label i { margin-right: 0.35em; color: #ff9eb5; }
+
+@media (prefers-reduced-motion: reduce) {
+	.birthday-tile .bd-balloon { animation-duration: 0.001s; opacity: 0; }
+	.birthday-tile .bd-text { transition: none; }
+	.birthday-tile .bd-char { transition: none; transform: none; opacity: 1; }
 }
 
 /* === Botón fijo de Inicio en páginas de detalle === */

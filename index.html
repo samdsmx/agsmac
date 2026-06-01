@@ -177,9 +177,8 @@
 		</div>
 
 		<div class="columns metro-grid">
-			<a class="metro-tile metro-cobalt detalles" data="quienes-somos.html">
-				<div class="metro-icon"><i class="fa fa-info-circle"></i></div>
-				<div class="metro-text"><h3>Quiénes somos</h3><p>Conoce AGSMAC</p></div>
+			<a class="metro-tile metro-cobalt metro-image detalles bandera-tile" data="quienes-somos.html" style="background-image: url('images/pic01.jpg'); background-color: #0b1d4d;">
+				<div class="metro-text"><h3>¿Quiénes somos?</h3></div>
 			</a>
 
 			<a class="metro-tile metro-image detalles" data="constitucion.html" style="background-image: url('images/pic02.jpg');">
@@ -204,10 +203,6 @@
 			<a class="metro-tile metro-violet detalles" data="marco-simbolico.html">
 				<div class="metro-icon"><i class="fa fa-star"></i></div>
 				<div class="metro-text"><h3>Marco Simbólico</h3><p>Lo que nos representa</p></div>
-			</a>
-
-			<a class="metro-tile metro-large metro-image detalles bandera-tile" data="bandera.html" style="background-image: url('images/pic01.jpg'); background-color: #0b1d4d;">
-				<div class="metro-text"><h3>Bandera</h3><p>Nuestro símbolo</p></div>
 			</a>
 
 			<a class="metro-tile metro-wide metro-image detalles" data="libro-de-oro.html" style="background-image: url('images/pic06.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #9AD9EA">
@@ -242,11 +237,7 @@
 				<div class="metro-text"><h3>Calendario</h3><p>Próximas actividades</p></div>
 			</a>
 
-			<a class="metro-tile metro-image detalles" data="cumpleanos.html" style="background-image: url('images/pic12.jpg');">
-				<div class="metro-overlay"></div>
-				<div class="metro-icon"><i class="fa fa-birthday-cake"></i></div>
-				<div class="metro-text"><h3>Cumpleaños</h3><p>Celebra con nosotros</p></div>
-			</a>
+			<div class="metro-tile metro-wide birthday-tile" data-birthday-anim aria-label="Cumpleaños del mes"></div>
 
 			<a class="metro-tile metro-mauve detalles" data="redes-sociales.html">
 				<div class="metro-icon"><i class="fa fa-share-alt"></i></div>
@@ -326,6 +317,7 @@
 		}
 	</script>
 	<script src="assets/js/main.js"></script>
+	<script src="assets/js/birthday-tile.js"></script>
 	<script>requestAnimationFrame(function(){document.documentElement.classList.remove('no-anim');});</script>
 </body>
 </html>

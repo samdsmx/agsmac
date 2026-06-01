@@ -1,0 +1,19 @@
+{
+  "_comment_1": "Configuración del tile de cumpleaños.",
+  "_comment_2": "Fuente: Google Apps Script Web App deployado desde la hoja PRIVADA.",
+  "_comment_3": "Ver docs/apps-script-cumpleanos.gs para el código del script y los pasos de deploy.",
+  "_comment_4": "Si appsScriptUrl está vacío, se usa la lista inline 'birthdays' como fallback.",
+
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbzDE_er1qsmxyOc_qiCt6E9a3PctXiKfKX5jHW8gDR1TaE_tIdOqyy43dKHXo0LPAKB/exec",
+
+  "rangeDays": 20,
+
+  "_fallback_comment": "Fallback local. El 'group' es solo el número; el JS antepone 'Gpo. ' automáticamente.",
+  "birthdays": [
+    { "name": "Ramirez Soto Stephani V.", "group": "136",  "month": 5, "day": 3 },
+    { "name": "Morales Murua Lily",       "group": "133", "month": 5, "day": 12 },
+    { "name": "Gasca Lopez Mel",          "group": "5",   "month": 5, "day": 21 }
+  ]
+}
+
+
