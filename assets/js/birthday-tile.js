@@ -227,7 +227,7 @@
 					'<div class="bd-text" aria-live="polite"></div>' +
 				'</div>' +
 				'<div class="bd-balloons bd-balloons-front" aria-hidden="true"></div>' +
-				'<div class="bd-label"><i class="fa fa-birthday-cake"></i> Cumpleaños</div>' +
+				'<div class="bd-label"><i class="fa fa-birthday-cake"></i>¡Feliz Cumpleaños!</div>' +
 			'</div>';
 
 		var textEl = tile.querySelector('.bd-text');

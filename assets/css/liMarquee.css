@@ -941,3 +941,339 @@ ul.negra{
 @media screen and (max-width: 736px) {
     .circle-close { width: 1.4em; height: 1.4em; margin-left: 0.4em; font-size: 0.65em; }
 }
+
+/* ============================================================
+   AJUSTES v3 — sin marco interno, fondo de círculo más oscuro,
+                texto siempre blanco, flechas estilo botón Adelante
+   ============================================================ */
+
+/* --- Tokens: filo del círculo (ring) por sección + texto blanco --- */
+/* Castores: café; Gacelas/Lobatos: amarillo; Tropa Scout/Muchachas: verde;
+   Precursoras/Rovers: rojo; Dirigentes: azul marino. */
+.content.CC  { --sec-bg:#996633; --sec-ring:#996633; --sec-accent:#FFD27A; --sec-text:#FFFFFF; }
+.content.MG  { --sec-bg:#B8860B; --sec-ring:#F1C40F; --sec-accent:#FFE066; --sec-text:#FFFFFF; }
+.content.ML  { --sec-bg:#B8860B; --sec-ring:#F1C40F; --sec-accent:#FFE066; --sec-text:#FFFFFF; }
+.content.TMS { --sec-bg:#244d40; --sec-ring:#7CB342; --sec-accent:#B8DB7C; --sec-text:#FFFFFF; }
+.content.TS  { --sec-bg:#244d40; --sec-ring:#7CB342; --sec-accent:#9CCC65; --sec-text:#FFFFFF; }
+.content.CP  { --sec-bg:#DA251D; --sec-ring:#DA251D; --sec-accent:#FFFFFF; --sec-text:#FFFFFF; }
+.content.CR  { --sec-bg:#DA251D; --sec-ring:#DA251D; --sec-accent:#FFFFFF; --sec-text:#FFFFFF; }
+.content.SD  { --sec-bg:#1F1A17; --sec-ring:#1F3A5F; --sec-accent:#E5C158; --sec-text:#FFFFFF; }
+
+/* Restaurar sombra de texto (la habían quitado para MG/ML sobre amarillo) */
+.show .content.MG h1, .show .content.MG h2,
+.show .content.ML h1, .show .content.ML h2 {
+    text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* --- Fondo del círculo expandido más oscuro --- */
+/* Emula el color del marco interno que se quitó (sec-bg con tinte negro). */
+.mostrarInfoH .content.CC,
+.mostrarInfoH .content.MG,
+.mostrarInfoH .content.ML,
+.mostrarInfoH .content.TMS,
+.mostrarInfoH .content.TS,
+.mostrarInfoH .content.CP,
+.mostrarInfoH .content.CR,
+.mostrarInfoH .content.SD {
+    background: radial-gradient(
+        circle at 50% 35%,
+        color-mix(in srgb, var(--sec-bg) 82%, black) 0%,
+        color-mix(in srgb, var(--sec-bg) 65%, black) 75%
+    );
+}
+
+/* --- Quitar el marco que envolvía al texto + circulo con menos padding lateral --- */
+.mostrarInfoH .content.CC,
+.mostrarInfoH .content.MG,
+.mostrarInfoH .content.ML,
+.mostrarInfoH .content.TMS,
+.mostrarInfoH .content.TS,
+.mostrarInfoH .content.CP,
+.mostrarInfoH .content.CR,
+.mostrarInfoH .content.SD {
+    padding: 4em 2.2em !important;
+}
+
+.mostrarInfoH .contenido {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0.4em 0.4em !important;
+    width: 96%;
+    max-width: none;
+    margin: 0.6em auto 0;
+}
+
+/* --- Aprovechar el área liberada: paneles más anchos y texto más grande --- */
+.mostrarInfoH .contenidoLargoCirculos.intro-seccion,
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion {
+    width: 90% !important;
+    max-width: 34vw !important;
+    max-height: 28vw !important;
+    padding: 0.5em 0.4em !important;
+    margin: 0.6em auto 0 !important;
+}
+.mostrarInfoH .contenido > .contenedorTabs {
+    width: 90% !important;
+    max-width: 34vw !important;
+    margin: 0.6em auto 0 !important;
+}
+
+.mostrarInfoH .contenidoLargoCirculos p,
+.mostrarInfoH .contenidoLargoCirculos li {
+    font-size: 1.15em !important;
+}
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small {
+    font-size: 1.2em !important;
+    max-height: 22vw;
+}
+
+/* --- TODO el texto del círculo expandido en blanco --- */
+.mostrarInfoH .content,
+.mostrarInfoH .content h1,
+.mostrarInfoH .content h2,
+.mostrarInfoH .contenidoLargoCirculos,
+.mostrarInfoH .contenidoLargoCirculos h1,
+.mostrarInfoH .contenidoLargoCirculos h2,
+.mostrarInfoH .contenidoLargoCirculos p,
+.mostrarInfoH .contenidoLargoCirculos li,
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion h1[style*="color"],
+.mostrarInfoH .contenidoLargoCirculos.adelanto-seccion h2[style*="color"],
+.mostrarInfoH .contenidoLargoCirculos ul[style*="color"],
+.mostrarInfoH .contenidoLargoCirculos ul[style*="color"] li,
+.mostrarInfoH .contenidoLargoCirculos p.cafe,
+.mostrarInfoH .contenidoLargoCirculos p.gacelas,
+.mostrarInfoH .contenidoLargoCirculos p.lobatos,
+.mostrarInfoH .contenidoLargoCirculos p.negro,
+.mostrarInfoH .contenidoLargoCirculos p.verde,
+.mostrarInfoH .contenidoLargoCirculos p.blanco,
+.contenedorTabs .tabcontent,
+.contenedorTabs .tabcontent-small,
+.contenedorTabs .tabcontent p,
+.contenedorTabs .tabcontent-small p,
+.contenedorTabs .tabcontent ul,
+.contenedorTabs .tabcontent-small ul,
+.contenedorTabs .tabcontent li,
+.contenedorTabs .tabcontent-small li,
+.contenedorTabs .tabcontent strong,
+.contenedorTabs .tabcontent-small strong {
+    color: #FFFFFF !important;
+}
+
+/* --- Flechas de navegación con el mismo formato que los botones Promesa/Oración/Ley --- */
+.mostrarInfoH .content img.leftArrow,
+.mostrarInfoH .content img.rigthArrow {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: transparent !important;
+    background-image: linear-gradient(to right, #C0A062 0%, #fda085 51%, #C0A062 100%) !important;
+    background-size: 200% auto !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-radius: 10px !important;
+    box-sizing: content-box;
+    padding: 0.7em 0.9em !important;
+    width: 22px !important;
+    height: 14px !important;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2) !important;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)) !important;
+    cursor: pointer;
+    transition: 0.5s !important;
+}
+/* Usar la versión blanca del arte de la flecha para que se lea sobre el gradiente */
+.mostrarInfoH .content img.leftArrow  { content: url('../../images/leftArrow-white.png'); }
+.mostrarInfoH .content img.rigthArrow { content: url('../../images/rigtArrow-white.png'); }
+
+.mostrarInfoH .content img.leftArrow:hover,
+.mostrarInfoH .content img.rigthArrow:hover {
+    background: transparent !important;
+    background-image: linear-gradient(to right, #C0A062 0%, #fda085 51%, #C0A062 100%) !important;
+    background-position: right center !important;
+    transform: translateY(-50%) !important;
+}
+
+/* --- Botón cerrar (X): MG/ML ya no son amarillas, usar mismo estilo claro --- */
+.show .content.MG .circle-close,
+.show .content.ML .circle-close {
+    background: rgba(255,255,255,0.25);
+    color: #fff !important;
+}
+.show .content.MG .circle-close:hover,
+.show .content.ML .circle-close:hover {
+    background: rgba(255,255,255,0.45);
+}
+
+/* --- Posición del botón cerrar: anclado dentro del círculo (esquina superior) --- */
+/* El círculo es redondo (border-radius:100%); para que la X quede siempre
+   dentro de la curva, la separamos un 14% desde el borde superior/derecho. */
+.mostrarInfoH .content .circle-close {
+    position: absolute !important;
+    top: 9% !important;
+    right: 24% !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: 1.6em !important;
+    height: 1.6em !important;
+    font-size: 0.7em !important;
+}
+.mostrarInfoH.show .content .circle-close { display: inline-flex !important; }
+
+/* --- Responsivo: flechas más compactas en móvil pero conservando estilo --- */
+@media screen and (max-width: 736px) {
+    .mostrarInfoH .content img.leftArrow,
+    .mostrarInfoH .content img.rigthArrow {
+        padding: 0.5em 0.7em !important;
+        width: 16px !important;
+        height: 11px !important;
+    }
+    .mostrarInfoH .contenidoLargoCirculos.intro-seccion,
+    .mostrarInfoH .contenidoLargoCirculos.adelanto-seccion,
+    .mostrarInfoH .contenido > .contenedorTabs {
+        max-width: 66vw !important;
+    }
+}
+
+/* ============================================================
+   AJUSTES v4 — Adelanto Progresivo con miniaturas de insignias
+   ============================================================ */
+
+/* Insignia máxima destacada */
+.adelanto-seccion .insignia-max {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    background: transparent;
+    border-radius: 0;
+    padding: 0.2em 0;
+    margin: 0.2em 0 0.9em;
+    box-shadow: none;
+}
+.adelanto-seccion .insignia-max img {
+    width: 128px !important;
+    height: 128px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
+}
+.adelanto-seccion .insignia-max .insignia-max-info {
+    text-align: left;
+    line-height: 1.15;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.adelanto-seccion .insignia-max .insignia-max-label {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.05em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sec-accent);
+    opacity: 0.95;
+    display: block;
+}
+.adelanto-seccion .insignia-max .insignia-max-name {
+    font-size: 1.25em;
+    color: #FFFFFF;
+    display: block;
+    word-break: break-word;
+    line-height: 1.05;
+}
+
+/* Subtítulo de cada grupo (Etapas, Especialidades, etc.) */
+.adelanto-seccion .insignia-section-title {
+    font-family: 'Work Sans', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 1.05em !important;
+    color: var(--sec-accent) !important;
+    margin: 1em 0 0.4em !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+}
+
+/* Grid de miniaturas — flexbox para que la última fila quede centrada */
+.adelanto-seccion .insignia-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55em;
+    margin: 0.3em 0 0.8em !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+.adelanto-seccion .insignia-grid figure {
+    flex: 0 0 calc((100% - 2 * 0.55em) / 3);
+    max-width: calc((100% - 2 * 0.55em) / 3);
+}
+.adelanto-seccion .insignia-grid.cols-2 figure {
+    flex-basis: calc((100% - 0.55em) / 2);
+    max-width: calc((100% - 0.55em) / 2);
+}
+.adelanto-seccion .insignia-grid.cols-4 figure {
+    flex-basis: calc((100% - 3 * 0.55em) / 4);
+    max-width: calc((100% - 3 * 0.55em) / 4);
+}
+.adelanto-seccion .insignia-grid figure {
+    margin: 0;
+    padding: 0.45em 0.3em 0.4em;
+    text-align: center;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: none;
+    transition: transform 0.18s ease;
+}
+.adelanto-seccion .insignia-grid figure:hover {
+    background: transparent;
+    transform: translateY(-2px);
+}
+.adelanto-seccion .insignia-grid img {
+    display: block;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 0.3em;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4));
+}
+.adelanto-seccion .insignia-grid figcaption {
+    font-family: 'Work Sans', sans-serif !important;
+    font-size: 0.92em !important;
+    line-height: 1.2 !important;
+    color: #FFFFFF !important;
+    word-break: break-word;
+}
+
+/* Variante sin imagen (placeholders en TS/TMS sin badges propios) */
+.adelanto-seccion .insignia-grid figure.no-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 64px;
+    background: rgba(0,0,0,0.18);
+}
+.adelanto-seccion .insignia-grid figure.no-img figcaption {
+    font-size: 0.85em !important;
+    font-weight: 600;
+}
+
+/* Asegurar buen aspecto del párrafo intro del adelanto */
+.adelanto-seccion .adelanto-intro {
+    font-size: 0.98em !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.6em !important;
+}
+
+/* Responsive: miniaturas más chicas en móvil */
+@media screen and (max-width: 736px) {
+    .adelanto-seccion .insignia-grid.cols-4 figure {
+        flex-basis: calc((100% - 2 * 0.55em) / 3);
+        max-width: calc((100% - 2 * 0.55em) / 3);
+    }
+    .adelanto-seccion .insignia-grid img { width: 56px; height: 56px; }
+    .adelanto-seccion .insignia-grid figcaption { font-size: 0.82em !important; }
+    .adelanto-seccion .insignia-max img { width: 68px; height: 68px; }
+    .adelanto-seccion .insignia-max .insignia-max-name { font-size: 1.1em; }
+}
+
