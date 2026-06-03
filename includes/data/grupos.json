@@ -1,30 +1,112 @@
 {
-    "5":{
-        "sb1":"info11",
-        "sb2":"info12"
+    "Edo. de México": {
+        "Grupo 729": {
+            "numero": "729",
+            "nombre": "Fenix",
+            "jefe": "Ricardo A. Ruvalcaba",
+            "direccion": "Av. Quintana Roo Esq. Alhelies, San Pablo de las Salinas, Tultitlan",
+            "mapsUrl": "http://maps.google.com/maps/ms?msa=0&msid=210777987917528866615.000479481987c826abefd&ie=UTF8&t=m&vpsrc=6&ll=19.674212,-99.0897",
+            "horario": "16:00 a 18:00 hrs.",
+            "instagram": "https://www.instagram.com/729.fenix/",
+            "correo": "gpo729@agsmac.org",
+            "escudo": "images/grupos/Escudos/729.png",
+            "panioleta": "images/grupos/729.png"
+        }
     },
-    "22":{
-        "sb1":"info21",
-        "sb2":"info22"
+    "Ciudad de México": {
+        "Grupo 54": {
+            "numero": "54",
+            "nombre": "Nautilus",
+            "jefe": "Kenia Jiménez",
+            "direccion": "Parque Justicia Social, Casas Alemán",
+            "mapsUrl": "https://maps.app.goo.gl/7hFtA2WpxUMs4RZe6",
+            "horario": "10:00 a 12:00 hrs.",
+            "facebook": "https://www.facebook.com/gpo54nautilus",
+            "correo": "gpo54@agsmac.org",
+            "escudo": "images/grupos/Escudos/54.png",
+            "panioleta": "images/grupos/54.png"
+        },
+        "Grupo 96": {
+            "numero": "96",
+            "nombre": "Dragna",
+            "jefe": "Bruno Rojas",
+            "direccion": "Bosque de Aragon a un lado del balneario.",
+            "mapsUrl": "https://maps.app.goo.gl/TkRyZMA1RM3etaqaA",
+            "horario": "",
+            "web": "",
+            "facebook": "https://www.facebook.com/scouts96",
+            "instagram": "",
+            "tiktok": "",
+            "youtube": "",
+            "correo": "bruno.rojas@presenciacreativa.com.mx",
+            "escudo": "images/grupos/Escudos/96.png",
+            "panioleta": "images/grupos/96.png"
+        },
+        "Grupo 133": {
+            "nombre": "Mario Rivera Infante",
+            "jefe": "Lidia Suarez",
+            "direccion": "Nicanor Castillo esq. Rancho Grande Col. Miguel Cuautepec el Alto",
+            "mapsUrl": "http://maps.google.com/maps/ms?msa=0&msid=210777987917528866615.000479481987c826abefd&ie=UTF8&t=m&vpsrc=6&ll=19.560114,-99.1308",
+            "horario": "16:00 a 18:00 hrs.",
+            "facebook": "https://www.facebook.com/mario.riverainfante",
+            "correo": "gpo133@agsmac.org",
+            "escudo": "images/grupos/Escudos/133.png",
+            "panioleta": "images/grupos/133.png"
+        },
+        "Grupo 136": {
+            "numero": "136",
+            "nombre": "Santa Lucia",
+            "jefe": "Emmanuel Labastida",
+            "direccion": "Av. Vallejo entre calle 4 y 6 Col. Santa Rosa",
+            "mapsUrl": "http://maps.google.com/maps/ms?msa=0&msid=210777987917528866615.000479481987c826abefd&ie=UTF8&t=m&vpsrc=6&ll=19.52513,-99.16081",
+            "horario": "16:00 a 18:00 hrs.",
+            "facebook": "https://www.facebook.com/profile.php?id=100002342093293",
+            "correo": "gpo136@agsmac.org",
+            "escudo": "images/grupos/Escudos/136.png",
+            "panioleta": "images/grupos/136.png"
+        }
     },
-    "50":{
-        "sb1":"info21",
-        "sb2":"info22"
+    "Coahuila": {
+        "Grupo 5": {
+            "numero": "5",
+            "nombre": "'Jorge Garcia Rdz' Oriente",
+            "jefe": "Jorge García",
+            "direccion": "Parque 'Venustiano Carranza' Avenida Juarez esq. Calz. Cuauhtemoc",
+            "mapsUrl": "https://maps.google.com/maps/ms?msa=0&msid=210777987917528866615.000479481987c826abefd&ie=UTF8&t=m&vpsrc=6&ll=25.538608,-103.43",
+            "horario": "16:00 a 19:00 hrs.",
+            "facebook": "https://www.facebook.com/GRUPO5LALAGUNA/",
+            "correo": "gpo54@agsmac.org",
+            "escudo": "images/grupos/Escudos/5.png",
+            "panioleta": "images/grupos/5.png"
+        }
     },
-    "54":{
-        "sb1":"info31",
-        "sb2":"info32"
-    },
-    "133":{
-        "sb1":"info41",
-        "sb2":"info42"
-    },
-    "136":{
-        "sb1":"info51",
-        "sb2":"info52"
-    },
-    "729":{
-        "sb1":"info61",
-        "sb2":"info62"
+    "Guadalajara": {
+        "Grupo 22": {
+            "numero": "22",
+            "nombre": "Cihualpilli",
+            "jefe": "Ana Lilia Martínez",
+            "direccion": "Camino de Santiago s/n en el parque del macro tanque, Tonalá",
+            "mapsUrl": "",
+            "horario": "",
+            "facebook": "https://www.facebook.com/profile.php?id=100085855705532",
+            "telefono": "+52 33 1148 2533",
+            "instagram": "",
+            "tiktok": "",
+            "youtube": "",
+            "correo": "",
+            "escudo": "",
+            "panioleta": ""
+        },
+        "Grupo 50": {
+            "numero": "50",
+            "nombre": "Hacienda Real Tonalli",
+            "jefe": "Luis A. Navarro",
+            "direccion": "Calle Hacienda de las flores S/N. Parque el Torreón",
+            "mapsUrl": "https://www.google.com/maps/d/edit?mid=ztYOVo6IulZs.kwZsFgmxvLkQ",
+            "horario": "16:00 a 18:00 hrs.",
+            "facebook": "https://www.facebook.com/groups/2650293278607887/",
+            "escudo": "images/grupos/Escudos/50.png",
+            "panioleta": "images/grupos/50.png"
+        }
     }
 }

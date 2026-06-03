@@ -265,81 +265,228 @@ function afterAfterInclude(){
 		}
 	});
 	// declaramos el funcionamiento gral. del boton para esconder el dialog
-	$("#panioletaSearcher").find(".button").click( function(e){
+	$("#panioletaSearcher").on('click', '.btn-cerrar', function(e){
 		e.preventDefault();
-		$("#panioletaSearcher").toggleClass('hide');
-	} )
-	$("a.panioleta").click(function(event){
-		var data = $(this).attr("data");
-		if( grupos == null ){
-			var gruposRequest = $.get('includes/data/grupos.json', function(dataPanioletas){
-				grupos = dataPanioletas;
-				if ( grupos != null){
-					// Limpiamos el selector.
-					$("#grupos").empty();
-					$("#subgrupos").empty();
-					$.each(grupos, function(key, value){
-						if( data == key ){
-							$("#grupos").append("<option value='"+key+"' selected>"+key+"</option>");
-							$("#subgrupos").append("<option value='' selected>-----</option>");
-							$.each( value, function( i,v ){
-								$("#subgrupos").append("<option value='"+i+"' subdata='"+v+"'>"+i+"</option>");
-							} );
-						} else {
-							$("#grupos").append("<option value='"+key+"'>"+key+"</option>");
-						}
-					});	
+		$("#panioletaSearcher").addClass('hide');
+	});
+
+	// Cerrar al hacer click sobre el fondo (fuera de la tarjeta)
+	$("#panioletaSearcher").on('click', function(e){
+		if (e.target === this) {
+			$(this).addClass('hide');
+		}
+	});
+
+	// --- Helpers para la tarjeta de grupo ---
+	function findGrupoByKey(grupoKey){
+		var found = null;
+		if (!grupos) return null;
+		$.each(grupos, function(estado, lista){
+			$.each(lista, function(nombre, info){
+				if (nombre === grupoKey) {
+					found = { estado: estado, nombre: nombre, info: info };
+					return false;
 				}
-				$("#panioletaSearcher").toggleClass('hide');
-			}).fail( function(){
+			});
+			if (found) return false;
+		});
+		return found;
+	}
+
+	function findEstadoOfGrupo(grupoKey){
+		var match = findGrupoByKey(grupoKey);
+		return match ? match.estado : null;
+	}
+
+	function rellenarSelectGrupos(estadoSeleccionado){
+		$("#grupos").empty();
+		$.each(grupos, function(estado){
+			var sel = (estado === estadoSeleccionado) ? " selected" : "";
+			$("#grupos").append("<option value='"+estado+"'"+sel+">"+estado+"</option>");
+		});
+	}
+
+	function rellenarSelectSubgrupos(estado, grupoSeleccionado){
+		$("#subgrupos").empty();
+		if (!grupos || !grupos[estado]) return;
+		var keys = Object.keys(grupos[estado]);
+		// Si el estado tiene más de un grupo, agrega el placeholder de selección.
+		if (keys.length > 1) {
+			$("#subgrupos").append("<option value=''>-- Selecciona un grupo --</option>");
+		}
+		$.each(grupos[estado], function(nombre){
+			var sel = (nombre === grupoSeleccionado) ? " selected" : "";
+			$("#subgrupos").append("<option value='"+nombre+"'"+sel+">"+nombre+"</option>");
+		});
+	}
+
+	// Si el estado tiene un solo grupo, devuélvelo; si no, null.
+	function unicoGrupoDe(estado){
+		if (!grupos || !grupos[estado]) return null;
+		var keys = Object.keys(grupos[estado]);
+		return keys.length === 1 ? keys[0] : null;
+	}
+
+	function escapeHtml(str){
+		if (str == null) return "";
+		return String(str)
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#39;");
+	}
+
+	function renderGrupoCard(estado, grupoKey){
+		var $title = $("#grupoCardTitulo");
+		var $lema = $("#grupoLema");
+		var $estado = $("#grupoEstado");
+		var $escudo = $("#grupoEscudo");
+		var $body = $("#contenidoBanderin");
+
+		if (!grupoKey || !grupos || !grupos[estado] || !grupos[estado][grupoKey]) {
+			$title.text("Selecciona un grupo");
+			$lema.text("");
+			$estado.text(estado || "");
+			$escudo.attr("src", "").attr("alt", "").parent().addClass("empty");
+			$body.html('<p class="grupo-card-empty">Selecciona un estado y un grupo para ver su información.</p>');
+			return;
+		}
+
+		var info = grupos[estado][grupoKey];
+		$title.text(grupoKey);
+		$lema.text(info.nombre ? info.nombre : "");
+		$estado.text(estado);
+
+		var escudoSrc = info.escudo || info.panioleta || "";
+		if (escudoSrc) {
+			$escudo.attr("src", escudoSrc).attr("alt", "Escudo " + grupoKey).parent().removeClass("empty");
+		} else {
+			$escudo.attr("src", "").attr("alt", "").parent().addClass("empty");
+		}
+
+		var rows = [];
+		function row(icon, label, value, isLink, hrefOverride){
+			if (!value) return;
+			var safeVal = escapeHtml(value);
+			var content = safeVal;
+			if (isLink) {
+				var href = hrefOverride || value;
+				content = '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + safeVal + '</a>';
+			}
+			rows.push(
+				'<li class="grupo-info-row">' +
+					'<span class="grupo-info-icon"><i class="fa ' + icon + '"></i></span>' +
+					'<span class="grupo-info-label">' + label + '</span>' +
+					'<span class="grupo-info-value">' + content + '</span>' +
+				'</li>'
+			);
+		}
+
+		row("fa-user", "Jefe de Grupo", info.jefe);
+		if (info.direccion) {
+			if (info.mapsUrl) {
+				rows.push(
+					'<li class="grupo-info-row">' +
+						'<span class="grupo-info-icon"><i class="fa fa-map-marker"></i></span>' +
+						'<span class="grupo-info-label">Dirección</span>' +
+						'<span class="grupo-info-value">' +
+							'<a href="' + escapeHtml(info.mapsUrl) + '" target="_blank" rel="noopener">' +
+								escapeHtml(info.direccion) +
+								' <i class="fa fa-external-link"></i>' +
+							'</a>' +
+						'</span>' +
+					'</li>'
+				);
+			} else {
+				row("fa-map-marker", "Dirección", info.direccion);
+			}
+		}
+		row("fa-clock-o", "Horario", info.horario);
+		if (info.telefono) {
+			var telHref = "tel:" + String(info.telefono).replace(/[^+\d]/g, "");
+			row("fa-phone", "Teléfono", info.telefono, true, telHref);
+		}
+		row("fa-envelope", "Correo", info.correo, true, "mailto:" + info.correo);
+
+		// Redes sociales: renderiza solo las que estén presentes.
+		var redes = [
+			{ key: "facebook",  icon: "fa-facebook-official", label: "Facebook"  },
+			{ key: "instagram", icon: "fa-instagram",        label: "Instagram" },
+			{ key: "tiktok",    icon: "fa-music",            label: "TikTok"    },
+			{ key: "youtube",   icon: "fa-youtube-play",     label: "YouTube"   },
+			{ key: "web",       icon: "fa-globe",            label: "Sitio web" }
+		];
+		redes.forEach(function(red){
+			var url = info[red.key];
+			if (!url) return;
+			// Para mostrar un texto amigable usamos el host de la url.
+			var display = url;
+			try {
+				var u = new URL(url);
+				display = u.hostname.replace(/^www\./, '') + (u.pathname && u.pathname !== '/' ? u.pathname : '');
+			} catch (e) { /* mantén url tal cual */ }
+			rows.push(
+				'<li class="grupo-info-row">' +
+					'<span class="grupo-info-icon"><i class="fa ' + red.icon + '"></i></span>' +
+					'<span class="grupo-info-label">' + red.label + '</span>' +
+					'<span class="grupo-info-value">' +
+						'<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' +
+							escapeHtml(display) +
+						'</a>' +
+					'</span>' +
+				'</li>'
+			);
+		});
+
+		if (rows.length === 0) {
+			$body.html(
+				'<p class="grupo-card-empty">' +
+					'Información próximamente. ¿Eres del ' + escapeHtml(grupoKey) + '? ' +
+					'Contáctanos para completar esta ficha.' +
+				'</p>'
+			);
+		} else {
+			$body.html('<ul class="grupo-info-list">' + rows.join("") + '</ul>');
+		}
+	}
+
+	function abrirTarjetaGrupo(grupoKey){
+		var match = findGrupoByKey(grupoKey);
+		var estado = match ? match.estado : Object.keys(grupos)[0];
+		var grupoSel = match ? match.nombre : unicoGrupoDe(estado);
+		rellenarSelectGrupos(estado);
+		rellenarSelectSubgrupos(estado, grupoSel);
+		renderGrupoCard(estado, grupoSel);
+		$("#panioletaSearcher").removeClass('hide');
+	}
+
+	$("a.panioleta").click(function(event){
+		event.preventDefault();
+		var grupoKey = $(this).attr("data-grupo");
+		if (grupos == null) {
+			$.get('includes/data/grupos.json', function(dataPanioletas){
+				grupos = dataPanioletas;
+				abrirTarjetaGrupo(grupoKey);
+			}).fail(function(){
 				grupos = null;
 			});
 		} else {
-			$("#grupos").empty();
-			$("#subgrupos").empty();
-			$.each(grupos, function(key, value){
-				if( data == key ){
-					$("#grupos").append("<option value='"+key+"' selected>"+key+"</option>");
-					$("#subgrupos").append("<option value='' selected>-----</option>");
-					$.each( value, function( i,v ){
-						$("#subgrupos").append("<option value='"+i+"' subdata='"+v+"'>"+i+"</option>");
-					} );
-				} else {
-					$("#grupos").append("<option value='"+key+"'>"+key+"</option>");
-				}
-			});
-			$("#panioletaSearcher").toggleClass('hide');
+			abrirTarjetaGrupo(grupoKey);
 		}
 	});
-	$("#subgrupos").on('change', function(event){
-		var info = $('option:selected', this).attr('subdata');
-		$("#contenidoBanderin").html(info);
+
+	$("#grupos").on('change', function(){
+		var estado = $(this).val();
+		var auto = unicoGrupoDe(estado);
+		rellenarSelectSubgrupos(estado, auto);
+		renderGrupoCard(estado, auto);
 	});
-	$( "#grupos" ).on('change', function(event){
-		var data = $("#grupos").children("option:selected").val();
-		if( grupos == null ){
-			var gruposRequest = $.get('includes/data/grupos.json', function(dataPanioletas){
-				grupos = dataPanioletas;
-			}).fail( function(){
-				grupos = null;
-			});
-		} 
-		if ( grupos != null){
-			// Limpiamos el selector.
-			$("#grupos").empty();
-			$("#subgrupos").empty();
-			$.each(grupos, function(key, value){
-				if( data == key ){
-					$("#grupos").append("<option value='"+key+"' selected>"+key+"</option>");
-					$("#subgrupos").append("<option value='' selected>-----</option>");
-					$.each( value, function( i,v ){
-						$("#subgrupos").append("<option value='"+i+"' subdata='"+v+"'>"+i+"</option>");
-					} );
-				} else {
-					$("#grupos").append("<option value='"+key+"'>"+key+"</option>");
-				}
-			});
-		}	
+
+	$("#subgrupos").on('change', function(){
+		var estado = $("#grupos").val();
+		var grupoKey = $(this).val();
+		renderGrupoCard(estado, grupoKey);
 	});
 	$("a.detalles").click(function(e){
 		e.preventDefault();

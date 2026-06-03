@@ -12,8 +12,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="assets/css/liMarquee.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="assets/css/main.css" />
-	<style>html.no-anim #header,html.no-anim #header *{transition:none !important;animation:none !important;}</style>
-	<script>try{if(sessionStorage.getItem('agsmacWelcomeSeen'))document.documentElement.classList.add('no-anim','welcome-seen');}catch(e){}</script>
+	<style>
+		html.no-anim #header,
+		html.no-anim #header * {
+			transition: none !important;
+			animation: none !important;
+		}
+	</style>
+	<script>try { if (sessionStorage.getItem('agsmacWelcomeSeen')) document.documentElement.classList.add('no-anim', 'welcome-seen'); } catch (e) { }</script>
 </head>
 
 <body>
@@ -23,15 +29,16 @@
 			<div class="content">
 				<h1 style="font-family: Antique; margin-bottom: -0.4em;">AGSMAC</h1>
 				<h2 class="stretch" style="width: 23em;">Asociación de Grupos de Scouts de México, A.C.</h2>
-				<a href="#" class="button big btn btn-1" style="text-transform: capitalize; font-weight: 500;">¡Adelante!</a>
+				<a href="#" class="button big btn btn-1"
+					style="text-transform: capitalize; font-weight: 500;">¡Adelante!</a>
 			</div>
 			<a href="#" class="button hidden"></a>
 		</div>
 	</header>
-	<script>try{if(document.documentElement.classList.contains('welcome-seen'))document.getElementById('header').classList.add('hide');}catch(e){}</script>
+	<script>try { if (document.documentElement.classList.contains('welcome-seen')) document.getElementById('header').classList.add('hide'); } catch (e) { }</script>
 
 	<div id="main">
-		
+
 		<!-- Circulos de secciones -->
 		<div class="image left">
 			<div class="circle mostrarInfoH hide">
@@ -84,7 +91,7 @@
 			<div class="circle mostrarInfoH hide">
 				<div class="content SD">
 					<h2 style="font-family: Antique; margin-bottom: -0.4em;">Scouters y Dirigentes</h2>
-                    <div class="mostrarMas interno" includedHtml="/includes/contenidoSD.html"></div>
+					<div class="mostrarMas interno" includedHtml="/includes/contenidoSD.html"></div>
 				</div>
 				<div class="mostrarMas">
 					<a href="#" class="round green"><img src="images/secciones/J.gif" alt="" />
@@ -95,7 +102,7 @@
 			<div class="circle mostrarInfoH hide">
 				<div class="content CR">
 					<h2 style="font-family: Antique; margin-bottom: -0.4em; color: #DA251D;">Clan de Rovers</h2>
-                    <div class="mostrarMas interno" includedHtml="/includes/contenidoCR.html"></div>
+					<div class="mostrarMas interno" includedHtml="/includes/contenidoCR.html"></div>
 				</div>
 				<div class="mostrarMas">
 					<a href="#" class="round green"><img src="images/secciones/CR.gif" alt="" />
@@ -106,7 +113,7 @@
 			<div class="circle mostrarInfoH hide">
 				<div class="content CP">
 					<h2 style="font-family: Antique; margin-bottom: -0.4em;color: #DA251D">Clan de Precursoras</h2>
-                    <div class="mostrarMas interno" includedHtml="/includes/contenidoCP.html"></div>
+					<div class="mostrarMas interno" includedHtml="/includes/contenidoCP.html"></div>
 				</div>
 				<div class="mostrarMas">
 					<a href="#" class="round green"><img src="images/secciones/CP.gif" alt="" />
@@ -117,7 +124,7 @@
 			<div class="circle mostrarInfoH hide">
 				<div class="content TS">
 					<h2 style="font-family: Antique; margin-bottom: -0.4em;">Tropa Scout</h2>
-                    <div class="mostrarMas interno" includedHtml="/includes/contenidoTS.html"></div>
+					<div class="mostrarMas interno" includedHtml="/includes/contenidoTS.html"></div>
 				</div>
 				<div class="mostrarMas">
 					<a href="#" class="round green"><img src="images/secciones/TS.gif" alt="" />
@@ -130,134 +137,197 @@
 		<!-- Grupos -->
 		<div class="wrapper">
 			<div class="str3 str_wrap">
-				<a class = "panioleta" href="#popup1" data="1">
-					<img src="images/grupos/3.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 3">
+					<img src="images/grupos/3.png" alt="Pañoleta Grupo 3">
 				</a>
-				<a class = "panioleta" href="#popup1" data="2">
-					<img src="images/grupos/5.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 5">
+					<img src="images/grupos/5.png" alt="Pañoleta Grupo 5">
 				</a>
-				<a class = "panioleta" href="#popup1" data="3">
-					<img src="images/grupos/50.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 50">
+					<img src="images/grupos/50.png" alt="Pañoleta Grupo 50">
 				</a>
-				<a class = "panioleta" href="#popup1" data="4">
-					<img src="images/grupos/54.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 54">
+					<img src="images/grupos/54.png" alt="Pañoleta Grupo 54 Nautilus">
 				</a>
-				<a class = "panioleta" href="#popup1" data="5">
-					<img src="images/grupos/133.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 133">
+					<img src="images/grupos/133.png" alt="Pañoleta Grupo 133">
 				</a>
-				<a class = "panioleta" href="#popup1" data="5">
-					<img src="images/grupos/136.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 136">
+					<img src="images/grupos/136.png" alt="Pañoleta Grupo 136">
 				</a>
-				<a class = "panioleta" href="#popup1" data="6">
-					<img src="images/grupos/488.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 488">
+					<img src="images/grupos/488.png" alt="Pañoleta Grupo 488">
 				</a>
-				<a class = "panioleta" href="#popup1" data="7">
-					<img src="images/grupos/729.png">
+				<a class="panioleta" href="#popup1" data-grupo="Grupo 729">
+					<img src="images/grupos/729.png" alt="Pañoleta Grupo 729">
 				</a>
 			</div>
 		</div>
 
-		<div id="panioletaSearcher" class="hide">
-			<div class="inner">
-				<div class="content" style="margin-bottom: 5%;">
-					<div style="flex-grow: 1; float: left; width: 50%;">
-						<select id="grupos"></select>
-						<select id="subgrupos"></select>
+		<div id="panioletaSearcher" class="hide" role="dialog" aria-modal="true" aria-labelledby="grupoCardTitulo">
+			<div class="grupo-card">
+				<header class="grupo-card-top">
+					<div class="grupo-card-top-title">
+						<i class="fa fa-search"></i>
+						<span>Buscar grupo</span>
 					</div>
-					<div style="flex-grow: 1; float: right; 
-						width: 50%; height: 100%; background-color: #EEA226;
-						color: #000000; font-weight: bold; padding: 2% 5%;">
-						<div id="contenidoBanderin"></div>
+					<button type="button" class="grupo-card-close btn-cerrar" aria-label="Cerrar">
+							<i class="fa fa-times"></i>
+						</button>
+					<div class="grupo-card-filters">
+						<select id="grupos" aria-label="Estado"></select>
+						<select id="subgrupos" aria-label="Grupo"></select>
 					</div>
 					
-				</div>
-				<a href="#" class="button big btn2 btn-cerrar" style="text-transform: capitalize; font-weight: 500;">Cerrar</a>	
+				</header>
+
+				<section class="grupo-card-hero">
+					<div class="grupo-card-escudo">
+						<img id="grupoEscudo" src="" alt="" />
+					</div>
+					<div class="grupo-card-titulos">
+						<h2 id="grupoCardTitulo">Selecciona un grupo</h2>
+						<p class="grupo-card-lema" id="grupoLema"></p>
+					</div>
+				</section>
+
+				<section class="grupo-card-body" id="contenidoBanderin">
+					<p class="grupo-card-empty">Usa los filtros de arriba para elegir un estado y un grupo.</p>
+				</section>
+
 				<a href="#" class="button hidden"></a>
 			</div>
 		</div>
 
 		<div class="columns metro-grid">
-			<a class="metro-tile metro-cobalt metro-image detalles bandera-tile" data="quienes-somos.html" style="background-image: url('images/pic01.jpg'); background-color: #001236;">
-				<div class="metro-text"><h3>¿Quiénes somos?</h3></div>
+			<a class="metro-tile metro-cobalt metro-image detalles bandera-tile" data="quienes-somos.html"
+				style="background-image: url('images/pic01.jpg'); background-color: #001236;">
+				<div class="metro-text">
+					<h3>¿Quiénes somos?</h3>
+				</div>
 			</a>
 
-			<a class="metro-tile metro-image detalles" data="constitucion.html" style="background-image: url('images/pic02.jpg');">
+			<a class="metro-tile metro-image detalles" data="constitucion.html"
+				style="background-image: url('images/pic02.jpg');">
 				<div class="metro-overlay"></div>
-				<div class="metro-text"><h3>Constitución</h3><p>Documento rector</p></div>
+				<div class="metro-text">
+					<h3>Constitución</h3>
+					<p>Documento rector</p>
+				</div>
 			</a>
 
 			<div class="metro-tile metro-large metro-media">
 				<video preload="metadata" controls>
 					<source src="images/agsmac.mp4" type="video/mp4">
 				</video>
-				<a class="metro-label-link" href="https://www.youtube.com/channel/UCyalbBV3m4uWD9SxwSPUbEw" target="_blank">
+				<a class="metro-label-link" href="https://www.youtube.com/channel/UCyalbBV3m4uWD9SxwSPUbEw"
+					target="_blank">
 					<i class="fa fa-youtube-play"></i> Canal de YouTube
 				</a>
 			</div>
 
 			<a class="metro-tile metro-green detalles" data="seguro.html">
 				<div class="metro-icon"><i class="fa fa-shield"></i></div>
-				<div class="metro-text"><h3>Seguro</h3><p>Cobertura scout</p></div>
+				<div class="metro-text">
+					<h3>Seguro</h3>
+					<p>Cobertura scout</p>
+				</div>
 			</a>
 
 			<a class="metro-tile metro-violet detalles" data="marco-simbolico.html">
 				<div class="metro-icon"><i class="fa fa-star"></i></div>
-				<div class="metro-text"><h3>Marco Simbólico</h3><p>Lo que nos representa</p></div>
+				<div class="metro-text">
+					<h3>Marco Simbólico</h3>
+					<p>Lo que nos representa</p>
+				</div>
 			</a>
 
-			<a class="metro-tile metro-wide metro-image detalles" data="libro-de-oro.html" style="background-image: url('images/pic06.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #9AD9EA">
+			<a class="metro-tile metro-wide metro-image detalles" data="libro-de-oro.html"
+				style="background-image: url('images/pic06.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #9AD9EA">
 				<div class="metro-icon"><i class="fa fa-camera"></i></div>
-				<div class="metro-text"><h3>Libro de Oro</h3><p>Galería de momentos</p></div>
+				<div class="metro-text">
+					<h3>Libro de Oro</h3>
+					<p>Galería de momentos</p>
+				</div>
 			</a>
 
 			<a class="metro-tile metro-teal detalles" data="biblioteca.html">
 				<div class="metro-icon"><i class="fa fa-book"></i></div>
-				<div class="metro-text"><h3>Biblioteca</h3><p>Literatura y fichas</p></div>
+				<div class="metro-text">
+					<h3>Biblioteca</h3>
+					<p>Literatura y fichas</p>
+				</div>
 			</a>
 
 			<a class="metro-tile metro-indigo detalles" data="cuadro-de-adelanto.html">
 				<div class="metro-icon"><i class="fa fa-tasks"></i></div>
-				<div class="metro-text"><h3>Cuadro de Adelanto</h3><p>Progreso por sección</p></div>
+				<div class="metro-text">
+					<h3>Cuadro de Adelanto</h3>
+					<p>Progreso por sección</p>
+				</div>
 			</a>
 
 			<div class="metro-tile metro-large metro-media">
-				<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" frameborder="0" allowfullscreen></iframe>
-				<a class="metro-label-link" href="https://www.google.com/maps/d/u/0/edit?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" target="_blank">
+				<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" frameborder="0"
+					allowfullscreen></iframe>
+				<a class="metro-label-link"
+					href="https://www.google.com/maps/d/u/0/edit?mid=1226BhUZBsDm5bnWKmjiJ1pwAaD8" target="_blank">
 					<i class="fa fa-map-marker"></i> Grupos en México
 				</a>
 			</div>
 
 			<a class="metro-tile metro-amber detalles" data="ruta-critica.html">
 				<div class="metro-icon"><i class="fa fa-road"></i></div>
-				<div class="metro-text"><h3>Ruta Crítica</h3><p>Hitos del adelanto</p></div>
+				<div class="metro-text">
+					<h3>Ruta Crítica</h3>
+					<p>Hitos del adelanto</p>
+				</div>
 			</a>
 
 			<a class="metro-tile metro-wide metro-cyan detalles" data="calendario.html">
 				<div class="metro-icon"><i class="fa fa-calendar"></i></div>
-				<div class="metro-text"><h3>Calendario</h3><p>Próximas actividades</p></div>
+				<div class="metro-text">
+					<h3>Calendario</h3>
+					<p>Próximas actividades</p>
+				</div>
 			</a>
 
 			<div class="metro-tile metro-wide birthday-tile" data-birthday-anim aria-label="Cumpleaños del mes"></div>
 
 			<a class="metro-tile metro-mauve detalles" data="redes-sociales.html">
 				<div class="metro-icon"><i class="fa fa-share-alt"></i></div>
-				<div class="metro-text"><h3>Redes sociales</h3><p>Síguenos</p></div>
+				<div class="metro-text">
+					<h3>Redes sociales</h3>
+					<p>Síguenos</p>
+				</div>
 			</a>
 
-			<a class="metro-tile metro-tall metro-image link" href="https://www.flickr.com/photos/agsmac/albums" target="_blank" style="background-image: url('images/pic08.jpg');">
+			<a class="metro-tile metro-tall metro-image link" href="https://www.flickr.com/photos/agsmac/albums"
+				target="_blank" style="background-image: url('images/pic08.jpg');">
 				<div class="metro-overlay"></div>
 				<div class="metro-icon"><i class="fa fa-flickr"></i></div>
-				<div class="metro-text"><h3>Flickr</h3><p>Todos los álbumes</p></div>
+				<div class="metro-text">
+					<h3>Flickr</h3>
+					<p>Todos los álbumes</p>
+				</div>
 			</a>
 
-			<a class="metro-tile metro-dark link" href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576" target="_blank">
+			<a class="metro-tile metro-dark link"
+				href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576"
+				target="_blank">
 				<div class="metro-icon"><i class="fa fa-facebook"></i></div>
-				<div class="metro-text"><h3>Facebook</h3><p>Noticias y eventos</p></div>
+				<div class="metro-text">
+					<h3>Facebook</h3>
+					<p>Noticias y eventos</p>
+				</div>
 			</a>
 
 			<div class="metro-tile metro-image" style="background-image: url('images/pic04.jpg');">
 				<div class="metro-overlay"></div>
-				<div class="metro-text"><h3>Aventura scout</h3><p>Naturaleza, servicio, fraternidad</p></div>
+				<div class="metro-text">
+					<h3>Aventura scout</h3>
+					<p>Naturaleza, servicio, fraternidad</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -268,22 +338,27 @@
 		<div class="inner">
 			<div class="content">
 				<h3>Asociación de Grupos de Scouts de México A.C.</h3>
-				<p>Fundada en 2006 con el objeto de coadyuvar en la formación del caracter de niñ@s y jovenes, inculcandoles el
-					cumplimiento de sus deberes religiosos, patrióticos y cívicos; asi como principios de disciplina, lealtad y ayuda
+				<p>Fundada en 2006 con el objeto de coadyuvar en la formación del caracter de niñ@s y jovenes,
+					inculcandoles el
+					cumplimiento de sus deberes religiosos, patrióticos y cívicos; asi como principios de disciplina,
+					lealtad y ayuda
 					al prójimo. Capacitandolos para bastarse a si mismos, ayudándoles a desarrollarse física, mental y
-					espiritualmente; todo esto conforme a los lineamientos que señalo el fundador del movimiento scout Sir Robert
+					espiritualmente; todo esto conforme a los lineamientos que señalo el fundador del movimiento scout
+					Sir Robert
 					Stephenson Smith Lord Baden Powell of Gilwell.</p>
 			</div>
 			<div class="copyright">
 				<h3>Mas...</h3>
 				<ul class="icons">
 					<li>
-						<a href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576" class="icon fa-facebook"
-						 title="...Noticias">
+						<a href="https://www.facebook.com/Asociacion-de-Grupos-de-Scouts-de-Mexico-181493685224576"
+							class="icon fa-facebook" title="...Noticias">
 							<span class="label">Facebook</span></a>
 					</li>
-					<li><a href="https://www.flickr.com/photos/agsmac" class="icon fa-flickr" title="...Fotos"><span class="label">Flickr</span></a></li>
-					<li><a href="https://www.youtube.com/user/gruposscouts" class="icon fa-youtube" title="...Videos"><span class="label">YouTube</span></a></li>
+					<li><a href="https://www.flickr.com/photos/agsmac" class="icon fa-flickr" title="...Fotos"><span
+								class="label">Flickr</span></a></li>
+					<li><a href="https://www.youtube.com/user/gruposscouts" class="icon fa-youtube"
+							title="...Videos"><span class="label">YouTube</span></a></li>
 					<li><a href="mailto:contacto@agsmac.org" class="icon fa-envelope" title="contacto@agsmac.org">
 							<span class="label">Correo</span></a></li>
 				</ul>
@@ -318,6 +393,7 @@
 	</script>
 	<script src="assets/js/main.js"></script>
 	<script src="assets/js/birthday-tile.js"></script>
-	<script>requestAnimationFrame(function(){document.documentElement.classList.remove('no-anim');});</script>
+	<script>requestAnimationFrame(function () { document.documentElement.classList.remove('no-anim'); });</script>
 </body>
+
 </html>

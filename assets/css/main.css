@@ -1610,153 +1610,403 @@ table.alt tbody tr td {
 /*panioletaSearcher*/
 
 #panioletaSearcher {
-	-moz-transition: background 1s ease-in-out, height 0.2s ease-in-out;
-	-webkit-transition: background 1s ease-in-out, height 0.2s ease-in-out;
-	-ms-transition: background 1s ease-in-out, height 0.2s ease-in-out;
-	transition: background 1s ease-in-out, height 0.2s ease-in-out;
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: -ms-flex;
+	transition: background 0.25s ease-in-out;
 	display: flex;
-	-moz-justify-content: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
 	justify-content: center;
-	-moz-align-items: center;
-	-webkit-align-items: center;
-	-ms-align-items: center;
 	align-items: center;
-	display: -ms-flexbox;
-	-ms-flex-align: center;
-	-ms-flex-pack: center;
-	background: rgba(254, 254, 254, 0.85);
+	background: rgba(15, 25, 35, 0.72);
+	-webkit-backdrop-filter: blur(3px);
+	backdrop-filter: blur(3px);
 	position: fixed;
 	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100vh;
 	z-index: 10001;
+	padding: 24px;
+	box-sizing: border-box;
+	font-family: 'Work Sans', sans-serif;
 }
 
-#panioletaSearcher select {
-	background-color: #0563af;
-	color: white;
-	padding: 12px;
-	width: 250px;
-	border: none;
-	font-size: 20px;
-	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-	-webkit-appearance: button;
-	appearance: button;
-	outline: none;
-  }
-
-#panioletaSearcher .inner {
-	-moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
-	-webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
-	-ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
-	transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: -ms-flex;
+/* --- Tarjeta del grupo --- */
+#panioletaSearcher .grupo-card {
+	position: relative;
 	display: flex;
-	-moz-flex-direction: column;
-	-webkit-flex-direction: column;
-	-ms-flex-direction: column;
 	flex-direction: column;
-	-moz-justify-content: center;
-	-webkit-justify-content: center;
-	-ms-justify-content: center;
-	justify-content: center;
-	-moz-align-items: center;
-	-webkit-align-items: center;
-	-ms-align-items: center;
-	align-items: center;
-	display: -ms-flexbox;
-	-ms-flex-align: center;
-	-ms-flex-pack: center;
-	background: #53C137;
-	border-radius: 10%;
-	width: 60%;
-	height: 70%;
-	padding: 4em;
-	text-align: center;
-	box-shadow: 0 0 0 1em #FFF;
-	cursor: default;
-}
-
-#panioletaSearcher .inner .content {
-	-moz-transition: opacity 1s ease-in-out;
-	-webkit-transition: opacity 1s ease-in-out;
-	-ms-transition: opacity 1s ease-in-out;
-	transition: opacity 1s ease-in-out;
-	opacity: 1;
 	width: 100%;
-	height: 100%;
+	max-width: 560px;
+	max-height: 90vh;
+	background: #FBF5E5;
+	border-radius: 14px;
+	box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
+	overflow: hidden;
+	cursor: default;
+	color: #2A2A2A;
 }
 
-#panioletaSearcher .inner .content h1 {
-	font-size: 4em;
-	font-family: 'Pattaya', sans-serif;
-	margin: 0 0 .25em 0;
+/* Header oscuro con filtros - separado visualmente del grupo */
+#panioletaSearcher .grupo-card-top {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 14px 18px;
+	background: linear-gradient(135deg, #0F3B66 0%, #15497d 100%);
 	color: #fff;
+	flex-wrap: wrap;
 }
 
-#panioletaSearcher .inner .content h2 {
-	font-size: 1.5em;
+#panioletaSearcher .grupo-card-top-title {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 0.9em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	color: rgba(255, 255, 255, 0.85);
+}
+
+#panioletaSearcher .grupo-card-top-title i {
+	color: #EEA226;
+}
+
+#panioletaSearcher .grupo-card-filters {
+	display: flex;
+	gap: 8px;
+	flex: 1 1 100%;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	max-width: 80%;
+}
+
+#panioletaSearcher .grupo-card-filters select {
+	min-width: 150px;
+	max-width: 100%;
+	padding: 9px 36px 9px 14px;
+	font-size: 0.95em;
+	font-family: inherit;
+	font-weight: 500;
 	color: #fff;
-	margin: 0 0 1em 0;
-}
-
-#panioletaSearcher .inner .button {
-	-moz-transition: background 1s ease-in-out;
-	-webkit-transition: background 1s ease-in-out;
-	-ms-transition: background 1s ease-in-out;
-	transition: background 1s ease-in-out;
-	margin: 0;
-	border-radius: 30px;
-}
-
-#panioletaSearcher .inner .button.hidden {
-	display: none;
+	background-color: rgba(255, 255, 255, 0.12);
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M7 10l5 5 5-5z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 18px;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	border-radius: 8px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	outline: none;
 	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	line-height: 1.2;
+	transition: background-color 0.15s, border-color 0.15s;
 }
 
-#panioletaSearcher .inner.hidden {
+#panioletaSearcher .grupo-card-filters select:hover,
+#panioletaSearcher .grupo-card-filters select:focus {
+	background-color: rgba(255, 255, 255, 0.2);
+	border-color: rgba(255, 255, 255, 0.5);
+}
+
+#panioletaSearcher .grupo-card-filters select option {
+	color: #2A2A2A;
+	background: #fff;
+}
+
+#panioletaSearcher .grupo-card-close {
+	background: rgba(255, 255, 255, 0.1);
+	color: #fff;
+	border: none;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	font-size: 1em;
+	flex-shrink: 0;
+	transition: background 0.15s;
+	padding: 0;
+	position: absolute !important;
+    top: 1% !important;
+    right: 2% !important;
+}
+
+#panioletaSearcher .grupo-card-close:hover {
+	background: rgba(255, 255, 255, 0.25);
+}
+
+#panioletaSearcher .grupo-card-close i {
+	line-height: 1;
+}
+
+/* Hero - identidad del grupo */
+#panioletaSearcher .grupo-card-hero {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	padding: 22px 24px 18px;
+	background: #FBF5E5;
+	border-bottom: 3px solid #EEA226;
+}
+
+#panioletaSearcher .grupo-card-escudo {
+	flex: 0 0 96px;
+	width: 96px;
+	height: 96px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: transparent;
+}
+
+#panioletaSearcher .grupo-card-escudo img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.18));
+}
+
+#panioletaSearcher .grupo-card-escudo.empty {
+	background: rgba(238, 162, 38, 0.12);
+	border: 2px dashed rgba(238, 162, 38, 0.5);
+	border-radius: 8px;
+}
+
+#panioletaSearcher .grupo-card-escudo.empty::after {
+	content: "Sin escudo";
+	color: #9c8c5a;
+	font-size: 0.7em;
+	font-style: italic;
+	text-align: center;
+	padding: 0 4px;
+}
+
+#panioletaSearcher .grupo-card-titulos {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+#panioletaSearcher .grupo-card-estado {
+	display: inline-block;
+	background: #53C137;
+	color: #fff;
+	font-size: 0.72em;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	padding: 3px 10px;
+	border-radius: 999px;
+	margin-bottom: 6px;
+}
+
+#panioletaSearcher .grupo-card h2#grupoCardTitulo {
+	margin: 0;
+	font-size: 1.65em;
+	color: #0F3B66;
+	font-weight: 900;
+	line-height: 1;
+	letter-spacing: -0.3px;
+}
+
+#panioletaSearcher .grupo-card-lema {
+	margin: 4px 0 0;
+	color: #8a7a4f;
+	font-style: italic;
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
+/* Cuerpo - info */
+#panioletaSearcher .grupo-card-body {
+	padding: 6px 8px 8px;
+	overflow-y: auto;
+	flex: 1 1 auto;
+	background: #FBF5E5;
+}
+
+#panioletaSearcher .grupo-card-empty {
+	margin: 18px 16px;
+	padding: 18px;
+	background: #fff4d6;
+	border-left: 4px solid #EEA226;
+	color: #6b5a2b;
+	border-radius: 8px;
+	font-style: italic;
+	font-size: 0.95em;
+	line-height: 1.45;
+}
+
+#panioletaSearcher .grupo-info-list {
+	list-style: none;
+	margin: 0;
+	padding: 6px 16px 12px;
+}
+
+#panioletaSearcher .grupo-info-row {
+	display: grid;
+	grid-template-columns: 32px 1fr;
+	grid-template-rows: auto auto;
+	grid-template-areas:
+		"icon label"
+		"icon value";
+	align-items: center;
+	gap: 2px 14px;
+	padding: 12px 4px;
+	border-bottom: 1px dashed rgba(15, 59, 102, 0.12);
+}
+
+#panioletaSearcher .grupo-info-row:last-child {
+	border-bottom: none;
+}
+
+#panioletaSearcher .grupo-info-icon {
+	grid-area: icon;
+	grid-row: span 2;
+	align-self: center;
+	justify-self: center;
+	width: 28px;
+	height: 28px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.35em;
+	color: #0F3B66;
+}
+
+/* Colores temáticos por icono / red social */
+#panioletaSearcher .grupo-info-icon .fa-facebook-official { color: #1877F2; }
+#panioletaSearcher .grupo-info-icon .fa-instagram         { color: #E1306C; }
+#panioletaSearcher .grupo-info-icon .fa-music             { color: #000000; } /* TikTok */
+#panioletaSearcher .grupo-info-icon .fa-youtube-play      { color: #FF0000; }
+#panioletaSearcher .grupo-info-icon .fa-envelope          { color: #d44638; }
+#panioletaSearcher .grupo-info-icon .fa-map-marker        { color: #EA4335; }
+#panioletaSearcher .grupo-info-icon .fa-clock-o           { color: #53C137; }
+#panioletaSearcher .grupo-info-icon .fa-phone             { color: #25D366; }
+#panioletaSearcher .grupo-info-icon .fa-user              { color: #0F3B66; }
+#panioletaSearcher .grupo-info-icon .fa-globe             { color: #0F3B66; }
+
+#panioletaSearcher .grupo-info-label {
+	grid-area: label;
+	color: #6b6357;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 0.78em;
+	letter-spacing: 0.7px;
+	line-height: 1;
+}
+
+#panioletaSearcher .grupo-info-value {
+	grid-area: value;
+	color: #2A2A2A;
+	font-size: 1.15em;
+	font-weight: 500;
+	line-height: 1.35;
+	word-break: break-word;
+}
+
+#panioletaSearcher .grupo-info-value a {
+	color: #0F3B66;
+	text-decoration: none;
+	border-bottom: 1px solid rgba(15, 59, 102, 0.3);
+	transition: color 0.15s, border-color 0.15s;
+}
+
+#panioletaSearcher .grupo-info-value a:hover {
+	color: #EEA226;
+	border-bottom-color: #EEA226;
+}
+
+#panioletaSearcher .grupo-info-value a i {
+	font-size: 0.85em;
+	margin-left: 4px;
+}
+
+/* Footer eliminado: el modal se cierra con la X o con click fuera. */
+
+#panioletaSearcher .button.hidden {
 	display: none;
 }
 
 #panioletaSearcher.hide, #panioletaSearcher.preview {
-	-moz-transition: background 0.2s ease-in-out, height 1s ease-in-out;
-	-webkit-transition: background 0.2s ease-in-out, height 1s ease-in-out;
-	-ms-transition: background 0.2s ease-in-out, height 1s ease-in-out;
-	transition: background 0.2s ease-in-out, height 1s ease-in-out;
+	transition: background 0.2s ease-in-out;
 	background: none;
 	height: 0;
+	padding: 0;
+	overflow: hidden;
 }
 
-#panioletaSearcher.hide .inner, #panioletaSearcher.preview .inner {
+#panioletaSearcher.hide .grupo-card,
+#panioletaSearcher.preview .grupo-card {
 	display: none;
 }
 
-@media screen and (max-width: 736px) {
-	#panioletaSearcher .inner {
-		width: 25em;
-		height: 25em;
-		font-size: .75em;
-		padding: 3em;
+/* Responsive */
+@media screen and (max-width: 600px) {
+	#panioletaSearcher {
+		padding: 12px;
+	}
+	#panioletaSearcher .grupo-card {
+		max-width: 100%;
+		max-height: 95vh;
+		border-radius: 12px;
+	}
+	#panioletaSearcher .grupo-card-top {
+		padding: 12px 14px;
+	}
+	#panioletaSearcher .grupo-card-top-title {
+		flex: 1 1 auto;
+		order: 0;
+		font-size: 0.8em;
+	}
+	#panioletaSearcher .grupo-card-close {
+		order: 1;
+		margin-left: auto;
+	}
+	#panioletaSearcher .grupo-card-filters {
+		order: 2;
+		flex: 1 1 100%;
+		justify-content: stretch;
+	}
+	#panioletaSearcher .grupo-card-filters select {
+		flex: 1 1 0;
+		min-width: 0;
+		font-size: 0.9em;
+	}
+	#panioletaSearcher .grupo-card-hero {
+		gap: 14px;
+		padding: 18px 18px 14px;
+	}
+	#panioletaSearcher .grupo-card-escudo {
+		flex-basis: 72px;
+		width: 72px;
+		height: 72px;
+	}
+	#panioletaSearcher .grupo-card h2#grupoCardTitulo {
+		font-size: 1.3em;
+	}
+	#panioletaSearcher .grupo-card-lema {
+		font-size: 0.9em;
+	}
+	#panioletaSearcher .grupo-info-list {
+		padding: 6px 12px 12px;
+	}
+	#panioletaSearcher .grupo-info-value {
+		font-size: 1.05em;
 	}
 }
 
-@media screen and (max-width: 480px) {
-	#panioletaSearcher .inner {
-		width: 26em;
-		height: 26em;
-		padding: 2em;
-		font-size: .65em;
-	}
-	#panioletaSearcher .inner .button {
-		padding-left: 2em;
-		padding-right: 2em;
+@media screen and (max-width: 380px) {
+	#panioletaSearcher .grupo-card-top-title span {
+		display: none;
 	}
 }
 
