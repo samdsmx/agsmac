@@ -1,17 +1,622 @@
+<style>
+    /* ===== Quiénes somos — estilos locales (scoped .qs-*) ===== */
+
+    /* Contenedor con fondo papel suave que descansa la vista */
+    #preview .qs-page {
+        color: #2b2b2b;
+        font-size: 1.05em;
+        line-height: 1.75;
+        max-width: 62em;
+        margin: 0 auto;
+        padding: 1.5em 0.5em;
+    }
+    #preview .qs-page p { margin-bottom: 1.2em; max-width: 42em; }
+    #preview .qs-page strong { color: #1a1a1a; font-weight: 700; }
+    #preview .qs-page header { max-width: 100%; margin-bottom: 1.5em; }
+
+    .qs-lead {
+        font-size: 1.3em;
+        line-height: 1.55;
+        color: #444;
+        border-left: 4px solid #e74c3c;
+        padding: 0.2em 0 0.2em 1em;
+        margin: 0.5em 0 1.8em;
+        font-style: italic;
+        max-width: 38em;
+    }
+    .qs-lead-img {
+        margin: 0.5em 0 1.8em;
+        text-align: center;
+    }
+    .qs-lead-img img {
+        max-width: 100%;
+        max-height: 180px;
+        width: auto;
+        height: auto;
+    }
+
+    /* Drop cap */
+    .qs-page .qs-intro::first-letter {
+        font-family: 'Antique', Georgia, serif;
+        font-size: 3.6em;
+        line-height: 0.85;
+        float: left;
+        padding: 0.08em 0.12em 0 0;
+        color: #e74c3c;
+        font-weight: 700;
+    }
+
+    /* Encabezados con barra de acento */
+    .qs-page h3 {
+        font-size: 1.45em;
+        color: #1a1a1a;
+        margin: 2.2em 0 0.7em;
+        padding-left: 0.6em;
+        border-left: 5px solid #e74c3c;
+        line-height: 1.2;
+    }
+    .qs-page h3 .fa { color: #e74c3c; margin-right: 0.45em; }
+
+    /* Foto-cita destacada (banda full-width dentro del padding) */
+    .qs-pullquote {
+        display: flex;
+        gap: 1.5em;
+        align-items: center;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        margin: 1.8em 0;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    }
+    .qs-pullquote .qs-pq-img {
+        flex: 0 0 19%;
+        align-self: stretch;
+        background-size: cover;
+        background-position: center top;
+        min-height: 260px;
+    }
+    .qs-pullquote blockquote {
+        flex: 1;
+        padding: 1.5em 1.8em 1.5em 0;
+        margin: 0;
+        font-size: 1.15em;
+        line-height: 1.55;
+        color: #333;
+        font-style: italic;
+        border: 0;
+    }
+    .qs-pullquote blockquote footer {
+        margin-top: 0.8em;
+        font-size: 0.85em;
+        color: #888;
+        font-style: normal;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    /* Tarjetas Misión / Visión */
+    .qs-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
+        gap: 1.2em;
+        margin: 0.5em 0 1.5em;
+    }
+    .qs-card {
+        background: #fff;
+        border-top: 4px solid #e74c3c;
+        border-radius: 6px;
+        padding: 1.5em 1.6em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .qs-card h4 {
+        margin: 0 0 0.6em;
+        color: #e74c3c;
+        font-size: 1.05em;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+    .qs-card p { margin: 0; font-size: 0.98em; line-height: 1.65; max-width: none; }
+
+    /* Valores en grid (3 columnas en desktop) */
+    .qs-valores {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.9em;
+        margin: 0.5em 0 1em;
+    }
+    @media (max-width: 980px) {
+        .qs-valores { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+        .qs-valores { grid-template-columns: 1fr; }
+    }
+    .qs-valores li {
+        background: #fff;
+        border: 1px solid #ececec;
+        border-left: 4px solid #e74c3c;
+        padding: 0.85em 1em;
+        border-radius: 4px;
+        line-height: 1.45;
+        font-size: 0.98em;
+    }
+    .qs-valores li strong { display: block; color: #c0392b; margin-bottom: 0.15em; font-size: 1.05em; }
+
+    /* Secciones por edad en grid */
+    .qs-secciones {
+        list-style: none;
+        padding: 0;
+        margin: 0.5em 0 1em;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.4em 1.5em;
+    }
+    .qs-secciones li { padding: 0; border-bottom: 1px solid #ececec; }
+    .qs-secciones li.qs-full {
+        grid-column: 1 / -1;
+        max-width: calc(50% - 0.75em);
+        margin: 0 auto;
+        width: 100%;
+    }
+    @media (max-width: 736px) {
+        .qs-secciones { grid-template-columns: 1fr; }
+        .qs-secciones li.qs-full { max-width: none; }
+    }
+    .qs-secciones li:hover { background: rgba(231,76,60,0.04); }
+    .qs-seccion-link {
+        display: flex;
+        align-items: center;
+        gap: 0.9em;
+        padding: 0.75em 0.5em;
+        text-decoration: none;
+        color: inherit;
+        border-bottom: 0;
+    }
+    .qs-seccion-link:hover { text-decoration: none; }
+    .qs-secciones .qs-icon {
+        flex: 0 0 3.2em;
+        height: 3.2em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .qs-secciones .qs-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+    }
+    .qs-secciones .qs-titulo { color: #1a1a1a; font-weight: 700; }
+    .qs-secciones .qs-edad { color: #777; font-size: 0.92em; display: block; }
+    .qs-secciones .qs-go { margin-left: auto; color: #e74c3c; opacity: 0; transition: opacity .2s ease, transform .2s ease; }
+    .qs-seccion-link:hover .qs-go { opacity: 1; transform: translateX(3px); }
+
+    /* Galería de momentos */
+    .qs-galeria {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.9em;
+        margin: 1em 0 0.5em;
+    }
+    .qs-galeria figure {
+        margin: 0;
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 4 / 3;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .qs-galeria img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform .4s ease;
+    }
+    .qs-galeria figcaption {
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        background: linear-gradient(transparent, rgba(0,0,0,0.7));
+        color: #fff;
+        padding: 1.5em 0.8em 0.6em;
+        font-size: 0.85em;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+    }
+
+    /* CTA */
+    .qs-cta {
+        margin-top: 2em;
+        text-align: center;
+        padding: 1.6em;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #f0e6d8;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .qs-cta p { margin: 0 auto 0.9em; color: #555; max-width: none; }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .qs-card, .qs-valores li, .qs-secciones li, .qs-galeria figure {
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .qs-card:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.08); }
+        .qs-galeria figure:hover img { transform: scale(1.06); }
+    }
+
+    @media (max-width: 980px) {
+        .qs-pullquote { flex-direction: column; }
+        .qs-pullquote .qs-pq-img { width: 100%; flex-basis: auto; min-height: 200px; }
+        .qs-pullquote blockquote { padding: 0 1.4em 1.4em; }
+        .qs-galeria { grid-template-columns: repeat(2, 1fr); }
+        .qs-galeria figure:nth-child(3) { grid-column: span 2; }
+    }
+    @media (max-width: 736px) {
+        #preview .qs-page { padding: 1.8em 1.4em; font-size: 1em; line-height: 1.7; }
+        .qs-lead { font-size: 1.1em; }
+        .qs-page .qs-intro::first-letter { font-size: 3em; }
+        .qs-galeria { grid-template-columns: 1fr; }
+        .qs-galeria figure:nth-child(3) { grid-column: auto; }
+    }
+</style>
+
 <div id="preview">
     <div class="inner">
         <div class="image fit">
-            <img src="images/pic01.jpg" alt="" />
+            <img src="images/pic01.jpg" alt="Grupo scout de AGSMAC en actividad al aire libre" />
         </div>
-        <div class="content">
+        <div class="content qs-page">
             <header>
                 <h2>Quiénes somos</h2>
+                <p class="qs-lead-img">
+                    <img src="images/QuienesSomos/scouts.png" alt="Scouts AGSMAC México" />
+                </p>
             </header>
-            <p>[Completar: breve descripción institucional de la Asociación de Grupos de Scouts de México A.C. — origen, año de fundación (2006), propósito principal y a quién está dirigido.]</p>
-            <p>[Completar: misión y visión de la asociación. Puedes incluir los valores scout que la identifican y cómo se diferencia de otras asociaciones.]</p>
-            <p>[Completar: estructura general — secciones que la integran (Castores, Gacelas, Lobatos, Tropas, Clanes, Scouters), número aproximado de grupos y zonas geográficas que cubre.]</p>
+
+            <p class="qs-intro">La <strong>Asociación de Grupos de Scouts de México, A.C.</strong> (AGSMAC) es
+                una institución educativa extraescolar dirigida a hombres y mujeres entre
+                <strong>4 y 23 años</strong> que voluntariamente ingresan a ella, sin distinción de credo, raza,
+                nacionalidad, origen ni condición socioeconómica.</p>
+
+            <p>Fundada en <strong>2006</strong> ante la necesidad de continuar el Programa Scout, somos
+                herederos de varias generaciones que han trabajado por aplicar y dar continuidad a la filosofía
+                pedagógica del Escultismo creado por <em>Lord Robert Baden-Powell</em>. El ímpetu y la energía de
+                las muchachas y muchachos scouts son el motivo que lo proyecta a seguir vigente en la juventud
+                de México.</p>
+
+            <div class="qs-pullquote">
+                <div class="qs-pq-img" role="img" aria-label="Retrato de Lord Robert Baden-Powell"
+                     style="background-image: url('images/QuienesSomos/baden-powell.jpg');"></div>
+                <blockquote>
+                    «Intenta dejar este mundo en mejores condiciones de como lo encontraste.»
+                    <footer>— Lord Robert Baden-Powell, fundador del movimiento scout</footer>
+                </blockquote>
+            </div>
+
+            <h3><i class="fa fa-compass" aria-hidden="true"></i>Propósito</h3>
+            <div class="qs-cards">
+                <div class="qs-card">
+                    <h4>Objeto</h4>
+                    <p>Coadyuvar en la formación del <strong>carácter</strong> de los muchachos, inculcándoles el <strong>cumplimiento</strong> de sus deberes religiosos, patrióticos y cívicos.<br>Así como <strong>principios</strong> de disciplina, lealtad y ayuda al prójimo; Capacitarlos para bastarse a sí mismos, ayudándoles a <strong>desarrollarse</strong> física, mental y espiritualmente; todo esto conforme a los lineamientos que señaló el fundador del movimiento scout Lord Robert Baden – Powell.</p>
+                </div>
+                <div class="qs-card">
+                    <h4>Visión</h4>
+                    <p>Ser una asociación reconocida por la calidad de su <strong>Programa Scout</strong>, la
+                        solidez de su estructura y la formación integral — física, intelectual, social, afectiva, espiritual y de carácter — de cada uno de sus miembros. Contribuyendo a la educación de niñas, niños y jóvenes a través de un sistema de valores
+                        basado en la <strong>Promesa</strong> y la <strong>Ley Scout</strong>, ayudando a
+                        construir un mundo mejor donde las personas se desarrollen plenamente y desempeñen un
+                        papel constructivo en la sociedad.</p>
+                </div>
+            </div>
+
+            <h3><i class="fa fa-star" aria-hidden="true"></i>Valores</h3>
+            <p>Nuestros valores guían el actuar
+                diario de cada miembro de la AGSMAC:</p>
+            <ol class="qs-valores">
+                <li><strong>Honor</strong>Ser digno de confianza.</li>
+                <li><strong>Lealtad</strong>Ser leal para con la Patria, padres, jefes y subordinados.</li>
+                <li><strong>Servicio</strong>Ser útil y ayudar a los demás sin pensar en recompensa.</li>
+                <li><strong>Fraternidad</strong>Ser amigo de todos y hermano de todo Scout sin distinciónes.</li>
+                <li><strong>Nobleza</strong>Ser cortés y actuar con nobleza.</li>
+                <li><strong>Medio ambiente</strong>Proteger a los animales y a las plantas.</li>
+                <li><strong>Obediencia</strong>Obedecer con responsabilidad y hacer las cosas en orden y completas.</li>
+                <li><strong>Optimismo</strong>Mantener una actitud positiva ante las dificultades.</li>
+                <li><strong>Trabajo</strong>Ser ahorrador, trabajador y cuidadoso del bien ajeno.</li>
+                <li><strong>Pureza</strong>Ser limpio, sano y puro de pensamiento, palabras y acciones.</li>
+            </ol>
+
+            <h3><i class="fa fa-users" aria-hidden="true"></i>Una gran familia</h3>
+            <p>Para lograr su objeto, la AGSMAC requiere de la participación de adultos voluntarios que se preparan para brindar el Programa Scout: a ellos se les nombra <strong>Scouters</strong> y <strong>Dirigentes</strong>. Así reunimos a personas de todas las edades, agrupadas en secciones que en conjunto integran una gran familia, en la que sus miembros viven y aplican los <strong>Principios, Método y Programa Scout</strong>.</p>
+
+            <ul class="qs-secciones">
+                <li class="qs-full">
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="CC">
+                        <span class="qs-icon"><img src="images/secciones/CC.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Colonia de Castores</span>
+                            <span class="qs-edad">Niñas y niños · Entre 4 y 7 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="MG">
+                        <span class="qs-icon"><img src="images/secciones/MG.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Manada de Gacelas</span>
+                            <span class="qs-edad">Niñas · Entre 7 y 11 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="ML">
+                        <span class="qs-icon"><img src="images/secciones/ML.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Manada de Lobatos</span>
+                            <span class="qs-edad">Niños · Entre 7 y 11 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="TMS">
+                        <span class="qs-icon"><img src="images/secciones/TMS.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Tropa de Muchachas</span>
+                            <span class="qs-edad">Adolescentes · Entre 11 y 18 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="TS">
+                        <span class="qs-icon"><img src="images/secciones/TS.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Tropa Scout</span>
+                            <span class="qs-edad">Adolescentes · Entre 11 y 18 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="CP">
+                        <span class="qs-icon"><img src="images/secciones/CP.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Clan de Precursoras</span>
+                            <span class="qs-edad">Jóvenes · Entre 18 y 23 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="qs-seccion-link" href="#" role="button" data-seccion="CR">
+                        <span class="qs-icon"><img src="images/secciones/CR.gif" alt="" /></span>
+                        <span><span class="qs-titulo">Clan de Rovers</span>
+                            <span class="qs-edad">Jóvenes · Entre 18 y 23 años</span></span>
+                        <span class="qs-go fa fa-chevron-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <h3><i class="fa fa-camera" aria-hidden="true"></i>Actividades</h3>
+            <div class="qs-galeria">
+                <figure>
+                    <img src="images/QuienesSomos/aire-libre.jpg" alt="Campamento de la Tropa Scout" />
+                    <figcaption>Vida al aire libre</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/QuienesSomos/servicio.jpg" alt="Actividad de servicio comunitario" />
+                    <figcaption>Servicio a la comunidad</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/QuienesSomos/tradicion.jpg" alt="Ceremonia scout" />
+                    <figcaption>Tradición y hermandad</figcaption>
+                </figure>
+            </div>
+
+            <div class="qs-cta">
+                <p>¿Quieres conocer el marco legal que nos rige?</p>
+                <a href="#" class="button" onclick="document.getElementById('sigue').click(); return false;">
+                    Lee nuestra Constitución <span class="fa fa-chevron-right"></span>
+                </a>
+            </div>
         </div>
     </div>
     <a id="previo" data="dieciseis.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>
     <a id="sigue" data="constitucion.html" class="nav next"><span class="fa fa-chevron-right"></span></a>
+
+    <div id="qs-overlay-backdrop" class="qs-hidden" aria-hidden="true"></div>
+    <div id="qs-seccion-overlay" class="circle mostrarInfoH hide qs-overlay" aria-hidden="true">
+        <div class="content">
+            <h2 style="font-family: Antique; margin-bottom: -0.4em;">
+                <span class="qs-overlay-title"></span>
+                <a href="#" class="circle-close qs-overlay-close" aria-label="Cerrar"><i class="fa fa-times"></i></a>
+            </h2>
+            <div class="qs-overlay-body interno"></div>
+        </div>
+    </div>
 </div>
+
+<style>
+    #qs-overlay-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.45);
+        z-index: 7999;
+        opacity: 0;
+        transition: opacity .25s ease;
+        pointer-events: none;
+    }
+    #qs-overlay-backdrop.qs-visible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    #qs-seccion-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        z-index: 8500;
+        pointer-events: none;
+    }
+    #qs-seccion-overlay.show { pointer-events: auto; }
+    #qs-seccion-overlay .content {
+        z-index: 8500;
+        pointer-events: auto;
+    }
+    /* Replicar el efecto de .image.left img { width: 100% } que hace que
+       el thumbnail decorativo del intro y la rejilla de insignias se
+       rendericen igual que en la página principal (sin esa regla, el
+       emblema aparece como un círculo pequeño flotando a la derecha). */
+    #qs-seccion-overlay .content img { width: 100%; }
+    #qs-seccion-overlay .qs-overlay-title { color: #fff; }
+    #qs-seccion-overlay .qs-overlay-close {
+        margin-left: .6em;
+        color: #fff;
+        text-decoration: none;
+        font-size: .8em;
+    }
+    /* Asegurar que cuando está oculto realmente desaparece de pantalla */
+    #qs-seccion-overlay.hide .content { display: none; }
+    #qs-seccion-overlay.show .content { display: block; }
+</style>
+
+<script>
+(function(){
+    if (window.qsSeccionOverlayBound) { return; }
+    window.qsSeccionOverlayBound = true;
+
+    var SECCIONES = {
+        CC:  { titulo: 'Colonia de Castores',  cls: 'CC'  },
+        MG:  { titulo: 'Manada de Gacelas',    cls: 'MG'  },
+        ML:  { titulo: 'Manada de Lobatos',    cls: 'ML'  },
+        TMS: { titulo: 'Tropa de Muchachas',   cls: 'TMS' },
+        TS:  { titulo: 'Tropa Scout',          cls: 'TS'  },
+        CP:  { titulo: 'Clan de Precursoras',  cls: 'CP'  },
+        CR:  { titulo: 'Clan de Rovers',       cls: 'CR'  }
+    };
+    var ALL_CLASSES = Object.keys(SECCIONES).map(function(k){ return SECCIONES[k].cls; });
+    var cache = {};
+
+    if (typeof window.openInfo !== 'function') {
+        window.openInfo = function(evt, section){
+            var container = evt.currentTarget.closest('.contenedorTabs') || document;
+            var tabcontent = container.querySelectorAll('.tabcontent, .tabcontent-small');
+            for (var i = 0; i < tabcontent.length; i++) tabcontent[i].style.display = "none";
+            var tablinks = container.querySelectorAll('.tablinks');
+            for (var j = 0; j < tablinks.length; j++) {
+                tablinks[j].className = tablinks[j].className.replace(" active", "");
+            }
+            var target = document.getElementById(section);
+            if (target) target.style.display = "block";
+            evt.currentTarget.className += " active";
+        };
+    }
+
+    var $overlay  = $('#qs-seccion-overlay');
+    var $backdrop = $('#qs-overlay-backdrop');
+    var $content  = $overlay.children('.content');
+    var $title    = $overlay.find('.qs-overlay-title');
+    var $body     = $overlay.find('.qs-overlay-body');
+
+    function wireArrows($scope){
+        $scope.find('.leftArrow').off('click.qs').on('click.qs', function(){
+            var $arrow = $(this);
+            $arrow.animate({ height:'15px', width:'25px' }, 100);
+            var info = $arrow.siblings('.contenido').children('div');
+            var c = 0;
+            info.each(function(){
+                if ($(this).is(':visible')) {
+                    $(this).hide();
+                    if (c === 0) { c = info.length - 1; } else { --c; }
+                    $(info[c]).show();
+                    return false;
+                }
+                c++;
+            });
+            $arrow.animate({ height:'25px', width:'30px' }, 100);
+        });
+        $scope.find('.rigthArrow').off('click.qs').on('click.qs', function(){
+            var $arrow = $(this);
+            $arrow.animate({ height:'15px', width:'25px' }, 100);
+            var info = $arrow.siblings('.contenido').children('div');
+            var c = 0;
+            info.each(function(){
+                c++;
+                if ($(this).is(':visible')) {
+                    $(this).hide();
+                    if (c === info.length) c = 0;
+                    $(info[c]).show();
+                    return false;
+                }
+            });
+            $arrow.animate({ height:'25px', width:'30px' }, 100);
+        });
+    }
+
+    function preselectFirstTab($scope){
+        $scope.find('.contenedorTabs').each(function(){
+            var c = this;
+            var btn = c.querySelector('.tablinks');
+            var allContents = c.querySelectorAll('.tabcontent, .tabcontent-small');
+            var first = allContents[0];
+            if (!btn || !first) return;
+            for (var i = 0; i < allContents.length; i++) allContents[i].style.display = 'none';
+            var btns = c.querySelectorAll('.tablinks');
+            for (var j = 0; j < btns.length; j++) btns[j].className = btns[j].className.replace(' active', '');
+            first.style.display = 'block';
+            btn.className += ' active';
+        });
+    }
+
+    function openSection(key){
+        var def = SECCIONES[key];
+        if (!def) { return; }
+        $content.removeClass(ALL_CLASSES.join(' ')).addClass(def.cls);
+        $title.text(def.titulo);
+
+        function show(html){
+            $body.html(html);
+            wireArrows($body);
+            preselectFirstTab($body);
+            $overlay.removeClass('hide').addClass('show').attr('aria-hidden', 'false');
+            $backdrop.removeClass('qs-hidden').addClass('qs-visible').attr('aria-hidden', 'false');
+            $('body').css('overflow', 'hidden');
+        }
+
+        if (cache[key]) { show(cache[key]); return; }
+        $body.html('<p style="color:#fff;text-align:center;margin-top:2em;">Cargando…</p>');
+        $overlay.removeClass('hide').addClass('show').attr('aria-hidden', 'false');
+        $backdrop.removeClass('qs-hidden').addClass('qs-visible').attr('aria-hidden', 'false');
+        $('body').css('overflow', 'hidden');
+        $.ajax({
+            url: 'includes/contenido' + key + '.html',
+            type: 'get',
+            cache: true,
+            success: function(html){
+                cache[key] = html;
+                $body.html(html);
+                wireArrows($body);
+                preselectFirstTab($body);
+            },
+            error: function(){
+                $body.html('<p style="color:#fff;text-align:center;margin-top:2em;">No se pudo cargar la información.</p>');
+            }
+        });
+    }
+
+    function closeOverlay(){
+        $overlay.removeClass('show').addClass('hide').attr('aria-hidden', 'true');
+        $backdrop.removeClass('qs-visible').addClass('qs-hidden').attr('aria-hidden', 'true');
+        $('body').css('overflow', '');
+    }
+
+    $(document).off('click.qsSeccion').on('click.qsSeccion', '.qs-seccion-link[data-seccion]', function(e){
+        e.preventDefault();
+        var key = $(this).data('seccion');
+        openSection(String(key).toUpperCase());
+    });
+
+    $overlay.find('.qs-overlay-close').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        closeOverlay();
+    });
+
+    $backdrop.on('click', function(){ closeOverlay(); });
+
+    $(document).on('keydown.qsSeccion', function(e){
+        if (e.key === 'Escape' && $overlay.hasClass('show')) { closeOverlay(); }
+    });
+})();
+</script>

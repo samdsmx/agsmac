@@ -482,7 +482,7 @@ body {
 }
 
 body {
-	background: #fff;
+	background: #fbf8f3;
 }
 
 body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -499,7 +499,7 @@ body.is-loading *, body.is-loading *:before, body.is-loading *:after {
 /* Type */
 
 body {
-	background-color: #fff;
+	background-color: #fbf8f3;
 	color: #444;
 }
 

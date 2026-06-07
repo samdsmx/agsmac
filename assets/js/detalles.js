@@ -12,7 +12,7 @@ function includeHTML(elmnt) {
 			url: file,
 			type: 'get',
 			success: function ( html ) {
-				elmnt.innerHTML = html;
+				$(elmnt).html(html);
 			},
 			error: function () {
 				console.log("Hubo un error en la inserción de: " + file);
