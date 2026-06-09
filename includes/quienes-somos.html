@@ -1,17 +1,10 @@
 <style>
-    /* ===== Quiénes somos — estilos locales (scoped .qs-*) ===== */
+    /* ===== Quiénes somos — estilos locales (scoped .qs-*) =====
+       Las reglas comunes (.qs-page wrapper, strong y h3) viven en
+       assets/css/sections.css agrupadas con .seg-page. */
 
-    /* Contenedor con fondo papel suave que descansa la vista */
-    #preview .qs-page {
-        color: #2b2b2b;
-        font-size: 1.05em;
-        line-height: 1.75;
-        max-width: 62em;
-        margin: 0 auto;
-        padding: 1.5em 0.5em;
-    }
-    #preview .qs-page p { margin-bottom: 1.2em; max-width: 42em; }
-    #preview .qs-page strong { color: #1a1a1a; font-weight: 700; }
+    /* Contenedor — sólo overrides locales */
+    #preview .qs-page p { margin-bottom: 1.2em; }
     #preview .qs-page header { max-width: 100%; margin-bottom: 1.5em; }
 
     .qs-lead {
@@ -35,27 +28,8 @@
         height: auto;
     }
 
-    /* Drop cap */
-    .qs-page .qs-intro::first-letter {
-        font-family: 'Antique', Georgia, serif;
-        font-size: 3.6em;
-        line-height: 0.85;
-        float: left;
-        padding: 0.08em 0.12em 0 0;
-        color: #e74c3c;
-        font-weight: 700;
-    }
 
-    /* Encabezados con barra de acento */
-    .qs-page h3 {
-        font-size: 1.45em;
-        color: #1a1a1a;
-        margin: 2.2em 0 0.7em;
-        padding-left: 0.6em;
-        border-left: 5px solid #e74c3c;
-        line-height: 1.2;
-    }
-    .qs-page h3 .fa { color: #e74c3c; margin-right: 0.45em; }
+    /* Encabezados con barra de acento — definidos en assets/css/sections.css (compartidos con .seg-page) */
 
     /* Foto-cita destacada (banda full-width dentro del padding) */
     .qs-pullquote {
@@ -258,7 +232,7 @@
     @media (max-width: 736px) {
         #preview .qs-page { padding: 1.8em 1.4em; font-size: 1em; line-height: 1.7; }
         .qs-lead { font-size: 1.1em; }
-        .qs-page .qs-intro::first-letter { font-size: 3em; }
+        .qs-page .section-intro::first-letter { font-size: 3em; }
         .qs-galeria { grid-template-columns: 1fr; }
         .qs-galeria figure:nth-child(3) { grid-column: auto; }
     }
@@ -273,11 +247,11 @@
             <header>
                 <h2>Quiénes somos</h2>
                 <p class="qs-lead-img">
-                    <img src="images/QuienesSomos/scouts.png" alt="Scouts AGSMAC México" />
+                    <img src="images/QuienesSomos/scouts.png" alt="Scouts AGSMAC México" width="1400" height="508" loading="lazy" decoding="async" />
                 </p>
             </header>
 
-            <p class="qs-intro">La <strong>Asociación de Grupos de Scouts de México, A.C.</strong> (AGSMAC) es
+            <p class="section-intro">La <strong>Asociación de Grupos de Scouts de México, A.C.</strong> (AGSMAC) es
                 una institución educativa extraescolar dirigida a hombres y mujeres entre
                 <strong>4 y 23 años</strong> que voluntariamente ingresan a ella, sin distinción de credo, raza,
                 nacionalidad, origen ni condición socioeconómica.</p>
@@ -394,15 +368,15 @@
             <h3><i class="fa fa-camera" aria-hidden="true"></i>Actividades</h3>
             <div class="qs-galeria">
                 <figure>
-                    <img src="images/QuienesSomos/aire-libre.jpg" alt="Campamento de la Tropa Scout" />
+                    <img src="images/QuienesSomos/aire-libre.jpg" alt="Campamento de la Tropa Scout" width="1600" height="900" loading="lazy" decoding="async" />
                     <figcaption>Vida al aire libre</figcaption>
                 </figure>
                 <figure>
-                    <img src="images/QuienesSomos/servicio.jpg" alt="Actividad de servicio comunitario" />
+                    <img src="images/QuienesSomos/servicio.jpg" alt="Actividad de servicio comunitario" width="1280" height="720" loading="lazy" decoding="async" />
                     <figcaption>Servicio a la comunidad</figcaption>
                 </figure>
                 <figure>
-                    <img src="images/QuienesSomos/tradicion.jpg" alt="Ceremonia scout" />
+                    <img src="images/QuienesSomos/tradicion.jpg" alt="Ceremonia scout" width="1400" height="1050" loading="lazy" decoding="async" />
                     <figcaption>Tradición y hermandad</figcaption>
                 </figure>
             </div>

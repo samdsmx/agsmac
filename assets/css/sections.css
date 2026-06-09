@@ -1,0 +1,125 @@
+/* ============================================================
+   sections.css — estilos compartidos para las páginas internas.
+
+   - Reglas existentes y comunes: se agrupan los selectores ya
+     usados en seguro.html (.seg-page) y quienes-somos.html
+     (.qs-page), añadiendo .section-page como alias opt-in para
+     páginas nuevas.
+   - Componentes opt-in (.section-steps, .section-note, .section-btn,
+     .section-footer-note): copia textual de las reglas .seg-* que
+     viven en seguro.html, listas para reutilizarse en otra página
+     sólo añadiendo la clase correspondiente al HTML.
+   ============================================================ */
+
+/* ---------- Wrapper de página ---------- */
+#preview .qs-page,
+#preview .seg-page,
+#preview .section-page {
+    color: #2b2b2b;
+    font-size: 1.05em;
+    line-height: 1.75;
+    max-width: 62em;
+    margin: 0 auto;
+    padding: 1.5em 0.5em;
+}
+
+/* Drop cap */
+#preview .section-intro::first-letter {
+    font-family: 'Antique', Georgia, serif;
+    font-size: 3.6em;
+    line-height: 0.85;
+    float: left;
+    padding: 0.08em 0.12em 0 0;
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+
+#preview .qs-page strong,
+#preview .seg-page strong,
+#preview .section-page strong { color: #1a1a1a; font-weight: 700; }
+
+/* ---------- Encabezados h3 con barra de acento ---------- */
+.qs-page h3,
+.seg-page h3,
+.section-page h3 {
+    font-size: 1.45em;
+    color: #1a1a1a;
+    margin: 2.2em 0 0.7em;
+    padding-left: 0.6em;
+    border-left: 5px solid #e74c3c;
+    line-height: 1.2;
+}
+.qs-page h3 .fa,
+.seg-page h3 .fa,
+.section-page h3 .fa { color: #e74c3c; margin-right: 0.45em; }
+
+/* ============================================================
+   Componentes opt-in (no se aplican si no se usa la clase)
+   ============================================================ */
+
+/* ---------- Pasos numerados ---------- */
+.section-steps {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+    margin: 0.6em 0 1em;
+}
+.section-steps li {
+    position: relative;
+    padding: 0.2em 0 0.9em 3em;
+    counter-increment: step;
+}
+.section-steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 2em; height: 2em;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.95em;
+}
+.section-steps li + li { border-top: 1px dashed #e5e9ef; padding-top: 0.9em; }
+
+/* ---------- Aviso / nota destacada ---------- */
+.section-note {
+    background: #fff8e1;
+    border-left: 4px solid #f1c40f;
+    padding: 0.8em 1em;
+    margin: 1em 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95em;
+    color: #5a4a00;
+}
+.section-note strong { color: #5a4a00; }
+
+/* ---------- Botón primario rojo ---------- */
+.section-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    background: #e74c3c;
+    color: #fff !important;
+    padding: 0.55em 1em;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background 120ms ease;
+}
+.section-btn:hover { background: #c0392b; }
+.section-btn .fa { color: #fff; }
+
+/* ---------- Pie de página pequeño dentro de una sección ---------- */
+.section-footer-note {
+    font-size: 0.88em;
+    color: #666;
+    text-align: center;
+    margin-top: 1.4em;
+    padding-top: 1em;
+    border-top: 1px solid #eee;
+}

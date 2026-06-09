@@ -2,3 +2,6 @@
 node_modules/
 agsmac.iml
 package-lock.json
+
+# Backups creados por scripts/optimize-images.js cuando se usa --write
+images/_originals/

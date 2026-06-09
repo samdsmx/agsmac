@@ -1,24 +1,309 @@
+<style>
+    /* ===== Seguro — estilos locales (scoped .seg-*) =====
+       Las reglas comunes (.seg-page wrapper, strong y h3) viven en
+       assets/css/sections.css agrupadas con .qs-page. */
+    #preview .seg-page p { margin-bottom: 1.2em; }
+    #preview .seg-page a { color: #c0392b; }
+
+    /* Hero */
+    .seg-hero {
+        display: flex;
+        align-items: center;
+        gap: 1.4em;
+        background: linear-gradient(135deg, #f7f9fc 0%, #eef2f7 100%);
+        border-radius: 8px;
+        padding: 1.4em 1.6em;
+        margin-bottom: 1.6em;
+        border: 1px solid #e5e9ef;
+    }
+    .seg-hero-icon {
+        flex: 0 0 auto;
+        width: 110px; height: 92px;
+        border-radius: 12px;
+        background: #fff;
+        display: flex; align-items: center; justify-content: center;
+        padding: 0.5em 0.7em;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+        border: 1px solid #e5e9ef;
+        overflow: hidden;
+    }
+    .seg-hero-icon img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 6px;
+    }
+    .seg-hero-text { flex: 1 1 auto; }
+    .seg-hero-text h2 {
+        font-size: 1.9em; margin: 0 0 0.2em; color: #1a1a1a !important;
+    }
+    .seg-hero-text p { margin: 0; color: #111; font-size: 1em; }
+
+    /* Encabezados */
+    /* Encabezados h3 — definidos en assets/css/sections.css (compartidos con .qs-page) */
+
+    /* Grid de coberturas */
+    .seg-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.9em;
+        margin-bottom: 0.6em;
+    }
+    .seg-card {
+        background: #fff;
+        border: 1px solid #e5e9ef;
+        border-radius: 6px;
+        padding: 1em 1.1em;
+        display: flex;
+        gap: 0.9em;
+        align-items: flex-start;
+        transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    .seg-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    a.seg-card {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+    a.seg-card:hover { border-color: #e74c3c; }
+    .seg-card .seg-card-ic {
+        flex: 0 0 auto;
+        width: 38px; height: 38px;
+        border-radius: 50%;
+        background: #fdecea;
+        color: #c0392b;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.1em;
+    }
+    .seg-card .seg-card-body { flex: 1 1 auto; }
+    .seg-card .seg-card-label {
+        display: block;
+        font-size: 0.82em;
+        color: #111;
+        line-height: 1.3;
+        margin-bottom: 0.25em;
+    }
+    .seg-card .seg-card-amount {
+        display: block;
+        font-size: 1.15em;
+        font-weight: 700;
+        color: #1a1a1a;
+        line-height: 1.2;
+    }
+    .seg-card .seg-card-note {
+        display: block;
+        font-size: 0.78em;
+        color: #111;
+        margin-top: 0.15em;
+    }
+
+    /* Pasos numerados */
+    .seg-steps {
+        list-style: none;
+        counter-reset: step;
+        padding: 0;
+        margin: 0.6em 0 1em;
+    }
+    .seg-steps li {
+        position: relative;
+        padding: 0.2em 0 0.9em 3em;
+        counter-increment: step;
+    }
+    .seg-steps li::before {
+        content: counter(step);
+        position: absolute;
+        left: 0; top: 50%;
+        transform: translateY(-50%);
+        width: 2em; height: 2em;
+        background: #e74c3c;
+        color: #fff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700;
+        font-size: 0.95em;
+    }
+    .seg-steps li + li { border-top: 1px dashed #e5e9ef; padding-top: 0.9em; }
+
+    /* Alerta */
+    .seg-note {
+        background: #fff8e1;
+        border-left: 4px solid #f1c40f;
+        padding: 0.8em 1em;
+        margin: 1em 0;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.95em;
+        color: #5a4a00;
+    }
+    .seg-note strong { color: #5a4a00; }
+
+    /* Acciones (descargas + contacto) en dos columnas */
+    .seg-cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1em;
+        margin-top: 0.4em;
+    }
+    .seg-panel {
+        background: #fafbfc;
+        border: 1px solid #e5e9ef;
+        border-radius: 6px;
+        padding: 1em 1.2em;
+    }
+    .seg-panel h4 {
+        margin: 0 0 0.6em;
+        font-size: 1em;
+        color: #1a1a1a;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .seg-panel ul { list-style: none; padding: 0; margin: 0; }
+    .seg-panel li { padding: 0.3em 0; font-size: 0.95em; }
+    .seg-panel li .fa { color: #c0392b; width: 1.4em; }
+
+    .seg-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        background: #e74c3c;
+        color: #fff !important;
+        padding: 0.55em 1em;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 0.9em;
+        font-weight: 500;
+        transition: background 120ms ease;
+    }
+    .seg-btn:hover { background: #c0392b; }
+    .seg-btn .fa { color: #fff; }
+
+    .seg-footer-note {
+        font-size: 0.88em;
+        color: #666;
+        text-align: center;
+        margin-top: 1.4em;
+        padding-top: 1em;
+        border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 640px) {
+        .seg-hero { flex-direction: column; text-align: center; gap: 0.8em; padding: 1.2em; }
+        .seg-hero-text h2 { font-size: 1.5em; }
+    }
+</style>
+
 <div id="preview">
     <div class="inner">
-        <div class="image fit">
-            <img src="images/pic03.jpg" alt="" />
-        </div>
-        <div class="content">
-            <header>
-                <h2>Seguro</h2>
+        <div class="content seg-page">
+
+            <header class="seg-hero">
+                <div class="seg-hero-icon"><img src="images/seguro/hir-logo.png" alt="HIR Seguros" width="161" height="161" decoding="async" /></div>
+                <div class="seg-hero-text">
+                    <h2>Seguro Scout</h2>
+                    <p>Protección colectiva de accidentes personales para todos los miembros registrados de la AGSMAC, vigente durante las actividades scouts.</p>
+                </div>
             </header>
-            <p>[Completar: descripción del seguro scout que cubre a los miembros de AGSMAC — qué actividades cubre, cobertura geográfica y montos generales.]</p>
-            <h3>¿Qué cubre?</h3>
-            <ul>
-                <li>[Completar: cobertura de accidentes durante reuniones.]</li>
-                <li>[Completar: cobertura en campamentos y excursiones.]</li>
-                <li>[Completar: cobertura por gastos médicos.]</li>
-                <li>[Completar: otras coberturas relevantes.]</li>
-            </ul>
-            <h3>¿Cómo activarlo?</h3>
-            <p>[Completar: procedimiento para reportar un siniestro, teléfonos y correos de la aseguradora.]</p>
-            <p style="margin-top: 1.5em;">
-                <a href="#" class="button">[Completar: enlace a póliza]</a>
+
+            <p class="section-intro">
+                Todos los scouts y dirigentes inscritos cuentan con un seguro colectivo con <strong>HIR Compañía de Seguros</strong> que respalda la atención médica en caso de un accidente durante reuniones, excursiones y campamentos supervisados por el <strong>Grupo Scout</strong>.
+            </p>
+
+            <h3><i class="fa fa-check-circle"></i>¿Qué incluye?</h3>
+            <div class="seg-grid">
+                <div class="seg-card">
+                    <div class="seg-card-ic"><i class="fa fa-medkit"></i></div>
+                    <div class="seg-card-body">
+                        <span class="seg-card-label">Reembolso de gastos médicos</span>
+                        <span class="seg-card-amount">Hasta $30,000</span>
+                        <span class="seg-card-note">Deducible de $500</span>
+                    </div>
+                </div>
+                <a class="seg-card" href="docs/seguro/Red-Hospitalaria-2025-07-18.xlsx" target="_blank" rel="noopener" title="Descargar red hospitalaria">
+                    <div class="seg-card-ic"><i class="fa fa-hospital-o"></i></div>
+                    <div class="seg-card-body">
+                        <span class="seg-card-label">Red médica nacional</span>
+                        <span class="seg-card-amount">Pago directo</span>
+                        <span class="seg-card-note">En hospitales afiliados
+                        <i class="fa fa-download"></i></span>
+                    </div>
+                </a>
+                <a class="seg-card" href="docs/seguro/Folleto-Asistencia-Medica.pdf" target="_blank" rel="noopener" title="Descargar folleto de asistencia médica">
+                    <div class="seg-card-ic"><i class="fa fa-phone"></i></div>
+                    <div class="seg-card-body">
+                        <span class="seg-card-label">Asistencia telefónica</span>
+                        <span class="seg-card-amount">24 / 7</span>
+                        <span class="seg-card-note">Ver folleto de asistencia <i class="fa fa-download"></i></span>
+                    </div>
+                </a>
+            </div>
+            <p style="font-size:0.9em; color:#666; margin-top:0.4em;">
+                Montos en pesos mexicanos. La cobertura aplica mientras las actividades se realicen bajo la supervisión del grupo scout.
+            </p>
+
+            <h3><i class="fa fa-list-ol"></i>¿Cómo se activa?</h3>
+            <p>
+                Todas las solicitudes se canalizan a través del <strong>Jefe de Grupo</strong>, quien coordina la atención entre los padres de familia, el servicio médico y la AGSMAC.
+            </p>
+            <ol class="seg-steps">
+                <li>
+                    <strong>El Jefe de Grupo</strong> da aviso a la AGSMAC en cuanto ocurra el incidente durante una actividad scout.
+                </li>
+                <li>
+                    Se requisitan los documentos necesarios según el tipo de atención requerida. El Jefe de Grupo emite la <strong>carta aviso</strong> que permite la atención en cualquier hospital de la red médica.
+                </li>
+                <li>
+                    Se recaban todos los comprobantes y son enviados al agente del seguro para iniciar el trámite.
+                </li>
+            </ol>
+            <div class="seg-note">
+                <strong>Importante:</strong> Para reembolso de gastos médicos, las facturas deben
+                entregarse en formato <strong>PDF y XML</strong> (no escaneadas).
+            </div>
+
+            <h3><i class="fa fa-folder-open"></i>Recursos y contacto</h3>
+            <div class="seg-cols">
+                <div class="seg-panel">
+                    <h4>Descargas</h4>
+                    <ul>
+                        <li>
+                            <i class="fa fa-hospital-o"></i>
+                            <a href="docs/seguro/CARTA-AVISO-ACCIDENTE.pdf" download>
+                                Carta de aviso de accidente
+                            </a>
+                        </li>
+                        <li>
+                            <i class="fa fa-file-pdf-o"></i>
+                            <a href="docs/seguro/Folleto-Asistencia-Medica.pdf" download>
+                                Folleto de Asistencia Médica
+                            </a>
+                        </li>
+                        <li>
+                            <i class="fa fa-book"></i>
+                            <a href="docs/seguro/HIR-Condiciones-Generales.pdf" download>
+                                Condiciones generales de la póliza
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="seg-panel">
+                    <h4>HIR Seguros</h4>
+                    <ul>
+                        <li><i class="fa fa-phone"></i> (55) 5262 1780</li>
+                        <li><i class="fa fa-phone-square"></i> 800 734 8447</li>
+                        <li>
+                            <i class="fa fa-globe"></i>
+                            <a href="https://www.hirseguros.mx" target="_blank" rel="noopener">
+                                hirseguros.mx
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="seg-footer-note">
+                Recuerda: cualquier trámite con la aseguradora se inicia siempre a través de tu <strong>Jefe de Grupo</strong>.
             </p>
         </div>
     </div>

@@ -1,6 +1,11 @@
 {
+  "scripts": {
+    "optimize-images": "node scripts/optimize-images.js",
+    "optimize-images:write": "node scripts/optimize-images.js --write"
+  },
   "dependencies": {
     "connect": "^3.7.0",
+    "jimp": "^1.6.1",
     "serve-static": "^2.2.1"
   }
 }
