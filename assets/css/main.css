@@ -564,7 +564,7 @@ p {
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 	line-height: 1.5;
-	margin: 0 0 1em 0;
+	margin: 0 0 0.5em 0;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -783,7 +783,7 @@ label {
 	display: block;
 	font-size: 0.9em;
 	font-weight: 300;
-	margin: 0 0 1em 0;
+	margin: 0 0 0 0;
 }
 
 input[type="text"], input[type="password"], input[type="email"], select, textarea {
@@ -1885,7 +1885,7 @@ table.alt tbody tr td {
 /* Colores temáticos por icono / red social */
 #panioletaSearcher .grupo-info-icon .fa-facebook-official { color: #1877F2; }
 #panioletaSearcher .grupo-info-icon .fa-instagram         { color: #E1306C; }
-#panioletaSearcher .grupo-info-icon .fa-music             { color: #000000; } /* TikTok */
+#panioletaSearcher .grupo-info-icon .fa-tiktok            { color: #000000; } /* TikTok */
 #panioletaSearcher .grupo-info-icon .fa-youtube-play      { color: #FF0000; }
 #panioletaSearcher .grupo-info-icon .fa-envelope          { color: #d44638; }
 #panioletaSearcher .grupo-info-icon .fa-map-marker        { color: #EA4335; }

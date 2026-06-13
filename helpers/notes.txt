@@ -4,13 +4,13 @@ Super arreglar secciones
 OK Galeria
 OK Embeber video
 - Quienes somos 
-	Constitucion
+	Nuestra Historia  (antes "Constitucion" — ahora línea del tiempo con hitos, datos en includes/data/historia.json)
 	Seguro
 
 
 Grupos! Panoletas
 Marco Simbolico
-- Bandera (Quienes somos, Constitucion)
+- Bandera (Quienes somos, Nuestra Historia)
 - Libro de oro (Fotos, galeria)
 - Biblioteca (Literatura, y fichas) 
 - Cuadro de adelanto

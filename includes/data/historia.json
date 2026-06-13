@@ -1,0 +1,525 @@
+{
+  "_comment_1": "Línea del tiempo de AGSMAC — historia, hitos y memoria.",
+  "_comment_2": "Fuente: appsScriptUrl (opcional, futuro) → fallback inline \"hitos\".",
+  "_comment_3": "Patrón cascada igual que cumpleanos.json / cuadro-de-adelanto.json.",
+  "_comment_4": "Categorías: 'institucional' | 'evento' | 'memorabilia' | 'publicacion' | 'memoriam'.",
+  "_comment_5": "Los hitos de memorabilia se generan con scripts/generar-historia-json.js a partir de images/historia/<año>-{agenda,cinta}.{jpg,png}.",
+  "appsScriptUrl": "",
+  "hitos": [
+    {
+      "id": "memorabilia-2006",
+      "anio": 2006,
+      "categoria": "memorabilia",
+      "titulo": "Cinta de registro 2006",
+      "resumen": "Cinta de registro distintiva del ciclo 2006.",
+      "imagenes": [
+        {
+          "src": "images/historia/2006-cinta.jpg",
+          "alt": "Cinta de registro 2006"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "fundacion-2006",
+      "fecha": "2006",
+      "anio": 2006,
+      "destacado": true,
+      "categoria": "institucional",
+      "titulo": "Constitución como Asociación Civil",
+      "resumen": "AGSMAC se constituye formalmente como Asociación de Grupos de Scouts de México, A.C.",
+      "descripcion": "<p>El <strong>2 de febrero de 2006</strong> se firma el acta constitutiva que da vida a la <strong>Asociación de Grupos de Scouts de México, A.C.</strong>, con el objeto de coadyuvar en la formación del carácter de niñ@s y jóvenes conforme a los lineamientos del movimiento scout fundado por Sir Robert Baden-Powell.</p><p>Los Grupos Scout que dieron origen a AGSMAC venían trabajando desde décadas atrás — las fotografías de <em>1986</em> y <em>1994</em> son testimonio de esa historia previa que cristalizó en la formalización de la Asociación.</p><p>[Completar: nombres de los socios fundadores y de los grupos firmantes del acta.]</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/1994-origenes.jpg",
+          "alt": "Antecedentes — actividad scout en 1994"
+        },
+        {
+          "src": "images/historia/1986-origenes.jpg",
+          "alt": "Antecedentes — actividad scout en 1986"
+        }
+      ],
+      "enlaces": [
+        {
+          "tipo": "pdf",
+          "label": "Acta Constitutiva (PDF)",
+          "url": "documentos/historia/ActaConstitutiva.pdf"
+        },
+        {
+          "tipo": "externo",
+          "label": "El Universal — Cobertura de la fundación",
+          "url": "https://archivo.eluniversal.com.mx/ciudad/80554.html"
+        }
+      ]
+    },
+    {
+      "id": "memorabilia-2007",
+      "anio": 2007,
+      "categoria": "memorabilia",
+      "titulo": "Cinta de registro 2007",
+      "resumen": "Cinta de registro distintiva del ciclo 2007.",
+      "imagenes": [
+        {
+          "src": "images/historia/2007-cinta.jpg",
+          "alt": "Cinta de registro 2007"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2008",
+      "anio": 2008,
+      "categoria": "memorabilia",
+      "titulo": "Cinta de registro 2008",
+      "resumen": "Cinta de registro distintiva del ciclo 2008.",
+      "imagenes": [
+        {
+          "src": "images/historia/2008-cinta.jpg",
+          "alt": "Cinta de registro 2008"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2009",
+      "anio": 2009,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2009",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2009.",
+      "imagenes": [
+        {
+          "src": "images/historia/2009-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2009"
+        },
+        {
+          "src": "images/historia/2009-cinta.jpg",
+          "alt": "Cinta de registro 2009"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2010",
+      "anio": 2010,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2010",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2010.",
+      "imagenes": [
+        {
+          "src": "images/historia/2010-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2010"
+        },
+        {
+          "src": "images/historia/2010-cinta.jpg",
+          "alt": "Cinta de registro 2010"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2011",
+      "anio": 2011,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2011",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2011.",
+      "imagenes": [
+        {
+          "src": "images/historia/2011-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2011"
+        },
+        {
+          "src": "images/historia/2011-cinta.jpg",
+          "alt": "Cinta de registro 2011"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2012",
+      "anio": 2012,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2012",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2012.",
+      "imagenes": [
+        {
+          "src": "images/historia/2012-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2012"
+        },
+        {
+          "src": "images/historia/2012-cinta.jpg",
+          "alt": "Cinta de registro 2012"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2013",
+      "anio": 2013,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2013",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2013.",
+      "imagenes": [
+        {
+          "src": "images/historia/2013-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2013"
+        },
+        {
+          "src": "images/historia/2013-cinta.jpg",
+          "alt": "Cinta de registro 2013"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "wosm-2013",
+      "fecha": "2013-08-08",
+      "anio": 2013,
+      "destacado": true,
+      "categoria": "institucional",
+      "titulo": "Reconocimiento por WOSM (WOIS)",
+      "resumen": "AGSMAC es reconocida como miembro del WOSM Organisational Information System (WOIS).",
+      "descripcion": "<p>El <strong>8 de agosto de 2013</strong> AGSMAC obtiene su reconocimiento dentro del <em>WOSM Organisational Information System</em>, marcando un paso clave en la proyección internacional de la Asociación.</p><p>Adicionalmente se formaliza la membresía mediante la <em>Carta AGSMAC al mundo</em>.</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2013-escudo-ttt.jpg",
+          "alt": "Escudo del Treinta y Tres (TTT), 2013"
+        }
+      ],
+      "enlaces": [
+        {
+          "tipo": "pdf",
+          "label": "Certificado WOIS (PDF)",
+          "url": "documentos/historia/Certificado_WOIS_2013.pdf"
+        },
+        {
+          "tipo": "pdf",
+          "label": "Carta AGSMAC al mundo (PDF)",
+          "url": "documentos/historia/CartaAGSMAC-mundo.pdf"
+        }
+      ]
+    },
+    {
+      "id": "memorabilia-2014",
+      "anio": 2014,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2014",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2014.",
+      "imagenes": [
+        {
+          "src": "images/historia/2014-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2014"
+        },
+        {
+          "src": "images/historia/2014-cinta.jpg",
+          "alt": "Cinta de registro 2014"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "jamboree-2015",
+      "anio": 2015,
+      "categoria": "evento",
+      "titulo": "23.º Jamboree Mundial — Japón",
+      "resumen": "La delegación AGSMAC participa en el Jamboree Mundial celebrado en Kirara-hama, Japón.",
+      "descripcion": "<p>[Completar: número de jóvenes y adultos que conformaron la delegación, anécdotas, logros.]</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2015-jamboree.jpg",
+          "alt": "Delegación AGSMAC en el Jamboree Mundial 2015"
+        }
+      ],
+      "enlaces": [
+        {
+          "tipo": "pdf",
+          "label": "Formulario de registro de delegación (PDF)",
+          "url": "documentos/historia/Registro-delegacion.pdf"
+        }
+      ]
+    },
+    {
+      "id": "memorabilia-2015",
+      "anio": 2015,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2015",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2015.",
+      "imagenes": [
+        {
+          "src": "images/historia/2015-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2015"
+        },
+        {
+          "src": "images/historia/2015-cinta.jpg",
+          "alt": "Cinta de registro 2015"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "campamento-2016",
+      "anio": 2016,
+      "categoria": "evento",
+      "titulo": "Campamento Scout Nacional 2016",
+      "resumen": "Encuentro nacional de grupos AGSMAC.",
+      "descripcion": "<p>[Completar: sede, fecha exacta, número de participantes y temática del campamento.]</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2016-campamento.jpg",
+          "alt": "Campamento Scout AGSMAC 2016"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2016",
+      "anio": 2016,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2016",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2016.",
+      "imagenes": [
+        {
+          "src": "images/historia/2016-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2016"
+        },
+        {
+          "src": "images/historia/2016-cinta.jpg",
+          "alt": "Cinta de registro 2016"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2017",
+      "anio": 2017,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2017",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2017.",
+      "imagenes": [
+        {
+          "src": "images/historia/2017-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2017"
+        },
+        {
+          "src": "images/historia/2017-cinta.jpg",
+          "alt": "Cinta de registro 2017"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2018",
+      "anio": 2018,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2018",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2018.",
+      "imagenes": [
+        {
+          "src": "images/historia/2018-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2018"
+        },
+        {
+          "src": "images/historia/2018-cinta.jpg",
+          "alt": "Cinta de registro 2018"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "jamboree-2019",
+      "anio": 2019,
+      "categoria": "evento",
+      "titulo": "24.º Jamboree Mundial — Estados Unidos",
+      "resumen": "Participación en el Jamboree celebrado en Summit Bechtel Reserve, West Virginia.",
+      "descripcion": "<p>[Completar: integrantes, experiencias, contingente mexicano.]</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2019-jamboree.jpg",
+          "alt": "Jamboree Mundial 2019"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2019",
+      "anio": 2019,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2019",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2019.",
+      "imagenes": [
+        {
+          "src": "images/historia/2019-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2019"
+        },
+        {
+          "src": "images/historia/2019-cinta.jpg",
+          "alt": "Cinta de registro 2019"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2020",
+      "anio": 2020,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2020",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2020.",
+      "imagenes": [
+        {
+          "src": "images/historia/2020-agenda.png",
+          "alt": "Portada de la agenda AGSMAC 2020"
+        },
+        {
+          "src": "images/historia/2020-cinta.jpg",
+          "alt": "Cinta de registro 2020"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2021",
+      "anio": 2021,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2021",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2021.",
+      "imagenes": [
+        {
+          "src": "images/historia/2021-agenda.png",
+          "alt": "Portada de la agenda AGSMAC 2021"
+        },
+        {
+          "src": "images/historia/2021-cinta.jpg",
+          "alt": "Cinta de registro 2021"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2022",
+      "anio": 2022,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2022",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2022.",
+      "imagenes": [
+        {
+          "src": "images/historia/2022-agenda.png",
+          "alt": "Portada de la agenda AGSMAC 2022"
+        },
+        {
+          "src": "images/historia/2022-cinta.jpg",
+          "alt": "Cinta de registro 2022"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2023",
+      "anio": 2023,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2023",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2023.",
+      "imagenes": [
+        {
+          "src": "images/historia/2023-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2023"
+        },
+        {
+          "src": "images/historia/2023-cinta.jpg",
+          "alt": "Cinta de registro 2023"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memoriam-ejemplo",
+      "anio": 2024,
+      "categoria": "memoriam",
+      "titulo": "En memoria de [Nombre]",
+      "resumen": "Reconocimiento a quienes dedicaron su vida al movimiento scout en AGSMAC.",
+      "descripcion": "<p>[Completar: semblanza, contribución a la Asociación, etapas de servicio y un mensaje de la familia scout.]</p>",
+      "persona": {
+        "nombre": "[Nombre completo]",
+        "anios": "[1950 – 2024]",
+        "rol": "[Rol en AGSMAC, p. ej. Fundador / Comisionado Nacional]",
+        "foto": "",
+        "bioUrl": ""
+      },
+      "imagenes": [],
+      "enlaces": [
+        {
+          "tipo": "externo",
+          "label": "Biografía completa",
+          "url": ""
+        }
+      ]
+    },
+    {
+      "id": "memorabilia-2024",
+      "anio": 2024,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2024",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2024.",
+      "imagenes": [
+        {
+          "src": "images/historia/2024-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2024"
+        },
+        {
+          "src": "images/historia/2024-cinta.jpg",
+          "alt": "Cinta de registro 2024"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "jamboree-2025",
+      "anio": 2025,
+      "categoria": "evento",
+      "titulo": "Jamboree Mundial 2025",
+      "resumen": "AGSMAC presente en el Jamboree Mundial de 2025.",
+      "descripcion": "<p>[Completar: sede confirmada, delegación, cronología y resultados.]</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2025-jamboree.jpg",
+          "alt": "Jamboree Mundial 2025"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2025",
+      "anio": 2025,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2025",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2025.",
+      "imagenes": [
+        {
+          "src": "images/historia/2025-agenda.jpg",
+          "alt": "Portada de la agenda AGSMAC 2025"
+        },
+        {
+          "src": "images/historia/2025-cinta.png",
+          "alt": "Cinta de registro 2025"
+        }
+      ],
+      "enlaces": []
+    },
+    {
+      "id": "memorabilia-2026",
+      "anio": 2026,
+      "categoria": "memorabilia",
+      "titulo": "Agenda y cinta de registro 2026",
+      "resumen": "Identidad gráfica anual: portada de la agenda y cinta de registro entregadas a los miembros en 2026.",
+      "imagenes": [
+        {
+          "src": "images/historia/2026-agenda.png",
+          "alt": "Portada de la agenda AGSMAC 2026"
+        },
+        {
+          "src": "images/historia/2026-cinta.jpg",
+          "alt": "Cinta de registro 2026"
+        }
+      ],
+      "enlaces": []
+    }
+  ]
+}

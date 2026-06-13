@@ -1,0 +1,547 @@
+<style>
+    /* ===== Nuestra Historia — estilos locales (scoped .hist-*) ===================
+       Layout: master-detail.
+         - Desktop: timeline columna izquierda (sticky) + panel detalle derecha (sticky).
+         - Mobile (<= 980px): columna única; el detalle se muestra en modal.
+       Sigue el patrón estándar de páginas internas: #preview > .inner > .image.fit + .content.
+       =========================================================================== */
+
+    /* --- Hero / título / lead --- */
+    #preview .hist-page header { max-width: 100%; margin-bottom: 0.8em; }
+    .hist-lead {
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: #555;
+        margin: 0 0 1.4em;
+        max-width: 44em;
+        border-left: 4px solid #e74c3c;
+        padding: 0.2em 0 0.2em 1em;
+        font-style: italic;
+    }
+
+    /* --- Controles (filtros + sort) --- */
+    .hist-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6em;
+        align-items: center;
+        padding: 0.7em 0.9em;
+        background: #fff;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        margin: 0 0 1em;
+    }
+    .hist-filters { display: flex; flex-wrap: wrap; gap: 0.4em; flex: 1; }
+    .hist-filter {
+        background: transparent;
+        border: 1px solid #ddd;
+        color: #555;
+        padding: 0em 0.85em;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 0.82em;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        transition: all 0.18s ease;
+    }
+    .hist-filter:hover { border-color: #e74c3c; color: #e74c3c; }
+    .hist-filter.is-active { background: #e74c3c; border-color: #e74c3c; color: #fff; }
+    .hist-filter .fa { margin-right: 0.3em; }
+
+    .hist-sort {
+        background: #fbf8f3;
+        border: 1px solid #ddd;
+        color: #555;
+        padding: 0em 0.95em;
+        border-radius: 6px;
+        font-size: 0.82em;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.18s ease;
+    }
+    .hist-sort:hover { border-color: #C0A062; color: #b2912f; }
+    .hist-sort .fa { margin-right: 0.4em; color: #C0A062; }
+
+    /* --- Salto rápido por año (select dentro de hist-controls) --- */
+    .hist-yearjump-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45em;
+        background: #fbf8f3;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0em 0.7em;
+        font-size: 0.82em;
+        color: #555;
+        cursor: pointer;
+        transition: all 0.18s ease;
+    }
+    .hist-yearjump-wrap:hover { border-color: #C0A062; color: #b2912f; }
+    .hist-yearjump-wrap .fa { color: #C0A062; }
+    .hist-yearjump-select {
+        background: transparent;
+        border: 0;
+        font: inherit;
+        color: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+        padding: 0.15em 0.2em;
+    }
+
+    /* === Layout master-detail === */
+    .hist-layout {
+        display: grid;
+        grid-template-columns: minmax(260px, 300px) 1fr;
+        gap: 1.2em;
+        align-items: start;
+    }
+
+    /* --- Columna izquierda: timeline --- */
+    .hist-timeline-wrap {
+        position: sticky;
+        top: 0.8em;
+        max-height: calc(100vh - 19em);
+        overflow-y: auto;
+        padding-right: 0.4em;
+        scrollbar-width: thin;
+    }
+    .hist-timeline-wrap::-webkit-scrollbar { width: 6px; }
+    .hist-timeline-wrap::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.18); border-radius: 3px; }
+
+    .hist-timeline {
+        list-style: none;
+        padding: 0.3em 0.3em 0.3em 0em;
+        margin: 0;
+        position: relative;
+    }
+    .hist-timeline::before {
+        content: '';
+        position: absolute;
+        left: 0em;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(to bottom, #e74c3c 0%, #C0A062 100%);
+        border-radius: 2px;
+    }
+
+    /* Grupo de año: banner + tarjetas de ese año */
+    .hist-year-group {
+        position: relative;
+        margin: 0 0 0.8em;
+        padding-left: 1.2em;
+    }
+    .hist-year-group.is-hidden { display: none; }
+
+    .hist-year-banner {
+        font-family: 'Antique', Georgia, serif;
+        font-size: 1.15em;
+        font-weight: 700;
+        color: #e74c3c;
+        line-height: 1;
+        margin: 0.1em 0 0.5em -0.4em;
+        padding: 0.15em 0 0.15em 0.7em;
+        position: relative;
+        letter-spacing: 0.02em;
+    }
+
+
+    .hist-year-cards {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55em;
+    }
+
+    .hist-item {
+        position: relative;
+        padding: 0 0 0 0.7em;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .hist-item.is-visible { opacity: 1; transform: translateY(0); }
+    .hist-item.is-hidden { display: none; }
+
+    .hist-marker {
+        position: absolute;
+        left: -0.55em;
+        top: 0.85em;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e74c3c;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6em;
+        box-shadow: 0 0 0 3px #fbf8f3, 0 1px 3px rgba(0,0,0,0.2);
+        z-index: 2;
+    }
+    .hist-item.hist-destacado .hist-marker {
+        width: 22px; height: 22px;
+        left: -0.65em;
+        box-shadow: 0 0 0 3px #fbf8f3, 0 0 0 5px rgba(231,76,60,0.18), 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .hist-card {
+        background: #fff;
+        border-radius: 6px;
+        padding: 0.55em 0.85em;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+        outline: none;
+        border-left: 3px solid transparent;
+    }
+    .hist-card:hover,
+    .hist-card:focus-visible {
+        transform: translateX(2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .hist-item.is-selected .hist-card {
+        border-left-color: #e74c3c;
+        background: #fff8f6;
+        box-shadow: 0 4px 14px rgba(231,76,60,0.18);
+    }
+    .hist-card-title {
+        margin: 0;
+        font-size: 0.92em;
+        line-height: 1.3;
+        color: #1a1a1a;
+        font-weight: 600;
+    }
+    .hist-card-cat {
+        display: inline-block;
+        font-size: 0.64em;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-top: 0.3em;
+        font-weight: 700;
+    }
+
+    /* --- Columna derecha: panel de detalle --- */
+    .hist-detail {
+        position: sticky;
+        top: 0.8em;
+        max-height: calc(100vh - 1.6em);
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+        min-height: 400px;
+    }
+    .hist-detail-empty {
+        padding: 4em 2em;
+        text-align: center;
+        color: #999;
+        font-style: italic;
+    }
+    .hist-detail-header {
+        padding: 0.6em 1.8em 0.6em;
+        border-top: 6px solid #e74c3c;
+        background: #fbf8f3;
+        border-radius: 10px 10px 0 0;
+    }
+    .hist-cat-badge {
+        display: inline-block;
+        font-size: 0.6em;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        padding: 0.25em 0.7em;
+        border: 1px solid currentColor;
+        border-radius: 999px;
+        margin-bottom: 0.55em;
+    }
+    .hist-cat-badge .fa { margin-right: 0.3em; }
+    .hist-detail-year {
+        position: absolute;
+        top: 0.55em;
+        right: 1.6em;
+        font-family: 'Antique', Georgia, serif;
+        font-size: 1.15em;
+        line-height: 1;
+        color: #C0A062;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        opacity: 0.9;
+    }
+    .hist-detail-header h2 {
+        margin: 0.1em 0 0;
+        font-size: 1.3em;
+        color: #1a1a1a !important;
+        line-height: 1;
+        font-weight: 500;
+        padding-right: 3.2em;
+    }
+    .hist-detail-date {
+        margin-top: 0.4em;
+        font-size: 0.85em;
+        color: #888;
+        letter-spacing: 0.05em;
+    }
+    .hist-detail-body { padding: 1.4em 1.8em 2em; }
+
+    /* ======= Galería unificada — estilo tablón de corcho con polaroids ======= */
+    .hist-gallery {
+        margin: 0 0 1.6em;
+        background:
+            radial-gradient(circle at 30% 20%, rgba(255,255,255,0.4), transparent 60%),
+            linear-gradient(135deg, #d8c19a 0%, #b8945e 100%);
+        padding: 1.6em 1.3em 1.8em;
+        border-radius: 10px;
+        box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), inset 0 -2px 6px rgba(0,0,0,0.15);
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1.6em 1.4em;
+    }
+    /* Textura tipo corcho */
+    .hist-gallery::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+            radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+            radial-gradient(rgba(0,0,0,0.04) 1px, transparent 1px);
+        background-size: 14px 14px, 22px 22px;
+        background-position: 0 0, 7px 11px;
+        border-radius: 10px;
+        pointer-events: none;
+    }
+
+    /* Tarjeta polaroid — se ajusta al tamaño natural de su imagen */
+    .hist-photo {
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        padding: 10px 10px 14px;
+        border-radius: 3px;
+        box-shadow:
+            0 1px 2px rgba(0,0,0,0.1),
+            0 6px 18px rgba(0,0,0,0.18);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        display: inline-flex;
+        flex-direction: column;
+        max-width: 20%;
+        margin: 0;
+    }
+    .hist-photo:hover {
+        transform: translateY(-3px) rotate(0deg) !important;
+        box-shadow:
+            0 2px 4px rgba(0,0,0,0.12),
+            0 14px 30px rgba(0,0,0,0.22);
+        z-index: 3;
+    }
+    /* Inclinación sutil alternada */
+    .hist-gallery .hist-photo:nth-child(3n+1) { transform: rotate(-1.2deg); }
+    .hist-gallery .hist-photo:nth-child(3n+2) { transform: rotate(0.9deg); }
+    .hist-gallery .hist-photo:nth-child(3n)   { transform: rotate(-0.4deg); }
+
+    /* Marco del enlace (fondo crema sutil, hereda tamaño de la imagen) */
+    .hist-photo a {
+        display: block;
+        line-height: 0;
+        cursor: zoom-in;
+        background: #f0ebe1;
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    /* La imagen se muestra a tamaño natural, capada para que no domine */
+    .hist-photo img {
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 320px;
+    }
+    /* Cuando solo hay una foto en la galería, permitir un poco más */
+    .hist-gallery .hist-photo:only-child img { max-height: 380px; }
+
+    /* Caption manuscrita */
+    .hist-photo figcaption {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-style: italic;
+        font-size: 0.82em;
+        color: #5a4a30;
+        text-align: center;
+        margin-top: 0.55em;
+        line-height: 1.35;
+        max-width: 280px;
+    }
+
+    /* Chincheta decorativa en cada polaroid */
+    .hist-photo::before {
+        content: '';
+        position: absolute;
+        top: -6px; left: 50%;
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #ff6b5a 0%, #b1352a 80%);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.45);
+        transform: translateX(-50%);
+        z-index: 2;
+    }
+    /* Variar el color de la chincheta para que el tablón no se vea monocromático */
+    .hist-gallery .hist-photo:nth-child(4n+2)::before {
+        background: radial-gradient(circle at 35% 35%, #5ec8ff 0%, #1668a8 80%);
+    }
+    .hist-gallery .hist-photo:nth-child(4n+3)::before {
+        background: radial-gradient(circle at 35% 35%, #ffd87a 0%, #b08a1c 80%);
+    }
+    .hist-gallery .hist-photo:nth-child(4n)::before {
+        background: radial-gradient(circle at 35% 35%, #7fdb8a 0%, #2c7d36 80%);
+    }
+
+    @media (max-width: 736px) {
+        .hist-gallery { padding: 1.1em 0.8em 1.3em; gap: 1.2em 1em; }
+        .hist-photo img { max-height: 240px; }
+        .hist-gallery .hist-photo:only-child img { max-height: 280px; }
+    }
+
+    .hist-persona {
+        display: flex;
+        gap: 1.2em;
+        align-items: flex-start;
+        background: #fbf8f3;
+        padding: 1.1em;
+        border-radius: 8px;
+        margin: 0 0 1.4em;
+        border-left: 4px solid #7d3c98;
+    }
+    .hist-persona-foto {
+        flex: 0 0 110px;
+        height: 110px;
+        border-radius: 50%;
+        background-size: cover;
+        background-position: center;
+        background-color: #ececec;
+        display: flex; align-items: center; justify-content: center;
+        color: #aaa;
+        font-size: 2.4em;
+    }
+    .hist-persona-info h3 { margin: 0 0 0.2em; color: #1a1a1a; font-size: 1.15em; }
+    .hist-persona-anios { margin: 0 0 0.2em; color: #7d3c98; font-weight: 600; font-size: 0.92em; }
+    .hist-persona-rol { margin: 0 0 0.8em; color: #555; font-style: italic; font-size: 0.92em; }
+    .hist-btn.button { background: #7d3c98; border-color: #7d3c98; color: #fff; }
+    .hist-btn.button:hover { background: #5e2b75; border-color: #5e2b75; }
+
+    .hist-desc { color: #2b2b2b; line-height: 1.7; }
+    .hist-desc p { margin: 0 0 1em; }
+
+    .hist-links { margin-top: 1.5em; padding-top: 1.2em; border-top: 1px solid #ececec; }
+    .hist-links h4 {
+        margin: 0 0 0.7em;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #888;
+    }
+    .hist-links ul { list-style: none; padding: 0; margin: 0; }
+    .hist-links li { margin: 0 0 0.5em; }
+    .hist-links a {
+        display: inline-flex; align-items: center; gap: 0.6em;
+        color: #1e7a8c; text-decoration: none; font-weight: 600;
+        padding: 0.5em 0.85em; border: 1px solid #ececec; border-radius: 6px;
+        background: #fff; transition: all 0.15s ease;
+    }
+    .hist-links a:hover { background: #1e7a8c; color: #fff; border-color: #1e7a8c; }
+
+    .hist-empty {
+        text-align: center; color: #888; font-style: italic; padding: 3em 1em;
+    }
+
+    /* === Modal (sólo móvil) === */
+    body.hist-modal-open { overflow: hidden; }
+    .hist-modal-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(20,20,25,0.72);
+        z-index: 9999;
+        display: flex; align-items: center; justify-content: center;
+        padding: 1em;
+        animation: histFade 0.2s ease;
+    }
+    @keyframes histFade { from { opacity: 0 } to { opacity: 1 } }
+    .hist-modal {
+        background: #fff;
+        border-radius: 10px;
+        max-width: 760px; width: 100%;
+        max-height: 92vh; overflow-y: auto;
+        position: relative;
+        box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+        animation: histPop 0.25s ease;
+    }
+    @keyframes histPop { from { transform: translateY(20px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+    .hist-modal-close {
+        position: absolute; top: 0.7em; right: 0.7em;
+        background: rgba(0,0,0,0.5); color: #fff;
+        border: 0; width: 36px; height: 36px;
+        border-radius: 50%; cursor: pointer; font-size: 1em; z-index: 2;
+    }
+    .hist-modal-close:hover { background: #e74c3c; }
+
+    /* === Responsive === */
+    @media (max-width: 1280px) {
+        .hist-layout { grid-template-columns: minmax(240px, 280px) 1fr; gap: 1em; }
+    }
+    @media (max-width: 980px) {
+        .hist-layout { grid-template-columns: 1fr; }
+        .hist-timeline-wrap { position: static; max-height: none; overflow: visible; }
+        .hist-detail { display: none; }  /* en móvil se usa el modal */
+    }
+    @media (max-width: 736px) {
+        .hist-controls { padding: 0.55em 0.7em; }
+        .hist-modal-header { padding: 1.4em 1.2em 0.8em; }
+        .hist-modal .hist-detail-body { padding: 1.2em 1.2em 1.6em; }
+    }
+</style>
+
+<div id="preview">
+    <div class="inner">
+        <div class="content hist-page">
+            <header>
+                <h2>Nuestra Historia</h2>
+            </header>
+
+            <div class="hist-controls">
+                <div class="hist-filters" role="group" aria-label="Filtrar por categoría">
+                    <button class="hist-filter is-active" data-cat="all"><i class="fa fa-th"></i>Todos</button>
+                    <button class="hist-filter" data-cat="institucional"><i class="fa fa-institution"></i>Institucionales</button>
+                    <button class="hist-filter" data-cat="evento"><i class="fa fa-flag"></i>Eventos</button>
+                    <button class="hist-filter" data-cat="memorabilia"><i class="fa fa-bookmark"></i>Memorabilia</button>
+                    <button class="hist-filter" data-cat="memoriam"><i class="fa fa-heart"></i>In Memoriam</button>
+                </div>
+                <label class="hist-yearjump-wrap" title="Saltar a un año específico">
+                    <i class="fa fa-calendar"></i>
+                    <select id="hist-yearjump-select" class="hist-yearjump-select" aria-label="Saltar a un año">
+                        <option value="">Saltar a año…</option>
+                    </select>
+                </label>
+                <button class="hist-sort" data-order="desc" aria-label="Cambiar orden cronológico">
+                    <i class="fa fa-sort-amount-desc"></i><span class="hist-sort-label">Reciente → Antiguo</span>
+                </button>
+            </div>
+
+            <div class="hist-layout">
+                <div class="hist-timeline-wrap">
+                    <div id="hist-timeline-container" aria-live="polite">
+                        <p class="hist-empty">Cargando hitos…</p>
+                    </div>
+                </div>
+                <aside class="hist-detail" id="hist-detail-panel" aria-live="polite">
+                    <div class="hist-detail-empty">Selecciona un hito a la izquierda para ver los detalles.</div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <a id="previo" data="quienes-somos.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>
+    <a id="sigue" data="seguro.html" class="nav next"><span class="fa fa-chevron-right"></span></a>
+</div>

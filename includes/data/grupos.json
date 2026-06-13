@@ -43,12 +43,14 @@
             "panioleta": "images/grupos/96.png"
         },
         "Grupo 133": {
+            "numero": "133",
             "nombre": "Mario Rivera Infante",
             "jefe": "Lidia Suarez",
-            "direccion": "Nicanor Castillo esq. Rancho Grande Col. Miguel Cuautepec el Alto",
-            "mapsUrl": "http://maps.google.com/maps/ms?msa=0&msid=210777987917528866615.000479481987c826abefd&ie=UTF8&t=m&vpsrc=6&ll=19.560114,-99.1308",
+            "direccion": "Deportivo El Vivero Cuautepec. Alcanfores, Zona de Conservación Ecológica, Gustavo A. Madero",
+            "mapsUrl": "https://maps.app.goo.gl/iz6qe1KQnJt6CzCb7",
             "horario": "16:00 a 18:00 hrs.",
             "facebook": "https://www.facebook.com/mario.riverainfante",
+            "tiktok": "https://www.tiktok.com/@marioriverainfant6",
             "correo": "gpo133@agsmac.org",
             "escudo": "images/grupos/Escudos/133.png",
             "panioleta": "images/grupos/133.png"
