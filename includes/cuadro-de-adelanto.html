@@ -2,31 +2,31 @@
     <div class="inner">
         <div class="content section-page">
             <header>
-                <h2>Cuadro de Adelanto</h2>
+                <h2>Cuadro de Honor</h2>
             </header>
-            <p>[Completar: introducción al adelanto progresivo en AGSMAC — qué representa y cómo acompaña el crecimiento personal de cada scout.]</p>
+            <p class="ca-intro">
+                Reconocimiento a quienes han alcanzado la <strong>insignia máxima</strong> de su sección dentro de la asociación.
+            </p>
 
-            <table style="width:100%; border-collapse: collapse; margin-top: 1.5em;">
-                <thead>
-                    <tr style="background: rgba(255,255,255,0.08);">
-                        <th style="padding:10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.2);">Sección</th>
-                        <th style="padding:10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.2);">Edades</th>
-                        <th style="padding:10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.2);">Etapas / Insignias</th>
-                        <th style="padding:10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.2);">Insignia máxima</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td style="padding:10px;">Colonia de Castores</td><td style="padding:10px;">4 – 8</td><td style="padding:10px;">Amarilla, Verde, Azul, Roja, Blanca</td><td style="padding:10px;">Gran Castor Café</td></tr>
-                    <tr><td style="padding:10px;">Manada de Gacelas</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                    <tr><td style="padding:10px;">Manada de Lobatos</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                    <tr><td style="padding:10px;">Tropa de Muchachas</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                    <tr><td style="padding:10px;">Tropa Scout</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                    <tr><td style="padding:10px;">Clan de Precursoras</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                    <tr><td style="padding:10px;">Clan de Rovers</td><td style="padding:10px;">[Completar]</td><td style="padding:10px;">[Completar: etapas]</td><td style="padding:10px;">[Completar]</td></tr>
-                </tbody>
-            </table>
+            <section id="cuadro-honor" class="ca-root" aria-label="Cuadro de honor de insignias máximas">
+                <div class="ca-filters">
+                    <div class="ca-filter-row">
+                        <label class="ca-filter-label" for="ca-year-select">Año</label>
+                        <select class="ca-year-select" id="ca-year-select" aria-label="Seleccionar año"></select>
+                    </div>
+                    <div class="ca-filter-row">
+                        <span class="ca-filter-label">Insignia</span>
+                        <div class="ca-filter-insignias ca-chips"></div>
+                    </div>
+                    <div class="ca-filter-row ca-filter-row-tools">
+                        <button type="button" class="ca-clear">Limpiar filtros</button>
+                    </div>
+                </div>
 
-            <p style="margin-top: 1.5em;">[Completar: notas o aclaraciones sobre cómo se otorgan las insignias y especialidades.]</p>
+                <div class="ca-timeline" role="region" aria-live="polite">
+                    <div class="ca-empty">Cargando certificados…</div>
+                </div>
+            </section>
         </div>
     </div>
     <a id="previo" data="biblioteca.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>

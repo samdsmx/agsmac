@@ -5,3 +5,6 @@ package-lock.json
 
 # Backups creados por scripts/optimize-images.js cuando se usa --write
 images/_originals/
+
+# Carpeta de trabajo temporal (assets en proceso, scratch, etc.)
+Temp/

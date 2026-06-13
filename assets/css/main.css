@@ -2556,6 +2556,19 @@ table.alt tbody tr td {
 	text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
+/* === Cuadro de Honor tile: texto centrado === */
+.metro-tile.cuadro-honor-tile {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.metro-tile.cuadro-honor-tile .metro-text {
+	width: 100%;
+	position: absolute;
+    top: 26px;
+    left: -4px;
+}
+
 /* === Tile de Cumpleaños con animación embebida (reemplaza birthday.swf) === */
 .metro-tile.birthday-tile {
 	padding: 0;
@@ -2694,4 +2707,332 @@ table.alt tbody tr td {
 @media screen and (max-width: 736px) {
     .home-btn { top: 10px; left: 10px; padding: 0.45em 0.9em; font-size: 0.85em; }
     .home-btn span { display: none; }
+}
+
+/* cuadroDeAdelanto =========================================================
+   Cuadro de honor de insignias máximas.
+   Render: assets/js/cuadro-de-adelanto.js
+   Fragmento HTML: includes/cuadro-de-adelanto.html
+   Paleta alineada con .section-page (texto #2b2b2b, acento #e74c3c).
+   =========================================================================== */
+
+.ca-root {
+	margin-top: 1.5em;
+	color: #2b2b2b;
+}
+.ca-intro { margin-bottom: 1em; color: #4a4a4a; }
+
+.ca-filters {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	background: #fff8e1;
+	border: 1px solid #f0d999;
+	border-radius: 10px;
+	padding: 0.85em 1em;
+	margin: 0 auto 1.6em auto;
+	max-width: 44em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.65em;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.ca-filter-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6em;
+}
+.ca-filter-label {
+	font-size: 0.78em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #8a6d3b;
+	font-weight: 700;
+	min-width: 5em;
+}
+
+/* Select de año --------------------------------------------------------- */
+.ca-year-select {
+	font: inherit;
+	font-size: 1.05em;
+	font-weight: 700;
+	color: #1a1a1a;
+	background: #fff;
+	border: 1px solid #e74c3c;
+	border-radius: 6px;
+	padding: 0.35em 1.8em 0.35em 0.7em;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23e74c3c' d='M6 8L0 0h12z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 0.6em center;
+	width: auto;
+}
+.ca-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
+
+.ca-filter-row-tools {
+	justify-content: flex-end;
+}
+
+/* Chips de insignia ----------------------------------------------------- */
+.ca-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45em;
+	flex: 1 1 auto;
+}
+.ca-chip {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 84px;
+	height: 76px;
+	padding: 0;
+	border-radius: 12px;
+	border: 1px solid #e0d0a3;
+	background: #fff;
+	color: #2b2b2b;
+	font: inherit;
+	cursor: pointer;
+	line-height: 1;
+	transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
+	flex: 0 0 84px;
+}
+.ca-chip:hover { background: #fff3c8; border-color: #d4b878; }
+.ca-chip:active { transform: scale(0.96); }
+.ca-chip.is-active {
+	background: #e74c3c;
+	border-color: #c0392b;
+	box-shadow: 0 2px 6px rgba(231,76,60,0.25);
+}
+.ca-chip.is-active img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
+.ca-chip img {
+	width: 60px;
+	height: 60px;
+	object-fit: contain;
+	display: block;
+}
+
+/* Tooltip CSS — muestra el nombre de la insignia al hacer hover/focus. */
+.ca-chip-tooltip {
+	position: absolute;
+	bottom: calc(100% + 6px);
+	left: 50%;
+	transform: translateX(-50%) translateY(4px);
+	background: #2b2b2b;
+	color: #fff;
+	font-size: 0.78em;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	padding: 0.3em 0.6em;
+	border-radius: 4px;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+	z-index: 10;
+}
+.ca-chip-tooltip::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border: 4px solid transparent;
+	border-top-color: #2b2b2b;
+}
+.ca-chip:hover .ca-chip-tooltip,
+.ca-chip:focus-visible .ca-chip-tooltip {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0);
+}
+
+/* Buscador y limpiar ---------------------------------------------------- */
+.ca-search-input {
+	flex: 1 1 18em;
+	padding: 0.45em 0.85em;
+	background: #fff;
+	border: 1px solid #e0d0a3;
+	border-radius: 999px;
+	color: #2b2b2b;
+	font: inherit;
+	font-size: 0.9em;
+}
+.ca-search-input:focus {
+	outline: none;
+	border-color: #e74c3c;
+	box-shadow: 0 0 0 3px rgba(231,76,60,0.12);
+}
+.ca-search-input::placeholder { color: #9a9a9a; }
+
+.ca-clear {
+	padding: 0.4em 0.95em;
+	border-radius: 999px;
+	border: 1px solid #e0d0a3;
+	background: #fff;
+	color: #8a6d3b;
+	font: inherit;
+	font-size: 0.85em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease;
+}
+.ca-clear:hover { background: #fff3c8; border-color: #d4b878; }
+
+/* Bloque del año -------------------------------------------------------- */
+.ca-timeline { display: block; }
+
+.ca-year-block { margin-top: 0.5em; }
+.ca-year-header {
+	display: flex;
+	align-items: baseline;
+	gap: 0.8em;
+	margin: 0 0 1.2em 0;
+	padding-bottom: 0.5em;
+	border-bottom: 2px solid #e74c3c;
+}
+.ca-year-header h3 {
+	margin: 0;
+	font-size: 2em;
+	font-weight: 700;
+	color: #1a1a1a;
+	letter-spacing: 0.02em;
+	border: none;
+	padding: 0;
+}
+.ca-year-count {
+	font-size: 0.9em;
+	color: #6b6b6b;
+	font-variant-numeric: tabular-nums;
+}
+
+.ca-insignia-group {
+	display: grid;
+	grid-template-columns: 180px 1fr;
+	gap: 1.4em;
+	align-items: start;
+	margin-bottom: 2em;
+	padding-bottom: 1.5em;
+	border-bottom: 1px solid #f0e3c1;
+}
+.ca-insignia-group:last-child { border-bottom: none; padding-bottom: 0; }
+
+.ca-insignia-title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 0.5em;
+	margin: 0;
+	font-size: 1em;
+	font-weight: 700;
+	color: #1a1a1a;
+	position: sticky;
+	top: 8em;
+}
+.ca-insignia-title img {
+	width: 100%;
+	max-width: 170px;
+	height: auto;
+	object-fit: contain;
+	display: block;
+}
+.ca-insignia-title span:not(.ca-insignia-count) {
+	display: block;
+	font-size: 1.05em;
+	line-height: 1.2;
+}
+.ca-insignia-count {
+	font-size: 0.78em;
+	color: #6b6b6b;
+	background: #fff8e1;
+	border: 1px solid #f0d999;
+	padding: 0.15em 0.7em;
+	border-radius: 999px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Tarjetas de galardonado ---------------------------------------------- */
+.ca-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 0.7em;
+}
+.ca-card {
+	display: flex;
+	gap: 0.8em;
+	padding: 0.7em 0.9em;
+	background: #fff;
+	border: 1px solid #ead9b3;
+	border-left: 3px solid #e74c3c;
+	border-radius: 6px;
+	align-items: center;
+	transition: background 0.15s ease, border-color 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+}
+.ca-card:hover {
+	background: #fffaf0;
+	border-color: #d4b878;
+	border-left-color: #c0392b;
+	transform: translateY(-1px);
+	box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+.ca-card-img {
+	width: 46px;
+	height: 46px;
+	object-fit: contain;
+	flex: 0 0 46px;
+}
+.ca-card-img-empty {
+	background: #f5ebd0;
+	border-radius: 4px;
+}
+.ca-card-body { min-width: 0; flex: 1 1 auto; }
+.ca-card-name {
+	font-weight: 700;
+	line-height: 1.25;
+	font-size: 0.97em;
+	color: #1a1a1a;
+	overflow-wrap: anywhere;
+}
+.ca-card-meta {
+	font-size: 0.8em;
+	color: #6b6b6b;
+	margin-top: 0.2em;
+	font-variant-numeric: tabular-nums;
+}
+
+.ca-empty {
+	padding: 2em 1.5em;
+	text-align: center;
+	color: #8a6d3b;
+	background: #fff8e1;
+	border: 1px dashed #e0c982;
+	border-radius: 8px;
+}
+
+@media screen and (max-width: 736px) {
+	.ca-filter-label { min-width: 100%; }
+	.ca-counter { margin-left: 0; }
+	.ca-cards { grid-template-columns: 1fr; }
+	.ca-year-header h3 { font-size: 1.5em; }
+	.ca-year-select { flex: 1 1 auto; }
+	.ca-insignia-group {
+		grid-template-columns: 1fr;
+		gap: 0.8em;
+	}
+	.ca-insignia-title {
+		flex-direction: row;
+		justify-content: flex-start;
+		position: static;
+	}
+	.ca-insignia-title img {
+		max-width: 64px;
+	}
+	.ca-chip { width: 72px; height: 64px; flex: 0 0 72px; }
+	.ca-chip img { width: 50px; height: 50px; }
 }

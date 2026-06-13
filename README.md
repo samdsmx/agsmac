@@ -208,7 +208,104 @@ Los colores de los globos y comportamiento de la animación están en `assets/js
 
 ---
 
-## 7. Convenciones de código
+## 7. Cuadro de Honor (galardonados con insignia máxima)
+
+La sección "Cuadro de Honor" (tile en el home, página renderizada en `detail1.html` desde el fragmento `includes/cuadro-de-adelanto.html`) muestra a todas las personas que han recibido una insignia máxima en AGSMAC. La UI muestra **un año a la vez** (seleccionable con el `<select>`, por defecto el más reciente) más una opción **"Todos los años"** que exige tener una insignia seleccionada. Los chips de insignia funcionan como **selección única** (radio): al elegir uno se reemplaza la selección previa; al hacer click sobre el activo se deselecciona. El nombre de archivo `cuadro-de-adelanto.html` se conserva por compatibilidad de enlaces.
+
+La lógica vive en `assets/js/cuadro-de-adelanto.js` y la configuración + datos en `includes/data/cuadro-de-adelanto.json`.
+
+### Insignias soportadas
+
+El orden en el JSON (`insignias`) es **fijo y por edad**: Gran Castor Café → Arcoíris → Lobo Rampante → Ave Fénix → Scout Águila → B.P. Precursora → B.P. Rover.
+
+| Clave canónica (JSON) | Sección                   | Distintivo (`image`)                              | Cabecera de grupo (`titleImage`)                                            |
+|-----------------------|---------------------------|---------------------------------------------------|------------------------------------------------------------------------------|
+| `GRAN CASTOR CAFE`    | Colonia de Castores       | `images/insignias-maximas/GranCastorCafe.png`     | `images/secciones/Colonia de Castores/Gran Castor Cafe.png`                  |
+| `ARCOIRIS`            | Manada de Gacelas         | `images/insignias-maximas/Arcoiris.png`           | `images/secciones/Manadas/Manada de Gacelas/Arcoiris.png`                    |
+| `LOBO RAMPANTE`       | Manada de Lobatos         | `images/insignias-maximas/LoboRampante.png`       | `images/secciones/Manadas/Manada de Lobatos/Lobo Rampante.png`               |
+| `AVE FENIX`           | Tropa de Muchachas Scouts | `images/insignias-maximas/AveFenix.png`           | `images/secciones/Tropas/Tropa de Muchachas Scouts/AveFenix.png`             |
+| `SCOUT AGUILA`        | Tropa Scout               | `images/insignias-maximas/CaballeroScoutAguila.png` | `images/secciones/Tropas/Tropa Scout/Caballero Scout Aguila.png`           |
+| `B.P. PRECURSORA`     | Clan de Precursoras       | `images/insignias-maximas/BPPrecursora.png`       | `images/secciones/Clanes/Clan de Precursoras/BP Precursora.png`              |
+| `B.P. ROVER`          | Clan de Rovers            | `images/insignias-maximas/BPRover.png`            | `images/secciones/Clanes/Clan de Rovers/BPRover.png`                         |
+
+>La clave canónica se normaliza siempre a **mayúsculas sin acentos**.
+
+Cada insignia define dos imágenes: `image` (distintivo limpio, usado en chips de filtro y en las tarjetas) y `titleImage` (versión grande/decorativa, usada como cabecera del bloque de la insignia). Para agregar una insignia nueva, agrégala al mapa `insignias` con `label`, `image` y `titleImage`.
+
+### Fuentes de datos (en orden de prioridad)
+
+1. **Google Apps Script Web App** — fuente principal. Lee una Google Sheet privada, recorta los nombres y devuelve los galardonados en JSON. La hoja nunca se expone públicamente.
+2. **Arreglo `awards[]` inline en `cuadro-de-adelanto.json`** — fallback si el Apps Script no responde o si `appsScriptUrl` está vacío.
+3. **Mensaje vacío** — último recurso para que el cuadro nunca se vea roto.
+
+### Archivo `includes/data/cuadro-de-adelanto.json`
+
+```jsonc
+{
+    "appsScriptUrl": "https://script.google.com/macros/s/AKfyc.../exec",
+    "insignias": {
+        "GRAN CASTOR CAFE": {
+            "label":      "Gran Castor Café",
+            "image":      "images/insignias-maximas/GranCastorCafe.png",
+            "titleImage": "images/secciones/Colonia de Castores/Gran Castor Cafe.png"
+        },
+        // ... resto de insignias en orden por edad
+    },
+    "awards": [
+        { "name": "Hernandez Ramirez Andrea Azul", "group": "136", "insignia": "ARCOIRIS", "year": 2026, "clave": "2026-07" }
+    ]
+}
+```
+
+Campos por galardón:
+
+- **`name`**: nombre. En el fallback local puede venir en formato histórico `"Apellido1 Apellido2 Nombre1 [Nombre2 ...]"` (una sola cadena); el cliente lo recorta en runtime a `"PrimerNombre [Inicial2.] ApellidoPaterno [InicialMaterno.]"` (mismo formato que cumpleaños). Cuando los datos vienen del Apps Script, la hoja trae los campos separados (`Apellido Paterno`, `Apellido Materno`, `Nombres`) y el recorte se hace **en el servidor**: el nombre completo nunca sale de la hoja.
+- **`group`**: número/identificador de grupo. El JS antepone `Gpo.` automáticamente.
+- **`insignia`**: clave canónica (ver tabla arriba).
+- **`year`**: año en que se otorgó.
+- **`clave`**: identificador del certificado (ej. `2026-07`). Opcional.
+
+> No se usa ningún campo `seccion` ni `date` en este modelo. Si la hoja trae fecha, el script solo extrae el año.
+
+### Configurar el Apps Script (primera vez o redeploy)
+
+El código y los pasos completos viven en `docs/apps-script-cuadro-de-adelanto.gs`. Resumen:
+
+1. Abrir la Google Sheet privada con los galardonados. Columnas esperadas (mismo esquema que cumpleaños): **Apellido Paterno · Apellido Materno · Nombres · Fecha · Insignia · Grupo · Clave**.
+2. Menú **Extensiones → Apps Script**.
+3. Pegar el contenido de `docs/apps-script-cuadro-de-adelanto.gs` en `Code.gs`.
+4. Ajustar `CONFIG` (nombre exacto de la pestaña y de cada columna si difieren). Si tu hoja usa la grafía correcta `B.P. PRECURSORA`, el alias en `INSIGNIA_ALIASES` ya la traduce al id del JSON.
+5. **Implementar → Nueva implementación → Aplicación web** (ejecutando "Como yo", acceso "Cualquier persona").
+6. Copiar la URL `/exec` y pegarla en `cuadro-de-adelanto.json` → `appsScriptUrl`.
+7. Autorizar los permisos cuando Google los pida.
+
+> Cada vez que cambies el código del script, hay que hacer **Implementar → Administrar implementaciones → Editar → Nueva versión** para que la URL pública sirva la versión nueva.
+
+### Privacidad
+
+El endpoint solo devuelve: nombre **recortado** (sin apellido materno completo), grupo, insignia (clave), año (sin día/mes) y clave. La fecha exacta y cualquier columna adicional de la hoja se quedan en privado.
+
+### Caché
+
+El Apps Script trae **todos los registros en una sola llamada** (~10 KB gzipped, despreciable) y se cachea en dos niveles para minimizar latencia y consumo de cuota:
+
+- **Servidor (`CacheService` de Apps Script)**: TTL **6 horas**, clave `cuadro-honor-awards-v1`. Si actualizas la hoja y necesitas refrescar antes, ejecuta la función `clearCache()` desde el editor de Apps Script (Ejecutar → `clearCache`).
+- **Cliente (`sessionStorage`)**: TTL **10 minutos**, clave `agsmac:cuadro-honor:v1`. Sobrevive a la navegación entre fragmentos pero se limpia al cerrar la pestaña. Para forzar recarga en el cliente: limpiar storage del sitio o esperar 10 min.
+
+Los filtros (año, insignia) corren totalmente en memoria sobre el dataset cargado — no hacen llamadas adicionales.
+
+### Agregar un galardonado
+
+- **Vía Sheet (recomendado):** agrega una fila a la hoja privada con `Apellido Paterno`, `Apellido Materno`, `Nombres`, `Fecha`, `Insignia`, `Grupo`, `Clave`. Para Baden-Powell, escribe `B.P. PRECURSORA` o `B.P. ROVER` (o cualquier variante reconocida por `INSIGNIA_ALIASES`).
+- **Vía fallback local:** agrega un objeto al arreglo `awards[]` del JSON. Puede llevar el nombre completo (el cliente lo recorta) o ya recortado — la función `shortenName` del JS es idempotente.
+
+### Imagen de fondo del card del home
+
+El tile del home (`index.html`) usa `images/insignias-maximas/max.jpg` (versión optimizada, ~187 KB). Si la reemplazas con un PNG grande, conviértelo con jimp o con `npm run optimize-images:write` para evitar subir varios MB al repo.
+
+---
+
+## 8. Convenciones de código
 
 - **JS**: jQuery 1.x + skel. Sin transpilación. Mantén compatibilidad ES5 en lo posible (las funciones flecha y `const` ya se usan, pero evita features muy nuevas si las metes en `main.js`).
 - **CSS**: un solo archivo `assets/css/main.css`. Las secciones están marcadas con comentarios `/* nombreSeccion */`.
@@ -216,12 +313,12 @@ Los colores de los globos y comportamiento de la animación están en `assets/js
 
 ---
 
-## 8. Despliegue
+## 9. Despliegue
 
 El sitio es 100% estático. Se publica en GitHub Pages desde la rama principal. Cualquier cambio en `main` se refleja en pocos minutos.
 
 ---
 
-## 9. Pendientes / mejoras conocidas
+## 10. Pendientes / mejoras conocidas
 
 Ver `helpers/notes.txt` para la lista actual de pendientes y bugs.

@@ -1,0 +1,45 @@
+{
+  "_comment_1": "Cuadro de Honor.",
+  "_comment_2": "Fuente: Google Apps Script Web App (ver docs/apps-script-cuadro-de-adelanto.gs).",
+  "_comment_3": "Si appsScriptUrl está vacío o falla, se usa el arreglo 'awards' como fallback.",
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbzg6LMIG5KHk4OAjbEfU8xhFNFktU7xoMqZKK0L4WLct7Kf-AeC-PcXEAoIqNHxVqfEwA/exec",
+  "insignias": {
+    "GRAN CASTOR CAFE": {
+      "label": "Gran Castor Café",
+      "image": "images/insignias-maximas/GranCastorCafe.png",
+      "titleImage": "images/secciones/Colonia de Castores/Gran Castor Cafe.png"
+    },
+    "ARCOIRIS": {
+      "label": "Arcoíris",
+      "image": "images/insignias-maximas/Arcoiris.png",
+      "titleImage": "images/secciones/Manadas/Manada de Gacelas/Arcoiris.png" 
+    },
+    "LOBO RAMPANTE": {
+      "label": "Lobo Rampante",
+      "image": "images/insignias-maximas/LoboRampante.png",
+      "titleImage": "images/secciones/Manadas/Manada de Lobatos/Lobo Rampante.png"
+    },
+    "AVE FENIX": {
+      "label": "Ave Fénix",
+      "image": "images/insignias-maximas/AveFenix.png",
+      "titleImage": "images/secciones/Tropas/Tropa de Muchachas Scouts/AveFenix.png"
+    },
+    "SCOUT AGUILA": {
+      "label": "Caballero Scout Águila",
+      "image": "images/insignias-maximas/CaballeroScoutAguila.png",
+      "titleImage": "images/secciones/Tropas/Tropa Scout/Caballero Scout Aguila.png"  
+    },
+    "B.P. PRECURSORA": {
+      "label": "B.P. Precursora",
+      "image": "images/insignias-maximas/BPPrecursora.png",
+      "titleImage": "images/secciones/Clanes/Clan de Precursoras/BP Precursora.png"
+    },
+    "B.P. ROVER": {
+      "label": "B.P. Rover",
+      "image": "images/insignias-maximas/BPRover.png",
+      "titleImage": "images/secciones/Clanes/Clan de Rovers/BPRover.png"
+    }
+  },
+  "_awards_comment": "Fallback local. La fuente de verdad es la Sheet privada.",
+  "awards": []
+}
