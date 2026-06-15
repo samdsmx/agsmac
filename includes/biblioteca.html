@@ -1,28 +1,279 @@
-<div id="preview" class="vertical">
+<style>
+    /* ===== Biblioteca — estilos locales (scoped .bib-*) ===== */
+
+    #preview .bib-page { padding-bottom: 1em; }
+    #preview .bib-page header { margin-bottom: 0.8em; }
+    #preview .bib-page .bib-lead {
+        font-size: 1.05em;
+        line-height: 1.55;
+        color: #444;
+        max-width: 44em;
+        margin: 0.2em 0 1em;
+    }
+
+    /* === Tabs (Bibliografía base / Libros de trabajo) === */
+    .bib-tabs {
+        display: flex;
+        gap: 0.4em;
+        flex-wrap: wrap;
+        margin: 0.4em 0 0.4em;
+        border-bottom: 2px solid #eee;
+    }
+    .bib-tab {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        padding: 0.5em 1em 0.65em;
+        font-size: 0.95em;
+        font-weight: 600;
+        color: #777;
+        cursor: pointer;
+        transition: color 0.15s ease, border-color 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+    }
+    .bib-tab:hover { color: #333; }
+    .bib-tab.is-active { color: #603F83; border-bottom-color: #603F83; }
+    .bib-tab[data-tab="trabajo"].is-active { color: #1E5631; border-bottom-color: #1E5631; }
+
+    /* === Filtros globales por sección === */
+    .bib-filters {
+        display: flex;
+        gap: 0.35em;
+        flex-wrap: wrap;
+        margin: 0.8em 0 1em;
+    }
+    .bib-filter {
+        appearance: none;
+        border: 1px solid #d6d6d6;
+        background: #fff;
+        color: #555;
+        padding: 0.28em 0.75em;
+        border-radius: 999px;
+        font-size: 0.78em;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3em;
+    }
+    .bib-filter:hover { background: #f4f4f4; color: #222; border-color: #bbb; }
+    .bib-filter.is-active {
+        background: #444;
+        color: #fff;
+        border-color: #444;
+    }
+
+    .bib-pane { display: none; }
+    .bib-pane.is-active { display: block; }
+
+    /* === Grid de cards (compacto) === */
+    .bib-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+        gap: 0.9em;
+    }
+
+    .bib-card {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 7px rgba(0,0,0,0.07);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        position: relative;
+    }
+    .bib-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.13);
+    }
+
+    /* Portada: fondo claro neutro + contain (sin recorte ni distorsión).
+       Las portadas 2:3 llenan el espacio; las horizontales/cuadradas
+       muestran banda lateral en el mismo tono que el card. */
+    .bib-cover {
+        display: block;
+        background: #f4f1ea;
+        line-height: 0;
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        border-bottom: 1px solid #ece8df;
+    }
+    .bib-cover img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        transition: transform 0.25s ease;
+        padding: 4px;
+        box-sizing: border-box;
+    }
+    .bib-cover:hover img { transform: scale(1.03); }
+    .bib-cover-static { cursor: default; }
+    .bib-cover-static:hover img { transform: none; }
+
+    .bib-body {
+        padding: 0.55em 0.65em 0.65em;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.22em;
+    }
+    .bib-title {
+        font-size: 0.82em;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+        color: #222;
+    }
+    .bib-meta {
+        font-size: 0.68em;
+        color: #888;
+        margin: 0;
+        line-height: 1.3;
+    }
+    .bib-meta .fa { margin-right: 0.2em; }
+
+    .bib-audience-badge {
+        display: inline-block;
+        font-size: 0.58em;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: #603F83;
+        color: #fff;
+        padding: 0.12em 0.5em;
+        border-radius: 3px;
+        margin-top: 0.1em;
+        align-self: flex-start;
+    }
+    .bib-audience-badge .fa { margin-right: 0.2em; }
+
+    .bib-actions {
+        display: flex;
+        gap: 0.3em;
+        flex-wrap: wrap;
+        margin-top: auto;
+        padding-top: 0.5em;
+    }
+    .bib-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25em;
+        font-size: 0.68em;
+        padding: 0.3em 0.55em;
+        border-radius: 5px;
+        text-decoration: none;
+        background: #f1f1f1;
+        color: #333;
+        border: 1px solid #e0e0e0;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+    .bib-btn:hover { background: #e2e2e2; color: #000; }
+    .bib-btn-primary {
+        background: #603F83;
+        color: #fff;
+        border-color: #603F83;
+    }
+    .bib-btn-primary:hover { background: #4a2f68; color: #fff; }
+
+    .bib-pane-note {
+        font-size: 0.9em;
+        color: #1E5631;
+        background: #eaf3ec;
+        border-left: 3px solid #1E5631;
+        padding: 0.55em 0.8em;
+        margin: 0 0 0.9em;
+        border-radius: 0 4px 4px 0;
+    }
+    .bib-pane-note .fa { margin-right: 0.4em; }
+
+    .bib-empty,
+    .bib-error {
+        padding: 1em;
+        color: #888;
+        font-style: italic;
+        text-align: center;
+        grid-column: 1 / -1;
+    }
+    .bib-empty a { color: #1E5631; text-decoration: underline; font-weight: 600; }
+    .bib-empty a:hover { color: #134020; }
+    .bib-error {
+        color: #b00020;
+        background: #fdecea;
+        border-radius: 6px;
+        border-left: 3px solid #b00020;
+        text-align: left;
+        font-style: normal;
+    }
+
+    .bib-credits {
+        font-size: 0.78em;
+        color: #888;
+        margin: 1.5em 0 0;
+        font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+        .bib-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 0.6em; }
+        .bib-title { font-size: 0.78em; }
+        .bib-tab { font-size: 0.88em; padding: 0.45em 0.75em 0.6em; }
+        .bib-filter { font-size: 0.72em; padding: 0.24em 0.6em; }
+    }
+</style>
+
+<div id="preview">
     <div class="inner">
-        <div class="image fit">
-            <img src="images/pic07.jpg" alt="" />
-        </div>
-        <div class="content section-page">
+        <div class="content section-page bib-page">
             <header>
                 <h2>Biblioteca</h2>
             </header>
-            <p>[Completar: introducción a la biblioteca scout de AGSMAC — qué tipo de material se ofrece y a quién va dirigido.]</p>
 
-            <h3>Literatura</h3>
-            <ul>
-                <li>[Completar: título del libro 1] — <a href="#">descargar</a></li>
-                <li>[Completar: título del libro 2] — <a href="#">descargar</a></li>
-                <li>[Completar: título del libro 3] — <a href="#">descargar</a></li>
-            </ul>
+            <p class="bib-lead">
+                Bibliografía scout para vivir, dirigir y profundizar en el Movimiento.
+                Los <strong>libros base</strong> son clásicos del escultismo, libres para
+                descarga; los <strong>libros de trabajo</strong> de la AGSMAC se reciben
+                en físico — solicítalos en tu grupo. Los filtros aplican a ambos catálogos.
+            </p>
 
-            <h3>Fichas de formación</h3>
-            <ul>
-                <li>[Completar: ficha 1 — tema y sección a la que va dirigida] — <a href="#">descargar</a></li>
-                <li>[Completar: ficha 2] — <a href="#">descargar</a></li>
-                <li>[Completar: ficha 3] — <a href="#">descargar</a></li>
-                <li>[Completar: ficha 4] — <a href="#">descargar</a></li>
-            </ul>
+            <div class="bib-tabs" role="tablist">
+                <button type="button" class="bib-tab is-active" data-tab="base" role="tab" aria-selected="true">
+                    <i class="fa fa-book"></i> Bibliografía base
+                </button>
+                <button type="button" class="bib-tab" data-tab="trabajo" role="tab" aria-selected="false">
+                    <i class="fa fa-bookmark"></i> Libros de trabajo
+                </button>
+            </div>
+
+            <div id="biblioteca-filtros" class="bib-filters" role="group" aria-label="Filtrar por sección"></div>
+
+            <section class="bib-pane is-active" data-pane="base" role="tabpanel">
+                <div id="biblioteca-base" class="bib-grid">
+                    <p class="bib-empty">Cargando…</p>
+                </div>
+            </section>
+
+            <section class="bib-pane" data-pane="trabajo" role="tabpanel">
+                <p class="bib-pane-note">
+                    <i class="fa fa-info-circle"></i>
+                    Estos materiales se entregan en físico. <strong>Solicítalos en tu grupo.</strong>
+                </p>
+                <div id="biblioteca-trabajo" class="bib-grid">
+                    <p class="bib-empty">Cargando…</p>
+                </div>
+            </section>
+
+            <p class="bib-credits">
+                Material recopilado a partir de los archivos de la Asociación de Scouts
+                de México, A.C., con apoyo de fuentes scout públicas (siemprescout.org y
+                Wikimedia Commons para algunas portadas).
+            </p>
         </div>
     </div>
     <a id="previo" data="libro-de-oro.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>

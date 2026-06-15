@@ -12,7 +12,7 @@ Grupos! Panoletas
 Marco Simbolico
 - Bandera (Quienes somos, Nuestra Historia)
 - Libro de oro (Fotos, galeria)
-- Biblioteca (Literatura, y fichas) 
+OK Biblioteca (Literatura, y fichas)
 - Cuadro de adelanto
 - Ruta Critica (Mostrar adelantos)
 - Tagbox  (Twiter, Facebook)

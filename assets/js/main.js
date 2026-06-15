@@ -411,11 +411,11 @@ function afterAfterInclude(){
 
 		// Redes sociales: renderiza solo las que estén presentes.
 		var redes = [
-			{ key: "facebook",  icon: "fa-facebook-official", label: "Facebook"  },
-			{ key: "instagram", icon: "fa-instagram",         label: "Instagram" },
-			{ key: "tiktok",    icon: "fa-tiktok",            label: "TikTok"    },
-			{ key: "youtube",   icon: "fa-youtube-play",      label: "YouTube"   },
-			{ key: "web",       icon: "fa-globe",             label: "Sitio web" }
+			{ key: "facebook",  icon: "fa fa-facebook-official", label: "Facebook"  },
+			{ key: "instagram", icon: "fa fa-instagram",         label: "Instagram" },
+			{ key: "tiktok",    icon: "icon-tiktok",             label: "TikTok"    },
+			{ key: "youtube",   icon: "fa fa-youtube-play",      label: "YouTube"   },
+			{ key: "web",       icon: "fa fa-globe",             label: "Sitio web" }
 		];
 		redes.forEach(function(red){
 			var url = info[red.key];
@@ -428,7 +428,7 @@ function afterAfterInclude(){
 			} catch (e) { /* mantén url tal cual */ }
 			rows.push(
 				'<li class="grupo-info-row">' +
-					'<span class="grupo-info-icon"><i class="fa ' + red.icon + '"></i></span>' +
+					'<span class="grupo-info-icon"><i class="' + red.icon + '"></i></span>' +
 					'<span class="grupo-info-label">' + red.label + '</span>' +
 					'<span class="grupo-info-value">' +
 						'<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' +

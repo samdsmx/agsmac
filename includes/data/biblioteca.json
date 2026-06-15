@@ -1,0 +1,240 @@
+{
+  "_comment": "Catálogo de la Biblioteca AGSMAC. 'base' = libros descargables (clásicos del escultismo). 'trabajo' = manuales internos de la AGSMAC, sólo portada + intro (NO se publica el PDF; se solicita al scouter). Cada libro lleva un arreglo 'secciones' con las etiquetas a las que aplica — un mismo libro puede pertenecer a varias. La etiqueta 'Todas las secciones' marca un libro universal que aparece con cualquier filtro. 'audiencia': \"scouters\" añade un badge visual y reserva el material para dirigentes.",
+  "base": [
+    {
+      "slug": "escultismo-para-muchachos",
+      "titulo": "Escultismo para Muchachos",
+      "autor": "Robert Baden-Powell",
+      "anio": "1908",
+      "portada": "images/biblioteca/portadas-base/escultismo-para-muchachos.jpg",
+      "pdf": "pdfs/biblioteca/escultismo-para-muchachos.pdf",
+      "descripcion": "El libro fundacional del Movimiento Scout. Manual original de adiestramiento publicado por B.-P. tras el campamento de Brownsea, traducido por la AGSMAC.",
+      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Formación de Scouters"]
+    },
+    {
+      "slug": "manual-del-lobato",
+      "titulo": "Manual del Lobato",
+      "autor": "Robert Baden-Powell",
+      "anio": "1916",
+      "portada": "images/biblioteca/portadas-base/manual-del-lobato.png",
+      "pdf": "pdfs/biblioteca/manual-del-lobato.pdf",
+      "descripcion": "Handbook clásico del Lobatismo, basado en El Libro de la Selva de Kipling. Pensado para la sección menor del Movimiento.",
+      "secciones": ["Manada de Lobatos", "Manada de Gacelas"]
+    },
+    {
+      "slug": "roverismo-hacia-el-exito",
+      "titulo": "Roverismo hacia el Éxito",
+      "autor": "Robert Baden-Powell",
+      "anio": "1922",
+      "portada": "images/biblioteca/portadas-base/roverismo-hacia-el-exito.png",
+      "pdf": "pdfs/biblioteca/roverismo-hacia-el-exito.pdf",
+      "descripcion": "Guía de vida para jóvenes rovers: \"rema tu propia canoa\". Aborda los escollos que enfrenta el joven adulto.",
+      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
+    },
+    {
+      "slug": "acerca-de-los-scouts",
+      "titulo": "Acerca de los Scouts",
+      "autor": "Robert Baden-Powell",
+      "anio": "1909",
+      "portada": "images/biblioteca/portadas-base/acerca-de-los-scouts.png",
+      "pdf": "pdfs/biblioteca/acerca-de-los-scouts.pdf",
+      "descripcion": "Manuscrito de B.-P. donde explica al público adulto el propósito y método del joven Movimiento Scout.",
+      "secciones": ["Todas las secciones", "Formación de Scouters"]
+    },
+    {
+      "slug": "aventura-hacia-la-edad-viril",
+      "titulo": "Aventura hacia la Edad Viril",
+      "autor": "Robert Baden-Powell",
+      "anio": "1936",
+      "portada": "images/biblioteca/portadas-base/aventura-hacia-la-edad-viril.png",
+      "pdf": "pdfs/biblioteca/aventura-hacia-la-edad-viril.pdf",
+      "descripcion": "Consejos prácticos para el joven scout que transita hacia la vida adulta.",
+      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Clan de Rovers", "Clan de Precursoras"]
+    },
+    {
+      "slug": "educacion-por-amor",
+      "titulo": "Educación por Amor",
+      "autor": "Robert Baden-Powell",
+      "anio": "1923",
+      "portada": "images/biblioteca/portadas-base/educacion-por-amor.png",
+      "pdf": "pdfs/biblioteca/educacion-por-amor.pdf",
+      "descripcion": "Conferencia de B.-P. en el III Congreso de Educación Moral: educar por el amor en sustitución del temor.",
+      "secciones": ["Formación de Scouters"]
+    },
+    {
+      "slug": "el-libro-de-las-tierras-virgenes",
+      "titulo": "El Libro de las Tierras Vírgenes",
+      "autor": "Rudyard Kipling",
+      "anio": "1893",
+      "portada": "images/biblioteca/portadas-base/el-libro-de-las-tierras-virgenes.png",
+      "pdf": "pdfs/biblioteca/el-libro-de-las-tierras-virgenes.pdf",
+      "descripcion": "Los cuentos de Mowgli que B.-P. tomó como marco simbólico de la Manada de Lobatos.",
+      "secciones": ["Manada de Lobatos", "Manada de Gacelas"]
+    },
+    {
+      "slug": "escultismo-y-movimientos-juveniles",
+      "titulo": "Escultismo y Movimientos Juveniles",
+      "autor": "Robert Baden-Powell",
+      "anio": "1929",
+      "portada": "images/biblioteca/portadas-base/escultismo-y-movimientos-juveniles.png",
+      "pdf": "pdfs/biblioteca/escultismo-y-movimientos-juveniles.pdf",
+      "descripcion": "Reflexión de B.-P. sobre el escultismo en el contexto de otros movimientos juveniles de su época.",
+      "secciones": ["Formación de Scouters"]
+    },
+    {
+      "slug": "guia-para-el-jefe-de-tropa",
+      "titulo": "Guía para el Jefe de Tropa",
+      "autor": "Robert Baden-Powell",
+      "anio": "1919",
+      "portada": "images/biblioteca/portadas-base/guia-para-el-jefe-de-tropa.png",
+      "pdf": "pdfs/biblioteca/guia-para-el-jefe-de-tropa.pdf",
+      "descripcion": "Aids to Scoutmastership: principios y orientaciones para quien dirige una tropa scout.",
+      "secciones": ["Formación de Scouters"]
+    },
+    {
+      "slug": "lecciones-de-la-universidad-de-la-vida",
+      "titulo": "Lecciones de la Universidad de la Vida",
+      "autor": "Robert Baden-Powell",
+      "anio": "1933",
+      "portada": "images/biblioteca/portadas-base/lecciones-de-la-universidad-de-la-vida.png",
+      "pdf": "pdfs/biblioteca/lecciones-de-la-universidad-de-la-vida.pdf",
+      "descripcion": "Autobiografía de B.-P.: educación, deportes, exploración, vida de soldado y servicio.",
+      "secciones": ["Clan de Rovers", "Clan de Precursoras", "Formación de Scouters"]
+    },
+    {
+      "slug": "notas-para-instructores",
+      "titulo": "Notas para Instructores",
+      "autor": "Robert Baden-Powell",
+      "anio": "1908",
+      "portada": "images/biblioteca/portadas-base/notas-para-instructores.png",
+      "pdf": "pdfs/biblioteca/notas-para-instructores.pdf",
+      "descripcion": "Acompañamiento al instructor para llevar a la práctica Escultismo para Muchachos.",
+      "secciones": ["Formación de Scouters"]
+    },
+    {
+      "slug": "rema-tu-propia-canoa",
+      "titulo": "Rema tu Propia Canoa",
+      "autor": "Robert Baden-Powell",
+      "anio": "1939",
+      "portada": "images/biblioteca/portadas-base/rema-tu-propia-canoa.png",
+      "pdf": "pdfs/biblioteca/rema-tu-propia-canoa.pdf",
+      "descripcion": "Consejos para muchachos sobre observación, sentido común, autoeducación e inventiva.",
+      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts"]
+    },
+    {
+      "slug": "tropiezos-de-la-vida-y-como-encararlos",
+      "titulo": "Tropiezos de la Vida y cómo Encararlos",
+      "autor": "Robert Baden-Powell",
+      "anio": "1927",
+      "portada": "images/biblioteca/portadas-base/tropiezos-de-la-vida-y-como-encararlos.png",
+      "pdf": "pdfs/biblioteca/tropiezos-de-la-vida-y-como-encararlos.pdf",
+      "descripcion": "Reflexiones de B.-P. sobre cómo afrontar las dificultades cotidianas con espíritu scout.",
+      "secciones": ["Clan de Rovers", "Clan de Precursoras", "Formación de Scouters"]
+    },
+    {
+      "slug": "ultimas-cartas-de-baden-powell",
+      "titulo": "Últimas Cartas de Baden-Powell",
+      "autor": "Robert Baden-Powell",
+      "anio": "1941",
+      "portada": "images/biblioteca/portadas-base/ultimas-cartas-de-baden-powell.png",
+      "pdf": "pdfs/biblioteca/ultimas-cartas-de-baden-powell.pdf",
+      "descripcion": "Las tres cartas finales del Fundador: a los scouts, a los scouters y al público en general.",
+      "secciones": ["Todas las secciones"]
+    }
+  ],
+  "trabajo": [
+    {
+      "slug": "manual-del-castor",
+      "titulo": "Manual del Castor",
+      "portada": "images/biblioteca/portadas-secciones/manual-del-castor.png",
+      "descripcion": "Manual de adelanto para la Colonia de Castores (5–7 años).",
+      "secciones": ["Colonia de Castores"]
+    },
+    {
+      "slug": "recorrido-del-bosque",
+      "titulo": "Recorrido del Bosque",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-del-bosque.jpg",
+      "descripcion": "Bitácora del castor por las etapas del Bosque.",
+      "secciones": ["Colonia de Castores"]
+    },
+    {
+      "slug": "recorrido-para-ser-lobato",
+      "titulo": "Recorrido para ser Lobato",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-para-ser-lobato.png",
+      "descripcion": "Preparación del castor que asciende a la Manada de Lobatos.",
+      "secciones": ["Colonia de Castores", "Manada de Lobatos"]
+    },
+    {
+      "slug": "recorrido-de-la-selva",
+      "titulo": "Recorrido de la Selva",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-selva.png",
+      "descripcion": "Marco simbólico de El Libro de la Selva aplicado al adelanto del lobato.",
+      "secciones": ["Manada de Lobatos"]
+    },
+    {
+      "slug": "recorridos-del-lobo",
+      "titulo": "Recorridos del Lobo",
+      "portada": "images/biblioteca/portadas-secciones/recorridos-del-lobo.png",
+      "descripcion": "Guía de adelanto progresivo del Lobato dentro de la Manada.",
+      "secciones": ["Manada de Lobatos"]
+    },
+    {
+      "slug": "recorrido-para-ser-gacela",
+      "titulo": "Recorrido para ser Gacela",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-para-ser-gacela.png",
+      "descripcion": "Preparación previa al ingreso a la Manada de Gacelas.",
+      "secciones": ["Colonia de Castores", "Manada de Gacelas"]
+    },
+    {
+      "slug": "recorrido-de-la-gacela",
+      "titulo": "Recorrido de la Gacela",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-gacela.png",
+      "descripcion": "Guía de adelanto de la Gacela dentro de su Manada.",
+      "secciones": ["Manada de Gacelas"]
+    },
+    {
+      "slug": "plan-de-adelanto-ts",
+      "titulo": "Plan de Adelanto — Tropa Scout",
+      "portada": "images/biblioteca/portadas-secciones/plan-de-adelanto-ts.png",
+      "descripcion": "Insignias, etapas y especialidades de la Tropa Scout.",
+      "secciones": ["Tropa Scout"]
+    },
+    {
+      "slug": "plan-de-adelanto-tms",
+      "titulo": "Plan de Adelanto — Tropa de Muchachas Scouts",
+      "portada": "images/biblioteca/portadas-secciones/plan-de-adelanto-tms.png",
+      "descripcion": "Insignias, etapas y especialidades de la TMS.",
+      "secciones": ["Tropa de Muchachas Scouts"]
+    },
+    {
+      "slug": "tecnicas-clasicas",
+      "titulo": "Técnicas Clásicas",
+      "portada": "images/biblioteca/portadas-secciones/tecnicas-clasicas.png",
+      "descripcion": "Manual de técnicas clásicas del escultismo: pioneraje, nudos, orientación, vida de campaña.",
+      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Clan de Rovers", "Clan de Precursoras"]
+    },
+    {
+      "slug": "manual-para-la-promesa-scout",
+      "titulo": "Manual para la Promesa Scout",
+      "portada": "images/biblioteca/portadas-secciones/manual-para-la-promesa-scout.png",
+      "descripcion": "Acompañamiento al scout que se prepara para hacer su Promesa.",
+      "secciones": ["Todas las secciones"]
+    },
+    {
+      "slug": "curso-de-induccion-al-escultismo",
+      "titulo": "Curso de Inducción al Escultismo",
+      "audiencia": "scouters",
+      "portada": "images/biblioteca/portadas-secciones/curso-de-induccion-al-escultismo.png",
+      "descripcion": "Curso inicial entregado a scouters y dirigentes cuando se incorporan al Movimiento. No es material para muchachos.",
+      "secciones": ["Formación de Scouters"]
+    },
+    {
+      "slug": "curso-de-adiestramiento-integral",
+      "titulo": "Curso de Adiestramiento Integral",
+      "audiencia": "scouters",
+      "portada": "images/biblioteca/portadas-secciones/curso-de-adiestramiento-integral.png",
+      "descripcion": "Adiestramiento integral entregado a scouters y dirigentes durante su formación continua. No es material para muchachos.",
+      "secciones": ["Formación de Scouters"]
+    }
+  ]
+}

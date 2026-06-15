@@ -36,14 +36,19 @@ El sitio queda disponible en <http://localhost:8082>.
 │   ├── *.html              Fragmentos cargados con `includedHtml="…"`
 │   └── data/
 │       ├── grupos.json     Información de cada Grupo Scout
-│       └── cumpleanos.json Lista de cumpleaños
+│       ├── cumpleanos.json Lista de cumpleaños
+│       └── biblioteca.json Catálogo de libros (base + secciones)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
 │   │   └── Escudos/        Escudos de cada grupo (PNG transparentes)
 │   ├── secciones/          Iconos animados de las secciones
+│   ├── biblioteca/         Portadas de libros (base/ + secciones/)
 │   └── pic*.jpg            Imágenes del mosaico de la home
+├── pdfs/
+│   └── biblioteca/         PDFs descargables de la Biblioteca
 └── helpers/
-    └── procesarEscudos.js  Script de procesado de escudos
+    ├── procesarEscudos.js          Script de procesado de escudos
+    └── generar_portadas_cards.py   Genera portadas-card de libros sin cover real
 ```
 
 ---
@@ -305,7 +310,58 @@ El tile del home (`index.html`) usa `images/insignias-maximas/max.jpg` (versión
 
 ---
 
-## 8. Convenciones de código
+## 8. Biblioteca
+
+La sección **Biblioteca** (`includes/biblioteca.html`, renderizada por
+`assets/js/biblioteca.js`) muestra dos catálogos distintos a partir de un único
+JSON:
+
+- **`base`** — clásicos del escultismo (Baden-Powell, Kipling) traducidos por
+  la AGSMAC. Cada uno tiene portada + descripción + botones de leer/descargar
+  el PDF.
+- **`secciones`** — manuales internos de la AGSMAC (Manual del Castor, Planes
+  de Adelanto, Recorridos, etc.). **No** se publica el PDF: la card invita a
+  pedir el material en físico al scouter.
+
+Archivos:
+
+| Pieza | Ubicación |
+| --- | --- |
+| Catálogo | `includes/data/biblioteca.json` |
+| Render | `assets/js/biblioteca.js` (cargado desde `detail1.html`) |
+| Layout + estilos | `includes/biblioteca.html` (con `<style>` scoped `.bib-*`) |
+| PDFs descargables | `pdfs/biblioteca/<slug>.pdf` |
+| Portadas libros base | `images/biblioteca/portadas-base/<slug>.{png,jpg}` |
+| Portadas libros internos | `images/biblioteca/portadas-secciones/<slug>.{png,jpg}` |
+
+### Cómo agregar un libro a la bibliografía base
+
+1. Coloca el PDF en `pdfs/biblioteca/<slug>.pdf` (slug en kebab-case sin
+   acentos ni espacios).
+2. Coloca la portada en `images/biblioteca/portadas-base/<slug>.{png,jpg}`.
+   - Si no consigues portada real, agrega una entrada al arreglo `BOOKS` de
+     `helpers/generar_portadas_cards.py` y corre el script: genera una card
+     estilizada (fondo + título + autor) con proporción 2:3.
+3. Agrega un bloque al arreglo `base` de `biblioteca.json` con `slug`,
+   `titulo`, `autor`, `anio`, `portada`, `pdf`, `descripcion`.
+
+### Cómo agregar un libro de trabajo (sección AGSMAC)
+
+1. Coloca la portada en `images/biblioteca/portadas-secciones/<slug>.{png,jpg}`.
+2. Agrega un bloque al arreglo `secciones` con `slug`, `titulo`, `seccion`,
+   `portada`, `descripcion`. **No** incluyas `pdf`.
+
+### Sobre los derechos
+
+Los libros base publicados son de Baden-Powell (m. 1941) y de R. Kipling
+(m. 1936), por lo que sus obras de 1908–1941 están en dominio público en
+México (vida + 100 años) y prácticamente toda jurisdicción. Las traducciones
+fueron publicadas por la AGSMAC para uso del Movimiento. Antes de agregar
+material moderno, verifica los derechos.
+
+---
+
+## 9. Convenciones de código
 
 - **JS**: jQuery 1.x + skel. Sin transpilación. Mantén compatibilidad ES5 en lo posible (las funciones flecha y `const` ya se usan, pero evita features muy nuevas si las metes en `main.js`).
 - **CSS**: un solo archivo `assets/css/main.css`. Las secciones están marcadas con comentarios `/* nombreSeccion */`.
@@ -313,12 +369,12 @@ El tile del home (`index.html`) usa `images/insignias-maximas/max.jpg` (versión
 
 ---
 
-## 9. Despliegue
+## 10. Despliegue
 
 El sitio es 100% estático. Se publica en GitHub Pages desde la rama principal. Cualquier cambio en `main` se refleja en pocos minutos.
 
 ---
 
-## 10. Pendientes / mejoras conocidas
+## 11. Pendientes / mejoras conocidas
 
 Ver `helpers/notes.txt` para la lista actual de pendientes y bugs.
