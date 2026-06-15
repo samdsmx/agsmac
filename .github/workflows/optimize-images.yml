@@ -1,20 +1,20 @@
 name: Optimize images
 
-# Comprime y redimensiona las imágenes nuevas o modificadas en cada push
-# o pull request que toque la carpeta images/. Usa calibreapp/image-actions,
-# que cuando se ejecuta en push hace commit con los archivos optimizados
-# directamente a la rama, y en pull_request publica un comentario con el
-# diff de tamaños y compromete los cambios al branch del PR.
+# Comprime y redimensiona las imágenes nuevas o modificadas en cada
+# pull request que toque la carpeta images/. Usa calibreapp/image-actions,
+# que publica un comentario con el diff de tamaños y compromete los
+# cambios optimizados al branch del PR.
+#
+# Nota: calibreapp/image-actions sólo soporta el evento `pull_request`
+# (en push falla con "This action only runs for pushes to PRs"). Para
+# optimizar antes de mergear a main, abre un PR o corre localmente
+# `npm run optimize-images:write`.
 
 on:
-  push:
-    branches: [main, master]
-    paths:
-      - 'images/**'
-      - '.github/workflows/optimize-images.yml'
   pull_request:
     paths:
       - 'images/**'
+      - '.github/workflows/optimize-images.yml'
 
 permissions:
   contents: write
@@ -33,8 +33,9 @@ jobs:
 
       - name: Compress Images
         uses: calibreapp/image-actions@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
           # Calidad para JPEG (mozjpeg) y compresión sin pérdida para PNG.
           jpegQuality: '80'
           jpegProgressive: true
