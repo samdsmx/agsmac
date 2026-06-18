@@ -37,7 +37,9 @@ El sitio queda disponible en <http://localhost:8082>.
 │   └── data/
 │       ├── grupos.json     Información de cada Grupo Scout
 │       ├── cumpleanos.json Lista de cumpleaños
-│       └── biblioteca.json Catálogo de libros (base + secciones)
+│       ├── biblioteca.json Catálogo de libros (base + secciones)
+│       ├── cuadro-de-adelanto.json Cuadro de Honor (insignias máximas)
+│       └── libro-de-oro.json       Álbumes de Google Photos (galería)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
 │   │   └── Escudos/        Escudos de cada grupo (PNG transparentes)
@@ -307,6 +309,72 @@ Los filtros (año, insignia) corren totalmente en memoria sobre el dataset carga
 ### Imagen de fondo del card del home
 
 El tile del home (`index.html`) usa `images/insignias-maximas/max.jpg` (versión optimizada, ~187 KB). Si la reemplazas con un PNG grande, conviértelo con jimp o con `npm run optimize-images:write` para evitar subir varios MB al repo.
+
+---
+
+## 7.b. Libro de Oro (galería de álbumes de Google Photos)
+
+La sección **Libro de Oro** (tile en el home, fragmento `includes/libro-de-oro.html` renderizado por `assets/js/libro-de-oro.js`) muestra los álbumes compartidos de Google Photos de la asociación. La UI permite filtrar por **año** (`<select>`, por defecto el más reciente) y por **sección** (chips, selección única). Cada tarjeta abre el álbum original en Google Photos en una pestaña nueva.
+
+### Fuente de datos: `includes/data/libro-de-oro.json`
+
+Generado por el proyecto **[galeriaPublica](../galeriaPublica)** (repo separado, herramienta local). Estructura:
+
+```jsonc
+{
+    "generatedAt": "2026-06-15T...",
+    "albums": [
+        {
+            "title": "2024/07 Campamento Nacional TMS",   // título original en Google Photos
+            "displayTitle": "Campamento Nacional TMS",     // sin prefijo de fecha
+            "url": "https://photos.google.com/share/...",
+            "thumbnail": "https://lh3.googleusercontent.com/...",
+            "year": 2024,
+            "month": 7,
+            "sections": ["tropa-muchachas"]
+        }
+    ]
+}
+```
+
+### Convención de títulos en Google Photos
+
+El parser de `galeriaPublica/scripts/parseTitle.js` extrae:
+
+- **Año y mes**: prefijo `YYYY/MM ` o `YYYY-MM ` al inicio del título. Si no, `year = null` (cae en "Sin año").
+- **Sección**: keywords en el título, case-insensitive, con límites de palabra (`\b`).
+
+| Keyword en el título               | Sección asignada                                                |
+|------------------------------------|------------------------------------------------------------------|
+| `CC` o `Castor(es)`                | `castores`                                                       |
+| `TMS`                              | `tropa-muchachas`                                                |
+| `TS` o `Tropa Scout`               | `tropa-scout`                                                    |
+| `ML` o `Manada`                    | `manada`                                                         |
+| `CCM` o `Comunidad`                | `comunidad`                                                      |
+| `CR` o `Clan`                      | `clan`                                                           |
+| `Tropas` (plural, sin TS/TMS)      | `tropa-muchachas` **y** `tropa-scout` (ambas)                    |
+| Ninguna coincidencia               | `general`                                                        |
+
+Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/parseTitle.js` **y** `SECTION_LABELS`/`SECTION_ORDER` en `assets/js/libro-de-oro.js` (deben mantenerse en sync).
+
+### Workflow para publicar un álbum nuevo
+
+1. Subes y editas las fotos en Google Photos (tu flujo habitual).
+2. Marcas el álbum como compartido (link público) y le pones nombre con la convención `YYYY/MM Nombre [keywords]`.
+3. En tu máquina, en el proyecto `galeriaPublica`:
+   ```powershell
+   cd ..\galeriaPublica
+   npm run generar -- --output ..\agsmac\includes\data\libro-de-oro.json --incremental
+   ```
+   - `--incremental` reusa miniaturas de álbumes ya conocidos (más rápido).
+   - El script auto-scrollea Google Photos hasta cargar todos los álbumes (ya no requiere ENTER manual).
+4. Vuelves al repo `agsmac`, commit + push de `includes/data/libro-de-oro.json`.
+
+### Mantenimiento
+
+- **Cookies expiradas**: si el scraper de `galeriaPublica` deja de detectar álbumes, vuelve a exportar las cookies de `photos.google.com` con EditThisCookie y reemplaza `galeriaPublica/scripts/cookies.json`.
+- **Selector de Google roto**: si el conteo da `0`, Google cambió el markup. Actualiza el selector `a.MTmRkb[data-shared="true"]` en `galeriaPublica/scripts/generarAlbums.js`.
+- **API de Photos**: actualmente solo se usa como fallback de miniaturas (la mayor parte del API fue deprecada para apps de terceros en 2025). El thumbnail real viene de `og:image`.
 
 ---
 

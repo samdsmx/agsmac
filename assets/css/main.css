@@ -3045,3 +3045,202 @@ table.alt tbody tr td {
 	.ca-chip { width: 72px; height: 64px; flex: 0 0 72px; }
 	.ca-chip img { width: 50px; height: 50px; }
 }
+
+
+/* ============================================================================
+   Libro de Oro — galería de álbumes de Google Photos
+   Paleta y patrón alineados con .ca-* (Cuadro de Honor).
+   ============================================================================ */
+
+.lo-root {
+	margin-top: 1.5em;
+	color: #2b2b2b;
+}
+.lo-intro { margin-bottom: 1em; color: #4a4a4a; }
+
+.lo-filters {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	background: #fff8e1;
+	border: 1px solid #f0d999;
+	border-radius: 10px;
+	padding: 0.85em 1em;
+	margin: 0 auto 1.6em auto;
+	max-width: 44em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.65em;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.lo-filter-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6em;
+}
+.lo-filter-label {
+	font-size: 0.78em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #8a6d3b;
+	font-weight: 700;
+	min-width: 5em;
+}
+.lo-year-select {
+	font: inherit;
+	font-size: 1.05em;
+	font-weight: 700;
+	color: #1a1a1a;
+	background: #fff;
+	border: 1px solid #e74c3c;
+	border-radius: 6px;
+	padding: 0.35em 1.8em 0.35em 0.7em;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%23e74c3c' d='M6 8L0 0h12z'/></svg>");
+	background-repeat: no-repeat;
+	background-position: right 0.6em center;
+	width: auto;
+}
+.lo-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
+.lo-filter-row-tools { justify-content: flex-end; }
+
+/* Chips de sección (texto, no imagen) ---------------------------------- */
+.lo-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4em;
+	flex: 1 1 auto;
+}
+.lo-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: 0.35em 0.7em;
+	background: #fff;
+	border: 1px solid #d4b878;
+	border-radius: 999px;
+	color: #4a3a1a;
+	font: inherit;
+	font-size: 0.88em;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.lo-chip:hover { background: #fff3c8; border-color: #b8924f; }
+.lo-chip.is-active {
+	background: #e74c3c;
+	border-color: #c63a2c;
+	color: #fff;
+}
+.lo-chip-count {
+	display: inline-block;
+	min-width: 1.6em;
+	padding: 0 0.35em;
+	border-radius: 999px;
+	background: rgba(0,0,0,0.08);
+	font-size: 0.85em;
+	text-align: center;
+}
+.lo-chip.is-active .lo-chip-count { background: rgba(255,255,255,0.22); }
+
+.lo-clear {
+	font: inherit;
+	font-size: 0.85em;
+	font-weight: 600;
+	color: #8a6d3b;
+	background: transparent;
+	border: 1px solid transparent;
+	padding: 0.3em 0.7em;
+	border-radius: 6px;
+	cursor: pointer;
+}
+.lo-clear:hover { background: #fff3c8; border-color: #d4b878; color: #4a3a1a; }
+
+/* Grid de tarjetas ----------------------------------------------------- */
+.lo-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 14px;
+}
+.lo-empty {
+	grid-column: 1 / -1;
+	text-align: center;
+	color: #8a6d3b;
+	padding: 2em 0;
+	font-style: italic;
+}
+
+.lo-card {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	border: 1px solid #ead7a0;
+	border-radius: 8px;
+	overflow: hidden;
+	text-decoration: none;
+	color: inherit;
+	transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.lo-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+	border-color: #e74c3c;
+}
+.lo-card-img {
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	background: #f4ead0;
+	display: block;
+}
+.lo-card-img-empty {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #c0a256;
+	font-size: 2.5em;
+}
+.lo-card-body {
+	padding: 0.7em 0.85em 0.85em;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35em;
+}
+.lo-card-date {
+	font-size: 0.72em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #8a6d3b;
+	font-weight: 700;
+}
+.lo-card-title {
+	font-size: 0.98em;
+	font-weight: 600;
+	color: #2b2b2b;
+	line-height: 1.25;
+}
+.lo-card-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3em;
+	margin-top: 0.25em;
+}
+.lo-card-tag {
+	display: inline-block;
+	font-size: 0.72em;
+	padding: 0.1em 0.5em;
+	background: #fff3c8;
+	color: #6f5520;
+	border-radius: 999px;
+	font-weight: 600;
+}
+
+@media (max-width: 736px) {
+	.lo-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+	.lo-filter-label { min-width: 4em; }
+}

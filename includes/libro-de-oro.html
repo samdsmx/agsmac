@@ -4,18 +4,29 @@
             <header>
                 <h2>Libro de Oro</h2>
             </header>
-            <p>[Completar: introducción al libro de oro — qué momentos recoge, desde qué año y cómo se nutre con aportes de los grupos.]</p>
-            <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 1.5em;">
-                <a href="#" target="_blank"><img src="images/pic06.jpg" alt="[Completar: descripción de la foto 1]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-                <a href="#" target="_blank"><img src="images/pic07.jpg" alt="[Completar: descripción de la foto 2]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-                <a href="#" target="_blank"><img src="images/pic08.jpg" alt="[Completar: descripción de la foto 3]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-                <a href="#" target="_blank"><img src="images/pic09.jpg" alt="[Completar: descripción de la foto 4]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-                <a href="#" target="_blank"><img src="images/pic10.jpg" alt="[Completar: descripción de la foto 5]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-                <a href="#" target="_blank"><img src="images/pic11.jpg" alt="[Completar: descripción de la foto 6]" style="width:100%; height:160px; object-fit:cover; border-radius:4px;" /></a>
-            </div>
-            <p style="margin-top: 1.5em;">
-                <a href="https://www.flickr.com/photos/agsmac/albums" target="_blank" class="button">Ver galería completa en Flickr</a>
+            <p class="lo-intro">
+                Memoria visual de los eventos de la asociación. Selecciona un año o una sección para filtrar los álbumes.
             </p>
+
+            <section id="libro-de-oro" class="lo-root" aria-label="Galería del Libro de Oro">
+                <div class="lo-filters">
+                    <div class="lo-filter-row">
+                        <label class="lo-filter-label" for="lo-year-select">Año</label>
+                        <select class="lo-year-select" id="lo-year-select" aria-label="Seleccionar año"></select>
+                    </div>
+                    <div class="lo-filter-row">
+                        <span class="lo-filter-label">Sección</span>
+                        <div class="lo-filter-sections lo-chips"></div>
+                    </div>
+                    <div class="lo-filter-row lo-filter-row-tools">
+                        <button type="button" class="lo-clear">Limpiar filtros</button>
+                    </div>
+                </div>
+
+                <div class="lo-grid" role="region" aria-live="polite">
+                    <div class="lo-empty">Cargando álbumes…</div>
+                </div>
+            </section>
         </div>
     </div>
     <a id="previo" data="marco-simbolico.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>
