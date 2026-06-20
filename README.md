@@ -39,7 +39,7 @@ El sitio queda disponible en <http://localhost:8082>.
 │       ├── cumpleanos.json Lista de cumpleaños
 │       ├── biblioteca.json Catálogo de libros (base + secciones)
 │       ├── cuadro-de-adelanto.json Cuadro de Honor (insignias máximas)
-│       └── libro-de-oro.json       Álbumes de Google Photos (galería)
+│       └── album-fotografico.json  Álbumes de Google Photos (galería)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
 │   │   └── Escudos/        Escudos de cada grupo (PNG transparentes)
@@ -223,7 +223,7 @@ La lógica vive en `assets/js/cuadro-de-adelanto.js` y la configuración + datos
 
 ### Insignias soportadas
 
-El orden en el JSON (`insignias`) es **fijo y por edad**: Gran Castor Café → Arcoíris → Lobo Rampante → Ave Fénix → Scout Águila → B.P. Precursora → B.P. Rover.
+El orden en el JSON (`insignias`) es **fijo y por edad** y define el orden de despliegue en el timeline: Gran Castor Café → Arcoíris → Lobo Rampante → Ave Fénix → Rosa de los Vientos† → Caballero Scout Tigre† → Caballero Scout Águila → B.P. Precursora → B.P. Rover.
 
 | Clave canónica (JSON) | Sección                   | Distintivo (`image`)                              | Cabecera de grupo (`titleImage`)                                            |
 |-----------------------|---------------------------|---------------------------------------------------|------------------------------------------------------------------------------|
@@ -231,13 +231,17 @@ El orden en el JSON (`insignias`) es **fijo y por edad**: Gran Castor Café → 
 | `ARCOIRIS`            | Manada de Gacelas         | `images/insignias-maximas/Arcoiris.png`           | `images/secciones/Manadas/Manada de Gacelas/Arcoiris.png`                    |
 | `LOBO RAMPANTE`       | Manada de Lobatos         | `images/insignias-maximas/LoboRampante.png`       | `images/secciones/Manadas/Manada de Lobatos/Lobo Rampante.png`               |
 | `AVE FENIX`           | Tropa de Muchachas Scouts | `images/insignias-maximas/AveFenix.png`           | `images/secciones/Tropas/Tropa de Muchachas Scouts/AveFenix.png`             |
+| `ROSA DE LOS VIENTOS`†| Tropa de Muchachas Scouts | `images/insignias-maximas/RosaDeLosVientos.png`   | `images/secciones/Tropas/Tropa de Muchachas Scouts/RosaDeLosVientos.png`     |
+| `SCOUT TIGRE`†        | Tropa Scout               | `images/insignias-maximas/CaballeroScoutTigre.png`| `images/secciones/Tropas/Tropa Scout/Caballero Scout Tigre.png`              |
 | `SCOUT AGUILA`        | Tropa Scout               | `images/insignias-maximas/CaballeroScoutAguila.png` | `images/secciones/Tropas/Tropa Scout/Caballero Scout Aguila.png`           |
 | `B.P. PRECURSORA`     | Clan de Precursoras       | `images/insignias-maximas/BPPrecursora.png`       | `images/secciones/Clanes/Clan de Precursoras/BP Precursora.png`              |
 | `B.P. ROVER`          | Clan de Rovers            | `images/insignias-maximas/BPRover.png`            | `images/secciones/Clanes/Clan de Rovers/BPRover.png`                         |
 
 >La clave canónica se normaliza siempre a **mayúsculas sin acentos**.
+>
+>† **Insignias históricas en desuso.** Llevan `"sinFiltro": true` en el JSON: no generan chip de filtro, pero **sí aparecen en el timeline** cuando hay certificados que las usan (existen registros de quienes las obtuvieron). Para ocultar también sus tarjetas bastaría con no incluir certificados con esa clave.
 
-Cada insignia define dos imágenes: `image` (distintivo limpio, usado en chips de filtro y en las tarjetas) y `titleImage` (versión grande/decorativa, usada como cabecera del bloque de la insignia). Para agregar una insignia nueva, agrégala al mapa `insignias` con `label`, `image` y `titleImage`.
+Cada insignia define dos imágenes: `image` (distintivo limpio, usado en chips de filtro y en las tarjetas) y `titleImage` (versión grande/decorativa, usada como cabecera del bloque de la insignia). Para agregar una insignia nueva, agrégala al mapa `insignias` con `label`, `image` y `titleImage`. Añade `"sinFiltro": true` si la insignia ya no se otorga y solo debe mostrarse cuando existan registros (sin chip de filtro propio).
 
 ### Fuentes de datos (en orden de prioridad)
 
@@ -312,11 +316,11 @@ El tile del home (`index.html`) usa `images/insignias-maximas/max.jpg` (versión
 
 ---
 
-## 7.b. Libro de Oro (galería de álbumes de Google Photos)
+## 7.b. Álbum Fotográfico (galería de álbumes de Google Photos)
 
-La sección **Libro de Oro** (tile en el home, fragmento `includes/libro-de-oro.html` renderizado por `assets/js/libro-de-oro.js`) muestra los álbumes compartidos de Google Photos de la asociación. La UI permite filtrar por **año** (`<select>`, por defecto el más reciente) y por **sección** (chips, selección única). Cada tarjeta abre el álbum original en Google Photos en una pestaña nueva.
+La sección **Álbum Fotográfico** (tile en el home, fragmento `includes/album-fotografico.html` renderizado por `assets/js/album-fotografico.js`) muestra los álbumes compartidos de Google Photos de la asociación. La UI permite filtrar por **año** (`<select>`, por defecto el más reciente) y por **sección** (chips, selección única). Cada tarjeta abre el álbum original en Google Photos en una pestaña nueva.
 
-### Fuente de datos: `includes/data/libro-de-oro.json`
+### Fuente de datos: `includes/data/album-fotografico.json`
 
 Generado por el proyecto **[galeriaPublica](../galeriaPublica)** (repo separado, herramienta local). Estructura:
 
@@ -355,7 +359,7 @@ El parser de `galeriaPublica/scripts/parseTitle.js` extrae:
 | `Tropas` (plural, sin TS/TMS)      | `tropa-muchachas` **y** `tropa-scout` (ambas)                    |
 | Ninguna coincidencia               | `general`                                                        |
 
-Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/parseTitle.js` **y** `SECTION_LABELS`/`SECTION_ORDER` en `assets/js/libro-de-oro.js` (deben mantenerse en sync).
+Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/parseTitle.js` **y** `SECTION_LABELS`/`SECTION_ORDER` en `assets/js/album-fotografico.js` (deben mantenerse en sync).
 
 ### Workflow para publicar un álbum nuevo
 
@@ -364,11 +368,11 @@ Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/pa
 3. En tu máquina, en el proyecto `galeriaPublica`:
    ```powershell
    cd ..\galeriaPublica
-   npm run generar -- --output ..\agsmac\includes\data\libro-de-oro.json --incremental
+   npm run generar -- --output ..\agsmac\includes\data\album-fotografico.json --incremental
    ```
    - `--incremental` reusa miniaturas de álbumes ya conocidos (más rápido).
    - El script auto-scrollea Google Photos hasta cargar todos los álbumes (ya no requiere ENTER manual).
-4. Vuelves al repo `agsmac`, commit + push de `includes/data/libro-de-oro.json`.
+4. Vuelves al repo `agsmac`, commit + push de `includes/data/album-fotografico.json`.
 
 ### Mantenimiento
 

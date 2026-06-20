@@ -75,11 +75,15 @@
     }
 
     // Lista ordenada de "chips" derivada del mapa de insignias del JSON.
-    // Cada chip representa una insignia.
+    // Cada chip representa una insignia. Las insignias marcadas con
+    // `sinFiltro: true` (p. ej. históricas, ya en desuso) no generan chip:
+    // siguen apareciendo en el timeline cuando hay certificados, pero no
+    // son seleccionables como filtro.
     function buildChipList(insigniaMap) {
         var chips = [];
         Object.keys(insigniaMap).forEach(function (key) {
             var meta = insigniaMap[key];
+            if (meta && meta.sinFiltro) return;
             chips.push({ id: key, insignia: key });
         });
         return chips;
@@ -219,7 +223,7 @@
                 var id = chipIdOf(a, insigniaMap);
                 (byChip[id] = byChip[id] || []).push(a);
             });
-            var orderedIds = chips.map(function (c) { return c.id; })
+            var orderedIds = Object.keys(insigniaMap)
                 .filter(function (id) { return byChip[id]; });
             Object.keys(byChip).forEach(function (id) {
                 if (orderedIds.indexOf(id) === -1) orderedIds.push(id);

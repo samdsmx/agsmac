@@ -24,6 +24,18 @@
       "image": "images/insignias-maximas/AveFenix.png",
       "titleImage": "images/secciones/Tropas/Tropa de Muchachas Scouts/AveFenix.png"
     },
+    "ROSA DE LOS VIENTOS": {
+      "label": "Rosa de los Vientos",
+      "image": "images/insignias-maximas/RosaDeLosVientos.png",
+      "titleImage": "images/secciones/Tropas/Tropa de Muchachas Scouts/RosaDeLosVientos.png",
+      "sinFiltro": true
+    },
+    "SCOUT TIGRE": {
+      "label": "Caballero Scout Tigre",
+      "image": "images/insignias-maximas/CaballeroScoutTigre.png",
+      "titleImage": "images/secciones/Tropas/Tropa Scout/Caballero Scout Tigre.png",
+      "sinFiltro": true
+    },
     "SCOUT AGUILA": {
       "label": "Caballero Scout Águila",
       "image": "images/insignias-maximas/CaballeroScoutAguila.png",

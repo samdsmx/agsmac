@@ -49,7 +49,7 @@
       "portada": "images/biblioteca/portadas-base/aventura-hacia-la-edad-viril.png",
       "pdf": "pdfs/biblioteca/aventura-hacia-la-edad-viril.pdf",
       "descripcion": "Consejos prácticos para el joven scout que transita hacia la vida adulta.",
-      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Clan de Rovers", "Clan de Precursoras"]
+      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
     },
     {
       "slug": "educacion-por-amor",
@@ -69,7 +69,7 @@
       "portada": "images/biblioteca/portadas-base/el-libro-de-las-tierras-virgenes.png",
       "pdf": "pdfs/biblioteca/el-libro-de-las-tierras-virgenes.pdf",
       "descripcion": "Los cuentos de Mowgli que B.-P. tomó como marco simbólico de la Manada de Lobatos.",
-      "secciones": ["Manada de Lobatos", "Manada de Gacelas"]
+      "secciones": ["Manada de Lobatos"]
     },
     {
       "slug": "escultismo-y-movimientos-juveniles",
@@ -119,7 +119,7 @@
       "portada": "images/biblioteca/portadas-base/rema-tu-propia-canoa.png",
       "pdf": "pdfs/biblioteca/rema-tu-propia-canoa.pdf",
       "descripcion": "Consejos para muchachos sobre observación, sentido común, autoeducación e inventiva.",
-      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts"]
+      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
     },
     {
       "slug": "tropiezos-de-la-vida-y-como-encararlos",
@@ -151,24 +151,31 @@
       "secciones": ["Colonia de Castores"]
     },
     {
+      "slug": "recorrido-para-ser-gacela",
+      "titulo": "Recorrido para ser Gacela",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-para-ser-gacela.png",
+      "descripcion": "Preparación previa al ingreso a la Manada de Gacelas.",
+      "secciones": ["Manada de Gacelas"]
+    },
+    {
+      "slug": "recorrido-de-la-gacela",
+      "titulo": "Recorrido de la Gacela",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-gacela.png",
+      "descripcion": "Guía de adelanto de la Gacela dentro de su Manada.",
+      "secciones": ["Manada de Gacelas"]
+    },
+    {
       "slug": "recorrido-del-bosque",
       "titulo": "Recorrido del Bosque",
       "portada": "images/biblioteca/portadas-secciones/recorrido-del-bosque.jpg",
       "descripcion": "Bitácora del castor por las etapas del Bosque.",
-      "secciones": ["Colonia de Castores"]
+      "secciones": ["Manada de Gacelas"]
     },
     {
       "slug": "recorrido-para-ser-lobato",
       "titulo": "Recorrido para ser Lobato",
       "portada": "images/biblioteca/portadas-secciones/recorrido-para-ser-lobato.png",
       "descripcion": "Preparación del castor que asciende a la Manada de Lobatos.",
-      "secciones": ["Colonia de Castores", "Manada de Lobatos"]
-    },
-    {
-      "slug": "recorrido-de-la-selva",
-      "titulo": "Recorrido de la Selva",
-      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-selva.png",
-      "descripcion": "Marco simbólico de El Libro de la Selva aplicado al adelanto del lobato.",
       "secciones": ["Manada de Lobatos"]
     },
     {
@@ -179,25 +186,18 @@
       "secciones": ["Manada de Lobatos"]
     },
     {
-      "slug": "recorrido-para-ser-gacela",
-      "titulo": "Recorrido para ser Gacela",
-      "portada": "images/biblioteca/portadas-secciones/recorrido-para-ser-gacela.png",
-      "descripcion": "Preparación previa al ingreso a la Manada de Gacelas.",
-      "secciones": ["Colonia de Castores", "Manada de Gacelas"]
+      "slug": "recorrido-de-la-selva",
+      "titulo": "Recorrido de la Selva",
+      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-selva.png",
+      "descripcion": "Marco simbólico de El Libro de la Selva aplicado al adelanto del lobato.",
+      "secciones": ["Manada de Lobatos"]
     },
     {
-      "slug": "recorrido-de-la-gacela",
-      "titulo": "Recorrido de la Gacela",
-      "portada": "images/biblioteca/portadas-secciones/recorrido-de-la-gacela.png",
-      "descripcion": "Guía de adelanto de la Gacela dentro de su Manada.",
-      "secciones": ["Manada de Gacelas"]
-    },
-    {
-      "slug": "plan-de-adelanto-ts",
-      "titulo": "Plan de Adelanto — Tropa Scout",
-      "portada": "images/biblioteca/portadas-secciones/plan-de-adelanto-ts.png",
-      "descripcion": "Insignias, etapas y especialidades de la Tropa Scout.",
-      "secciones": ["Tropa Scout"]
+      "slug": "manual-para-la-promesa-scout",
+      "titulo": "Manual para la Promesa Scout",
+      "portada": "images/biblioteca/portadas-secciones/manual-para-la-promesa-scout.png",
+      "descripcion": "Acompañamiento al scout que se prepara para hacer su Promesa.",
+      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts"]
     },
     {
       "slug": "plan-de-adelanto-tms",
@@ -207,18 +207,18 @@
       "secciones": ["Tropa de Muchachas Scouts"]
     },
     {
+      "slug": "plan-de-adelanto-ts",
+      "titulo": "Plan de Adelanto — Tropa Scout",
+      "portada": "images/biblioteca/portadas-secciones/plan-de-adelanto-ts.png",
+      "descripcion": "Insignias, etapas y especialidades de la Tropa Scout.",
+      "secciones": ["Tropa Scout"]
+    },
+    {
       "slug": "tecnicas-clasicas",
       "titulo": "Técnicas Clásicas",
       "portada": "images/biblioteca/portadas-secciones/tecnicas-clasicas.png",
       "descripcion": "Manual de técnicas clásicas del escultismo: pioneraje, nudos, orientación, vida de campaña.",
       "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Clan de Rovers", "Clan de Precursoras"]
-    },
-    {
-      "slug": "manual-para-la-promesa-scout",
-      "titulo": "Manual para la Promesa Scout",
-      "portada": "images/biblioteca/portadas-secciones/manual-para-la-promesa-scout.png",
-      "descripcion": "Acompañamiento al scout que se prepara para hacer su Promesa.",
-      "secciones": ["Todas las secciones"]
     },
     {
       "slug": "curso-de-induccion-al-escultismo",

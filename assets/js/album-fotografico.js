@@ -1,18 +1,18 @@
-/* libro-de-oro.js
- * Renderiza la galería del Libro de Oro a partir de
- * includes/data/libro-de-oro.json (generado por el proyecto galeriaPublica).
+/* album-fotografico.js
+ * Renderiza la galería del Álbum Fotográfico a partir de
+ * includes/data/album-fotografico.json (generado por el proyecto galeriaPublica).
  *
  * - Filtro de año (<select>, "Todos los años" como opción especial).
  * - Filtro de sección por chips (selección única, toggleable).
  * - Cada álbum abre el enlace de Google Photos en una pestaña nueva.
  *
  * El fragmento HTML se inyecta tarde (vía includedHtml) en detail1.html,
- * por eso usamos un MutationObserver que espera al contenedor #libro-de-oro.
+ * por eso usamos un MutationObserver que espera al contenedor #album-fotografico.
  */
 (function () {
     'use strict';
 
-    var CONFIG_URL = 'includes/data/libro-de-oro.json';
+    var CONFIG_URL = 'includes/data/album-fotografico.json';
 
     // Catálogo fijo de secciones (ID -> label visible).
     // Debe estar en sync con scripts/parseTitle.js de galeriaPublica.
@@ -76,14 +76,14 @@
             a.sections.forEach(function (s) { sectionCounts[s] = (sectionCounts[s] || 0) + 1; });
         });
         var sectionChips = SECTION_ORDER.filter(function (id) { return sectionCounts[id]; }).map(function (id) {
-            return '<button type="button" class="lo-chip" data-section="' + escapeHtml(id) + '">' +
-                '<span class="lo-chip-label">' + escapeHtml(SECTION_LABELS[id] || id) + '</span>' +
-                '<span class="lo-chip-count">' + sectionCounts[id] + '</span>' +
+            return '<button type="button" class="af-chip" data-section="' + escapeHtml(id) + '">' +
+                '<span class="af-chip-label">' + escapeHtml(SECTION_LABELS[id] || id) + '</span>' +
+                '<span class="af-chip-count">' + sectionCounts[id] + '</span>' +
             '</button>';
         }).join('');
 
-        root.querySelector('.lo-year-select').innerHTML = yearOptions;
-        root.querySelector('.lo-filter-sections').innerHTML = sectionChips;
+        root.querySelector('.af-year-select').innerHTML = yearOptions;
+        root.querySelector('.af-filter-sections').innerHTML = sectionChips;
 
         return yearList;
     }
@@ -94,7 +94,7 @@
     }
 
     function renderGrid(root, albums, state) {
-        var container = root.querySelector('.lo-grid');
+        var container = root.querySelector('.af-grid');
         var filtered = albums.filter(function (a) {
             if (state.year === 'all') { /* sin filtro de año */ }
             else if (state.year === 'null') { if (a.year) return false; }
@@ -113,7 +113,7 @@
         });
 
         if (!filtered.length) {
-            container.innerHTML = '<div class="lo-empty">Sin álbumes con los filtros actuales.</div>';
+            container.innerHTML = '<div class="af-empty">Sin álbumes con los filtros actuales.</div>';
             return;
         }
 
@@ -122,17 +122,17 @@
             if (a.year && a.month) dateLabel = monthLabel(a.month) + ' ' + a.year;
             else if (a.year) dateLabel = String(a.year);
             var img = a.thumbnail
-                ? '<img class="lo-card-img" src="' + escapeHtml(a.thumbnail) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
-                : '<div class="lo-card-img lo-card-img-empty" aria-hidden="true"><i class="fa fa-camera"></i></div>';
+                ? '<img class="af-card-img" src="' + escapeHtml(a.thumbnail) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
+                : '<div class="af-card-img af-card-img-empty" aria-hidden="true"><i class="fa fa-camera"></i></div>';
             var tags = a.sections.map(function (s) {
-                return '<span class="lo-card-tag">' + escapeHtml(SECTION_LABELS[s] || s) + '</span>';
+                return '<span class="af-card-tag">' + escapeHtml(SECTION_LABELS[s] || s) + '</span>';
             }).join('');
-            return '<a class="lo-card" href="' + escapeHtml(a.url) + '" target="_blank" rel="noopener" title="' + escapeHtml(a.title) + '">' +
+            return '<a class="af-card" href="' + escapeHtml(a.url) + '" target="_blank" rel="noopener" title="' + escapeHtml(a.title) + '">' +
                 img +
-                '<div class="lo-card-body">' +
-                    (dateLabel ? '<div class="lo-card-date">' + escapeHtml(dateLabel) + '</div>' : '') +
-                    '<div class="lo-card-title">' + escapeHtml(a.displayTitle) + '</div>' +
-                    (tags ? '<div class="lo-card-tags">' + tags + '</div>' : '') +
+                '<div class="af-card-body">' +
+                    (dateLabel ? '<div class="af-card-date">' + escapeHtml(dateLabel) + '</div>' : '') +
+                    '<div class="af-card-title">' + escapeHtml(a.displayTitle) + '</div>' +
+                    (tags ? '<div class="af-card-tags">' + tags + '</div>' : '') +
                 '</div>' +
             '</a>';
         }).join('');
@@ -141,29 +141,29 @@
     function attachFilterEvents(root, albums, state, defaultYear) {
         function rerender() { renderGrid(root, albums, state); }
 
-        var yearSelect = root.querySelector('.lo-year-select');
+        var yearSelect = root.querySelector('.af-year-select');
         yearSelect.addEventListener('change', function () {
             var v = yearSelect.value;
             state.year = (v === 'all' || v === 'null') ? v : Number(v);
             rerender();
         });
 
-        root.querySelector('.lo-filter-sections').addEventListener('click', function (e) {
-            var btn = e.target.closest && e.target.closest('.lo-chip');
+        root.querySelector('.af-filter-sections').addEventListener('click', function (e) {
+            var btn = e.target.closest && e.target.closest('.af-chip');
             if (!btn) return;
             var id = btn.getAttribute('data-section');
             state.section = (state.section === id) ? null : id;
-            root.querySelectorAll('.lo-chip').forEach(function (b) {
+            root.querySelectorAll('.af-chip').forEach(function (b) {
                 b.classList.toggle('is-active', b.getAttribute('data-section') === state.section);
             });
             rerender();
         });
 
-        root.querySelector('.lo-clear').addEventListener('click', function () {
+        root.querySelector('.af-clear').addEventListener('click', function () {
             state.section = null;
             state.year = defaultYear;
             yearSelect.value = String(defaultYear);
-            root.querySelectorAll('.lo-chip').forEach(function (b) { b.classList.remove('is-active'); });
+            root.querySelectorAll('.af-chip').forEach(function (b) { b.classList.remove('is-active'); });
             rerender();
         });
     }
@@ -175,26 +175,26 @@
         loadConfig().then(function (cfg) {
             cfg = cfg || {};
             var albums = normalizeAlbums(cfg.albums || cfg);
-            var grid = root.querySelector('.lo-grid');
+            var grid = root.querySelector('.af-grid');
             if (!albums.length) {
-                grid.innerHTML = '<div class="lo-empty">Aún no hay álbumes publicados.</div>';
+                grid.innerHTML = '<div class="af-empty">Aún no hay álbumes publicados.</div>';
                 return;
             }
             var years = renderFilters(root, albums);
             // Año por defecto: el más reciente con álbumes; si no hay años, "all".
             var defaultYear = years.length ? years[0] : 'all';
             var state = { year: defaultYear, section: null };
-            root.querySelector('.lo-year-select').value = String(defaultYear);
+            root.querySelector('.af-year-select').value = String(defaultYear);
             renderGrid(root, albums, state);
             attachFilterEvents(root, albums, state, defaultYear);
         });
     }
 
     function watchForRoot() {
-        var existing = document.getElementById('libro-de-oro');
+        var existing = document.getElementById('album-fotografico');
         if (existing) { init(existing); return; }
         var obs = new MutationObserver(function () {
-            var el = document.getElementById('libro-de-oro');
+            var el = document.getElementById('album-fotografico');
             if (el) { obs.disconnect(); init(el); }
         });
         obs.observe(document.body, { childList: true, subtree: true });

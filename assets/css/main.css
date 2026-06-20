@@ -2578,6 +2578,23 @@ table.alt tbody tr td {
     left: -4px;
 }
 
+/* === Álbum Fotográfico tile: scrim para legibilidad sobre imagen clara === */
+.metro-tile.album-tile {
+	justify-content: flex-end;
+}
+.metro-tile.album-tile::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.25) 38%, rgba(0,0,0,0) 62%);
+	border-radius: inherit;
+	z-index: 0;
+}
+.metro-tile.album-tile .metro-text h3,
+.metro-tile.album-tile .metro-text p {
+	text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+}
+
 /* === Tile de Cumpleaños con animación embebida (reemplaza birthday.swf) === */
 .metro-tile.birthday-tile {
 	padding: 0;
@@ -3048,17 +3065,17 @@ table.alt tbody tr td {
 
 
 /* ============================================================================
-   Libro de Oro — galería de álbumes de Google Photos
+   Álbum Fotográfico — galería de álbumes de Google Photos
    Paleta y patrón alineados con .ca-* (Cuadro de Honor).
    ============================================================================ */
 
-.lo-root {
+.af-root {
 	margin-top: 1.5em;
 	color: #2b2b2b;
 }
-.lo-intro { margin-bottom: 1em; color: #4a4a4a; }
+.af-intro { margin-bottom: 1em; color: #4a4a4a; }
 
-.lo-filters {
+.af-filters {
 	position: sticky;
 	top: 0;
 	z-index: 5;
@@ -3073,13 +3090,13 @@ table.alt tbody tr td {
 	gap: 0.65em;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
-.lo-filter-row {
+.af-filter-row {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	gap: 0.6em;
 }
-.lo-filter-label {
+.af-filter-label {
 	font-size: 0.78em;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
@@ -3087,7 +3104,7 @@ table.alt tbody tr td {
 	font-weight: 700;
 	min-width: 5em;
 }
-.lo-year-select {
+.af-year-select {
 	font: inherit;
 	font-size: 1.05em;
 	font-weight: 700;
@@ -3105,17 +3122,17 @@ table.alt tbody tr td {
 	background-position: right 0.6em center;
 	width: auto;
 }
-.lo-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
-.lo-filter-row-tools { justify-content: flex-end; }
+.af-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
+.af-filter-row-tools { justify-content: flex-end; }
 
 /* Chips de sección (texto, no imagen) ---------------------------------- */
-.lo-chips {
+.af-chips {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.4em;
 	flex: 1 1 auto;
 }
-.lo-chip {
+.af-chip {
 	display: inline-flex;
 	align-items: center;
 	gap: 0.4em;
@@ -3130,13 +3147,13 @@ table.alt tbody tr td {
 	cursor: pointer;
 	transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.lo-chip:hover { background: #fff3c8; border-color: #b8924f; }
-.lo-chip.is-active {
+.af-chip:hover { background: #fff3c8; border-color: #b8924f; }
+.af-chip.is-active {
 	background: #e74c3c;
 	border-color: #c63a2c;
 	color: #fff;
 }
-.lo-chip-count {
+.af-chip-count {
 	display: inline-block;
 	min-width: 1.6em;
 	padding: 0 0.35em;
@@ -3145,9 +3162,9 @@ table.alt tbody tr td {
 	font-size: 0.85em;
 	text-align: center;
 }
-.lo-chip.is-active .lo-chip-count { background: rgba(255,255,255,0.22); }
+.af-chip.is-active .af-chip-count { background: rgba(255,255,255,0.22); }
 
-.lo-clear {
+.af-clear {
 	font: inherit;
 	font-size: 0.85em;
 	font-weight: 600;
@@ -3158,15 +3175,15 @@ table.alt tbody tr td {
 	border-radius: 6px;
 	cursor: pointer;
 }
-.lo-clear:hover { background: #fff3c8; border-color: #d4b878; color: #4a3a1a; }
+.af-clear:hover { background: #fff3c8; border-color: #d4b878; color: #4a3a1a; }
 
 /* Grid de tarjetas ----------------------------------------------------- */
-.lo-grid {
+.af-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	gap: 14px;
 }
-.lo-empty {
+.af-empty {
 	grid-column: 1 / -1;
 	text-align: center;
 	color: #8a6d3b;
@@ -3174,7 +3191,7 @@ table.alt tbody tr td {
 	font-style: italic;
 }
 
-.lo-card {
+.af-card {
 	display: flex;
 	flex-direction: column;
 	background: #fff;
@@ -3186,51 +3203,51 @@ table.alt tbody tr td {
 	transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.lo-card:hover {
+.af-card:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 	border-color: #e74c3c;
 }
-.lo-card-img {
+.af-card-img {
 	width: 100%;
 	aspect-ratio: 16 / 10;
 	object-fit: cover;
 	background: #f4ead0;
 	display: block;
 }
-.lo-card-img-empty {
+.af-card-img-empty {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: #c0a256;
 	font-size: 2.5em;
 }
-.lo-card-body {
+.af-card-body {
 	padding: 0.7em 0.85em 0.85em;
 	display: flex;
 	flex-direction: column;
 	gap: 0.35em;
 }
-.lo-card-date {
+.af-card-date {
 	font-size: 0.72em;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: #8a6d3b;
 	font-weight: 700;
 }
-.lo-card-title {
+.af-card-title {
 	font-size: 0.98em;
 	font-weight: 600;
 	color: #2b2b2b;
 	line-height: 1.25;
 }
-.lo-card-tags {
+.af-card-tags {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.3em;
 	margin-top: 0.25em;
 }
-.lo-card-tag {
+.af-card-tag {
 	display: inline-block;
 	font-size: 0.72em;
 	padding: 0.1em 0.5em;
@@ -3241,6 +3258,6 @@ table.alt tbody tr td {
 }
 
 @media (max-width: 736px) {
-	.lo-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
-	.lo-filter-label { min-width: 4em; }
+	.af-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+	.af-filter-label { min-width: 4em; }
 }

@@ -1,0 +1,34 @@
+<div id="preview" class="vertical">
+    <div class="inner">
+        <div class="content section-page">
+            <header>
+                <h2>Álbum Fotográfico</h2>
+            </header>
+            <p class="af-intro">
+                Memoria visual de los eventos de la asociación. Selecciona un año o una sección para filtrar los álbumes.
+            </p>
+
+            <section id="album-fotografico" class="af-root" aria-label="Galería del Álbum Fotográfico">
+                <div class="af-filters">
+                    <div class="af-filter-row">
+                        <label class="af-filter-label" for="af-year-select">Año</label>
+                        <select class="af-year-select" id="af-year-select" aria-label="Seleccionar año"></select>
+                    </div>
+                    <div class="af-filter-row">
+                        <span class="af-filter-label">Sección</span>
+                        <div class="af-filter-sections af-chips"></div>
+                    </div>
+                    <div class="af-filter-row af-filter-row-tools">
+                        <button type="button" class="af-clear">Limpiar filtros</button>
+                    </div>
+                </div>
+
+                <div class="af-grid" role="region" aria-live="polite">
+                    <div class="af-empty">Cargando álbumes…</div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <a id="previo" data="marco-simbolico.html" class="nav previous"><span class="fa fa-chevron-left"></span></a>
+    <a id="sigue" data="biblioteca.html" class="nav next"><span class="fa fa-chevron-right"></span></a>
+</div>
