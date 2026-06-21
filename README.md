@@ -205,6 +205,8 @@ El código del script y los pasos completos viven en `docs/apps-script-cumpleano
 
 > **Cada vez que cambies el código del script**, no basta con guardar: hay que hacer **Implementar → Administrar implementaciones → Editar → Nueva versión** para que la URL pública sirva la versión nueva.
 
+> **⚠️ Cumpleaños y Cuadro de Honor son scripts distintos.** Una implementación de Web App ejecuta el único `doGet(e)` del proyecto; **no** se elige el `.gs` por implementación. Si pegas ambos `doGet` en el mismo proyecto colisionan y las dos URLs devuelven lo mismo. Opciones: (a) **dos proyectos separados** (`apps-script-cumpleanos.gs` y `apps-script-cuadro-de-adelanto.gs`), cada uno con su URL; o (b) **un solo proyecto enrutador** con `docs/apps-script-combinado.gs`, que despacha por `?tipo=cumpleanos` / `?tipo=cuadro` (en ese caso los `appsScriptUrl` de los JSON terminan en `.../exec?tipo=cumpleanos` y `.../exec?tipo=cuadro`).
+
 ### Actualizar el fallback local
 
 Si el Apps Script estará caído o quieres mostrar nombres específicos sin depender de la hoja, edita el arreglo `birthdays` directamente en `cumpleanos.json`. El JS los filtra a la misma ventana de `rangeDays`.

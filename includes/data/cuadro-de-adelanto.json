@@ -2,7 +2,7 @@
   "_comment_1": "Cuadro de Honor.",
   "_comment_2": "Fuente: Google Apps Script Web App (ver docs/apps-script-cuadro-de-adelanto.gs).",
   "_comment_3": "Si appsScriptUrl está vacío o falla, se usa el arreglo 'awards' como fallback.",
-  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbzg6LMIG5KHk4OAjbEfU8xhFNFktU7xoMqZKK0L4WLct7Kf-AeC-PcXEAoIqNHxVqfEwA/exec",
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbzDE_er1qsmxyOc_qiCt6E9a3PctXiKfKX5jHW8gDR1TaE_tIdOqyy43dKHXo0LPAKB/exec?tipo=cuadro",
   "insignias": {
     "GRAN CASTOR CAFE": {
       "label": "Gran Castor Café",
