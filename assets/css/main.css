@@ -2597,6 +2597,20 @@ table.alt tbody tr td {
 	text-shadow: 0 1px 4px rgba(0,0,0,0.85);
 }
 
+/* === Tile de Programa Scout: texto anclado arriba a la derecha === */
+.metro-tile.programa-tile .metro-text {
+	position: absolute;
+	top: 18px;
+	right: 18px;
+	left: auto;
+	max-width: 75%;
+	text-align: right;
+}
+.metro-tile.programa-tile .metro-text h3,
+.metro-tile.programa-tile .metro-text p {
+	text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+}
+
 /* === Tile de Cumpleaños con animación embebida (reemplaza birthday.swf) === */
 .metro-tile.birthday-tile {
 	padding: 0;
