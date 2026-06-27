@@ -26,7 +26,7 @@
       "nombre": "Artes Plásticas y Pintura",
       "color": "#e74c3c",
       "icono": "🎨",
-      "descripcion": "Color, brillo y mucha creatividad sobre papel, vidrio y lienzo.",
+      "descripcion": "Color, brillo y mucha creatividad sobre materiales diversos.",
       "talleres": [
         { "nombre": "Acuarelas", "descripcion": "Pinta con acuarelas y descubre cómo mezclar colores y aguadas." },
         { "nombre": "Decoración con glitter", "descripcion": "Dale brillo a tus creaciones decorando con diamantina." },
