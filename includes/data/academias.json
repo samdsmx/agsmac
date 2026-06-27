@@ -1,0 +1,98 @@
+{
+  "evento": "Convivencia Cultural Scout",
+  "subtitulo": "Pre-registro a Academias",
+  "fecha": "Sábado 25 de julio de 2026",
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbwiaBT4G6mmPFFcH_gZfjZmFb-qy4UjZgn2ZFKDzYk32vg9LCu0kZPJYs5BHxWkYvOB6A/exec",
+  "cupoMaximo": 60,
+  "seleccionRequerida": 3,
+  "countsCacheMinutes": 5,
+  "grupos": ["Grupo 54", "Grupo 96", "Grupo 133", "Grupo 136", "Grupo 729"],
+  "secciones": ["Castor", "Gacela", "Lobato", "Muchacha Scout", "Scout", "Precursora", "Rover"],
+  "academias": [
+    {
+      "id": "escenicas",
+      "nombre": "Artes Escénicas y Expresión Oral",
+      "color": "#8e44ad",
+      "icono": "🎭",
+      "descripcion": "Sube al escenario, alza la voz y deja salir al artista que llevas dentro.",
+      "talleres": [
+        { "nombre": "Música", "descripcion": "Canta, sigue el ritmo y conoce instrumentos para hacer música en equipo." },
+        { "nombre": "Oratoria", "descripcion": "Aprende a hablar en público con seguridad y a expresar tus ideas." },
+        { "nombre": "Teatro", "descripcion": "Actúa, improvisa y da vida a personajes sobre el escenario." }
+      ]
+    },
+    {
+      "id": "plasticas",
+      "nombre": "Artes Plásticas y Pintura",
+      "color": "#e74c3c",
+      "icono": "🎨",
+      "descripcion": "Color, brillo y mucha creatividad sobre papel, vidrio y lienzo.",
+      "talleres": [
+        { "nombre": "Acuarelas", "descripcion": "Pinta con acuarelas y descubre cómo mezclar colores y aguadas." },
+        { "nombre": "Decoración con glitter", "descripcion": "Dale brillo a tus creaciones decorando con diamantina." },
+        { "nombre": "Decoración vitral", "descripcion": "Crea diseños tipo vitral llenos de luz y color." },
+        { "nombre": "Pintura", "descripcion": "Expresa tus ideas pintando con distintas técnicas." },
+        { "nombre": "Stencil", "descripcion": "Usa plantillas para estampar figuras y mensajes." }
+      ]
+    },
+    {
+      "id": "textiles",
+      "nombre": "Artes Textiles y Accesorios",
+      "color": "#16a085",
+      "icono": "🧵",
+      "descripcion": "Hilos, nudos y cuentas para crear accesorios únicos con tus manos.",
+      "talleres": [
+        { "nombre": "Bordado", "descripcion": "Borda con hilo y aguja tus propios diseños." },
+        { "nombre": "Foto bordado", "descripcion": "Combina una foto con bordado para un recuerdo único." },
+        { "nombre": "Bisutería", "descripcion": "Arma collares, aretes y accesorios con cuentas." },
+        { "nombre": "Pulsera de nudos", "descripcion": "Teje pulseras con nudos de colores." }
+      ]
+    },
+    {
+      "id": "escultura",
+      "nombre": "Escultura, Talla y Tradición Scout",
+      "color": "#d35400",
+      "icono": "🪵",
+      "descripcion": "Da forma en 3D y crea piezas increíbles.",
+      "talleres": [
+        { "nombre": "Alebrijes scout", "descripcion": "Crea tu alebrije aplicando este gran arte mexicano." },
+        { "nombre": "Decorado de bordón", "descripcion": "Personaliza y decora tu bordón." },
+        { "nombre": "Escultura", "descripcion": "Da forma a figuras con distintos materiales." },
+        { "nombre": "Tallado", "descripcion": "Talla una figura de tu imaginación y desarrolla tu creatividad con manos a la obra." }
+      ]
+    },
+    {
+      "id": "gastronomia",
+      "nombre": "Gastronomía",
+      "color": "#e67e22",
+      "icono": "👨‍🍳",
+      "descripcion": "Cocina, prueba y comparte. ¡A poner las manos en la masa!",
+      "talleres": [
+        { "nombre": "Cocina", "descripcion": "Prepara recetas sencillas y ricas en equipo." },
+        { "nombre": "Cocina fría", "descripcion": "Comida japonesa sin fuego: aprende a preparar sushi y onigiri." }
+      ]
+    },
+    {
+      "id": "logica",
+      "nombre": "Lógica y Habilidad",
+      "color": "#2980b9",
+      "icono": "♟️",
+      "descripcion": "Pon a prueba tu mente y tu destreza con retos divertidos.",
+      "talleres": [
+        { "nombre": "Ajedrez", "descripcion": "Aprende y juega ajedrez, pieza por pieza." },
+        { "nombre": "Papiroflexia", "descripcion": "Crea figuras doblando papel (origami)." }
+      ]
+    },
+    {
+      "id": "letras",
+      "nombre": "Letras y Artes Visuales",
+      "color": "#c0392b",
+      "icono": "📷",
+      "descripcion": "Cuenta historias con palabras e imágenes y captura el mundo.",
+      "talleres": [
+        { "nombre": "Escritura creativa", "descripcion": "Inventa cuentos, rimas o fanfics usando tu imaginación." },
+        { "nombre": "Fotografía", "descripcion": "Aprende a capturar buenas fotos que cuenten historias con imágenes." }
+      ]
+    }
+  ]
+}

@@ -502,6 +502,102 @@ material moderno, verifica los derechos.
 
 ---
 
+## 8.b. Pre-registro a Academias (ConCuScout 2026 — evento temporal)
+
+Página de un solo uso para que los muchachos se pre-registren a **3 de las 7
+academias** de la Convivencia Cultural Scout. No reutiliza el mecanismo de
+`includedHtml`; es autocontenida y se puede borrar tras el evento.
+
+### Archivos
+
+| Archivo | Rol |
+| ------- | --- |
+| `concuscout.html` | Página del registro (comparte el link directo, p. ej. `…/concuscout.html`). |
+| `assets/css/concuscout.css` | Estilos propios (no toca `main.css`). |
+| `assets/js/concuscout.js` | Carga academias, muestra cupos en vivo y envía el registro. |
+| `includes/data/academias.json` | Configuración: academias, talleres, cupo, secciones y `appsScriptUrl`. |
+| `docs/apps-script-academias.gs` | Backend (Google Apps Script + Google Sheet). |
+
+### Cómo funciona
+
+- El chico ve 7 tarjetas (una por academia) con sus talleres, elige **exactamente
+  3** y captura su **nombre en 3 campos** (Nombre(s), Apellido paterno —
+  obligatorio—, Apellido materno —opcional—), **grupo** y **sección** (ambos
+  desplegables, definidos en `academias.json` → `grupos` y `secciones`).
+- **No se muestra** el número de lugares disponibles (para no inducir sesgo de
+  registro); solo se marca una academia como **"Academia llena"** cuando alcanza
+  el tope, y entonces deja de poder elegirse.
+- El **control real** lo hace el Apps Script con `LockService` (atómico):
+  rechaza duplicados (clave `nombre|grupo|sección` normalizada, sin acentos) y
+  bloquea cualquier academia que ya tenga **60** (luego se divide en 3 bloques de
+  20). El cupo se ajusta con `CONFIG.MAX` en el `.gs` y `cupoMaximo` en el JSON.
+- **Cotejo difuso de nombres:** además del duplicado exacto, si el nombre se
+  parece mucho a uno ya registrado en el **mismo grupo y sección** (acentos,
+  typos, apellido faltante u orden distinto — Levenshtein + tokens en el `.gs`),
+  el registro se pausa y se pregunta *"¿Eres tú?"*. El usuario elige **"Sí, soy
+  yo"** (no se duplica) o **"No, soy otra persona"** (se registra igual, enviando
+  `confirmDifferent`). Los umbrales viven en `nameSimilar()` del `.gs`.
+- **Orden de las tarjetas por cupo disponible:** al cargar, las academias se
+  ordenan mostrando primero las **menos llenas** (con desempate aleatorio cuando
+  empatan, p. ej. todas en 0), para empujar una distribución pareja sin revelar
+  números. El orden se **congela** en cuanto el muchacho elige su primera
+  academia, para que las tarjetas no salten mientras decide (`reorderIfIdle()` en
+  `concuscout.js`).
+- **Caché de conteos (no es tiempo real):** los conteos se guardan en
+  `localStorage` con un TTL (`countsCacheMinutes` en `academias.json`, por
+  defecto **5 min**). Dentro de esa ventana las recargas usan el caché (carga
+  instantánea, mismo orden, sin consultar el Apps Script); fuera de ella —o en
+  otro dispositivo— se consulta de nuevo y el orden refleja la disponibilidad
+  **aproximada** de ese momento. Al registrar con éxito, el caché se actualiza
+  con los conteos que devuelve el servidor. Pon `countsCacheMinutes: 0` para
+  desactivar el caché y consultar siempre.
+
+### Configurar (primera vez)
+
+1. Sigue los pasos al inicio de `docs/apps-script-academias.gs` (crear Sheet,
+   pegar el script, correr `setup`, implementar como Web App "Cualquier persona").
+2. Pega la URL `/exec` en `includes/data/academias.json` → `appsScriptUrl`.
+   Mientras esté vacía, la página muestra un aviso y deshabilita el registro.
+3. Tras cualquier cambio al `.gs`, **redeploy** (Administrar implementaciones →
+   Nueva versión), igual que con el Apps Script de cumpleaños.
+
+### Administrar cambios y cupos
+
+- Una vez enviado, el participante **no** puede editar su elección. Si te lo
+  piden verbalmente, edítalo tú en la hoja (columnas `Academia 1/2/3`) o borra la
+  fila para liberar el lugar; los conteos se recalculan solos.
+- Para ajustar talleres/colores/descripciones de las tarjetas, edita
+  `includes/data/academias.json` (los `id` deben coincidir con `ACADEMY_IDS` del
+  `.gs`).
+
+### Talleres (descripción, material y preparación)
+
+Cada elemento de `talleres` puede ser un **texto** simple o un **objeto** con más
+detalle. En la tarjeta, cada taller es un chip tocable que abre su ficha:
+
+```json
+"talleres": [
+  "Teatro",
+  {
+    "nombre": "Tallado",
+    "descripcion": "Talla madera o jabón para crear piezas con tus manos.",
+    "material": "Una barra de jabón blanco y un palito de madera.",
+    "preparacion": "Trae las uñas cortas."
+  }
+]
+```
+
+- Solo `nombre` es obligatorio. `material` y `preparacion` se muestran únicamente
+  si tienen contenido (bloques azul y naranja en la ficha del taller).
+- El chip muestra un icono **ⓘ** cuando el taller tiene descripción/material/
+  preparación. Conforme tengas la info de cada taller, llénala aquí; no requiere
+  tocar el `.gs`.
+- La página incluye un bloque **"¿Cómo funciona?"** que explica la dinámica: cada
+  quien elige academias por los talleres que le interesan y hace **uno o varios**
+  (no todos) dentro de cada academia. El texto vive en `concuscout.html`.
+
+---
+
 ## 9. Convenciones de código
 
 - **JS**: jQuery 1.x + skel. Sin transpilación. Mantén compatibilidad ES5 en lo posible (las funciones flecha y `const` ya se usan, pero evita features muy nuevas si las metes en `main.js`).

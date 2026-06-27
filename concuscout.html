@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<title>Pre-registro a Academias · ConCuScout 2026 · AGSMAC</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="description" content="Elige tus 3 academias para la Convivencia Cultural Scout 2026." />
+	<link rel="stylesheet" href="assets/css/concuscout.css" />
+</head>
+
+<body class="cc-body">
+	<div class="cc-wrap">
+
+		<!-- Encabezado -->
+		<header class="cc-header">
+			<h1 id="cc-evento">Pre-registro a Academias</h1>
+			<p id="cc-subtitulo" class="cc-sub"></p>
+			<p id="cc-fecha" class="cc-fecha"></p>
+			<div class="cc-steps">
+				<span class="cc-step">1. Descubre las academias y sus talleres</span>
+				<span class="cc-step">2. Elige <b id="cc-pick-num">3</b></span>
+				<span class="cc-step">3. Registra tu nombre, grupo y sección</span>
+			</div>
+		</header>
+
+		<div id="cc-notice" class="cc-notice hide"></div>
+
+		<!-- Cómo funciona la dinámica -->
+		<section class="cc-intro">
+			<h2>¿Cómo participo?</h2>
+			<p>Debes elegir <b><span class="cc-pick-num2">3</span> academias</b>. Durante el evento entrarás a una academia distinta en cada bloque.</p>
+			<p>Dentro de cada academia podrás hacer <b>uno o varios de sus talleres</b> — <b>dependiendo el tiempo y tus aficiones</b>. </p>
+			<p>Así que elige las academias donde estén <b>los talleres que más te llaman la atención</b>. 👉 <b>Toca un taller</b> para ver de qué trata.</p>
+			<p class="cc-intro-note">📅 Conforme se acerque la fecha, vuelve a revisar este sitio: algunos talleres podrían dar tips o solicitar alguna <b>preparación previa</b>.</p>
+		</section>
+
+		<!-- Tarjetas de academias -->
+		<main id="cc-grid" class="cc-grid" aria-label="Academias disponibles"></main>
+
+	</div>
+
+	<!-- Barra inferior fija -->
+	<div class="cc-bar">
+		<div id="cc-bar-count" class="cc-bar-count">Has elegido <b>0</b> de 3</div>
+		<button type="button" id="cc-continue" class="cc-btn" disabled>Elige 3 más</button>
+	</div>
+
+	<!-- Modal: datos + éxito -->
+	<div id="cc-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-dialog-title">
+		<div class="cc-dialog">
+
+			<!-- Paso: formulario -->
+			<div id="cc-step-form">
+				<h2 id="cc-dialog-title">¡Casi listo!</h2>
+				<p class="cc-sub">Estas son tus academias elegidas:</p>
+				<ul id="cc-summary" class="cc-summary"></ul>
+
+				<div class="cc-field">
+					<label for="cc-nombres">Nombre(s)</label>
+					<input type="text" id="cc-nombres" autocomplete="given-name" placeholder="Ej. Ana María" />
+				</div>
+				<div class="cc-row">
+					<div class="cc-field">
+						<label for="cc-paterno">Apellido paterno</label>
+						<input type="text" id="cc-paterno" autocomplete="additional-name" placeholder="Ej. López" />
+					</div>
+					<div class="cc-field">
+						<label for="cc-materno">Apellido materno <span class="cc-opt">(opcional)</span></label>
+						<input type="text" id="cc-materno" autocomplete="family-name" placeholder="Ej. García" />
+					</div>
+				</div>
+				<div class="cc-field">
+					<label for="cc-group">Grupo</label>
+					<select id="cc-group"></select>
+				</div>
+				<div class="cc-field">
+					<label for="cc-section">Sección</label>
+					<select id="cc-section"></select>
+				</div>
+
+				<p id="cc-msg" class="cc-msg"></p>
+
+				<div class="cc-actions">
+					<button type="button" id="cc-cancel" class="cc-btn ghost">Volver</button>
+					<button type="button" id="cc-submit" class="cc-btn">Confirmar registro</button>
+				</div>
+			</div>
+
+			<!-- Paso: posible duplicado (nombre parecido) -->
+			<div id="cc-step-similar" style="display:none">
+				<h2>¿Eres tú?</h2>
+				<p class="cc-sub">Encontramos un registro con un nombre muy parecido en tu mismo grupo y sección:</p>
+				<ul id="cc-similar-list" class="cc-summary"></ul>
+				<p class="cc-sub">¿Eres la misma persona, o alguien diferente?</p>
+				<p id="cc-similar-msg" class="cc-msg"></p>
+				<div class="cc-actions">
+					<button type="button" id="cc-similar-same" class="cc-btn ghost">Sí, soy yo (ya me registré)</button>
+					<button type="button" id="cc-similar-diff" class="cc-btn">No, soy otra persona</button>
+				</div>
+			</div>
+
+			<!-- Paso: éxito -->
+			<div id="cc-step-done" class="cc-done" style="display:none">
+				<div class="cc-check">✓</div>
+				<h2>¡Registro confirmado!</h2>
+				<p>Listo, <b id="cc-done-name"></b>. Tu lugar en las 3 academias quedó apartado.</p>
+				<p class="cc-sub">Recuerda que el registro no se puede cambiar; si necesitas ajustarlo, contacta a la organización.</p>
+				<button type="button" id="cc-done-close" class="cc-btn">Registrar a alguien más</button>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Modal: detalle de un taller -->
+	<div id="cc-taller-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-taller-title">
+		<div class="cc-dialog">
+			<h2 id="cc-taller-title"></h2>
+			<p id="cc-taller-acad" class="cc-sub"></p>
+			<p id="cc-taller-desc"></p>
+			<div id="cc-taller-material" class="cc-taller-note" style="display:none"></div>
+			<div id="cc-taller-prep" class="cc-taller-note" style="display:none"></div>
+			<p class="cc-taller-check">📅 Conforme se acerque la fecha, revisa este sitio: este taller podría pedir material o preparación.</p>
+			<div class="cc-actions">
+				<button type="button" id="cc-taller-close" class="cc-btn">Entendido</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="assets/js/concuscout.js"></script>
+</body>
+
+</html>
