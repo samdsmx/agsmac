@@ -54,6 +54,15 @@
       "color": "#d35400",
       "icono": "🪵",
       "descripcion": "Da forma en 3D y crea piezas increíbles.",
+      "fichaPdf": "pdfs/concuscout/escultura.pdf",
+      "material": {
+        "porSeccion": {
+          "Castores": "tijeras de punta roma y medio palo de escoba.",
+          "Manadas": "costurero, tijeras, jabón Zote, pluma o lápiz y medio palo de escoba.",
+          "Tropas y Clanes": "costurero, gis, tijeras y tu bordón."
+        },
+        "general": "Duración del taller: 90 minutos."
+      },
       "talleres": [
         { "nombre": "Alebrijes scout", "descripcion": "Crea tu alebrije aplicando este gran arte mexicano." },
         { "nombre": "Decorado de bordón", "descripcion": "Personaliza y decora tu bordón." },
@@ -67,6 +76,8 @@
       "color": "#e67e22",
       "icono": "👨‍🍳",
       "descripcion": "Cocina, prueba y comparte. ¡A poner las manos en la masa!",
+      "fichaPdf": "pdfs/concuscout/gastronomia.pdf",
+      "material": "Opcional (no obligatorio): si gustas, trae una proteína al gusto para acompañar tu platillo.",
       "talleres": [
         { "nombre": "Cocina", "descripcion": "Prepara recetas sencillas y ricas en equipo." },
         { "nombre": "Cocina fría", "descripcion": "Comida japonesa sin fuego: aprende a preparar sushi y onigiri." }

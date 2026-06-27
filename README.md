@@ -596,6 +596,43 @@ detalle. En la tarjeta, cada taller es un chip tocable que abre su ficha:
   quien elige academias por los talleres que le interesan y hace **uno o varios**
   (no todos) dentro de cada academia. El texto vive en `concuscout.html`.
 
+### Ficha y material por academia (PDF)
+
+Una academia puede tener, a nivel **academia** (no taller), dos campos opcionales
+en `academias.json`:
+
+```json
+{
+  "id": "escultura",
+  "...": "...",
+  "fichaPdf": "pdfs/concuscout/escultura.pdf",
+  "material": {
+    "porSeccion": {
+      "Castores": "tijeras de punta roma y medio palo de escoba.",
+      "Manadas": "costurero, tijeras, jabón Zote, ...",
+      "Tropas": "costurero, gis, tijeras y tu bordón."
+    },
+    "general": "Duración del taller: 90 minutos."
+  }
+}
+```
+
+- `material` puede ser **texto** (general, se muestra igual para todos —p. ej.
+  Gastronomía) **o** un **objeto** con `porSeccion` (cada sección ve su bloque
+  etiquetado, con el aviso "Busca tu sección") y un `general` opcional al final.
+  Así, si el requerimiento depende de la sección no se confunde a nadie.
+- Si la academia tiene `fichaPdf` o `material`, su tarjeta muestra un botón
+  **"📄 Material y ficha"** que abre un modal con: la descripción, el bloque de
+  **material** y la **ficha completa** embebida en un `<iframe>` + un botón
+  "Abrir en pantalla completa".
+- Los **PDF** viven en `pdfs/concuscout/`. Para sumar la ficha de otra academia:
+  pon el PDF ahí y agrega `fichaPdf`/`material` al objeto de esa academia.
+- **Convertir docx→PDF** (como se hizo con Gastronomía): se usó Word
+  (`ExportAsFixedFormat`). Los pósters/fichas se publican **tal cual los
+  prepararon los dirigentes**; las correcciones de texto se hacen en el campo
+  `material` (limpio), no en el PDF.
+- Pendientes de material por confirmar: ver `helpers/notes.txt`.
+
 ---
 
 ## 9. Convenciones de código

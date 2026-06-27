@@ -40,8 +40,29 @@
 		var copy = {};
 		for (var k in a) { if (a.hasOwnProperty(k)) copy[k] = a[k]; }
 		copy.talleres = (a.talleres || []).map(normalizeTaller);
+		copy.fichaPdf = String(a.fichaPdf || '').trim();
+		copy.material = normalizeMaterial(a.material);
 		return copy;
 	}
+	// material puede ser texto (general, para todos) o un objeto
+	// { porSeccion: { "Castores": "...", ... }, general: "..." }.
+	function normalizeMaterial(m) {
+		if (m && typeof m === 'object') {
+			var porSeccion = [];
+			if (m.porSeccion && typeof m.porSeccion === 'object') {
+				for (var s in m.porSeccion) {
+					if (m.porSeccion.hasOwnProperty(s)) {
+						var txt = String(m.porSeccion[s] || '').trim();
+						if (txt) porSeccion.push({ label: s, text: txt });
+					}
+				}
+			}
+			return { general: String(m.general || '').trim(), porSeccion: porSeccion };
+		}
+		return { general: String(m || '').trim(), porSeccion: [] };
+	}
+	function materialHasContent(mat) { return !!(mat && (mat.general || (mat.porSeccion && mat.porSeccion.length))); }
+	function academyHasFicha(a) { return !!(a.fichaPdf || materialHasContent(a.material)); }
 	function tallerHasInfo(t) { return !!(t.descripcion || t.material || t.preparacion); }
 
 	function shuffle(arr) {
@@ -88,10 +109,10 @@
 	}
 
 	function renderHeader() {
-		$('#cc-evento').textContent = CONFIG.evento || 'Pre-registro a Academias';
-		$('#cc-subtitulo').textContent = CONFIG.subtitulo || '';
-		$('#cc-fecha').textContent = CONFIG.fecha || '';
-		$('#cc-pick-num').textContent = PICK;
+		var ev = $('#cc-evento'); if (ev) ev.textContent = CONFIG.evento || 'Pre-registro a Academias';
+		var sub = $('#cc-subtitulo'); if (sub) sub.textContent = CONFIG.subtitulo || '';
+		var fecha = $('#cc-fecha'); if (fecha) fecha.textContent = CONFIG.fecha || '';
+		var pick = $('#cc-pick-num'); if (pick) pick.textContent = PICK;
 		$all('.cc-pick-num2').forEach(function (e) { e.textContent = PICK; });
 	}
 
@@ -113,6 +134,10 @@
 					'</button>';
 			}).join('');
 
+			var fichaBtn = academyHasFicha(a)
+				? '<button type="button" class="cc-ficha-btn" data-ficha>📄 Material y ficha</button>'
+				: '';
+
 			card.innerHTML =
 				'<div class="cc-card-top" style="background:' + esc(a.color || '#444') + '">' +
 					'<span class="cc-card-icon">' + esc(a.icono || '⭐') + '</span>' +
@@ -120,11 +145,13 @@
 				'</div>' +
 				'<div class="cc-card-body">' +
 					'<p class="cc-card-desc">' + esc(a.descripcion || '') + '</p>' +
-					'<div class="cc-tall-label">Talleres</div>' +
 					'<div class="cc-chips">' + chips + '</div>' +
-					'<div class="cc-card-foot">' +
-						'<span class="cc-avail" data-avail></span>' +
-						'<button type="button" class="cc-pick" data-pick><span class="cc-pick-txt">Elegir</span></button>' +
+					'<div class="cc-card-bottom">' +
+						fichaBtn +
+						'<div class="cc-card-foot">' +
+							'<span class="cc-avail" data-avail></span>' +
+							'<button type="button" class="cc-pick" data-pick><span class="cc-pick-txt">Elegir</span></button>' +
+						'</div>' +
 					'</div>' +
 				'</div>';
 
@@ -133,6 +160,9 @@
 			card.addEventListener('keydown', function (e) {
 				if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
 			});
+			// Botón de ficha/material: abre el detalle de la academia sin seleccionarla.
+			var fb = $('[data-ficha]', card);
+			if (fb) fb.addEventListener('click', function (e) { e.stopPropagation(); openAcademy(a); });
 			// Chips de taller: abren su detalle sin seleccionar la academia.
 			$all('.cc-chip', card).forEach(function (chip) {
 				chip.addEventListener('click', function (e) {
@@ -154,10 +184,55 @@
 	function equalizeCards() {
 		var cards = $all('#cc-grid .cc-card');
 		if (!cards.length) return;
+		// 0) Reordenar los chips de talleres para que quepan más por renglón.
+		packChips();
+		var heads = $all('#cc-grid .cc-card-top');
+		// Reset antes de medir.
+		heads.forEach(function (h) { h.style.minHeight = ''; });
 		cards.forEach(function (c) { c.style.minHeight = ''; });
+		// 1) Igualar la altura de los headers (títulos de 1, 2 o 3 líneas).
+		var hmax = 0;
+		heads.forEach(function (h) { if (h.offsetHeight > hmax) hmax = h.offsetHeight; });
+		if (hmax > 0) heads.forEach(function (h) { h.style.minHeight = hmax + 'px'; });
+		// 2) Igualar la altura total de las tarjetas.
 		var max = 0;
 		cards.forEach(function (c) { if (c.offsetHeight > max) max = c.offsetHeight; });
 		if (max > 0) cards.forEach(function (c) { c.style.minHeight = max + 'px'; });
+	}
+
+	// Reordena los chips de cada academia con un algoritmo first-fit-decreasing
+	// (mide el ancho real de cada chip) para minimizar renglones: agrupa los
+	// nombres que caben juntos en la misma línea. El orden visual de los
+	// talleres puede cambiar, pero se aprovecha mejor el espacio.
+	function packChips() {
+		$all('#cc-grid .cc-chips').forEach(function (container) {
+			var chips = $all('.cc-chip', container);
+			if (chips.length < 2) return;
+			var avail = container.clientWidth;
+			if (!avail) return;
+			var gap = parseFloat(getComputedStyle(container).columnGap || getComputedStyle(container).gap) || 6;
+			var items = chips.map(function (c) { return { el: c, w: c.offsetWidth }; });
+			// Orden descendente por ancho.
+			items.sort(function (a, b) { return b.w - a.w; });
+			// First-fit: coloca cada chip en la primera línea donde quepa.
+			var lines = [];
+			items.forEach(function (it) {
+				for (var i = 0; i < lines.length; i++) {
+					if (lines[i].used + gap + it.w <= avail) {
+						lines[i].items.push(it.el);
+						lines[i].used += gap + it.w;
+						return;
+					}
+				}
+				lines.push({ items: [it.el], used: it.w });
+			});
+			// Reinserta los chips en el nuevo orden (conserva sus listeners).
+			var frag = document.createDocumentFragment();
+			lines.forEach(function (line) {
+				line.items.forEach(function (el) { frag.appendChild(el); });
+			});
+			container.appendChild(frag);
+		});
 	}
 	function scheduleEqualize() {
 		if (equalizeRaf) cancelAnimationFrame(equalizeRaf);
@@ -367,6 +442,51 @@
 
 	function closeTaller() { $('#cc-taller-modal').classList.remove('show'); }
 
+	// ── Ficha y material de una academia ──────────────────────────
+	function openAcademy(academy) {
+		if (!academy) return;
+		$('#cc-acad-title').textContent = (academy.icono ? academy.icono + ' ' : '') + academy.nombre;
+		$('#cc-acad-desc').textContent = academy.descripcion || '';
+
+		var matWrap = $('#cc-acad-material');
+		if (materialHasContent(academy.material)) {
+			$('#cc-acad-material-text').innerHTML = renderMaterial(academy.material);
+			matWrap.style.display = 'block';
+		} else { matWrap.style.display = 'none'; }
+
+		var fichaWrap = $('#cc-acad-ficha-wrap');
+		if (academy.fichaPdf) {
+			$('#cc-acad-pdf').setAttribute('href', academy.fichaPdf);
+			fichaWrap.style.display = 'block';
+		} else {
+			fichaWrap.style.display = 'none';
+		}
+
+		$('#cc-acad-modal').classList.add('show');
+	}
+
+	function closeAcademy() {
+		$('#cc-acad-modal').classList.remove('show');
+	}
+
+	// Construye el HTML del material: si es por sección, lo separa en bloques
+	// claramente etiquetados para que cada quien identifique solo el suyo.
+	function renderMaterial(mat) {
+		var html = '';
+		if (mat.porSeccion && mat.porSeccion.length) {
+			html += '<p class="cc-mat-hint">👇 Busca tu sección y trae solo lo que te toca:</p>';
+			html += '<ul class="cc-mat-list">';
+			mat.porSeccion.forEach(function (s) {
+				html += '<li><span class="cc-mat-sec">' + esc(s.label) + ':</span> ' + esc(s.text) + '</li>';
+			});
+			html += '</ul>';
+		}
+		if (mat.general) {
+			html += '<p class="cc-mat-general">' + esc(mat.general) + '</p>';
+		}
+		return html;
+	}
+
 	function showStep(step) {
 		$('#cc-step-form').style.display = step === 'form' ? 'block' : 'none';
 		$('#cc-step-similar').style.display = step === 'similar' ? 'block' : 'none';
@@ -496,8 +616,12 @@
 		$('#cc-taller-modal').addEventListener('click', function (e) {
 			if (e.target === this) closeTaller();
 		});
+		$('#cc-acad-close').addEventListener('click', closeAcademy);
+		$('#cc-acad-modal').addEventListener('click', function (e) {
+			if (e.target === this) closeAcademy();
+		});
 		document.addEventListener('keydown', function (e) {
-			if (e.key === 'Escape') { closeTaller(); closeModal(); }
+			if (e.key === 'Escape') { closeAcademy(); closeTaller(); closeModal(); }
 		});
 		// Re-igualar alturas al cambiar el tamaño de la ventana (con debounce).
 		var rzTimer = null;

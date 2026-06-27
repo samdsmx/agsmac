@@ -15,13 +15,7 @@
 		<!-- Encabezado -->
 		<header class="cc-header">
 			<h1 id="cc-evento">Pre-registro a Academias</h1>
-			<p id="cc-subtitulo" class="cc-sub"></p>
 			<p id="cc-fecha" class="cc-fecha"></p>
-			<div class="cc-steps">
-				<span class="cc-step">1. Descubre las academias y sus talleres</span>
-				<span class="cc-step">2. Elige <b id="cc-pick-num">3</b></span>
-				<span class="cc-step">3. Registra tu nombre, grupo y sección</span>
-			</div>
 		</header>
 
 		<div id="cc-notice" class="cc-notice hide"></div>
@@ -29,8 +23,8 @@
 		<!-- Cómo funciona la dinámica -->
 		<section class="cc-intro">
 			<h2>¿Cómo participo?</h2>
-			<p>Debes elegir <b><span class="cc-pick-num2">3</span> academias</b>. Durante el evento entrarás a una academia distinta en cada bloque.</p>
-			<p>Dentro de cada academia podrás hacer <b>uno o varios de sus talleres</b> — <b>dependiendo el tiempo y tus aficiones</b>. </p>
+			<p>Debes elegir <b><span class="cc-pick-num2">3</span> academias</b> y <b>registrarte</b> con tu nombre, grupo y sección.</p>
+			<p>Dentro de cada academia podrás hacer <b>uno o varios de sus talleres</b> — dependiendo el tiempo disponible. </p>
 			<p>Así que elige las academias donde estén <b>los talleres que más te llaman la atención</b>. 👉 <b>Toca un taller</b> para ver de qué trata.</p>
 			<p class="cc-intro-note">📅 Conforme se acerque la fecha, vuelve a revisar este sitio: algunos talleres podrían dar tips o solicitar alguna <b>preparación previa</b>.</p>
 		</section>
@@ -66,7 +60,7 @@
 						<input type="text" id="cc-paterno" autocomplete="additional-name" placeholder="Ej. López" />
 					</div>
 					<div class="cc-field">
-						<label for="cc-materno">Apellido materno <span class="cc-opt">(opcional)</span></label>
+						<label for="cc-materno">Apellido materno <span class="cc-opt"></span></label>
 						<input type="text" id="cc-materno" autocomplete="family-name" placeholder="Ej. García" />
 					</div>
 				</div>
@@ -120,9 +114,27 @@
 			<p id="cc-taller-desc"></p>
 			<div id="cc-taller-material" class="cc-taller-note" style="display:none"></div>
 			<div id="cc-taller-prep" class="cc-taller-note" style="display:none"></div>
-			<p class="cc-taller-check">📅 Conforme se acerque la fecha, revisa este sitio: este taller podría pedir material o preparación.</p>
 			<div class="cc-actions">
 				<button type="button" id="cc-taller-close" class="cc-btn">Entendido</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal: ficha y material de una academia -->
+	<div id="cc-acad-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="cc-acad-title">
+		<div class="cc-dialog">
+			<h2 id="cc-acad-title"></h2>
+			<p id="cc-acad-desc" class="cc-sub"></p>
+			<div id="cc-acad-material" class="cc-acad-material" style="display:none">
+				<b>🧰 Material que debes traer</b>
+				<div id="cc-acad-material-text"></div>
+			</div>
+			<div id="cc-acad-ficha-wrap" style="display:none">
+				<p class="cc-acad-ficha-label">Ficha completa de la academia:</p>
+				<a id="cc-acad-pdf" class="cc-btn cc-acad-open" href="#" target="_blank" rel="noopener">📄 Ver ficha completa (PDF)</a>
+			</div>
+			<div class="cc-actions">
+				<button type="button" id="cc-acad-close" class="cc-btn ghost">Cerrar</button>
 			</div>
 		</div>
 	</div>
