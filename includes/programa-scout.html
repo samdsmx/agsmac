@@ -1,0 +1,1236 @@
+<style>
+    /* ===== Programa Scout — estilos locales (scoped .ps-*) =====
+       Punto de entrada que explica la metodología de AGSMAC, su
+       identidad y sus secciones, para muchachos, familias y scouters.
+       Las reglas comunes (.section-page wrapper, h3, etc.) viven en
+       assets/css/sections.css. Aquí sólo van los componentes propios. */
+
+    #preview .ps-page { max-width: 70em; }
+    #preview .ps-page p { margin-bottom: 1.1em; }
+
+    /* ---------- Hero ---------- */
+    .ps-hero {
+        position: relative;
+        text-align: center;
+        background-image:
+            linear-gradient(135deg, rgba(26,12,48,0.90) 0%, rgba(74,30,120,0.80) 45%, rgba(170,0,255,0.62) 100%),
+            url('images/programa-scout-hero.jpg');
+        background-size: cover;
+        background-position: center 60%;
+        color: #fff;
+        border-radius: 14px;
+        padding: 2.8em 1.4em 2.5em;
+        margin: 0 0 1.8em;
+        box-shadow: 0 12px 34px rgba(46, 18, 80, 0.32);
+    }
+    .ps-hero .ps-kicker {
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.72em;
+        font-weight: 700;
+        background: rgba(255,255,255,0.18);
+        padding: 0.35em 0.9em;
+        border-radius: 999px;
+        margin-bottom: 0.7em;
+    }
+    .ps-hero h2 {
+        color: #fff !important;
+        font-size: 2.5em;
+        margin: 0 0 0.25em;
+        line-height: 1.05;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    .ps-hero .ps-sub {
+        font-size: 1.18em;
+        max-width: 32em;
+        margin: 0 auto;
+        color: rgba(255,255,255,0.95);
+        line-height: 1.55;
+        text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- Selector de audiencia (CSS :checked, sin JS) ---------- */
+    .ps-aud { margin: 0 0 2.4em; }
+    .ps-aud-radio { position: absolute; opacity: 0; pointer-events: none; }
+    .ps-aud-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6em;
+        justify-content: center;
+        margin-bottom: 1.1em;
+    }
+    .ps-aud-tabs label {
+        flex: 1 1 13em;
+        max-width: 18em;
+        cursor: pointer;
+        text-align: center;
+        padding: 0.85em 1em;
+        border-radius: 10px;
+        border: 2px solid #e5e9ef;
+        background: #f7f9fc;
+        color: #444;
+        font-weight: 600;
+        line-height: 1.2;
+        transition: all 140ms ease;
+        user-select: none;
+    }
+    .ps-aud-tabs label .fa { display: block; font-size: 1.6em; margin-bottom: 0.25em; color: #aa00ff; }
+    .ps-aud-tabs label small { display: block; font-weight: 400; font-size: 0.82em; color: #777; margin-top: 0.2em; }
+    .ps-aud-tabs label:hover { border-color: #cdb4e0; transform: translateY(-2px); }
+
+    .ps-aud-panel { display: none; }
+    .ps-aud-panel {
+        background: #faf7fd;
+        border: 1px solid #ecdef7;
+        border-radius: 12px;
+        padding: 1.4em 1.5em;
+        animation: ps-fade 240ms ease;
+    }
+    @keyframes ps-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .ps-aud-panel h3 { margin-top: 0.1em; }
+    .ps-aud-panel ul { margin: 0 0 0.8em 0; padding-left: 1.2em; }
+    .ps-aud-panel li { margin-bottom: 0.4em; }
+
+    /* Estado activo + panel visible según el radio marcado */
+    #ps-aud-kid:checked ~ .ps-aud-tabs label[for="ps-aud-kid"],
+    #ps-aud-fam:checked ~ .ps-aud-tabs label[for="ps-aud-fam"],
+    #ps-aud-sct:checked ~ .ps-aud-tabs label[for="ps-aud-sct"] {
+        background: #aa00ff;
+        border-color: #aa00ff;
+        color: #fff;
+        box-shadow: 0 6px 16px rgba(170, 0, 255, 0.28);
+    }
+    #ps-aud-kid:checked ~ .ps-aud-tabs label[for="ps-aud-kid"] .fa,
+    #ps-aud-fam:checked ~ .ps-aud-tabs label[for="ps-aud-fam"] .fa,
+    #ps-aud-sct:checked ~ .ps-aud-tabs label[for="ps-aud-sct"] .fa { color: #fff; }
+    #ps-aud-kid:checked ~ .ps-aud-tabs label[for="ps-aud-kid"] small,
+    #ps-aud-fam:checked ~ .ps-aud-tabs label[for="ps-aud-fam"] small,
+    #ps-aud-sct:checked ~ .ps-aud-tabs label[for="ps-aud-sct"] small { color: rgba(255,255,255,0.85); }
+
+    #ps-aud-kid:checked ~ .ps-aud-panels #ps-panel-kid,
+    #ps-aud-fam:checked ~ .ps-aud-panels #ps-panel-fam,
+    #ps-aud-sct:checked ~ .ps-aud-panels #ps-panel-sct { display: block; }
+
+    /* ---------- Títulos de bloque ---------- */
+    .ps-block { margin: 2.4em 0; }
+    .ps-block > h3 {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 0 auto 0.3em;
+        padding-left: 0;
+    }
+    .ps-block-lead {
+        text-align: center;
+        max-width: 40em;
+        margin: 0 auto 1.6em;
+        color: #2b2b2b;
+        line-height: 1.75;
+    }
+
+    /* ---------- Pilares del método ---------- */
+    .ps-pillars {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+    }
+    .ps-pillar {
+        flex: 1 1 13.5em;
+        max-width: 16em;
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-radius: 10px;
+        padding: 1.2em 1.1em;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+        transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+    .ps-pillar:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.09); }
+    .ps-pillar .ps-pillar-ico {
+        width: 3em; height: 3em; line-height: 3em;
+        margin: 0 auto 0.6em;
+        border-radius: 50%;
+        background: #f3e9fb;
+        color: #aa00ff;
+        font-size: 1.25em;
+    }
+    .ps-pillar h4 { margin: 0 0 0.35em; font-size: 1.02em; color: #1a1a1a; }
+    .ps-pillar p { margin: 0; font-size: 0.98em; color: #2b2b2b; line-height: 1.65; }
+    .ps-pillars-sep {
+        flex: 1 1 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.9em;
+        margin: 0.6em 0 0.2em;
+    }
+    .ps-pillars-sep::before,
+    .ps-pillars-sep::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #e3d6f0;
+    }
+    .ps-pillars-sep span {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78em;
+        font-weight: 700;
+        color: #aa00ff;
+        white-space: nowrap;
+    }
+
+    /* ---------- Identidad: principios + Promesa y Ley ---------- */
+    .ps-deberes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+        margin-bottom: 1.6em;
+    }
+    .ps-deber {
+        flex: 1 1 14em;
+        max-width: 20em;
+        border-radius: 10px;
+        padding: 1.1em 1.2em;
+        color: #fff;
+        background: #7b3fa0;
+    }
+    .ps-deber:nth-child(1) { background: linear-gradient(135deg,#7b3fa0,#aa00ff); }
+    .ps-deber:nth-child(2) { background: linear-gradient(135deg,#1e8e4e,#2DA445); }
+    .ps-deber:nth-child(3) { background: linear-gradient(135deg,#c0392b,#e74c3c); }
+    .ps-deber h4 { color: #fff; margin: 0 0 0.3em; font-size: 1.08em; }
+    .ps-deber h4 .fa { margin-right: 0.4em; opacity: 0.92; }
+    .ps-deber p { margin: 0; font-size: 0.92em; color: rgba(255,255,255,0.92); line-height: 1.5; }
+
+    .ps-creed {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 1.2em;
+        align-items: start;
+    }
+    .ps-creed-card {
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-radius: 10px;
+        padding: 1.3em 1.4em;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }
+    .ps-creed-card h4 { margin: 0 0 0.6em; color: #aa00ff; font-size: 1.1em; }
+    .ps-creed-card h4 .fa { margin-right: 0.4em; }
+    .ps-promesa-text {
+        font-style: italic;
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: #333;
+        border-left: 3px solid #aa00ff;
+        padding-left: 0.9em;
+        margin: 0;
+    }
+    .ps-ley { margin: 0; padding-left: 1.3em; }
+    .ps-ley li { margin-bottom: 0.35em; font-size: 0.92em; color: #444; line-height: 1.45; }
+
+    /* ---------- Marco simbólico: 3 dimensiones ---------- */
+    .ps-dims {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1em;
+    }
+    .ps-dim {
+        flex: 1 1 14em;
+        max-width: 20em;
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-top: 4px solid #aa00ff;
+        border-radius: 10px;
+        padding: 1.2em 1.2em;
+    }
+    .ps-dim h4 { margin: 0 0 0.4em; color: #1a1a1a; font-size: 1.05em; }
+    .ps-dim h4 .fa { color: #aa00ff; margin-right: 0.4em; }
+    .ps-dim p { margin: 0; font-size: 0.98em; color: #2b2b2b; line-height: 1.65; }
+
+    /* ---------- Tarjetas de sección ---------- */
+    .ps-secs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2em;
+    }
+    .ps-sec {
+        --sec: #aa00ff;
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+        transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+    .ps-sec:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0,0,0,0.12); }
+    .ps-sec-head {
+        display: flex;
+        align-items: center;
+        gap: 0.9em;
+        padding: 1.1em 1.2em;
+        background: var(--sec);
+        color: #fff;
+    }
+    .ps-sec-emblem {
+        flex: 0 0 auto;
+        width: 56px; height: 56px;
+        object-fit: contain;
+        background: rgba(255,255,255,0.92);
+        border-radius: 12px;
+        padding: 4px;
+    }
+    .ps-sec-emblem.dual { width: auto; height: 56px; display: flex; gap: 4px; background: none; padding: 0; }
+    .ps-sec-emblem.dual img { width: 48px; height: 48px; object-fit: contain; background: rgba(255,255,255,0.92); border-radius: 10px; padding: 3px; }
+    .ps-sec-head h4 { margin: 0; color: #fff !important; font-size: 1.18em; line-height: 1.1; }
+    .ps-sec-age { display: block; font-size: 0.82em; color: rgba(255,255,255,0.9); margin-top: 0.2em; }
+
+    .ps-sec-body { padding: 1.1em 1.2em 1.2em; display: flex; flex-direction: column; flex: 1; }
+    .ps-sec-essence { font-size: 0.98em; color: #2b2b2b; line-height: 1.65; margin: 0 0 0.9em; }
+    .ps-sec-facts { list-style: none; margin: 0 0 1em; padding: 0; }
+    .ps-sec-facts li {
+        display: flex;
+        gap: 0.6em;
+        padding: 0.45em 0;
+        border-top: 1px dashed #eef1f5;
+        font-size: 0.92em;
+        color: #2b2b2b;
+    }
+    .ps-sec-facts li:first-child { border-top: 0; }
+    .ps-sec-facts li .fa { color: var(--sec); width: 1.2em; text-align: center; margin-top: 0.15em; }
+    .ps-sec-facts li b { color: #1a1a1a; font-weight: 700; }
+
+    .ps-sec-max {
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+        margin-top: auto;
+        background: #faf8fc;
+        border: 1px solid #f0eaf6;
+        border-radius: 10px;
+        padding: 0.6em 0.8em;
+        margin-bottom: 0.9em;
+    }
+    .ps-sec-max img { width: 52px; height: 52px; object-fit: contain; flex: 0 0 auto; }
+    .ps-sec-max-imgs { display: flex; gap: 0.4em; flex: 0 0 auto; }
+    .ps-sec-max-imgs img { width: 48px; height: 48px; }
+    .ps-sec-max small { display: block; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.66em; color: #999; }
+    .ps-sec-max strong { color: var(--sec); font-size: 1em; }
+
+    .ps-promesa { margin-top: auto; border-top: 1px solid #eef1f5; padding-top: 0.6em; }
+    .ps-promesa > summary {
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9em;
+        color: var(--sec);
+        list-style: none;
+        outline: none;
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+    }
+    .ps-promesa > summary::-webkit-details-marker { display: none; }
+    .ps-promesa > summary::before { content: "\f105"; font-family: FontAwesome; transition: transform 140ms ease; }
+    .ps-promesa[open] > summary::before { transform: rotate(90deg); }
+    .ps-promesa p {
+        margin: 0.6em 0 0.2em;
+        font-style: italic;
+        font-size: 0.88em;
+        color: #555;
+        line-height: 1.55;
+    }
+
+    /* ---------- Enlaces al detalle de cada sección ---------- */
+    .ps-sec-links { display: flex; flex-wrap: wrap; gap: 0.5em; margin-top: 0.9em; }
+    .ps-sec-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        font-size: 0.84em;
+        font-weight: 600;
+        color: var(--sec);
+        text-decoration: none;
+        border: 1px solid var(--sec);
+        border-radius: 999px;
+        padding: 0.35em 0.85em;
+        transition: background 130ms ease, color 130ms ease;
+    }
+    .ps-sec-link:hover { background: var(--sec); color: #fff !important; }
+    .ps-sec-link .fa { font-size: 0.9em; }
+
+    /* ---------- Adelanto progresivo ---------- */
+    .ps-steps-flow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7em;
+        align-items: stretch;
+        justify-content: center;
+        margin-bottom: 1.2em;
+    }
+    .ps-step {
+        flex: 1 1 9em;
+        max-width: 12em;
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-radius: 10px;
+        padding: 0.9em 0.9em;
+        text-align: center;
+    }
+    .ps-step .ps-step-n {
+        display: inline-block;
+        width: 1.9em; height: 1.9em; line-height: 1.9em;
+        border-radius: 50%;
+        background: #aa00ff; color: #fff; font-weight: 700;
+        margin-bottom: 0.4em;
+    }
+    .ps-step h4 { margin: 0 0 0.2em; font-size: 0.98em; color: #1a1a1a; }
+    .ps-step p { margin: 0; font-size: 0.9em; color: #333; line-height: 1.6; }
+
+    .ps-links { display: flex; flex-wrap: wrap; gap: 0.7em; justify-content: center; }
+
+    /* ---------- CTA final ---------- */
+    .ps-cta {
+        text-align: center;
+        background: linear-gradient(135deg, #2DA445 0%, #1e8e4e 100%);
+        color: #fff;
+        border-radius: 14px;
+        padding: 2em 1.4em;
+        margin: 2.4em 0 1em;
+    }
+    .ps-cta h3 { color: #fff !important; font-size: 1.6em; margin: 0 0 0.4em; }
+    .ps-cta p { color: rgba(255,255,255,0.92); max-width: 34em; margin: 0 auto 1.2em; }
+    .ps-cta .ps-btn-light {
+        display: inline-flex; align-items: center; gap: 0.5em;
+        background: #fff; color: #1e8e4e !important;
+        padding: 0.7em 1.4em; border-radius: 999px;
+        font-weight: 700; text-decoration: none;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+        transition: transform 140ms ease;
+    }
+    .ps-cta .ps-btn-light:hover { transform: translateY(-2px); }
+
+    @media (max-width: 600px) {
+        .ps-secs { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 736px) {
+        .ps-hero h2 { font-size: 1.9em; }
+        .ps-creed { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- Modal de detalle de sección ---------- */
+    .ps-modal { position: fixed; inset: 0; z-index: 9000; display: none; }
+    .ps-modal.open { display: block; }
+    .ps-modal-backdrop { position: absolute; inset: 0; background: rgba(20,10,35,0.55); }
+    .ps-modal-card {
+        position: relative;
+        max-width: 40em;
+        width: calc(100% - 2.2em);
+        max-height: 86vh;
+        margin: 6vh auto 0;
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+        display: flex;
+        flex-direction: column;
+        animation: ps-fade 220ms ease;
+    }
+    .ps-modal-head {
+        display: flex; align-items: center; gap: 0.8em;
+        padding: 1em 1.2em; color: #fff; background: var(--sec, #aa00ff);
+    }
+    .ps-modal-head img { width: 46px; height: 46px; object-fit: contain; background: rgba(255,255,255,0.92); border-radius: 10px; padding: 3px; flex: 0 0 auto; }
+    .ps-modal-head h3 { margin: 0; color: #fff !important; font-size: 1.3em; line-height: 1.1; }
+    .ps-modal-close {
+        margin-left: auto; background: rgba(255,255,255,0.22); border: 0; color: #fff;
+        width: 2em; height: 2em; border-radius: 50%; cursor: pointer; font-size: 1.1em; line-height: 1;
+        display: flex; align-items: center; justify-content: center; flex: 0 0 auto;
+        transition: background 130ms ease;
+    }
+    .ps-modal-close:hover { background: rgba(255,255,255,0.4); }
+    .ps-modal-body { padding: 1.1em 1.3em 1.5em; overflow-y: auto; flex: 1; }
+    .ps-modal-loading { text-align: center; color: #999; padding: 1.6em; }
+
+    /* Fragmento contenido*.html mostrado dentro del modal claro */
+    #ps-sec-modal .ps-frag .leftArrow,
+    #ps-sec-modal .ps-frag .rigthArrow { display: none !important; }
+    #ps-sec-modal .contenido {
+        width: 100% !important; max-width: none !important;
+        margin: 0 !important; padding: 0 !important;
+        background: transparent !important; box-shadow: none !important;
+    }
+    #ps-sec-modal .contenido > .contenidoLargoCirculos.intro-seccion,
+    #ps-sec-modal .contenido > .contenidoLargoCirculos.adelanto-seccion,
+    #ps-sec-modal .contenido > .contenedorTabs {
+        display: block !important;
+        width: 100% !important; max-width: none !important; max-height: none !important;
+        margin: 0.2em 0 1.3em !important; padding: 0 !important;
+        background: transparent !important; box-shadow: none !important;
+    }
+    #ps-sec-modal .contenidoLargoCirculos { color: #444 !important; }
+    #ps-sec-modal .ps-frag p,
+    #ps-sec-modal .ps-frag li,
+    #ps-sec-modal .ps-frag strong { color: #444 !important; }
+    #ps-sec-modal .ps-frag h2 { color: #1a1a1a !important; font-size: 1.2em; margin: 0.2em 0 0.5em; }
+    #ps-sec-modal .contenidoLargoCirculos h1 { color: var(--sec) !important; }
+    #ps-sec-modal .ps-frag .seccion-decor { display: none; }
+    #ps-sec-modal .contenedorTabs .tabcontent,
+    #ps-sec-modal .contenedorTabs .tabcontent-small { max-height: none !important; color: #444 !important; }
+    #ps-sec-modal .contenedorTabs .tabcontent *,
+    #ps-sec-modal .contenedorTabs .tabcontent-small * { color: #444 !important; }
+    #ps-sec-modal .adelanto-intro { text-align: left !important; }
+</style>
+
+<div id="preview">
+    <div class="inner">
+        <div class="content section-page ps-page">
+
+            <!-- ============ HERO ============ -->
+            <header class="ps-hero">
+                <span class="ps-kicker">AGSMAC</span>
+                <h2>Programa Scout</h2>
+                <p class="ps-sub">
+                    Aquí descubrirás cómo trabajamos, qué nos identifica y dónde encaja
+                    cada niña, niño o joven en la gran aventura de ser scout.
+                </p>
+            </header>
+
+            <!-- ============ SELECTOR DE AUDIENCIA ============ -->
+            <div class="ps-aud">
+                <input type="radio" name="ps-aud" id="ps-aud-kid" class="ps-aud-radio" checked />
+                <input type="radio" name="ps-aud" id="ps-aud-fam" class="ps-aud-radio" />
+                <input type="radio" name="ps-aud" id="ps-aud-sct" class="ps-aud-radio" />
+
+                <div class="ps-aud-tabs" role="tablist">
+                    <label for="ps-aud-kid">
+                        <i class="fa fa-child" aria-hidden="true"></i>
+                        Quiero ser Scout
+                        <small>¿Por donde empiezo?</small>
+                    </label>
+                    <label for="ps-aud-fam">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        Soy mamá o papá
+                        <small>Quiero conocer el movimiento</small>
+                    </label>
+                    <label for="ps-aud-sct">
+                        <i class="fa fa-compass" aria-hidden="true"></i>
+                        Soy (o quiero ser) scouter
+                        <small>¿Cómo me preparo?</small>
+                    </label>
+                </div>
+
+                <div class="ps-aud-panels">
+                    <div class="ps-aud-panel" id="ps-panel-kid">
+                        <h3><i class="fa fa-star"></i> ¡Tu aventura empieza aquí!</h3>
+                        <p>
+                            En el escultismo aprendes jugando, haces grandes amistades, acampas,
+                            exploras la naturaleza y descubres de lo que eres capaz. Hay una sección
+                            pensada justo para tu edad, con su propio ambiente, sus retos y sus insignias.
+                        </p>
+                        <p>
+                            ¿Cuántos años tienes? Baja a <a href="#ps-secciones">Nuestras secciones</a>
+                            y encuentra la tuya: desde la <b>Colonia de Castores</b> (4 años) hasta el
+                            <b>Clan</b> (jóvenes de más de 18 años).
+                        </p>
+                    </div>
+
+                    <div class="ps-aud-panel" id="ps-panel-fam">
+                        <h3><i class="fa fa-heart"></i> Un complemento a la familia y la escuela</h3>
+                        <p>
+                            El escultismo acompaña la formación del carácter de tus hijas e hijos:
+                            les ayuda a ser responsables, a convivir, a cuidar la naturaleza y a
+                            servir a los demás. Todo a través del juego y la vida al aire libre,
+                            guiados por adultos voluntarios que se capacitan para ello.
+                        </p>
+                        <ul>
+                            <li><b>Por edades:</b> cada sección tiene actividades adecuadas a su etapa.</li>
+                            <li><b>Valores claros:</b> una Promesa y una Ley que orientan su crecimiento.</li>
+                            <li><b>Acompañamiento:</b> reuniones cada sábado, excursiones y campamentos.</li>
+                        </ul>
+                        <p>
+                            Conoce <a href="#ps-identidad">lo que nos identifica</a> y, cuando quieras,
+                            <a href="index.html" data-open="grupos">encuentra un Grupo Scout cerca de ti</a>.
+                        </p>
+                    </div>
+
+                    <div class="ps-aud-panel" id="ps-panel-sct">
+                        <h3><i class="fa fa-flag"></i> Bienvenido al equipo de adultos</h3>
+                        <p>
+                            No necesitas haber sido scout para empezar. Tu labor es sencilla y
+                            profunda a la vez: <b>dejar que el muchacho viva el Escultismo</b> y
+                            <em>pregonar con el ejemplo</em>, animando, inspirando y acompañando.
+                        </p>
+                        <ul>
+                            <li>Conoce primero el <a href="#ps-metodo">método scout</a> y sus elementos.</li>
+                            <li>Entiende el <a href="#ps-marco">marco simbólico</a> de las secciones.</li>
+                            <li>Participa en el sistema de Adiestramiento de la AGSMAC: Curso de inducción, Formación básica y Talleres.</li>
+                        </ul>
+                        <p>
+                            ¡Empecemos!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ ¿QUÉ ES EL PROGRAMA SCOUT? / MÉTODO ============ -->
+            <section class="ps-block" id="ps-metodo">
+                <h3>¿Qué es el Programa Scout?</h3>
+                <p class="ps-block-lead">
+                    Es el conjunto de elementos que hacen posible el <b>método scout</b>: la
+                    propuesta educativa de Baden-Powell para la autoeducación progresiva de cada
+                    muchacho. Estos son sus pilares:
+                </p>
+                <div class="ps-pillars">
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-magic"></i></div>
+                        <h4>Marco simbólico</h4>
+                        <p>Un ambiente místico que envuelve cada sección y le da vida a través de la presentación, la acción y el espíritu. <a href="#ps-marco">Conócelo más abajo</a>.</p>
+                    </div> 
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-line-chart"></i></div>
+                        <h4>Estructura</h4>
+                        <p>Secciones y pequeños equipos —seisenas, patrullas y consejos— que fomentan la organización, el trabajo en equipo y el liderazgo.</p>
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-line-chart"></i></div>
+                        <h4>Adelanto progresivo</h4>
+                        <p>Metas e insignias propias de cada sección que cada muchacho supera a su ritmo. <a href="#ps-adelanto">Mas...</a></p>
+                    </div>
+
+                    <div class="ps-pillars-sep"><span>El Método Scout</span></div>
+
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-hand-paper-o"></i></div>
+                        <h4>Promesa y Ley</h4>
+                        <p>Aceptación voluntaria de un compromiso con valores que guían nuestra conducta diaria.</p>
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-wrench"></i></div>
+                        <h4>Aprender haciendo</h4>
+                        <p>Se aprende viviendo y experimentando en la acción, no sólo escuchando.</p>
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-users"></i></div>
+                        <h4>Vida en pequeños equipos</h4>
+                        <p>Familias, seisenas, patrullas y equipos donde se toman decisiones juntos.</p>
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-compass"></i></div>
+                        <h4>Utilización permanente de pequeños grupos naturales</h4>
+                        <p>El escultismo se vive en pequeños grupos donde cada quien aporta y aprende de sus semejantes el trabajo en equipo y la amistad.</p>
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-tree"></i></div>
+                        <h4>Vida en la naturaleza</h4>
+                        <p>La realización de actividades al aire libre y de observación de la naturaleza.</p>
+                        <!-- Las actividades al aire libre nos presentan oportunidades insuperables para el desarrollo integral del muchacho. -->
+                    </div>
+                    <div class="ps-pillar">
+                        <div class="ps-pillar-ico"><i class="fa fa-compass"></i></div>
+                        <h4>Presencia del adulto</h4>
+                        <p>Un acompañamiento adulto estimulante que orienta y ayuda sin interferir.</p>
+                        <!-- La participación indirecta del adulto, en forma estimulante y no interferente, con la oportunidad de ayudar a los muchachos en la organización y dirección de actividades y en la toma de decisiones -->
+                    </div>
+                    
+                </div>
+            </section>
+
+            <!-- ============ LO QUE NOS IDENTIFICA ============ -->
+            <section class="ps-block" id="ps-identidad">
+                <h3>Lo que nos identifica</h3>
+                <p class="ps-block-lead">
+                    La <b>Asociación de Grupos de Scouts de México A.C.</b> fue fundada en 2006 con el
+                    objeto de coadyuvar en la formación del carácter de niñas, niños y jóvenes,
+                    El escultismo se sostiene sobre tres principios fundamentales:
+                </p>
+                <div class="ps-deberes">
+                    <div class="ps-deber">
+                        <h4><i class="fa fa-star"></i> Deberes para con Dios</h4>
+                        <p>Reconocer un principio espiritual, vivir la propia fe y cuidar la naturaleza.</p>
+                    </div>
+                    <div class="ps-deber">
+                        <h4><i class="fa fa-users"></i> Deberes para con los demás</h4>
+                        <p>Servir al prójimo, a la familia, a la comunidad y a la Patria.</p>
+                    </div>
+                    <div class="ps-deber">
+                        <h4><i class="fa fa-user"></i> Deberes para consigo mismo</h4>
+                        <p>Desarrollar las propias capacidades y responsabilizarse del propio crecimiento.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ============ EL MARCO SIMBÓLICO ============ -->
+            <section class="ps-block" id="ps-marco">
+                <h3>El Marco Simbólico</h3>
+                <p class="ps-block-lead">
+                    Es el ambiente que envuelve a cada sección y le da su «mística»: el escenario donde
+                    suceden todas las actividades. No es un adorno, sino un ambiente educativo que hace
+                    que cada muchacho <em>viva</em> su sección. Se manifiesta en tres dimensiones:
+                </p>
+                <div class="ps-dims">
+                    <div class="ps-dim">
+                        <h4><i class="fa fa-certificate"></i> Presentación</h4>
+                        <p>La imagen del movimiento: uniforme, insignias, símbolos, nombres y ambiente físico.</p>
+                    </div>
+                    <div class="ps-dim">
+                        <h4><i class="fa fa-bolt"></i> Acción</h4>
+                        <p>La vida de la sección: ceremonias, tradiciones, el lema y la actitud scout.</p>
+                    </div>
+                    <div class="ps-dim">
+                        <h4><i class="fa fa-fire"></i> Espíritu</h4>
+                        <p>La mística y el relato de fondo: el espíritu scout, el servicio y las buenas acciones.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ NUESTRAS SECCIONES ============ -->
+            <section class="ps-block" id="ps-secciones">
+                <h3>Nuestras secciones</h3>
+                <p class="ps-block-lead">
+                    El mismo programa se vive de forma distinta en cada etapa. Encuentra la tuya
+                    por la edad, y conoce su ambiente, su lema y sus adelantos.
+                </p>
+                <div class="ps-secs">
+
+                    <!-- Castores -->
+                    <article class="ps-sec" style="--sec:#b5651d;">
+                        <div class="ps-sec-head">
+                            <img class="ps-sec-emblem" src="images/secciones/CC.gif" alt="Emblema Colonia de Castores" />
+                            <div>
+                                <h4>Colonia de Castores</h4>
+                                <span class="ps-sec-age">4 a 6 años · niñas y niños</span>
+                            </div>
+                        </div>
+                        <div class="ps-sec-body">
+                            <p class="ps-sec-essence">
+                                Los más pequeños comparten, juegan y descubren el mundo en familia.
+                                Todo gira en torno al relato del <b>río de los castores</b>.
+                            </p>
+                            <ul class="ps-sec-facts">
+                                <li><i class="fa fa-quote-left"></i> <span>Lema: <b>Compartir</b></span></li>
+                                <li><i class="fa fa-map"></i> <span>Ambiente: la presa y el río de los castores</span></li>
+                                <li><i class="fa fa-users"></i> <span>Se organizan en <b>familias</b> y Consejo de la Presa</span></li>
+                            </ul>
+                            <div class="ps-sec-max">
+                                <img src="images/secciones/Colonia%20de%20Castores/Gran%20Castor%20Cafe.png" alt="Insignia Gran Castor Café" />
+                                <div><small>Insignia máxima</small><strong>Gran Castor Café</strong></div>
+                            </div>
+                            <div class="ps-sec-links">
+                                <a class="ps-sec-link" href="index.html#seccion-CC"><i class="fa fa-arrow-circle-right"></i> Ver detalle</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Manada -->
+                    <article class="ps-sec" style="--sec:#f5a623;">
+                        <div class="ps-sec-head">
+                            <span class="ps-sec-emblem dual">
+                                <img src="images/secciones/MG.gif" alt="Emblema Manada de Gacelas" />
+                                <img src="images/secciones/ML.gif" alt="Emblema Manada de Lobatos" />
+                            </span>
+                            <div>
+                                <h4>Manadas</h4>
+                                <span class="ps-sec-age">7 a 10 años · Gacelas y Lobatos</span>
+                            </div>
+                        </div>
+                        <div class="ps-sec-body">
+                            <p class="ps-sec-essence">
+                                La fantasía al servicio del aprendizaje: jugando, Gacelas y Lobatos
+                                aprenden a compartir, la amistad y el cuidado de los demás.
+                            </p>
+                            <ul class="ps-sec-facts">
+                                <li><i class="fa fa-quote-left"></i> <span>Lema: <b>Atentas</b> y <b>Lo mejor</b></span></li>
+                                <li><i class="fa fa-map"></i> <span>Ambiente: Foresta Andi (Gacelas) y El libro de la selva (Lobatos)</span></li>
+                                <li><i class="fa fa-users"></i> <span> Cada Manada se organiza en <b>seisenas</b> y cuenta con un <b>Consejo de Abrevadero o Roca</b></span></li>
+                            </ul>
+                            <div class="ps-sec-max">
+                                <span class="ps-sec-max-imgs">
+                                    <img src="images/secciones/Manadas/Manada%20de%20Gacelas/Arcoiris.png" alt="Insignia Arcoíris (Gacelas)" />
+                                    <img src="images/secciones/Manadas/Manada%20de%20Lobatos/Lobo%20Rampante.png" alt="Insignia Lobo Rampante (Lobatos)" />
+                                </span>
+                                <div><small>Meta máxima</small><strong>Arcoíris · Lobo Rampante </strong></div>
+                            </div>
+                            <div class="ps-sec-links">
+                                <a class="ps-sec-link" href="index.html#seccion-MG"><i class="fa fa-arrow-circle-right"></i> Gacelas</a>
+                                <a class="ps-sec-link" href="index.html#seccion-ML"><i class="fa fa-arrow-circle-right"></i> Lobatos</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Tropa -->
+                    <article class="ps-sec" style="--sec:#2DA445;">
+                        <div class="ps-sec-head">
+                            <span class="ps-sec-emblem dual">
+                                <img src="images/secciones/TMS.gif" alt="Emblema Tropa de Muchachas Scouts" />
+                                <img src="images/secciones/TS.gif" alt="Emblema Tropa Scout" />
+                            </span>
+                            <div>
+                                <h4>Tropa</h4>
+                                <span class="ps-sec-age">11 a 17 años · Scouts y Muchachas Scouts</span>
+                            </div>
+                        </div>
+                        <div class="ps-sec-body">
+                            <p class="ps-sec-essence">
+                                La gran aventura del explorador: liderazgo, técnica scout y
+                                responsabilidad en la vida de patrulla.
+                            </p>
+                            <ul class="ps-sec-facts">
+                                <li><i class="fa fa-quote-left"></i> <span>Lema: <b>Siempre listos</b></span></li>
+                                <li><i class="fa fa-map"></i> <span>Ambiente: la aventura y la exploración</span></li>
+                                <li><i class="fa fa-users"></i> <span>Se organizan en <b>patrullas</b> y Corte de Honor</span></li>
+                            </ul>
+                            <div class="ps-sec-max">
+                                <span class="ps-sec-max-imgs">
+                                    <img src="images/secciones/Tropas/Tropa%20de%20Muchachas%20Scouts/AveFenix.png" alt="Insignia Ave Fénix (Muchachas Scouts)" />
+                                    <img src="images/secciones/Tropas/Tropa%20Scout/Caballero%20Scout%20Aguila.png" alt="Insignia Caballero Scout Águila (Tropa Scout)" />
+                                </span>
+                                <div><small>Meta máxima</small><strong>Ave Fénix · Caballero Scout Águila</strong></div>
+                            </div>
+                            
+                            <div class="ps-sec-links">
+                                <a class="ps-sec-link" href="index.html#seccion-TMS"><i class="fa fa-arrow-circle-right"></i> Muchachas Scouts</a>
+                                <a class="ps-sec-link" href="index.html#seccion-TS"><i class="fa fa-arrow-circle-right"></i> Tropa Scout</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Clan -->
+                    <article class="ps-sec" style="--sec:#c0392b;">
+                        <div class="ps-sec-head">
+                            <span class="ps-sec-emblem dual">
+                                <img src="images/secciones/CR.gif" alt="Emblema Clan de Rovers" />
+                                <img src="images/secciones/CP.gif" alt="Emblema Clan de Precursoras" />
+                            </span>
+                            <div>
+                                <h4>Clan</h4>
+                                <span class="ps-sec-age">18 a 22 años · Precursoras y Rovers</span>
+                            </div>
+                        </div>
+                        <div class="ps-sec-body">
+                            <p class="ps-sec-essence">
+                                Jóvenes que construyen su proyecto de vida bajo el signo del reto y el
+                                servicio a los demás.
+                            </p>
+                            <ul class="ps-sec-facts">
+                                <li><i class="fa fa-quote-left"></i> <span>Lema: <b>Servir</b></span></li>
+                                <li><i class="fa fa-map"></i> <span>Ambiente: el reto, la expedición y el servicio</span></li>
+                                <li><i class="fa fa-users"></i> <span>Se organizan en <b>equipos</b> y Consejo de Clan</span></li>
+                            </ul>
+                            <div class="ps-sec-max">
+                                <span class="ps-sec-max-imgs">
+                                    <img src="images/secciones/Clanes/Clan%20de%20Precursoras/BP%20Precursora.png" alt="Insignia B.P. (Precursoras)" />
+                                    <img src="images/secciones/Clanes/Clan%20de%20Rovers/BPRover.png" alt="Insignia B.P. (Rovers)" />
+                                </span>
+                                <div><small>Insignia Terminal</small><strong>Insignia B.P.</strong></div>
+                            </div>
+                            <div class="ps-sec-links">
+                                <a class="ps-sec-link" href="index.html#seccion-CP"><i class="fa fa-arrow-circle-right"></i> Precursoras</a>
+                                <a class="ps-sec-link" href="index.html#seccion-CR"><i class="fa fa-arrow-circle-right"></i> Rovers</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- ============ ADELANTO PROGRESIVO ============ -->
+            <section class="ps-block" id="ps-adelanto">
+                <h3>El adelanto progresivo</h3>
+                <p class="ps-block-lead">
+                    En cada sección, cada muchacho avanza a su propio ritmo superando metas que lo
+                    estimulan y lo sitúan en su ambiente. El camino contempla tres grandes momentos:
+                </p>
+                <div class="ps-steps-flow">
+                    <div class="ps-step">
+                        <span class="ps-step-n">1</span>
+                        <h4>Ingreso</h4>
+                        <p>La preparación para integrarse y hacer su Promesa.</p>
+                    </div>
+                    <div class="ps-step">
+                        <span class="ps-step-n">2</span>
+                        <h4>Desarrollo</h4>
+                        <p>El crecimiento en el escultismo, la naturaleza y la comunidad.</p>
+                    </div>
+                    <div class="ps-step">
+                        <span class="ps-step-n">3</span>
+                        <h4>Proyección</h4>
+                        <p>La preparación para el futuro y el paso a la siguiente sección.</p>
+                    </div>
+                </div>
+                <p class="ps-block-lead">
+                    Cada etapa se reconoce con insignias, y culmina con la <b>insignia máxima</b> de la
+                    sección.
+                </p>
+                <div class="ps-links">
+                    <a href="detail1.html" class="section-btn" onclick="localStorage.setItem('page','cuadro-de-adelanto.html');">
+                        <i class="fa fa-trophy"></i> Cuadro de Honor
+                    </a>
+                </div>
+            </section>
+
+            <!-- ============ CTA FINAL ============ -->
+            <section class="ps-cta">
+                <h3>¿Listo para vivir la aventura?</h3>
+                <p>
+                    El escultismo se vive, no sólo se lee. Encuentra un Grupo Scout de AGSMAC
+                    cerca de ti y da el primer paso, ya seas muchacho, familia o futuro scouter.
+                </p>
+                <a href="index.html" data-open="grupos" class="ps-btn-light">
+                    <i class="fa fa-map-marker"></i> Encuentra un Grupo Scout
+                </a>
+            </section>
+
+            <p class="section-footer-note">
+                «El Escultismo es un juego, en que hermanos mayores se preocupan por dar a sus hermanos más pequeños un ambiente saludable y alentarlos y dirigirlos en actividades tales, que les ayuden a formarse desde pequeños como buenos ciudadanos.» — Sir Robert Baden-Powell of Gilwell.
+            </p>
+
+        </div>
+    </div>
+    <a id="previo" data="seguro.html" class="nav previous" aria-label="Anterior"><span class="fa fa-chevron-left"></span></a>
+    <a id="sigue" data="album-fotografico.html" class="nav next" aria-label="Siguiente"><span class="fa fa-chevron-right"></span></a>
+</div>
+
+<!-- ============ MODAL: detalle de sección (en-página) ============ -->
+<div class="ps-modal" id="ps-sec-modal" role="dialog" aria-modal="true" aria-labelledby="ps-sec-title">
+    <div class="ps-modal-backdrop"></div>
+    <div class="ps-modal-card">
+        <div class="ps-modal-head">
+            <img id="ps-sec-emblem" src="" alt="" />
+            <h3 id="ps-sec-title">Sección</h3>
+            <button type="button" class="ps-modal-close" aria-label="Cerrar"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="ps-modal-body" id="ps-sec-body"></div>
+    </div>
+</div>
+
+<!-- ============ MODAL: buscador de grupos (en-página) ============ -->
+<div id="panioletaSearcher" class="hide" role="dialog" aria-modal="true" aria-labelledby="grupoCardTitulo">
+    <div class="grupo-card">
+        <header class="grupo-card-top">
+            <div class="grupo-card-top-title">
+                <i class="fa fa-search"></i>
+                <span>Buscar grupo</span>
+            </div>
+            <button type="button" class="grupo-card-close btn-cerrar" aria-label="Cerrar">
+                <i class="fa fa-times"></i>
+            </button>
+            <div class="grupo-card-filters">
+                <select id="grupos" aria-label="Estado"></select>
+                <select id="subgrupos" aria-label="Grupo"></select>
+            </div>
+        </header>
+
+        <section class="grupo-card-hero">
+            <div class="grupo-card-escudo">
+                <img id="grupoEscudo" src="" alt="" />
+            </div>
+            <div class="grupo-card-titulos">
+                <h2 id="grupoCardTitulo">Selecciona un grupo</h2>
+                <p class="grupo-card-lema" id="grupoLema"></p>
+            </div>
+        </section>
+
+        <section class="grupo-card-body" id="contenidoBanderin">
+            <p class="grupo-card-empty">Usa los filtros de arriba para elegir un estado y un grupo.</p>
+        </section>
+
+        <a href="#" class="button hidden" aria-hidden="true" tabindex="-1"></a>
+    </div>
+</div>
+
+<script>
+(function(){
+    if (window.psProgramaScoutBound) { return; }
+    window.psProgramaScoutBound = true;
+
+    // openInfo global para las pestañas del fragmento de sección.
+    if (typeof window.openInfo !== 'function') {
+        window.openInfo = function(evt, section){
+            var container = evt.currentTarget.closest('.contenedorTabs') || document;
+            var tc = container.querySelectorAll('.tabcontent, .tabcontent-small');
+            for (var i = 0; i < tc.length; i++) { tc[i].style.display = "none"; }
+            var tl = container.querySelectorAll('.tablinks');
+            for (var j = 0; j < tl.length; j++) { tl[j].className = tl[j].className.replace(" active", ""); }
+            var target = document.getElementById(section);
+            if (target) target.style.display = "block";
+            evt.currentTarget.className += " active";
+        };
+    }
+
+    /* ===================== Detalle de sección ===================== */
+    var SEC = {
+        CC:  { n: 'Colonia de Castores',   g: 'CC',  c: '#b5651d' },
+        MG:  { n: 'Manada de Gacelas',     g: 'MG',  c: '#cf8a00' },
+        ML:  { n: 'Manada de Lobatos',     g: 'ML',  c: '#cf8a00' },
+        TMS: { n: 'Tropa de Muchachas',    g: 'TMS', c: '#2DA445' },
+        TS:  { n: 'Tropa Scout',           g: 'TS',  c: '#2DA445' },
+        CR:  { n: 'Clan de Rovers',        g: 'CR',  c: '#c0392b' },
+        CP:  { n: 'Clan de Precursoras',   g: 'CP',  c: '#c0392b' },
+        SD:  { n: 'Scouters y Dirigentes', g: 'J',   c: '#4a5568' }
+    };
+    var fragCache = {};
+
+    function initTabs($scope){
+        $scope.find('.contenedorTabs').each(function(){
+            var $c = $(this);
+            $c.find('.tabcontent, .tabcontent-small').css('display', 'none');
+            $c.find('.tablinks').removeClass('active');
+            $c.find('.tabcontent, .tabcontent-small').first().css('display', 'block');
+            $c.find('.tablinks').first().addClass('active');
+        });
+    }
+
+    function abrirSeccion(code){
+        var s = SEC[code];
+        if (!s) return;
+        var modalEl = document.getElementById('ps-sec-modal');
+        modalEl.style.setProperty('--sec', s.c);
+        $('#ps-sec-emblem').attr('src', 'images/secciones/' + s.g + '.gif');
+        $('#ps-sec-title').text(s.n);
+        var $body = $('#ps-sec-body');
+
+        function show(html){
+            var fragEl = document.createElement('div');
+            fragEl.className = 'ps-frag';
+            fragEl.style.setProperty('--sec-bg', '#fff');
+            fragEl.style.setProperty('--sec-accent', s.c);
+            fragEl.style.setProperty('--sec-text', '#333');
+            fragEl.innerHTML = html;
+            $body.empty().append(fragEl);
+            initTabs($(fragEl));
+            $body.scrollTop(0);
+        }
+
+        $('#ps-sec-modal').addClass('open');
+        $('body').css('overflow', 'hidden');
+        if (fragCache[code]) {
+            show(fragCache[code]);
+        } else {
+            $body.html('<p class="ps-modal-loading">Cargando…</p>');
+            $.get('includes/contenido' + code + '.html', function(html){
+                fragCache[code] = html;
+                show(html);
+            }).fail(function(){
+                $body.html('<p class="ps-modal-loading">No se pudo cargar la información de la sección.</p>');
+            });
+        }
+    }
+
+    function cerrarSeccion(){ $('#ps-sec-modal').removeClass('open'); $('body').css('overflow', ''); }
+
+    $(document).on('click', '.ps-sec-link', function(e){
+        e.preventDefault();
+        var m = (this.getAttribute('href') || '').match(/seccion-([A-Za-z]+)/);
+        if (m) { abrirSeccion(m[1].toUpperCase()); }
+    });
+    $(document).on('click', '#ps-sec-modal .ps-modal-close, #ps-sec-modal .ps-modal-backdrop', function(e){
+        e.preventDefault();
+        cerrarSeccion();
+    });
+
+    /* ===================== Buscador de grupos ===================== */
+    var grupos = null;
+
+    function escapeHtml(str){
+        if (str == null) return "";
+        return String(str)
+            .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+    function findGrupoByKey(grupoKey){
+        var found = null;
+        if (!grupos) return null;
+        $.each(grupos, function(estado, lista){
+            $.each(lista, function(nombre, info){
+                if (nombre === grupoKey) { found = { estado: estado, nombre: nombre, info: info }; return false; }
+            });
+            if (found) return false;
+        });
+        return found;
+    }
+    function rellenarSelectGrupos(estadoSeleccionado){
+        $("#grupos").empty();
+        $.each(grupos, function(estado){
+            var sel = (estado === estadoSeleccionado) ? " selected" : "";
+            $("#grupos").append("<option value='" + estado + "'" + sel + ">" + estado + "</option>");
+        });
+    }
+    function rellenarSelectSubgrupos(estado, grupoSeleccionado){
+        $("#subgrupos").empty();
+        if (!grupos || !grupos[estado]) return;
+        var keys = Object.keys(grupos[estado]);
+        if (keys.length > 1) {
+            $("#subgrupos").append("<option value=''>-- Selecciona un grupo --</option>");
+        }
+        $.each(grupos[estado], function(nombre){
+            var sel = (nombre === grupoSeleccionado) ? " selected" : "";
+            $("#subgrupos").append("<option value='" + nombre + "'" + sel + ">" + nombre + "</option>");
+        });
+    }
+    function unicoGrupoDe(estado){
+        if (!grupos || !grupos[estado]) return null;
+        var keys = Object.keys(grupos[estado]);
+        return keys.length === 1 ? keys[0] : null;
+    }
+    function renderGrupoCard(estado, grupoKey){
+        var $title = $("#grupoCardTitulo");
+        var $lema = $("#grupoLema");
+        var $estado = $("#grupoEstado");
+        var $escudo = $("#grupoEscudo");
+        var $body = $("#contenidoBanderin");
+
+        if (!grupoKey || !grupos || !grupos[estado] || !grupos[estado][grupoKey]) {
+            $title.text("Selecciona un grupo");
+            $lema.text("");
+            $estado.text(estado || "");
+            $escudo.attr("src", "").attr("alt", "").parent().addClass("empty");
+            $body.html('<p class="grupo-card-empty">Selecciona un estado y un grupo para ver su información.</p>');
+            return;
+        }
+
+        var info = grupos[estado][grupoKey];
+        $title.text(grupoKey);
+        $lema.text(info.nombre ? info.nombre : "");
+        $estado.text(estado);
+
+        var escudoSrc = info.escudo || info.panioleta || "";
+        if (escudoSrc) {
+            $escudo.attr("src", escudoSrc).attr("alt", "Escudo " + grupoKey).parent().removeClass("empty");
+        } else {
+            $escudo.attr("src", "").attr("alt", "").parent().addClass("empty");
+        }
+
+        var rows = [];
+        function row(icon, label, value, isLink, hrefOverride){
+            if (!value) return;
+            var safeVal = escapeHtml(value);
+            var content = safeVal;
+            if (isLink) {
+                var href = hrefOverride || value;
+                content = '<a href="' + escapeHtml(href) + '" target="_blank" rel="noopener">' + safeVal + '</a>';
+            }
+            rows.push(
+                '<li class="grupo-info-row">' +
+                    '<span class="grupo-info-icon"><i class="fa ' + icon + '"></i></span>' +
+                    '<span class="grupo-info-label">' + label + '</span>' +
+                    '<span class="grupo-info-value">' + content + '</span>' +
+                '</li>'
+            );
+        }
+
+        row("fa-user", "Jefe de Grupo", info.jefe);
+        if (info.direccion) {
+            if (info.mapsUrl) {
+                rows.push(
+                    '<li class="grupo-info-row">' +
+                        '<span class="grupo-info-icon"><i class="fa fa-map-marker"></i></span>' +
+                        '<span class="grupo-info-label">Dirección</span>' +
+                        '<span class="grupo-info-value">' +
+                            '<a href="' + escapeHtml(info.mapsUrl) + '" target="_blank" rel="noopener">' +
+                                escapeHtml(info.direccion) + ' <i class="fa fa-external-link"></i>' +
+                            '</a>' +
+                        '</span>' +
+                    '</li>'
+                );
+            } else {
+                row("fa-map-marker", "Dirección", info.direccion);
+            }
+        }
+        row("fa-clock-o", "Horario", info.horario);
+        if (info.telefono) {
+            var telHref = "tel:" + String(info.telefono).replace(/[^+\d]/g, "");
+            row("fa-phone", "Teléfono", info.telefono, true, telHref);
+        }
+        row("fa-envelope", "Correo", info.correo, true, "mailto:" + info.correo);
+
+        var redes = [
+            { key: "facebook",  icon: "fa fa-facebook-official", label: "Facebook"  },
+            { key: "instagram", icon: "fa fa-instagram",         label: "Instagram" },
+            { key: "tiktok",    icon: "icon-tiktok",             label: "TikTok"    },
+            { key: "youtube",   icon: "fa fa-youtube-play",      label: "YouTube"   },
+            { key: "web",       icon: "fa fa-globe",             label: "Sitio web" }
+        ];
+        redes.forEach(function(red){
+            var url = info[red.key];
+            if (!url) return;
+            var display = url;
+            try {
+                var u = new URL(url);
+                display = u.hostname.replace(/^www\./, '') + (u.pathname && u.pathname !== '/' ? u.pathname : '');
+            } catch (e) { /* mantén url tal cual */ }
+            rows.push(
+                '<li class="grupo-info-row">' +
+                    '<span class="grupo-info-icon"><i class="' + red.icon + '"></i></span>' +
+                    '<span class="grupo-info-label">' + red.label + '</span>' +
+                    '<span class="grupo-info-value">' +
+                        '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + escapeHtml(display) + '</a>' +
+                    '</span>' +
+                '</li>'
+            );
+        });
+
+        if (rows.length === 0) {
+            $body.html(
+                '<p class="grupo-card-empty">Información próximamente. ¿Eres del ' +
+                escapeHtml(grupoKey) + '? Contáctanos para completar esta ficha.</p>'
+            );
+        } else {
+            $body.html('<ul class="grupo-info-list">' + rows.join("") + '</ul>');
+        }
+    }
+
+    function abrirTarjetaGrupo(grupoKey){
+        var match = grupoKey ? findGrupoByKey(grupoKey) : null;
+        if (match) {
+            rellenarSelectGrupos(match.estado);
+            rellenarSelectSubgrupos(match.estado, match.nombre);
+            renderGrupoCard(match.estado, match.nombre);
+        } else {
+            // Apertura neutral: sin estado ni grupo preseleccionado.
+            $("#grupos").empty().append("<option value='' selected>— Selecciona un estado —</option>");
+            $.each(grupos, function(estado){
+                $("#grupos").append("<option value='" + estado + "'>" + estado + "</option>");
+            });
+            $("#subgrupos").empty().append("<option value=''>— Selecciona un grupo —</option>");
+            renderGrupoCard(null, null);
+        }
+        $("#panioletaSearcher").removeClass('hide');
+    }
+
+    function openBuscador(grupoKey){
+        if (grupos == null) {
+            $.get('includes/data/grupos.json', function(data){
+                grupos = data;
+                abrirTarjetaGrupo(grupoKey);
+            }).fail(function(){ grupos = null; });
+        } else {
+            abrirTarjetaGrupo(grupoKey);
+        }
+    }
+    function cerrarBuscador(){ $("#panioletaSearcher").addClass('hide'); }
+
+    $(document).on('click', '[data-open="grupos"]', function(e){ e.preventDefault(); openBuscador(); });
+    $(document).on('click', '#panioletaSearcher .btn-cerrar', function(e){ e.preventDefault(); cerrarBuscador(); });
+    $(document).on('click', '#panioletaSearcher', function(e){ if (e.target === this) { cerrarBuscador(); } });
+    $(document).on('change', '#grupos', function(){
+        var estado = $(this).val();
+        var auto = unicoGrupoDe(estado);
+        rellenarSelectSubgrupos(estado, auto);
+        renderGrupoCard(estado, auto);
+    });
+    $(document).on('change', '#subgrupos', function(){
+        var estado = $("#grupos").val();
+        renderGrupoCard(estado, $(this).val());
+    });
+
+    // Cerrar cualquier modal con la tecla Escape.
+    $(document).on('keydown', function(e){
+        if (e.key === 'Escape' || e.keyCode === 27) { cerrarSeccion(); cerrarBuscador(); }
+    });
+})();
+</script>

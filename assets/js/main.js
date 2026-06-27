@@ -499,6 +499,23 @@ function afterAfterInclude(){
 		}
 	});
 
+	// --- Deep-link a una sección desde otra página (p. ej. Programa Scout) ---
+	// Permite abrir directamente el círculo de una sección usando una URL
+	// como index.html#seccion-CC (CC, MG, ML, TMS, SD, CR, CP, TS).
+	function abrirSeccionDesdeHash(){
+		var m = (window.location.hash || '').match(/^#seccion-([A-Za-z]+)/);
+		if (!m) return;
+		var code = m[1].toUpperCase();
+		var $circle = $('.circle.mostrarInfoH').filter(function(){
+			return $(this).children('.content').hasClass(code);
+		}).first();
+		if (!$circle.length) return;
+		$('.mostrarInfoH').removeClass('show').addClass('hide');
+		$circle.removeClass('hide').addClass('show');
+	}
+	abrirSeccionDesdeHash();
+	$(window).off('hashchange.seccion').on('hashchange.seccion', abrirSeccionDesdeHash);
+
 }
 /* Declararemos un variable global para las panioletas*/
 var grupos = null;
