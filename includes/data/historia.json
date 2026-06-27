@@ -27,16 +27,16 @@
       "destacado": true,
       "categoria": "institucional",
       "titulo": "Constitución como Asociación Civil",
-      "resumen": "AGSMAC se constituye formalmente como Asociación de Grupos de Scouts de México, A.C.",
-      "descripcion": "<p>El <strong>2 de febrero de 2006</strong> se firma el acta constitutiva que da vida a la <strong>Asociación de Grupos de Scouts de México, A.C.</strong>, con el objeto de coadyuvar en la formación del carácter de niñ@s y jóvenes conforme a los lineamientos del movimiento scout fundado por Sir Robert Baden-Powell.</p><p>Los Grupos Scout que dieron origen a AGSMAC venían trabajando desde décadas atrás — las fotografías de <em>1986</em> y <em>1994</em> son testimonio de esa historia previa que cristalizó en la formalización de la Asociación.</p><p>[Completar: nombres de los socios fundadores y de los grupos firmantes del acta.]</p>",
+      "resumen": "AGSMAC se constituye formalmente como la Asociación de Grupos de Scouts de México, A.C.",
+      "descripcion": "<p>El <strong>10 de noviembre del 2006</strong> se firma el acta constitutiva que da vida a la <strong>Asociación de Grupos de Scouts de México, A.C.</strong>, con el objeto de coadyuvar en la formación del carácter de niñ@s y jóvenes conforme a los lineamientos del movimiento scout fundado por <strong>Lord Robert Stephenson Smyth Baden-Powell</strong>.</p><p>Varios Grupos Scout empezaron los trabajos para la formacion de la asociacion desde principios del mismo año.</p>",
       "imagenes": [
         {
           "src": "images/historia/1994-origenes.jpg",
-          "alt": "Antecedentes — actividad scout en 1994"
+          "alt": "Jefes de Grupo"
         },
         {
           "src": "images/historia/1986-origenes.jpg",
-          "alt": "Antecedentes — actividad scout en 1986"
+          "alt": "Notaria 96"
         }
       ],
       "enlaces": [
@@ -177,8 +177,8 @@
       "destacado": true,
       "categoria": "institucional",
       "titulo": "Reconocimiento por WOSM (WOIS)",
-      "resumen": "AGSMAC es reconocida como miembro del WOSM Organisational Information System (WOIS).",
-      "descripcion": "<p>El <strong>8 de agosto de 2013</strong> AGSMAC obtiene su reconocimiento dentro del <em>WOSM Organisational Information System</em>, marcando un paso clave en la proyección internacional de la Asociación.</p><p>Adicionalmente se formaliza la membresía mediante la <em>Carta AGSMAC al mundo</em>.</p>",
+      "resumen": "AGSMAC es reconocida como miembro de la Organizacion Mundial de Scouts Independientes (WOIS).",
+      "descripcion": "<p>El <strong>8 de agosto de 2013</strong> AGSMAC obtiene su reconocimiento dentro de la <em>WOIS</em> como miembro pleno, marcando un paso clave en la proyección internacional de la Asociación.</p>",
       "imagenes": [
         {
           "src": "images/historia/2013-escudo-ttt.jpg",
@@ -190,13 +190,25 @@
           "tipo": "pdf",
           "label": "Certificado WOIS (PDF)",
           "url": "documentos/historia/Certificado_WOIS_2013.pdf"
-        },
-        {
-          "tipo": "pdf",
-          "label": "Carta AGSMAC al mundo (PDF)",
-          "url": "documentos/historia/CartaAGSMAC-mundo.pdf"
         }
       ]
+    },
+    {
+      "id": "TTT-2013",
+      "fecha": "2013-11-15",
+      "anio": 2013,
+      "destacado": true,
+      "categoria": "institucional",
+      "titulo": "3er TTT Mundial (WOIS)",
+      "resumen": "AGSMAC es sede del 3er TTT de la WOIS.",
+      "descripcion": "<p>Del <strong>15 al 18 de noviembre de 2013</strong> AGSMAC es sede del 3er TTT (Training to The Team).</p>",
+      "imagenes": [
+        {
+          "src": "images/historia/2013-escudo-ttt.jpg",
+          "alt": "Escudo del curso"
+        }
+      ],
+      "enlaces": []
     },
     {
       "id": "memorabilia-2014",
@@ -220,13 +232,13 @@
       "id": "jamboree-2015",
       "anio": 2015,
       "categoria": "evento",
-      "titulo": "23.º Jamboree Mundial — Japón",
-      "resumen": "La delegación AGSMAC participa en el Jamboree Mundial celebrado en Kirara-hama, Japón.",
+      "titulo": "I Jamboree NNacional",
+      "resumen": "La AGSMAC realiza su primer Jamboree Nacional",
       "descripcion": "<p>[Completar: número de jóvenes y adultos que conformaron la delegación, anécdotas, logros.]</p>",
       "imagenes": [
         {
           "src": "images/historia/2015-jamboree.jpg",
-          "alt": "Delegación AGSMAC en el Jamboree Mundial 2015"
+          "alt": "Escudo del Jamboree Nacional 2015"
         }
       ],
       "enlaces": [
@@ -259,8 +271,8 @@
       "id": "campamento-2016",
       "anio": 2016,
       "categoria": "evento",
-      "titulo": "Campamento Scout Nacional 2016",
-      "resumen": "Encuentro nacional de grupos AGSMAC.",
+      "titulo": "Campamento NNacional de Tropas Scouts",
+      "resumen": "Encuentro nacional de tropas AGSMAC.",
       "descripcion": "<p>[Completar: sede, fecha exacta, número de participantes y temática del campamento.]</p>",
       "imagenes": [
         {
@@ -328,13 +340,13 @@
       "id": "jamboree-2019",
       "anio": 2019,
       "categoria": "evento",
-      "titulo": "24.º Jamboree Mundial — Estados Unidos",
-      "resumen": "Participación en el Jamboree celebrado en Summit Bechtel Reserve, West Virginia.",
+      "titulo": "II Jamboree Nacional ",
+      "resumen": "Realización del II Jamboree Nacional",
       "descripcion": "<p>[Completar: integrantes, experiencias, contingente mexicano.]</p>",
       "imagenes": [
         {
           "src": "images/historia/2019-jamboree.jpg",
-          "alt": "Jamboree Mundial 2019"
+          "alt": "Jamboree Nacional 2019"
         }
       ],
       "enlaces": []
@@ -374,6 +386,22 @@
         }
       ],
       "enlaces": []
+    },
+    {
+      "id": "pandemia-2020",
+      "anio": 2020,
+      "categoria": "institucional",
+      "titulo": "Pandemia COVID-19",
+      "resumen": "Impacto de la pandemia en las actividades de AGSMAC.",
+      "descripcion": "<p>[Completar: medidas adoptadas, actividades virtuales, apoyo a la comunidad.]</p>",
+      "imagenes": [],
+      "enlaces": [
+        {
+          "tipo": "pdf",
+          "label": "Carta AGSMAC al mundo (PDF)",
+          "url": "documentos/historia/CartaAGSMAC-mundo.pdf"
+        }
+      ]
     },
     {
       "id": "memorabilia-2021",
@@ -474,13 +502,13 @@
       "id": "jamboree-2025",
       "anio": 2025,
       "categoria": "evento",
-      "titulo": "Jamboree Mundial 2025",
-      "resumen": "AGSMAC presente en el Jamboree Mundial de 2025.",
+      "titulo": "Jamboree Nacional 2025",
+      "resumen": "Se realiza el III Jamboree Nacional.",
       "descripcion": "<p>[Completar: sede confirmada, delegación, cronología y resultados.]</p>",
       "imagenes": [
         {
           "src": "images/historia/2025-jamboree.jpg",
-          "alt": "Jamboree Mundial 2025"
+          "alt": "Jamboree Nacional 2025"
         }
       ],
       "enlaces": []

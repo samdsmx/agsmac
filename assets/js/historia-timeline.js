@@ -271,8 +271,7 @@
             html +=   '<h4>Enlaces y documentos</h4>';
             html +=   '<ul>';
             enlacesValidos.forEach(function (l) {
-                var ext = /^https?:/i.test(l.url);
-                html += '<li><a href="' + escapeHtml(safeUrl(l.url)) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>';
+                html += '<li><a href="' + escapeHtml(safeUrl(l.url)) + '" target="_blank" rel="noopener">';
                 html +=   '<i class="fa ' + iconForLink(l.tipo) + '"></i> ' + escapeHtml(l.label || l.url);
                 html += '</a></li>';
             });

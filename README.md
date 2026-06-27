@@ -39,15 +39,20 @@ El sitio queda disponible en <http://localhost:8082>.
 │       ├── cumpleanos.json Lista de cumpleaños
 │       ├── biblioteca.json Catálogo de libros (base + secciones)
 │       ├── cuadro-de-adelanto.json Cuadro de Honor (insignias máximas)
-│       └── album-fotografico.json  Álbumes de Google Photos (galería)
+│       ├── album-fotografico.json  Álbumes de Google Photos (galería)
+│       └── historia.json   Línea del tiempo (GENERADO — no editar a mano)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
 │   │   └── Escudos/        Escudos de cada grupo (PNG transparentes)
 │   ├── secciones/          Iconos animados de las secciones
 │   ├── biblioteca/         Portadas de libros (base/ + secciones/)
+│   ├── historia/           Imágenes de la línea del tiempo (<año>-agenda/cinta, etc.)
 │   └── pic*.jpg            Imágenes del mosaico de la home
 ├── pdfs/
 │   └── biblioteca/         PDFs descargables de la Biblioteca
+├── scripts/
+│   ├── optimize-images.js          Optimiza/redimensiona images/
+│   └── generar-historia-json.js    Genera includes/data/historia.json
 └── helpers/
     ├── procesarEscudos.js          Script de procesado de escudos
     └── generar_portadas_cards.py   Genera portadas-card de libros sin cover real
@@ -384,7 +389,69 @@ Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/pa
 
 ---
 
-## 8. Biblioteca
+## 7.c. Nuestra Historia (línea del tiempo)
+
+La página **Nuestra Historia** (fragmento `includes/historia.html`, renderizado por `assets/js/historia-timeline.js`) muestra una línea del tiempo *master-detail* con los hitos de AGSMAC. Los datos viven en `includes/data/historia.json`, pero **ese archivo es generado: no se edita a mano.**
+
+### Cómo funciona (fuente de verdad vs. salida)
+
+- **Fuente de verdad:** `scripts/generar-historia-json.js`.
+- **Salida generada:** `includes/data/historia.json` (se sobrescribe cada vez que corres el script).
+
+El flujo siempre es: editas el `.js` (o agregas una imagen) → corres el script → se reescribe el `.json` → commiteas **ambos** archivos.
+
+```powershell
+# Desde la raíz del repo
+node scripts/generar-historia-json.js
+```
+
+> **No es automático en el deploy.** El único workflow de CI (`optimize-images.yml`) sólo comprime imágenes; no regenera `historia.json`. Como GitHub Pages sirve la rama principal tal cual (sin build), el JSON se versiona ya generado. Corre el script **sólo cuando cambies algo de la historia** y commitea el resultado.
+
+### El script combina dos tipos de hitos
+
+1. **Hitos manuales** (`manualHitos` en el `.js`) — eventos institucionales/importantes: fundación, reconocimientos, jamborees, publicaciones, *in memoriam*. Se escriben a mano como objetos del arreglo.
+2. **Hitos de memorabilia** (automáticos) — se generan solos por cada año que tenga archivos en `images/historia/<año>-agenda.{jpg,png}` y/o `images/historia/<año>-cinta.{jpg,png}`. No se escriben en el `.js`; basta con dejar la imagen con ese nombre y volver a correr el script.
+
+### Esquema de un hito manual
+
+```jsonc
+{
+    "id": "jamboree-2015",          // identificador único (kebab-case)
+    "anio": 2015,                    // año numérico (obligatorio; ordena y agrupa)
+    "fecha": "2015-07-28",           // opcional, texto libre mostrado como fecha
+    "destacado": true,               // opcional, marcador más grande en el timeline
+    "categoria": "evento",           // ver categorías abajo
+    "titulo": "23.º Jamboree Mundial — Japón",
+    "resumen": "Texto corto para la tarjeta del timeline.",
+    "descripcion": "<p>HTML del panel de detalle…</p>",
+    "imagenes": [
+        { "src": "images/historia/2015-jamboree.jpg", "alt": "Descripción" }
+    ],
+    "enlaces": [
+        { "tipo": "pdf", "label": "Documento (PDF)", "url": "documentos/historia/x.pdf" }
+        // tipo: 'pdf' | 'externo'  · las URLs externas requieren https://
+    ]
+}
+```
+
+Para un hito *in memoriam* se añade además un objeto `persona` (`nombre`, `anios`, `rol`, `foto`, `bioUrl`).
+
+### Categorías válidas
+
+`institucional` · `evento` · `memorabilia` · `publicacion` · `memoriam`
+
+(Definidas en `CATEGORIAS` dentro de `assets/js/historia-timeline.js`; si agregas una nueva, declárala también ahí.)
+
+### Agregar / modificar un hito
+
+- **Evento, reconocimiento o in memoriam:** edita el arreglo `manualHitos` en `scripts/generar-historia-json.js`, corre el script y commitea el `.js` + `historia.json`.
+- **Agenda o cinta de un año nuevo:** coloca la imagen como `images/historia/<año>-agenda.jpg` (o `-cinta`), corre el script — la tarjeta de memorabilia se crea sola — y commitea la imagen + `historia.json`.
+- **Corregir un texto existente:** edita el objeto correspondiente en el `.js` y regenera.
+
+> Regla de oro: **nunca edites `historia.json` directamente**; los cambios se pierden en la siguiente regeneración.
+
+---
+
 
 La sección **Biblioteca** (`includes/biblioteca.html`, renderizada por
 `assets/js/biblioteca.js`) muestra dos catálogos distintos a partir de un único
