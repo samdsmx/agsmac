@@ -39,33 +39,102 @@
     .bib-tab.is-active { color: #603F83; border-bottom-color: #603F83; }
     .bib-tab[data-tab="trabajo"].is-active { color: #1E5631; border-bottom-color: #1E5631; }
 
-    /* === Filtros globales por sección === */
+    /* === Filtros globales por sección (emblemas) === */
     .bib-filters {
         display: flex;
-        gap: 0.35em;
+        gap: 0.45em;
         flex-wrap: wrap;
+        justify-content: center;
         margin: 0.8em 0 1em;
     }
     .bib-filter {
+        position: relative;
         appearance: none;
-        border: 1px solid #d6d6d6;
-        background: #fff;
-        color: #555;
-        padding: 0.28em 0.75em;
-        border-radius: 999px;
-        font-size: 0.78em;
+        border: 0;
+        background: transparent;
+        padding: 0 0 8px;
+        box-sizing: border-box;
+        width: 68px;
+        height: 70px;
         cursor: pointer;
-        transition: all 0.15s ease;
-        white-space: nowrap;
         display: inline-flex;
         align-items: center;
-        gap: 0.3em;
+        justify-content: center;
+        line-height: 1;
+        transition: transform 0.1s ease;
+        flex: 0 0 68px;
     }
-    .bib-filter:hover { background: #f4f4f4; color: #222; border-color: #bbb; }
-    .bib-filter.is-active {
-        background: #444;
+    .bib-filter:hover { transform: scale(1.06); }
+    .bib-filter:active { transform: scale(0.96); }
+    .bib-filter img {
+        width: 58px;
+        height: 58px;
+        object-fit: contain;
+        border-radius: 50%;
+        display: block;
+        box-sizing: border-box;
+    }
+    /* 'Todas' usa la flor de lis blanca sobre un círculo #2E2270. */
+    .bib-filter-all img {
+        background: #2E2270;
+        padding: 8px;
+    }
+    .bib-filter-label {
+        font-size: 0.72em;
+        font-weight: 700;
+        color: #2E2270;
+        text-align: center;
+        padding: 0 0.3em;
+    }
+    /* Indicador de selección: subrayado rojo que crece bajo el filtro activo. */
+    .bib-filter::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 78%;
+        height: 3px;
+        border-radius: 2px;
+        background: #e74c3c;
+        transform: translateX(-50%) scaleX(0);
+        transform-origin: center;
+        transition: transform 0.22s ease;
+    }
+    .bib-filter.is-active::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+    /* Tooltip con el nombre de la sección. */
+    .bib-filter-tip {
+        position: absolute;
+        bottom: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%) translateY(4px);
+        background: #2E2270;
         color: #fff;
-        border-color: #444;
+        font-size: 0.72em;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        padding: 0.3em 0.6em;
+        border-radius: 4px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s ease, transform 0.15s ease;
+        z-index: 10;
+    }
+    .bib-filter-tip::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid transparent;
+        border-top-color: #2E2270;
+    }
+    .bib-filter:hover .bib-filter-tip,
+    .bib-filter:focus-visible .bib-filter-tip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
     }
 
     .bib-pane { display: none; }
@@ -224,7 +293,8 @@
         .bib-grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 0.6em; }
         .bib-title { font-size: 0.78em; }
         .bib-tab { font-size: 0.88em; padding: 0.45em 0.75em 0.6em; }
-        .bib-filter { font-size: 0.72em; padding: 0.24em 0.6em; }
+        .bib-filter { width: 60px; height: 62px; flex: 0 0 60px; }
+        .bib-filter img { width: 50px; height: 50px; }
     }
 </style>
 

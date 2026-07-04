@@ -43,6 +43,19 @@
         trabajo: 'Libros de trabajo'
     };
 
+    // Emblema de cada sección para los chips de filtro (mismo criterio que el
+    // Álbum Fotográfico y el Cuadro de Honor: imagen en vez del nombre largo).
+    var SECCION_IMAGES = {
+        'Colonia de Castores':       'images/secciones/CC.gif',
+        'Manada de Lobatos':         'images/secciones/ML.gif',
+        'Manada de Gacelas':         'images/secciones/MG.gif',
+        'Tropa Scout':               'images/secciones/TS.gif',
+        'Tropa de Muchachas Scouts': 'images/secciones/TMS.gif',
+        'Clan de Precursoras':       'images/secciones/CP.gif',
+        'Clan de Rovers':            'images/secciones/CR.gif',
+        'Formación de Scouters':     'images/secciones/J.gif'
+    };
+
     // Estado global de la UI.
     var state = {
         data: null,
@@ -145,13 +158,29 @@
         return Object.keys(set);
     }
 
+    // Construye un chip de filtro con emblema (imagen) + tooltip con el nombre.
+    // Si no hay imagen para la sección, cae a texto para no romper el filtro.
+    function filterChip(filter, label, img, extraClass) {
+        var cls = 'bib-filter' + (extraClass ? ' ' + extraClass : '');
+        return '<button type="button" class="' + cls + '" data-filter="' + escapeHtml(filter) + '"' +
+                   ' aria-label="' + escapeHtml(label) + '">' +
+                   (img
+                       ? '<img src="' + escapeHtml(img) + '" alt="" loading="lazy">'
+                       : '<span class="bib-filter-label">' + escapeHtml(label) + '</span>') +
+                   '<span class="bib-filter-tip">' + escapeHtml(label) + '</span>' +
+               '</button>';
+    }
+
     function renderFilters() {
-        var secciones = buildFilterList().sort(compareSecciones);
-        var html = '<button type="button" class="bib-filter" data-filter="' + FILTER_ALL + '">Todas</button>';
+        // El tag universal 'Todas las secciones' NO genera chip propio (sería
+        // redundante con 'Todas'); los libros universales siguen apareciendo
+        // bajo cualquier sección específica vía matchesFilter().
+        var secciones = buildFilterList()
+            .filter(function (s) { return s !== SECCION_UNIVERSAL; })
+            .sort(compareSecciones);
+        var html = filterChip(FILTER_ALL, 'Todas', 'images/fl.png', 'bib-filter-all');
         secciones.forEach(function (sec) {
-            html += '<button type="button" class="bib-filter" data-filter="' + escapeHtml(sec) + '">' +
-                        escapeHtml(sec) +
-                    '</button>';
+            html += filterChip(sec, sec, SECCION_IMAGES[sec]);
         });
         jQuery('#biblioteca-filtros').html(html);
         jQuery('.bib-filter[data-filter="' + state.activeFilter + '"]').addClass('is-active');

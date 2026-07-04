@@ -2815,10 +2815,6 @@ table.alt tbody tr td {
 }
 .ca-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
 
-.ca-filter-row-tools {
-	justify-content: flex-end;
-}
-
 /* Chips de insignia ----------------------------------------------------- */
 .ca-chips {
 	display: flex;
@@ -2831,30 +2827,41 @@ table.alt tbody tr td {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 84px;
-	height: 76px;
-	padding: 0;
-	border-radius: 12px;
-	border: 1px solid #e0d0a3;
-	background: #fff;
+	width: 68px;
+	height: 70px;
+	padding: 0 0 8px;
+	box-sizing: border-box;
+	border: 0;
+	background: transparent;
 	color: #2b2b2b;
 	font: inherit;
 	cursor: pointer;
 	line-height: 1;
-	transition: background 0.15s ease, border-color 0.15s ease, transform 0.05s ease, box-shadow 0.15s ease;
-	flex: 0 0 84px;
+	transition: transform 0.1s ease, filter 0.15s ease;
+	flex: 0 0 68px;
 }
-.ca-chip:hover { background: #fff3c8; border-color: #d4b878; }
+.ca-chip:hover { transform: scale(1.06); }
 .ca-chip:active { transform: scale(0.96); }
-.ca-chip.is-active {
+/* Indicador de selección: subrayado rojo que crece bajo la opción activa. */
+.ca-chip::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 78%;
+	height: 3px;
+	border-radius: 2px;
 	background: #e74c3c;
-	border-color: #c0392b;
-	box-shadow: 0 2px 6px rgba(231,76,60,0.25);
+	transform: translateX(-50%) scaleX(0);
+	transform-origin: center;
+	transition: transform 0.22s ease;
 }
-.ca-chip.is-active img { filter: drop-shadow(0 1px 2px rgba(0,0,0,0.25)); }
+.ca-chip.is-active::after {
+	transform: translateX(-50%) scaleX(1);
+}
 .ca-chip img {
-	width: 60px;
-	height: 60px;
+	width: 58px;
+	height: 58px;
 	object-fit: contain;
 	display: block;
 }
@@ -2912,6 +2919,7 @@ table.alt tbody tr td {
 .ca-search-input::placeholder { color: #9a9a9a; }
 
 .ca-clear {
+	margin-left: auto;
 	padding: 0.4em 0.95em;
 	border-radius: 999px;
 	border: 1px solid #e0d0a3;
@@ -3075,7 +3083,7 @@ table.alt tbody tr td {
 	.ca-insignia-title img {
 		max-width: 64px;
 	}
-	.ca-chip { width: 72px; height: 64px; flex: 0 0 72px; }
+	.ca-chip { width: 60px; height: 62px; flex: 0 0 60px; }
 	.ca-chip img { width: 50px; height: 50px; }
 }
 
@@ -3139,59 +3147,121 @@ table.alt tbody tr td {
 	width: auto;
 }
 .af-year-select:focus { outline: 2px solid rgba(231,76,60,0.35); outline-offset: 1px; }
-.af-filter-row-tools { justify-content: flex-end; }
 
-/* Chips de sección (texto, no imagen) ---------------------------------- */
+/* Chips de sección (emblema, no texto) --------------------------------- */
 .af-chips {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.4em;
+	gap: 0.45em;
 	flex: 1 1 auto;
 }
 .af-chip {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
-	gap: 0.4em;
-	padding: 0.35em 0.7em;
-	background: #fff;
-	border: 1px solid #d4b878;
-	border-radius: 999px;
+	justify-content: center;
+	width: 68px;
+	height: 70px;
+	padding: 0 0 8px;
+	box-sizing: border-box;
+	border: 0;
+	background: transparent;
 	color: #4a3a1a;
 	font: inherit;
-	font-size: 0.88em;
-	font-weight: 600;
 	cursor: pointer;
-	transition: background 0.15s, border-color 0.15s, color 0.15s;
+	line-height: 1;
+	transition: transform 0.1s ease, filter 0.15s ease;
+	flex: 0 0 68px;
 }
-.af-chip:hover { background: #fff3c8; border-color: #b8924f; }
-.af-chip.is-active {
+.af-chip:hover { transform: scale(1.06); }
+.af-chip:active { transform: scale(0.96); }
+/* Indicador de selección: subrayado rojo que crece bajo la opción activa. */
+.af-chip::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: 78%;
+	height: 3px;
+	border-radius: 2px;
 	background: #e74c3c;
-	border-color: #c63a2c;
-	color: #fff;
+	transform: translateX(-50%) scaleX(0);
+	transform-origin: center;
+	transition: transform 0.22s ease;
 }
-.af-chip-count {
-	display: inline-block;
-	min-width: 1.6em;
-	padding: 0 0.35em;
-	border-radius: 999px;
-	background: rgba(0,0,0,0.08);
-	font-size: 0.85em;
+.af-chip.is-active::after {
+	transform: translateX(-50%) scaleX(1);
+}
+.af-chip img {
+	width: 58px;
+	height: 58px;
+	object-fit: contain;
+	border-radius: 50%;
+	display: block;
+	box-sizing: border-box;
+}
+/* 'General' no tiene emblema de sección: la flor de lis blanca se coloca
+   sobre un círculo #2E2270 para que resalte como los demás emblemas. */
+.af-chip[data-section="general"] img {
+	background: #2E2270;
+	padding: 8px;
+}
+.af-chip-label {
+	padding: 0 0.4em;
+	font-size: 0.82em;
+	font-weight: 600;
 	text-align: center;
+	color: #2E2270;
 }
-.af-chip.is-active .af-chip-count { background: rgba(255,255,255,0.22); }
+
+/* Tooltip — muestra el nombre de la sección al hacer hover/focus. */
+.af-chip-tooltip {
+	position: absolute;
+	bottom: calc(100% + 6px);
+	left: 50%;
+	transform: translateX(-50%) translateY(4px);
+	background: #2E2270;
+	color: #fff;
+	font-size: 0.78em;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	padding: 0.3em 0.6em;
+	border-radius: 4px;
+	white-space: nowrap;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.15s ease, transform 0.15s ease;
+	z-index: 10;
+}
+.af-chip-tooltip::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	border: 4px solid transparent;
+	border-top-color: #2E2270;
+}
+.af-chip:hover .af-chip-tooltip,
+.af-chip:focus-visible .af-chip-tooltip {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0);
+}
 
 .af-clear {
+	margin-left: auto;
+	padding: 0.4em 0.95em;
+	border-radius: 999px;
+	border: 1px solid #e0d0a3;
+	background: #fff;
+	color: #8a6d3b;
 	font: inherit;
 	font-size: 0.85em;
 	font-weight: 600;
-	color: #8a6d3b;
-	background: transparent;
-	border: 1px solid transparent;
-	padding: 0.3em 0.7em;
-	border-radius: 6px;
 	cursor: pointer;
+	transition: background 0.15s ease, border-color 0.15s ease;
 }
-.af-clear:hover { background: #fff3c8; border-color: #d4b878; color: #4a3a1a; }
+.af-clear:hover { background: #fff3c8; border-color: #d4b878; }
 
 /* Grid de tarjetas ----------------------------------------------------- */
 .af-grid {
@@ -3276,4 +3346,6 @@ table.alt tbody tr td {
 @media (max-width: 736px) {
 	.af-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
 	.af-filter-label { min-width: 4em; }
+	.af-chip { width: 60px; height: 62px; flex: 0 0 60px; }
+	.af-chip img { width: 50px; height: 50px; }
 }

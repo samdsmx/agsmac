@@ -30,6 +30,21 @@
     // Orden en que se muestran los chips.
     var SECTION_ORDER = ['castores', 'manada-gacelas', 'manada-lobatos', 'tropa-muchachas', 'tropa-scout', 'clan-precursoras', 'clan-rovers', 'scouters',  'general'];
 
+    // Emblema de cada sección para los chips de filtro (mismo criterio que el
+    // Cuadro de Honor: imagen en lugar del nombre largo). 'general' usa la
+    // flor de lis de AGSMAC por no tener emblema de sección propio.
+    var SECTION_IMAGES = {
+        'castores':         'images/secciones/CC.gif',
+        'manada-gacelas':   'images/secciones/MG.gif',
+        'manada-lobatos':   'images/secciones/ML.gif',
+        'tropa-muchachas':  'images/secciones/TMS.gif',
+        'tropa-scout':      'images/secciones/TS.gif',
+        'clan-precursoras': 'images/secciones/CP.gif',
+        'clan-rovers':      'images/secciones/CR.gif',
+        'scouters':         'images/secciones/J.gif',
+        'general':          'images/fl.png'
+    };
+
     function escapeHtml(s) {
         return String(s == null ? '' : s)
             .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -70,15 +85,21 @@
             yearList.map(function (y) { return '<option value="' + y + '">' + y + '</option>'; }).join('') +
             (hasNull ? '<option value="null">Sin año</option>' : '');
 
-        // Chips de sección: solo las que tengan álbumes.
+        // Chips de sección: solo las que tengan álbumes. Se muestra el emblema
+        // de la sección (imagen) con el nombre como tooltip/aria-label.
         var sectionCounts = {};
         albums.forEach(function (a) {
             a.sections.forEach(function (s) { sectionCounts[s] = (sectionCounts[s] || 0) + 1; });
         });
         var sectionChips = SECTION_ORDER.filter(function (id) { return sectionCounts[id]; }).map(function (id) {
-            return '<button type="button" class="af-chip" data-section="' + escapeHtml(id) + '">' +
-                '<span class="af-chip-label">' + escapeHtml(SECTION_LABELS[id] || id) + '</span>' +
-                '<span class="af-chip-count">' + sectionCounts[id] + '</span>' +
+            var label = SECTION_LABELS[id] || id;
+            var img = SECTION_IMAGES[id];
+            return '<button type="button" class="af-chip" data-section="' + escapeHtml(id) + '"' +
+                ' aria-label="' + escapeHtml(label) + '">' +
+                (img
+                    ? '<img src="' + escapeHtml(img) + '" alt="" loading="lazy">'
+                    : '<span class="af-chip-label">' + escapeHtml(label) + '</span>') +
+                '<span class="af-chip-tooltip">' + escapeHtml(label) + '</span>' +
             '</button>';
         }).join('');
 
