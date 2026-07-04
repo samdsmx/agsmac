@@ -1,26 +1,17 @@
 <div id="preview" class="vertical">
     <div class="inner">
         <div class="content section-page">
-            <header>
-                <h2>Calendario de Actividades</h2>
-            </header>
-            <p>[Completar: introducción al calendario — qué tipo de actividades se publican aquí (reuniones, campamentos, eventos de zona, capacitaciones).]</p>
+            <section id="calendario" class="cal-root" aria-label="Calendario de actividades del año scout">
+                <div class="cal-cover">
+                    <div class="cal-cover-kicker">Calendario de Actividades</div>
+                    <div class="cal-cover-year">—</div>
+                    <p class="cal-cover-intro"></p>
+                </div>
 
-            <!-- Reemplazar el src con el ID de tu Google Calendar público.
-                 Para obtenerlo: en Google Calendar > Configuración del calendario > Integrar calendario > copia el "ID del calendario"
-                 y úsalo en el parámetro src (codificado en URL: @ -> %40). -->
-            <div style="margin-top: 1.5em;">
-                <iframe
-                    src="https://calendar.google.com/calendar/embed?src=ID_DEL_CALENDARIO%40group.calendar.google.com&ctz=America%2FMexico_City"
-                    title="Calendario de actividades de AGSMAC"
-                    style="border: 0; width: 100%; height: 600px;"
-                    frameborder="0"
-                    scrolling="no"></iframe>
-            </div>
-
-            <p style="margin-top: 1.5em; font-size: 0.9em; opacity: 0.7;">
-                [Completar: contacto al que escribir para sugerir o publicar un evento.]
-            </p>
+                <div class="cal-board" role="region" aria-live="polite">
+                    <p class="cal-empty">Cargando actividades…</p>
+                </div>
+            </section>
         </div>
     </div>
     <a id="previo" data="ruta-critica.html" class="nav previous" aria-label="Anterior"><span class="fa fa-chevron-left"></span></a>

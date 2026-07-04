@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pasaporte scout — Propuesta de diseño · AGSMAC</title>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #3a2c1c;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(255,255,255,0.06), transparent 40%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 7px),
+                linear-gradient(160deg, #6b4a2f, #4d3320);
+            min-height: 100vh;
+        }
+        .wrap { max-width: 1000px; margin: 0 auto; padding: 1.3em 1.1em 4em; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.3em; }
+        .back {
+            display: inline-flex; align-items: center; gap: 0.45em; text-decoration: none;
+            color: #4d3320; font-weight: 700; font-size: 0.9em; background: #e9c877;
+            padding: 0.5em 0.95em; border-radius: 999px; border: 1px solid #b48b3e;
+        }
+        .back:hover { background: #f2d894; }
+        .tag { font-size: 0.72em; letter-spacing: 0.18em; text-transform: uppercase; color: #e9c877; font-weight: 800; }
+
+        .cover {
+            text-align: center; color: #e9c877; padding: 1.5em 1.2em 1.6em;
+            background: linear-gradient(135deg, #3a1e12, #5a2d1a);
+            border: 2px solid #7a4a2a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+            position: relative; overflow: hidden;
+        }
+        .cover::after {
+            content: ""; position: absolute; inset: 8px; border: 1px solid rgba(233,200,119,0.35);
+            border-radius: 10px; pointer-events: none;
+        }
+        .cover img { width: 52px; opacity: 0.95; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.4)); }
+        .cover .kicker { font-size: 0.78em; letter-spacing: 0.4em; text-transform: uppercase; margin-top: 0.5em; opacity: 0.85; }
+        .cover h1 { margin: 0.1em 0 0.05em; font-size: 1.8em; font-weight: 900; letter-spacing: 0.28em; }
+        .cover .year { font-size: 2.7em; font-weight: 900; line-height: 1; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+        .cover p { max-width: 40em; margin: 0.7em auto 0; color: #f0dcae; line-height: 1.5; font-size: 0.92em; }
+
+        .board {
+            margin-top: 1.6em; padding: 1.4em 1em; background: #efe7d2;
+            border-radius: 14px; box-shadow: inset 0 0 40px rgba(120,90,50,0.18), 0 8px 22px rgba(0,0,0,0.25);
+            display: flex; flex-wrap: wrap; gap: 1.6em 1.4em; justify-content: center; align-items: flex-start;
+        }
+        .legend { width: 100%; display: flex; gap: 1.2em; justify-content: center; flex-wrap: wrap; margin-bottom: 0.3em; color: #6a5334; font-size: 0.8em; font-weight: 700; }
+        .legend span { display: inline-flex; align-items: center; gap: 0.45em; }
+        .legend .sw { width: 18px; height: 14px; border-radius: 2px; background: linear-gradient(135deg,#8E2DE2,#4A00E0); border: 2px solid #fff; }
+        .legend .sw.seal { border-radius: 50%; width: 16px; height: 16px; background: radial-gradient(circle,#f3e6cf,#e9d5b0); border: 2px double #9a6a3a; }
+        .group {
+            width: 100%; text-align: center; font-size: 0.95em; letter-spacing: 0.14em; text-transform: uppercase;
+            color: #6a5334; font-weight: 800; margin: 0.7em 0 0; display: flex; align-items: center; justify-content: center; gap: 0.5em;
+        }
+        .group::before, .group::after { content: ""; height: 2px; flex: 0 0 40px; background: linear-gradient(90deg, transparent, #c3ad7e); }
+        .group::before { background: linear-gradient(90deg, #c3ad7e, transparent); }
+        .group-past { color: #8a7a55; }
+
+        /* Estampa de actividad */
+        .stamp {
+            position: relative; width: 216px; color: #fff; border: 7px solid #fbf7ea; border-radius: 3px;
+            box-shadow: 0 7px 16px rgba(0,0,0,0.28); padding: 0.95em 0.95em 1em; overflow: hidden;
+            transform: rotate(var(--rot, 0deg)); transition: transform 0.15s ease;
+        }
+        .stamp:hover { transform: rotate(0deg) scale(1.03); z-index: 3; }
+        .stamp::before {
+            content: ""; position: absolute; inset: -7px; border: 2px dashed rgba(255,255,255,0.55);
+            border-radius: 3px; pointer-events: none;
+        }
+        .stamp .bgicon { position: absolute; right: -0.1em; bottom: -0.2em; font-size: 4.6em; color: rgba(255,255,255,0.16); pointer-events: none; }
+        .stamp .m { font-size: 0.72em; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.95; }
+        .stamp h3 { margin: 0.15em 0 0.35em; font-size: 1.05em; position: relative; z-index: 1; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+        .stamp p { margin: 0; font-size: 0.82em; line-height: 1.4; color: rgba(255,255,255,0.94); position: relative; z-index: 1; }
+        .postmark {
+            position: absolute; top: 10px; right: 10px; width: 60px; height: 60px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.6); color: rgba(255,255,255,0.85);
+            display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.05;
+            font-size: 0.54em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+            transform: rotate(-12deg); z-index: 1;
+        }
+        .stamp .secs { display: flex; gap: 0.3em; margin-top: 0.6em; flex-wrap: wrap; position: relative; z-index: 1; }
+        .stamp .secs img { width: 24px; height: 24px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.85); }
+        .stamp .secs img.all { background: #fff; padding: 3px; }
+        .ribbon {
+            position: absolute; top: 12px; left: -34px; transform: rotate(-45deg); z-index: 2;
+            background: #ffd200; color: #4b134f; font-weight: 800; font-size: 0.6em; letter-spacing: 0.08em;
+            text-transform: uppercase; padding: 0.3em 2.6em; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .stamp.past { filter: saturate(0.8); }
+        .stamp.past::after {
+            content: "Realizada"; position: absolute; inset: 16px; display: flex; align-items: center; justify-content: center;
+            color: rgba(190,40,40,0.8); font-weight: 900; font-size: 1.05em; letter-spacing: 0.1em; text-transform: uppercase;
+            border: 3px solid rgba(190,40,40,0.65); border-radius: 5px; transform: rotate(-15deg); pointer-events: none; z-index: 2;
+        }
+
+        /* Sello de efeméride (fecha simbólica) */
+        .seal {
+            position: relative; width: 158px; height: 158px; border-radius: 50%; padding: 0.7em;
+            border: 3px double #9a6a3a; color: #5f421f; text-align: center;
+            background: radial-gradient(circle, #f6ead2 55%, #e7d2ab); box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transform: rotate(var(--rot, 0deg)); transition: transform 0.15s ease;
+        }
+        .seal:hover { transform: rotate(0deg) scale(1.04); z-index: 3; }
+        .seal i { font-size: 1.3em; color: #9a6a3a; }
+        .seal .em-tag { font-size: 0.56em; letter-spacing: 0.12em; text-transform: uppercase; color: #a97e45; font-weight: 800; margin-top: 0.2em; }
+        .seal h3 { font-size: 0.82em; margin: 0.2em 0.2em; color: #5f421f; line-height: 1.15; }
+        .seal .em-month { font-size: 0.6em; font-weight: 800; text-transform: uppercase; color: #a97e45; letter-spacing: 0.05em; }
+        .seal.past { opacity: 0.7; }
+
+        @media (max-width: 560px) {
+            .stamp { width: 100%; }
+            .seal { width: 140px; height: 140px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <a class="back" href="detail1.html" onclick="try{localStorage.setItem('page','calendario.html')}catch(e){}">
+                <i class="fa fa-arrow-left"></i> Volver al calendario
+            </a>
+            <span class="tag">Propuesta de diseño · 2 de 2</span>
+        </div>
+
+        <div class="cover">
+            <img src="images/fl.png" alt="" />
+            <div class="kicker">Nuestro año scout</div>
+            <h1>PASAPORTE</h1>
+            <div class="year" id="year">—</div>
+            <p id="intro"></p>
+        </div>
+
+        <div class="board" id="board">
+            <div class="legend">
+                <span><span class="sw"></span> Actividad de asociación</span>
+                <span><span class="sw seal"></span> Fecha simbólica</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var MESES = ['', 'Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+        var GRAD = [
+            'linear-gradient(135deg,#FF6B6B,#FF8E53)','linear-gradient(135deg,#6A82FB,#FC5C7D)',
+            'linear-gradient(135deg,#11998e,#38ef7d)','linear-gradient(135deg,#F7971E,#FFD200)',
+            'linear-gradient(135deg,#8E2DE2,#4A00E0)','linear-gradient(135deg,#00c6ff,#0072ff)',
+            'linear-gradient(135deg,#f857a6,#ff5858)','linear-gradient(135deg,#43cea2,#185a9d)',
+            'linear-gradient(135deg,#ee0979,#ff6a00)','linear-gradient(135deg,#2193b0,#6dd5ed)',
+            'linear-gradient(135deg,#c94b4b,#4b134f)','linear-gradient(135deg,#1f4037,#99f2c8)'
+        ];
+        var ROT = ['-3deg','2.2deg','-1.6deg','3deg','-2.4deg','1.5deg','-2deg','2.8deg'];
+        var SEC = {
+            'Colonia de Castores':'images/secciones/CC.gif','Manada de Lobatos':'images/secciones/ML.gif',
+            'Manada de Gacelas':'images/secciones/MG.gif','Tropa Scout':'images/secciones/TS.gif',
+            'Tropa de Muchachas Scouts':'images/secciones/TMS.gif','Clan de Precursoras':'images/secciones/CP.gif',
+            'Clan de Rovers':'images/secciones/CR.gif','Formación de Scouters':'images/secciones/J.gif'
+        };
+        function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+        function ink(a){ if(a.color) return a.color; var m=a.mes?a.mes-1:0; return GRAD[m%GRAD.length]; }
+        function secsHtml(sec){
+            if(!sec) return '';
+            if(sec==='todas'||(Array.isArray(sec)&&!sec.length)) return '<div class="secs"><img class="all" src="images/fl.png" title="Toda la asociación" alt=""></div>';
+            var list=Array.isArray(sec)?sec:[sec];
+            var imgs=list.map(function(s){var i=SEC[s];return i?'<img src="'+esc(i)+'" title="'+esc(s)+'" alt="">':'';}).join('');
+            return imgs?'<div class="secs">'+imgs+'</div>':'';
+        }
+        fetch('includes/data/calendario.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(cfg){
+            var now=new Date(), cur=now.getMonth()+1, dy=Number(cfg.anio)||now.getFullYear();
+            document.getElementById('year').textContent=dy;
+            document.getElementById('intro').textContent=cfg.intro||'';
+            var items=(cfg.actividades||[]).map(function(a){
+                var m=Number(a.mes); return {titulo:a.titulo||'',mes:(m>=1&&m<=12)?m:99,icono:a.icono||'fa-calendar',
+                    descripcion:a.descripcion||'',secciones:a.secciones,color:a.color,
+                    tipo:(String(a.tipo||'actividad').toLowerCase()==='efemeride')?'efemeride':'actividad'};
+            }).filter(function(a){return a.titulo;}).sort(function(x,y){return x.mes-y.mes;});
+            function past(a){ if(dy<now.getFullYear())return true; if(dy>now.getFullYear())return false; return a.mes<cur; }
+            var proximas=items.filter(function(a){return !past(a);});
+            var pasadas=items.filter(past);
+            var nextTitulo=null;
+            for(var i=0;i<proximas.length;i++){ if(proximas[i].tipo==='actividad'){nextTitulo=proximas[i].titulo;break;} }
+            function renderItem(a, idx, isPast){
+                var rot=ROT[idx%ROT.length];
+                if(a.tipo==='efemeride'){
+                    return '<div class="seal'+(isPast?' past':'')+'" style="--rot:'+rot+'">'+
+                        '<i class="fa '+esc(a.icono)+'"></i>'+
+                        '<span class="em-tag">Fecha simbólica</span>'+
+                        '<h3>'+esc(a.titulo)+'</h3>'+
+                        '<span class="em-month">'+esc(MESES[a.mes]||'')+'</span></div>';
+                }
+                return '<div class="stamp'+(isPast?' past':'')+'" style="--rot:'+rot+';background:'+esc(ink(a))+'">'+
+                    (a.titulo===nextTitulo?'<span class="ribbon">Próxima</span>':'')+
+                    '<i class="bgicon fa '+esc(a.icono)+'"></i>'+
+                    '<div class="postmark">'+esc(MESES[a.mes]||'')+'<br>'+esc(dy)+'</div>'+
+                    '<div class="m">'+esc(MESES[a.mes]||'Todo el año')+'</div>'+
+                    '<h3>'+esc(a.titulo)+'</h3>'+
+                    (a.descripcion?'<p>'+esc(a.descripcion)+'</p>':'')+
+                    secsHtml(a.secciones)+
+                '</div>';
+            }
+            var mixto = proximas.length && pasadas.length;
+            var out='';
+            if(proximas.length){
+                if(mixto) out+='<h2 class="group">Por venir</h2>';
+                proximas.forEach(function(a,idx){ out+=renderItem(a,idx,false); });
+            }
+            if(pasadas.length){
+                if(mixto) out+='<h2 class="group group-past">Ya realizadas</h2>';
+                pasadas.forEach(function(a,idx){ out+=renderItem(a,idx,true); });
+            }
+            document.getElementById('board').insertAdjacentHTML('beforeend', out);
+        }).catch(function(){
+            document.getElementById('board').insertAdjacentHTML('beforeend','<p style="color:#6a5334">No se pudo cargar el calendario. Abre esta página a través del servidor local (node server.js).</p>');
+        });
+    })();
+    </script>
+</body>
+</html>

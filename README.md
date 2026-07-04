@@ -40,6 +40,7 @@ El sitio queda disponible en <http://localhost:8082>.
 │       ├── biblioteca.json Catálogo de libros (base + secciones)
 │       ├── cuadro-de-adelanto.json Cuadro de Honor (insignias máximas)
 │       ├── album-fotografico.json  Álbumes de Google Photos (galería)
+│       ├── calendario.json Calendario de Actividades (escudos bordados)
 │       └── historia.json   Línea del tiempo (GENERADO — no editar a mano)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
@@ -449,6 +450,72 @@ Para un hito *in memoriam* se añade además un objeto `persona` (`nombre`, `ani
 - **Corregir un texto existente:** edita el objeto correspondiente en el `.js` y regenera.
 
 > Regla de oro: **nunca edites `historia.json` directamente**; los cambios se pierden en la siguiente regeneración.
+
+---
+
+## 7.d. Calendario de Actividades
+
+La sección **Calendario de Actividades** (tile en el home, fragmento `includes/calendario.html` renderizado por `assets/js/calendario.js`) presenta el año scout con el diseño **"Escudos bordados"**: cada actividad es un escudo/parche que se cose a un tablero, y cada **fecha simbólica** es un pin de esmalte.
+
+Decisiones de diseño (intencionales):
+
+- **No se muestran fechas exactas de las actividades**, solo el mes. Las **efemérides sí** pueden llevar día (son fechas fijas). Los miembros conocen las fechas exactas por su grupo.
+- Las **próximas** aparecen primero (escudos "sueltos", con listón **"Próxima"** en la primera actividad) y las **ya realizadas** después, en una fila aparte (escudos "cosidos" con punto cruz, atenuados y fijos). El reacomodo próxima/pasada es **automático** según el mes y año actuales.
+- El **año** mostrado es el actual por defecto; puedes fijarlo con el campo `anio`.
+
+### Fuente de datos: `includes/data/calendario.json`
+
+Es el **único** archivo a editar. Estructura:
+
+```jsonc
+{
+  "anio": 2026,                 // opcional; si se omite, usa el año en curso
+  "intro": "Texto introductorio…",
+  "actividades": [
+    {
+      "titulo": "Campamento Nacional",
+      "mes": 8,                 // 1–12 (obligatorio; ordena y calcula próximas/pasadas)
+      "icono": "fa-fire",       // clase de Font Awesome 4.5 (ver abajo)
+      "descripcion": "Texto breve y opcional.",
+      "secciones": "todas"      // "todas" o arreglo de secciones (ver abajo)
+    },
+    {
+      "titulo": "Día del Pensamiento",
+      "mes": 2,
+      "dia": 22,                // SOLO efemérides: día del mes (fecha fija)
+      "icono": "fa-globe",
+      "descripcion": "…",
+      "tipo": "efemeride"       // marca la fecha simbólica (pin de esmalte)
+    }
+  ]
+}
+```
+
+Campos de cada entrada:
+
+| Campo         | Obligatorio | Descripción |
+|---------------|-------------|-------------|
+| `titulo`      | Sí          | Nombre que se muestra en el escudo/pin. |
+| `mes`         | Sí          | 1–12. Ordena las tarjetas y decide si es próxima o pasada. |
+| `tipo`        | No          | `"actividad"` (por defecto) = escudo bordado; `"efemeride"` = pin de esmalte (fecha simbólica). |
+| `dia`         | No          | Día del mes (1–31). **Solo tiene efecto en efemérides**; las actividades no muestran día. |
+| `icono`       | No          | Clase de **Font Awesome 4.5** (p. ej. `fa-tree`, `fa-fire`, `fa-flag`, `fa-compass`, `fa-heart`, `fa-star`, `fa-globe`, `fa-birthday-cake`). Por defecto `fa-calendar`. Íconos de FA5+ **no** existen en esta versión. |
+| `descripcion` | No          | Texto breve. Puede omitirse (el escudo se ve bien solo con título). |
+| `secciones`   | No          | `"todas"` (toda la asociación → flor de lis) o un arreglo con los **nombres exactos** de sección (ver abajo). Solo aplica a actividades. |
+| `color`       | No          | Sobrescribe el degradado del escudo con cualquier valor CSS de `background` (p. ej. `"linear-gradient(135deg,#c0392b,#8e44ad)"`). Por defecto se asigna un color por mes. |
+
+Nombres de sección válidos para `secciones` (deben coincidir **exactamente**; cada uno usa su emblema de `images/secciones/`):
+
+`Colonia de Castores`, `Manada de Lobatos`, `Manada de Gacelas`, `Tropa Scout`, `Tropa de Muchachas Scouts`, `Clan de Precursoras`, `Clan de Rovers`, `Formación de Scouters`.
+
+### Agregar o editar una actividad
+
+1. Abre `includes/data/calendario.json` y agrega un objeto al arreglo `actividades` con al menos `titulo` y `mes`.
+2. Para una **fecha simbólica** (no actividad de asociación), añade `"tipo": "efemeride"` y, si quieres, `"dia"`.
+3. Elige un `icono` de Font Awesome 4.5 y, opcionalmente, las `secciones` participantes.
+4. Guarda y recarga el navegador (no hay build). El orden y el estado próxima/pasada se calculan solos.
+
+> Al iniciar un nuevo ciclo, basta con actualizar la lista de `actividades` (y `anio` si lo fijaste); no hay que tocar el HTML/JS/CSS.
 
 ---
 

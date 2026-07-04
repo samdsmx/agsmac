@@ -3349,3 +3349,133 @@ table.alt tbody tr td {
 	.af-chip { width: 60px; height: 62px; flex: 0 0 60px; }
 	.af-chip img { width: 50px; height: 50px; }
 }
+
+/* ============================================================================
+   Calendario de Actividades — "Escudos bordados" (parches cosidos + pins)
+   ============================================================================ */
+
+.cal-root { margin-top: 1.2em; color: #3a2c1c; font-size: 16px; line-height: normal; }
+
+/* Portada */
+.cal-cover {
+	text-align: center; color: #e9c877; padding: 1.5em 1.2em 1.6em;
+	background: linear-gradient(135deg, #3a1e12, #5a2d1a);
+	border: 2px solid #7a4a2a; border-radius: 14px;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; overflow: hidden;
+}
+.cal-cover::after {
+	content: ""; position: absolute; inset: 8px; border: 1px solid rgba(233,200,119,0.35);
+	border-radius: 10px; pointer-events: none;
+}
+.cal-cover-kicker { font-size: 1.05em; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: #e9c877; }
+.cal-cover-year { font-size: 2.7em; font-weight: 900; line-height: 1; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.4); }
+.cal-cover-intro { max-width: 44em; margin: 0.7em auto 0; color: #f0dcae; line-height: 1.5; font-size: 0.92em; }
+
+/* Tablero */
+.cal-board {
+	position: relative; margin-top: 1.6em; 
+	padding: 2em 1.3em;
+	background: linear-gradient(135deg, #3a1e12, #5a2d1a);
+	border: 2px solid #7a4a2a; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+	display: flex; flex-wrap: wrap; gap: 2em 1.6em; justify-content: center; 
+	align-items: center;
+}
+.cal-board::after {
+	content: ""; position: absolute; inset: 8px; border: 1px solid rgba(233,200,119,0.35);
+	border-radius: 10px; pointer-events: none;
+}
+.cal-empty { width: 100%; text-align: center; color: #c9ad78; font-style: italic; padding: 1.5em 0; }
+.cal-row-break { flex-basis: 100%; width: 100%; height: 0; margin: 0; }
+
+/* ===================== ESCUDO BORDADO (actividad) ===================== */
+.cal-patch {
+	position: relative; width: 240px; padding: 1.35em 1.25em 1.4em; border-radius: 16px; color: #fff; overflow: hidden;
+	text-align: left;
+	background-image:
+		repeating-linear-gradient(74deg, rgba(255,255,255,0.12) 0 1px, rgba(0,0,0,0.05) 1px 3px),
+		var(--grad, linear-gradient(135deg,#8E2DE2,#4A00E0));
+	box-shadow: 0 13px 24px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.3), inset 0 -6px 12px rgba(0,0,0,0.22);
+	transform: rotate(var(--rot, 0deg)); transition: transform 0.15s ease;
+}
+.cal-patch:hover { transform: rotate(0deg) scale(1.04); z-index: 4; }
+/* las ya cosidas ya no se mueven: están fijas en la tela */
+.cal-patch.is-past, .cal-patch.is-past:hover { transform: rotate(var(--rot, 0deg)); }
+/* borde merrow: aro con puntada satinada en diagonal */
+.cal-patch::before {
+	content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 7px;
+	background: repeating-linear-gradient(45deg, #ffffff 0 2px, #d7d7d7 2px 4px, #f4f4f4 4px 6px);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+}
+/* cosido con PUNTO CRUZ solo en las que ya pasaron (dos diagonales cruzadas) */
+.cal-patch.is-past::after {
+	content: ""; position: absolute; inset: -4px; border-radius: 19px; padding: 8px;
+	background:
+		repeating-linear-gradient(45deg, #111 0 2.5px, transparent 2.5px 9px),
+		repeating-linear-gradient(-45deg, #111 0 2.5px, transparent 2.5px 9px);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor; mask-composite: exclude;
+	filter: drop-shadow(0 1px 0 rgba(255,255,255,0.25)); pointer-events: none;
+}
+.cal-patch.is-past { overflow: visible; filter: saturate(0.78) brightness(0.92); box-shadow: 0 3px 7px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.25), inset 0 -6px 12px rgba(0,0,0,0.22); }
+/* círculo del mes, flotado a la derecha — con fondo bordado y doble aro */
+.cal-postmark {
+	float: right; width: 62px; height: 62px; margin: 0.1em 0 0.4em 0.7em; border-radius: 50%;
+	color: rgba(255,255,255,0.95);
+	background:
+		repeating-linear-gradient(-30deg, rgba(255,255,255,0.16) 0 1px, transparent 1px 3px),
+		rgba(0,0,0,0.16);
+	border: 2px solid rgba(255,255,255,0.85);
+	display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.05;
+	font-size: 0.6em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+	transform: rotate(-12deg); shape-outside: circle(52%); position: relative; z-index: 2;
+}
+/* ícono como marca de agua, abajo a la derecha */
+.cal-bgicon { position: absolute; right: 8px; bottom: 3px; font-size: 4em; color: rgba(255,255,255,0.16); pointer-events: none; z-index: 0; }
+.cal-root .cal-patch-title {
+	position: relative; z-index: 1; margin: 0.1em 0 0.35em; font-size: 1.2em; font-weight: 800; color: inherit; padding-left: 0;
+	line-height: 1.2; overflow-wrap: break-word; text-shadow: 0 1px 0 rgba(0,0,0,0.45), 0 0 2px rgba(0,0,0,0.35);
+}
+.cal-patch-desc { position: relative; z-index: 1; margin: 0; font-size: 0.88em; line-height: 1.4; color: rgba(255,255,255,0.95); overflow-wrap: break-word; text-shadow: 0 1px 1px rgba(0,0,0,0.35); }
+.cal-secs { position: relative; z-index: 1; clear: both; display: flex; gap: 0.3em; margin-top: 0.55em; flex-wrap: wrap; justify-content: flex-start; padding: 0; border: 0; }
+.cal-secs img { width: 24px; height: 24px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.9); box-shadow: 0 0 0 2px rgba(255,255,255,0.4); }
+.cal-secs img.cal-sec-all { background: #fff; padding: 3px; box-sizing: border-box; }
+/* listón "Próxima" en la esquina inferior derecha */
+.cal-ribbon-tag {
+	position: absolute; z-index: 3; font-size: 0.56em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+	bottom: 16px; right: -32px; transform: rotate(-45deg);
+	background: #ffd200; color: #4b134f; padding: 0.3em 3.2em; box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+
+/* ===================== PIN DE ESMALTE (efeméride) ===================== */
+.cal-pin-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.55em; width: 164px; }
+.cal-pin {
+	position: relative; width: 142px; height: 142px; border-radius: 50%;
+	background: conic-gradient(from 210deg, #8a6320, #f6e4a6, #c99b3a, #fff4cf, #a97c2b, #e9c877, #b8862f, #f6e4a6, #8a6320);
+	box-shadow: 0 7px 16px rgba(0,0,0,0.55), inset 0 0 6px rgba(0,0,0,0.4);
+	display: flex; align-items: center; justify-content: center;
+	transform: rotate(var(--rot, 0deg)); transition: transform 0.15s ease;
+}
+.cal-pin:hover { transform: rotate(0deg) scale(1.05); z-index: 4; }
+.cal-pin-wrap.is-past .cal-pin:hover { transform: rotate(var(--rot, 0deg)); z-index: auto; }
+.cal-pin-face {
+	position: relative; width: 80%; height: 80%; border-radius: 50%; overflow: hidden;
+	background: radial-gradient(circle at 38% 30%, #514aa8, #2E2270 55%, #201b52);
+	box-shadow: inset 0 3px 9px rgba(0,0,0,0.55), inset 0 -2px 5px rgba(255,255,255,0.12), 0 0 0 2px rgba(120,90,30,0.6);
+	display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.05em;
+	color: #f0d98a; text-align: center; padding: 0.3em;
+}
+.cal-pin-face::after {
+	content: ""; position: absolute; top: 7%; left: 12%; width: 55%; height: 32%; border-radius: 50%;
+	background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0)); transform: rotate(-18deg); pointer-events: none;
+}
+.cal-pin-face i { font-size: 1.5em; color: #f6e0a0; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+.cal-root .cal-pin-title { font-size: 0.82em; font-weight: 800; color: #f0d98a; padding-left: 0; line-height: 1.12; margin: 0.1em 0.2em 0; overflow-wrap: break-word; text-shadow: 0 1px 1px rgba(0,0,0,0.5); }
+.cal-pin-month { font-size: 0.66em; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.92; }
+.cal-pin-wrap.is-past .cal-pin { filter: saturate(0.85) brightness(0.9); }
+.cal-pin-wrap.is-past { opacity: 0.85; }
+
+@media (max-width: 560px) {
+	.cal-patch { width: 100%; }
+	.cal-pin-wrap { width: 142px; }
+}

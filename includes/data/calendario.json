@@ -1,0 +1,77 @@
+{
+  "_comment_1": "Calendario de Actividades — 'Nuestro año scout'.",
+  "_comment_2": "Edita 'actividades' cada año. Campos: titulo, mes (1-12), icono (clase Font Awesome 4, p.ej. 'fa-tree'), descripcion y secciones.",
+  "_comment_3": "'secciones' puede ser \"todas\" (toda la asociación) o un arreglo con los nombres EXACTOS de sección: 'Colonia de Castores', 'Manada de Lobatos', 'Manada de Gacelas', 'Tropa Scout', 'Tropa de Muchachas Scouts', 'Clan de Precursoras', 'Clan de Rovers', 'Formación de Scouters'.",
+  "_comment_4": "No se muestran fechas exactas: solo el mes. Puedes tener varias actividades en un mismo mes.",
+  "_comment_5": "'tipo' distingue 'actividad' (evento de asociación, valor por defecto) de 'efemeride' (fecha simbólica scout, no necesariamente con actividad). Las efemérides se muestran con un estilo distinto.",
+  "_comment_6": "Las efemérides SÍ pueden llevar 'dia' (día del mes, 1-31) porque son fechas fijas; las actividades no llevan día (solo mes).",
+  "intro": "Este es el ritmo de nuestro año scout: aventura, servicio y hermandad en cada temporada. En tu grupo podrán darte más detalles.",
+  "actividades": [
+    {
+      "titulo": "Asamblea Nacional",
+      "mes": 2,
+      "icono": "fa-flag",
+      "descripcion": "Delegaciones de todo el país nos reunimos para evaluar el año, compartir experiencias y aprobar el calendario nacional de actividades.",
+      "secciones": "todas"
+    },
+    {
+      "titulo": "Día de San Jorge",
+      "mes": 4,
+      "icono": "fa-compass",
+      "descripcion": "Celebramos a nuestro santo patrono renovando la Promesa Scout, en una jornada de hermandad entre los grupos de la región.",
+      "secciones": "todas"
+    },
+    {
+      "titulo": "Campamentos de sección",
+      "mes": 6,
+      "icono": "fa-tree",
+      "descripcion": "Cada sección sale al campo a poner en práctica lo aprendido: vida al aire libre, técnica scout y mucha convivencia.",
+      "secciones": ["Manada de Lobatos", "Manada de Gacelas", "Tropa Scout", "Tropa de Muchachas Scouts"]
+    },
+    {
+      "titulo": "Campamento Nacional",
+      "mes": 8,
+      "icono": "fa-fire",
+      "descripcion": "El gran encuentro del año: cientos de scouts acampando juntos, con juegos, fogatas y actividades para todas las edades.",
+      "secciones": "todas"
+    },
+    {
+      "titulo": "Jornada de servicio comunitario",
+      "mes": 10,
+      "icono": "fa-heart",
+      "descripcion": "Retribuimos a nuestra comunidad con proyectos de servicio: reforestación, limpieza y apoyo social.",
+      "secciones": "todas"
+    },
+    {
+      "titulo": "Ceremonia de cierre e investiduras",
+      "mes": 12,
+      "icono": "fa-star",
+      "descripcion": "Cerramos el ciclo reconociendo los avances del año y dando la bienvenida a nuevos miembros con sus investiduras.",
+      "secciones": "todas"
+    },
+    {
+      "titulo": "Día del Pensamiento",
+      "mes": 2,
+      "dia": 22,
+      "icono": "fa-globe",
+      "descripcion": "Jornada mundial que celebra la hermandad scout entre más de 170 países. Se conmemora cada 22 de febrero.",
+      "tipo": "efemeride"
+    },
+    {
+      "titulo": "Día del Fundador",
+      "mes": 2,
+      "dia": 22,
+      "icono": "fa-birthday-cake",
+      "descripcion": "Aniversario del natalicio de Robert Baden-Powell, fundador del Movimiento Scout.",
+      "tipo": "efemeride"
+    },
+    {
+      "titulo": "Aniversario del Movimiento Scout",
+      "mes": 8,
+      "dia": 1,
+      "icono": "fa-fire",
+      "descripcion": "En agosto de 1907 se realizó el primer campamento scout en la isla de Brownsea, origen del Movimiento.",
+      "tipo": "efemeride"
+    }
+  ]
+}
