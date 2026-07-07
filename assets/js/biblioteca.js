@@ -24,37 +24,21 @@
     var FILTER_ALL = '__all__';
     var SECCION_UNIVERSAL = 'Todas las secciones';
 
-    // Orden preferido de los filtros pill (los no listados van al final, alfabético).
-    var SECCION_ORDER = [
-        'Colonia de Castores',
-        'Manada de Lobatos',
-        'Manada de Gacelas',
-        'Tropa Scout',
-        'Tropa de Muchachas Scouts',
-        'Clan de Precursoras',
-        'Clan de Rovers',
-        'Formación de Scouters',
-        SECCION_UNIVERSAL
-    ];
-
     // Etiqueta legible del tab.
     var TAB_LABELS = {
         base: 'Bibliografía base',
         trabajo: 'Libros de trabajo'
     };
 
-    // Emblema de cada sección para los chips de filtro (mismo criterio que el
-    // Álbum Fotográfico y el Cuadro de Honor: imagen en vez del nombre largo).
-    var SECCION_IMAGES = {
-        'Colonia de Castores':       'images/secciones/CC.gif',
-        'Manada de Lobatos':         'images/secciones/ML.gif',
-        'Manada de Gacelas':         'images/secciones/MG.gif',
-        'Tropa Scout':               'images/secciones/TS.gif',
-        'Tropa de Muchachas Scouts': 'images/secciones/TMS.gif',
-        'Clan de Precursoras':       'images/secciones/CP.gif',
-        'Clan de Rovers':            'images/secciones/CR.gif',
-        'Formación de Scouters':     'images/secciones/J.gif'
+    // Catálogo canónico de secciones (assets/js/secciones.js). Resuelve por
+    // nombre completo vía alias → nombre canónico + emblema. Fallback defensivo
+    // por si el orden de carga cambiara.
+    var SECCIONES = window.AGSMAC_SECCIONES || {
+        nombre: function (k) { return String(k == null ? '' : k); },
+        imagen: function () { return ''; }
     };
+    // Nombre a mostrar para una sección (canónico si el catálogo la conoce).
+    function secLabel(sec) { return SECCIONES.nombre(sec) || sec; }
 
     // Estado global de la UI.
     var state = {
@@ -80,7 +64,7 @@
     }
 
     // Un libro hace match con el filtro si:
-    //   - filter es 'Todas' (FILTER_ALL), o
+    //   - filter es "General" (FILTER_ALL, sin filtro), o
     //   - alguno de sus tags es el filter elegido, o
     //   - tiene el tag universal 'Todas las secciones'.
     function matchesFilter(libro, filter) {
@@ -132,20 +116,20 @@
                 '</div>' +
                 '<div class="bib-body">' +
                     '<h4 class="bib-title">' + escapeHtml(libro.titulo) + '</h4>' +
-                    (primary ? '<p class="bib-meta"><i class="fa fa-bookmark"></i> ' + escapeHtml(primary) + '</p>' : '') +
+                    (primary ? '<p class="bib-meta"><i class="fa fa-bookmark"></i> ' + escapeHtml(secLabel(primary)) + '</p>' : '') +
                     badge +
                 '</div>' +
             '</article>'
         );
     }
 
+    // Ordena por el orden canónico del catálogo (por edad); desconocidas al
+    // final, desempatando alfabéticamente.
     function compareSecciones(a, b) {
-        var ai = SECCION_ORDER.indexOf(a);
-        var bi = SECCION_ORDER.indexOf(b);
-        if (ai === -1 && bi === -1) return a.localeCompare(b, 'es');
-        if (ai === -1) return 1;
-        if (bi === -1) return -1;
-        return ai - bi;
+        var ai = SECCIONES.orden ? SECCIONES.orden(a) : 0;
+        var bi = SECCIONES.orden ? SECCIONES.orden(b) : 0;
+        if (ai !== bi) return ai - bi;
+        return a.localeCompare(b, 'es');
     }
 
     // Lista de secciones únicas (para construir los pills, sin contadores).
@@ -173,15 +157,18 @@
 
     function renderFilters() {
         // El tag universal 'Todas las secciones' NO genera chip propio (sería
-        // redundante con 'Todas'); los libros universales siguen apareciendo
+        // redundante con "General"); los libros universales siguen apareciendo
         // bajo cualquier sección específica vía matchesFilter().
         var secciones = buildFilterList()
             .filter(function (s) { return s !== SECCION_UNIVERSAL; })
             .sort(compareSecciones);
-        var html = filterChip(FILTER_ALL, 'Todas', 'images/fl.png', 'bib-filter-all');
+        // Las secciones primero (orden por edad) y el chip "General" (flor de
+        // lis azul) SIEMPRE al final, igual que 'general' en el Álbum Fotográfico.
+        var html = '';
         secciones.forEach(function (sec) {
-            html += filterChip(sec, sec, SECCION_IMAGES[sec]);
+            html += filterChip(sec, secLabel(sec), SECCIONES.imagen(sec));
         });
+        html += filterChip(FILTER_ALL, 'General', 'images/fl.png', 'bib-filter-all');
         jQuery('#biblioteca-filtros').html(html);
         jQuery('.bib-filter[data-filter="' + state.activeFilter + '"]').addClass('is-active');
     }
@@ -200,12 +187,12 @@
             if (state.activeFilter === FILTER_ALL) {
                 msg = 'Aún no hay libros publicados en esta pestaña.';
             } else if (otherCount > 0) {
-                msg = 'Sin resultados en esta pestaña con el filtro <strong>' + escapeHtml(state.activeFilter) + '</strong>. ' +
+                msg = 'Sin resultados en esta pestaña con el filtro <strong>' + escapeHtml(secLabel(state.activeFilter)) + '</strong>. ' +
                       'Hay ' + otherCount + ' libro' + (otherCount === 1 ? '' : 's') +
                       ' en <a href="#" class="bib-jump-tab" data-tab="' + otherTab + '">' +
                       escapeHtml(TAB_LABELS[otherTab]) + '</a>.';
             } else {
-                msg = 'Sin resultados con el filtro <strong>' + escapeHtml(state.activeFilter) + '</strong>.';
+                msg = 'Sin resultados con el filtro <strong>' + escapeHtml(secLabel(state.activeFilter)) + '</strong>.';
             }
             $grid.html('<p class="bib-empty">' + msg + '</p>');
         } else {

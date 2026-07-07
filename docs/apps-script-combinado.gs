@@ -14,8 +14,9 @@
  * proyecto, colisionan (gana el último) y ambas URLs devuelven lo mismo.
  *
  * Este archivo resuelve eso con UN router `doGet` que despacha por `?tipo=`.
- * Si prefieres mantenerlos 100% separados, usa dos proyectos distintos con
- * docs/apps-script-cumpleanos.gs y docs/apps-script-cuadro-de-adelanto.gs.
+ * Si prefieres mantenerlos 100% separados en dos proyectos distintos, extrae
+ * cada bloque (CUMPLEAÑOS / CUADRO DE HONOR) a su propio proyecto de Apps
+ * Script, renombrando su `handle...` a `doGet`.
  *
  * ─── INSTALACIÓN ────────────────────────────────────────────────────────────
  * 1. Extensiones → Apps Script en tu hoja.
@@ -233,8 +234,15 @@ function readAwards() {
   }
 
   var out = [];
+  var fechaActual = new Date();
   for (var i = 1; i < values.length; i++) {
     var row = values[i];
+
+    var fechaRegistro = new Date(row[iFecha]);
+    if (!isNaN(fechaRegistro.getTime()) && fechaRegistro > fechaActual) {
+      continue; 
+    }
+
     var nombres = String(row[iNombres] || '').trim();
     var paterno = String(row[iPaterno] || '').trim();
     var materno = iMaterno >= 0 ? String(row[iMaterno] || '').trim() : '';

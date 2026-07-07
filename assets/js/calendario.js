@@ -43,17 +43,13 @@
     // Ligeras rotaciones para el efecto "scrapbook" de las estampas/sellos.
     var ROT = ['-3deg', '2.2deg', '-1.6deg', '3deg', '-2.4deg', '1.5deg', '-2deg', '2.8deg'];
 
-    // Emblema de cada sección (mismo criterio que Álbum, Cuadro de Honor y
-    // Biblioteca). 'todas' usa la flor de lis.
-    var SECCION_IMAGES = {
-        'Colonia de Castores':       'images/secciones/CC.gif',
-        'Manada de Lobatos':         'images/secciones/ML.gif',
-        'Manada de Gacelas':         'images/secciones/MG.gif',
-        'Tropa Scout':               'images/secciones/TS.gif',
-        'Tropa de Muchachas Scouts': 'images/secciones/TMS.gif',
-        'Clan de Precursoras':       'images/secciones/CP.gif',
-        'Clan de Rovers':            'images/secciones/CR.gif',
-        'Formación de Scouters':     'images/secciones/J.gif'
+    // Catálogo canónico de secciones (acrónimo → nombre + emblema).
+    // Definido en assets/js/secciones.js y cargado antes que este script.
+    // Fallback defensivo por si el orden de carga cambiara.
+    var SECCIONES = window.AGSMAC_SECCIONES || {
+        todas: { nombre: 'General', imagen: 'images/fl.png' },
+        nombre: function (a) { return String(a == null ? '' : a); },
+        imagen: function (a) { return a ? 'images/secciones/' + a + '.gif' : ''; }
     };
 
     function escapeHtml(s) {
@@ -94,13 +90,15 @@
     function renderSecciones(secciones) {
         if (!secciones) return '';
         if (secciones === 'todas' || (Array.isArray(secciones) && secciones.length === 0)) {
-            return '<div class="cal-secs"><img class="cal-sec-all" src="images/fl.png"' +
-                ' alt="Toda la asociación" title="Toda la asociación" loading="lazy"></div>';
+            var t = SECCIONES.todas;
+            return '<div class="cal-secs"><img class="cal-sec-all" src="' + escapeHtml(t.imagen) + '"' +
+                ' alt="' + escapeHtml(t.nombre) + '" title="' + escapeHtml(t.nombre) + '" loading="lazy"></div>';
         }
         var list = Array.isArray(secciones) ? secciones : [secciones];
         var imgs = list.map(function (s) {
-            var img = SECCION_IMAGES[s];
-            return img ? '<img src="' + escapeHtml(img) + '" alt="' + escapeHtml(s) + '" title="' + escapeHtml(s) + '" loading="lazy">' : '';
+            var img = SECCIONES.imagen(s);
+            var nombre = SECCIONES.nombre(s);
+            return img ? '<img src="' + escapeHtml(img) + '" alt="' + escapeHtml(nombre) + '" title="' + escapeHtml(nombre) + '" loading="lazy">' : '';
         }).join('');
         return imgs ? '<div class="cal-secs">' + imgs + '</div>' : '';
     }
@@ -109,7 +107,7 @@
         var rot = ROT[idx % ROT.length];
         if (a.tipo === 'efemeride') {
             var fecha = a.dia ? (a.dia + ' ' + (a.mes ? MESES[a.mes] : '')) : (a.mes ? MESES[a.mes] : '');
-            return '<div class="cal-pin-wrap' + (isPast ? ' is-past' : '') + '" style="--rot:' + rot + '">' +
+            return '<div class="cal-pin-wrap' + (isPast ? ' is-past' : '') + '" style="--rot:' + rot + '" title="' + escapeHtml(a.descripcion) + '">' +
                 '<div class="cal-pin"><div class="cal-pin-face">' +
                     '<i class="fa ' + escapeHtml(a.icono) + '" aria-hidden="true"></i>' +
                     '<span class="cal-pin-title">' + escapeHtml(a.titulo) + '</span>' +

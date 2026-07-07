@@ -14,36 +14,30 @@
 
     var CONFIG_URL = 'includes/data/album-fotografico.json';
 
-    // Catálogo fijo de secciones (ID -> label visible).
-    // Debe estar en sync con scripts/parseTitle.js de galeriaPublica.
-    var SECTION_LABELS = {
-        'castores':         'Colonia de Castores',
-        'manada-gacelas':   'Manada de Gacelas',
-        'manada-lobatos':   'Manada de Lobatos',
-        'tropa-muchachas':  'Tropa de Muchachas',
-        'tropa-scout':      'Tropa Scout',
-        'clan-precursoras': 'Clan de Precursoras',
-        'clan-rovers':      'Clan de Rovers',
-        'scouters':         'Scouters y Dirigentes',
-        'general':          'General'
+    // Catálogo canónico de secciones (assets/js/secciones.js). Resuelve por
+    // slug vía alias → nombre completo + emblema. Fallback defensivo por si el
+    // orden de carga cambiara.
+    var SECCIONES = window.AGSMAC_SECCIONES || {
+        nombre: function (k) { return String(k == null ? '' : k); },
+        imagen: function () { return ''; }
     };
-    // Orden en que se muestran los chips.
-    var SECTION_ORDER = ['castores', 'manada-gacelas', 'manada-lobatos', 'tropa-muchachas', 'tropa-scout', 'clan-precursoras', 'clan-rovers', 'scouters',  'general'];
 
-    // Emblema de cada sección para los chips de filtro (mismo criterio que el
-    // Cuadro de Honor: imagen en lugar del nombre largo). 'general' usa la
-    // flor de lis de AGSMAC por no tener emblema de sección propio.
-    var SECTION_IMAGES = {
-        'castores':         'images/secciones/CC.gif',
-        'manada-gacelas':   'images/secciones/MG.gif',
-        'manada-lobatos':   'images/secciones/ML.gif',
-        'tropa-muchachas':  'images/secciones/TMS.gif',
-        'tropa-scout':      'images/secciones/TS.gif',
-        'clan-precursoras': 'images/secciones/CP.gif',
-        'clan-rovers':      'images/secciones/CR.gif',
-        'scouters':         'images/secciones/J.gif',
-        'general':          'images/fl.png'
+    // 'general' no es una sección real (álbumes sin sección): etiqueta propia y
+    // flor de lis. El resto se resuelve por el catálogo compartido.
+    var LOCAL_FALLBACK = {
+        general: { nombre: 'General', imagen: 'images/fl.png' }
     };
+    function secName(id) {
+        var n = SECCIONES.nombre(id);
+        if (n && n !== id) return n;
+        return (LOCAL_FALLBACK[id] && LOCAL_FALLBACK[id].nombre) || id;
+    }
+    function secImg(id) {
+        return SECCIONES.imagen(id) || (LOCAL_FALLBACK[id] ? LOCAL_FALLBACK[id].imagen : '');
+    }
+
+    // Orden en que se muestran los chips (slugs; presentación de esta vista).
+    var SECTION_ORDER = ['castores', 'manada-gacelas', 'manada-lobatos', 'tropa-muchachas', 'tropa-scout', 'clan-precursoras', 'clan-rovers', 'scouters',  'general'];
 
     function escapeHtml(s) {
         return String(s == null ? '' : s)
@@ -92,8 +86,8 @@
             a.sections.forEach(function (s) { sectionCounts[s] = (sectionCounts[s] || 0) + 1; });
         });
         var sectionChips = SECTION_ORDER.filter(function (id) { return sectionCounts[id]; }).map(function (id) {
-            var label = SECTION_LABELS[id] || id;
-            var img = SECTION_IMAGES[id];
+            var label = secName(id);
+            var img = secImg(id);
             return '<button type="button" class="af-chip" data-section="' + escapeHtml(id) + '"' +
                 ' aria-label="' + escapeHtml(label) + '">' +
                 (img
@@ -146,7 +140,7 @@
                 ? '<img class="af-card-img" src="' + escapeHtml(a.thumbnail) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
                 : '<div class="af-card-img af-card-img-empty" aria-hidden="true"><i class="fa fa-camera"></i></div>';
             var tags = a.sections.map(function (s) {
-                return '<span class="af-card-tag">' + escapeHtml(SECTION_LABELS[s] || s) + '</span>';
+                return '<span class="af-card-tag">' + escapeHtml(secName(s)) + '</span>';
             }).join('');
             return '<a class="af-card" href="' + escapeHtml(a.url) + '" target="_blank" rel="noopener" title="' + escapeHtml(a.title) + '">' +
                 img +

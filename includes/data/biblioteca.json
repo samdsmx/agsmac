@@ -9,7 +9,7 @@
       "portada": "images/biblioteca/portadas-base/escultismo-para-muchachos.jpg",
       "pdf": "pdfs/biblioteca/escultismo-para-muchachos.pdf",
       "descripcion": "El libro fundacional del Movimiento Scout. Manual original de adiestramiento publicado por B.-P. tras el campamento de Brownsea, traducido por la AGSMAC.",
-      "secciones": ["Tropa Scout", "Tropa de Muchachas Scouts", "Formación de Scouters"]
+      "secciones": ["Tropa de Muchachas Scouts", "Tropa Scout", "Scouters y Dirigentes"]
     },
     {
       "slug": "manual-del-lobato",
@@ -19,7 +19,7 @@
       "portada": "images/biblioteca/portadas-base/manual-del-lobato.png",
       "pdf": "pdfs/biblioteca/manual-del-lobato.pdf",
       "descripcion": "Handbook clásico del Lobatismo, basado en El Libro de la Selva de Kipling. Pensado para la sección menor del Movimiento.",
-      "secciones": ["Manada de Lobatos", "Manada de Gacelas"]
+      "secciones": ["Manada de Gacelas", "Manada de Lobatos"]
     },
     {
       "slug": "roverismo-hacia-el-exito",
@@ -29,7 +29,7 @@
       "portada": "images/biblioteca/portadas-base/roverismo-hacia-el-exito.png",
       "pdf": "pdfs/biblioteca/roverismo-hacia-el-exito.pdf",
       "descripcion": "Guía de vida para jóvenes rovers: \"rema tu propia canoa\". Aborda los escollos que enfrenta el joven adulto.",
-      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
+      "secciones": ["Clan de Precursoras", "Clan de Rovers"]
     },
     {
       "slug": "acerca-de-los-scouts",
@@ -39,7 +39,7 @@
       "portada": "images/biblioteca/portadas-base/acerca-de-los-scouts.png",
       "pdf": "pdfs/biblioteca/acerca-de-los-scouts.pdf",
       "descripcion": "Manuscrito de B.-P. donde explica al público adulto el propósito y método del joven Movimiento Scout.",
-      "secciones": ["Todas las secciones", "Formación de Scouters"]
+      "secciones": ["Todas las secciones", "Scouters y Dirigentes"]
     },
     {
       "slug": "aventura-hacia-la-edad-viril",
@@ -49,7 +49,7 @@
       "portada": "images/biblioteca/portadas-base/aventura-hacia-la-edad-viril.png",
       "pdf": "pdfs/biblioteca/aventura-hacia-la-edad-viril.pdf",
       "descripcion": "Consejos prácticos para el joven scout que transita hacia la vida adulta.",
-      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
+      "secciones": ["Clan de Precursoras", "Clan de Rovers"]
     },
     {
       "slug": "educacion-por-amor",
@@ -59,7 +59,7 @@
       "portada": "images/biblioteca/portadas-base/educacion-por-amor.png",
       "pdf": "pdfs/biblioteca/educacion-por-amor.pdf",
       "descripcion": "Conferencia de B.-P. en el III Congreso de Educación Moral: educar por el amor en sustitución del temor.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     },
     {
       "slug": "el-libro-de-las-tierras-virgenes",
@@ -79,7 +79,7 @@
       "portada": "images/biblioteca/portadas-base/escultismo-y-movimientos-juveniles.png",
       "pdf": "pdfs/biblioteca/escultismo-y-movimientos-juveniles.pdf",
       "descripcion": "Reflexión de B.-P. sobre el escultismo en el contexto de otros movimientos juveniles de su época.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     },
     {
       "slug": "guia-para-el-jefe-de-tropa",
@@ -89,7 +89,7 @@
       "portada": "images/biblioteca/portadas-base/guia-para-el-jefe-de-tropa.png",
       "pdf": "pdfs/biblioteca/guia-para-el-jefe-de-tropa.pdf",
       "descripcion": "Aids to Scoutmastership: principios y orientaciones para quien dirige una tropa scout.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     },
     {
       "slug": "lecciones-de-la-universidad-de-la-vida",
@@ -99,7 +99,7 @@
       "portada": "images/biblioteca/portadas-base/lecciones-de-la-universidad-de-la-vida.png",
       "pdf": "pdfs/biblioteca/lecciones-de-la-universidad-de-la-vida.pdf",
       "descripcion": "Autobiografía de B.-P.: educación, deportes, exploración, vida de soldado y servicio.",
-      "secciones": ["Clan de Rovers", "Clan de Precursoras", "Formación de Scouters"]
+      "secciones": ["Clan de Precursoras", "Clan de Rovers", "Scouters y Dirigentes"]
     },
     {
       "slug": "notas-para-instructores",
@@ -109,7 +109,7 @@
       "portada": "images/biblioteca/portadas-base/notas-para-instructores.png",
       "pdf": "pdfs/biblioteca/notas-para-instructores.pdf",
       "descripcion": "Acompañamiento al instructor para llevar a la práctica Escultismo para Muchachos.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     },
     {
       "slug": "rema-tu-propia-canoa",
@@ -119,7 +119,7 @@
       "portada": "images/biblioteca/portadas-base/rema-tu-propia-canoa.png",
       "pdf": "pdfs/biblioteca/rema-tu-propia-canoa.pdf",
       "descripcion": "Consejos para muchachos sobre observación, sentido común, autoeducación e inventiva.",
-      "secciones": ["Clan de Rovers", "Clan de Precursoras"]
+      "secciones": ["Clan de Precursoras", "Clan de Rovers"]
     },
     {
       "slug": "tropiezos-de-la-vida-y-como-encararlos",
@@ -129,7 +129,7 @@
       "portada": "images/biblioteca/portadas-base/tropiezos-de-la-vida-y-como-encararlos.png",
       "pdf": "pdfs/biblioteca/tropiezos-de-la-vida-y-como-encararlos.pdf",
       "descripcion": "Reflexiones de B.-P. sobre cómo afrontar las dificultades cotidianas con espíritu scout.",
-      "secciones": ["Clan de Rovers", "Clan de Precursoras", "Formación de Scouters"]
+      "secciones": ["Clan de Precursoras", "Clan de Rovers", "Scouters y Dirigentes"]
     },
     {
       "slug": "ultimas-cartas-de-baden-powell",
@@ -226,7 +226,7 @@
       "audiencia": "scouters",
       "portada": "images/biblioteca/portadas-secciones/curso-de-induccion-al-escultismo.png",
       "descripcion": "Curso inicial entregado a scouters y dirigentes cuando se incorporan al Movimiento. No es material para muchachos.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     },
     {
       "slug": "curso-de-adiestramiento-integral",
@@ -234,7 +234,7 @@
       "audiencia": "scouters",
       "portada": "images/biblioteca/portadas-secciones/curso-de-adiestramiento-integral.png",
       "descripcion": "Adiestramiento integral entregado a scouters y dirigentes durante su formación continua. No es material para muchachos.",
-      "secciones": ["Formación de Scouters"]
+      "secciones": ["Scouters y Dirigentes"]
     }
   ]
 }

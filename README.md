@@ -199,19 +199,19 @@ Campos:
 
 ### Configurar el Apps Script (primera vez o redeploy)
 
-El código del script y los pasos completos viven en `docs/apps-script-cumpleanos.gs`. Resumen:
+El código del script y los pasos completos viven en `docs/apps-script-combinado.gs` (un solo proyecto enrutador que sirve cumpleaños **y** cuadro de honor). Resumen:
 
 1. Abrir la Google Sheet privada con los cumpleaños.
 2. Menú **Extensiones → Apps Script**.
-3. Pegar el contenido de `docs/apps-script-cumpleanos.gs` en `Code.gs`.
-4. Ajustar el objeto `CONFIG` (nombre exacto de la pestaña y columnas: `Nombres`, `Apellido Paterno`, etc.).
+3. Pegar el contenido de `docs/apps-script-combinado.gs` en `Code.gs`.
+4. Ajustar el objeto `CUMPLE_CONFIG` (nombre exacto de la pestaña y columnas: `Nombres`, `Apellido Paterno`, etc.).
 5. **Implementar → Nueva implementación → Aplicación web**, ejecutando "Como yo" y con acceso "Cualquier persona".
-6. Copiar la URL `/exec` resultante y pegarla en `cumpleanos.json` → `appsScriptUrl`.
+6. Copiar la URL `/exec` resultante y pegarla en `cumpleanos.json` → `appsScriptUrl`, **añadiendo** `?tipo=cumpleanos` al final.
 7. Autorizar permisos cuando Google los pida.
 
 > **Cada vez que cambies el código del script**, no basta con guardar: hay que hacer **Implementar → Administrar implementaciones → Editar → Nueva versión** para que la URL pública sirva la versión nueva.
 
-> **⚠️ Cumpleaños y Cuadro de Honor son scripts distintos.** Una implementación de Web App ejecuta el único `doGet(e)` del proyecto; **no** se elige el `.gs` por implementación. Si pegas ambos `doGet` en el mismo proyecto colisionan y las dos URLs devuelven lo mismo. Opciones: (a) **dos proyectos separados** (`apps-script-cumpleanos.gs` y `apps-script-cuadro-de-adelanto.gs`), cada uno con su URL; o (b) **un solo proyecto enrutador** con `docs/apps-script-combinado.gs`, que despacha por `?tipo=cumpleanos` / `?tipo=cuadro` (en ese caso los `appsScriptUrl` de los JSON terminan en `.../exec?tipo=cumpleanos` y `.../exec?tipo=cuadro`).
+> **⚠️ Cumpleaños y Cuadro de Honor los sirve un solo proyecto enrutador.** Una implementación de Web App ejecuta el único `doGet(e)` del proyecto; **no** se elige el `.gs` por implementación. Por eso ambos endpoints se sirven desde `docs/apps-script-combinado.gs`, que despacha por el parámetro `?tipo=`: los `appsScriptUrl` de los JSON usan la **misma** URL base `/exec` terminando en `.../exec?tipo=cumpleanos` y `.../exec?tipo=cuadro` respectivamente.
 
 ### Actualizar el fallback local
 
@@ -288,14 +288,14 @@ Campos por galardón:
 
 ### Configurar el Apps Script (primera vez o redeploy)
 
-El código y los pasos completos viven en `docs/apps-script-cuadro-de-adelanto.gs`. Resumen:
+El código y los pasos completos viven en `docs/apps-script-combinado.gs` (el mismo proyecto enrutador que sirve cumpleaños). Resumen:
 
 1. Abrir la Google Sheet privada con los galardonados. Columnas esperadas (mismo esquema que cumpleaños): **Apellido Paterno · Apellido Materno · Nombres · Fecha · Insignia · Grupo · Clave**.
 2. Menú **Extensiones → Apps Script**.
-3. Pegar el contenido de `docs/apps-script-cuadro-de-adelanto.gs` en `Code.gs`.
-4. Ajustar `CONFIG` (nombre exacto de la pestaña y de cada columna si difieren). Si tu hoja usa la grafía correcta `B.P. PRECURSORA`, el alias en `INSIGNIA_ALIASES` ya la traduce al id del JSON.
+3. Pegar el contenido de `docs/apps-script-combinado.gs` en `Code.gs` (si ya lo pegaste para cumpleaños, es el **mismo** archivo: no lo dupliques).
+4. Ajustar `CUADRO_CONFIG` (nombre exacto de la pestaña y de cada columna si difieren).
 5. **Implementar → Nueva implementación → Aplicación web** (ejecutando "Como yo", acceso "Cualquier persona").
-6. Copiar la URL `/exec` y pegarla en `cuadro-de-adelanto.json` → `appsScriptUrl`.
+6. Copiar la URL `/exec` y pegarla en `cuadro-de-adelanto.json` → `appsScriptUrl`, **añadiendo** `?tipo=cuadro` al final.
 7. Autorizar los permisos cuando Google los pida.
 
 > Cada vez que cambies el código del script, hay que hacer **Implementar → Administrar implementaciones → Editar → Nueva versión** para que la URL pública sirva la versión nueva.
@@ -367,7 +367,7 @@ El parser de `galeriaPublica/scripts/parseTitle.js` extrae:
 | `Tropas` (plural, sin TS/TMS)      | `tropa-muchachas` **y** `tropa-scout` (ambas)                    |
 | Ninguna coincidencia               | `general`                                                        |
 
-Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/parseTitle.js` **y** `SECTION_LABELS`/`SECTION_ORDER` en `assets/js/album-fotografico.js` (deben mantenerse en sync).
+Para extender el vocabulario edita `SECTION_RULES` en `galeriaPublica/scripts/parseTitle.js` **y** el `SECTION_ORDER` (y, si es un slug nuevo, el índice `ALIASES` del catálogo compartido `assets/js/secciones.js`) en `assets/js/album-fotografico.js` (deben mantenerse en sync). Los nombres completos y emblemas de cada sección viven en `assets/js/secciones.js` (ver §9 → «Secciones (catálogo compartido)»).
 
 ### Workflow para publicar un álbum nuevo
 
@@ -501,12 +501,12 @@ Campos de cada entrada:
 | `dia`         | No          | Día del mes (1–31). **Solo tiene efecto en efemérides**; las actividades no muestran día. |
 | `icono`       | No          | Clase de **Font Awesome 4.5** (p. ej. `fa-tree`, `fa-fire`, `fa-flag`, `fa-compass`, `fa-heart`, `fa-star`, `fa-globe`, `fa-birthday-cake`). Por defecto `fa-calendar`. Íconos de FA5+ **no** existen en esta versión. |
 | `descripcion` | No          | Texto breve. Puede omitirse (el escudo se ve bien solo con título). |
-| `secciones`   | No          | `"todas"` (toda la asociación → flor de lis) o un arreglo con los **nombres exactos** de sección (ver abajo). Solo aplica a actividades. |
+| `secciones`   | No          | `"todas"` (emblema **General** → flor de lis azul) o un arreglo con los **acrónimos** de sección (ver abajo). Solo aplica a actividades. |
 | `color`       | No          | Sobrescribe el degradado del escudo con cualquier valor CSS de `background` (p. ej. `"linear-gradient(135deg,#c0392b,#8e44ad)"`). Por defecto se asigna un color por mes. |
 
-Nombres de sección válidos para `secciones` (deben coincidir **exactamente**; cada uno usa su emblema de `images/secciones/`):
+Acrónimos de sección válidos para `secciones` (deben coincidir **exactamente**; cada uno usa su emblema de `images/secciones/<ACRONIMO>.gif` y su nombre completo sale del catálogo compartido, ver §9 → «Secciones (catálogo compartido)»):
 
-`Colonia de Castores`, `Manada de Lobatos`, `Manada de Gacelas`, `Tropa Scout`, `Tropa de Muchachas Scouts`, `Clan de Precursoras`, `Clan de Rovers`, `Formación de Scouters`.
+`CC`, `MG`, `ML`, `TMS`, `TS`, `CP`, `CR`, `J`.
 
 ### Agregar o editar una actividad
 
@@ -707,6 +707,20 @@ en `academias.json`:
 - **JS**: jQuery 1.x + skel. Sin transpilación. Mantén compatibilidad ES5 en lo posible (las funciones flecha y `const` ya se usan, pero evita features muy nuevas si las metes en `main.js`).
 - **CSS**: un solo archivo `assets/css/main.css`. Las secciones están marcadas con comentarios `/* nombreSeccion */`.
 - **HTML modular**: cualquier `<div includedHtml="/includes/X.html">` se rellena en runtime con el contenido del archivo. Útil para reutilizar bloques.
+
+### Secciones (catálogo compartido)
+
+El catálogo canónico de las secciones scout (Colonia de Castores, Manadas, Tropas, Clanes, Scouters) vive en un solo lugar: **`assets/js/secciones.js`**, expuesto como `window.AGSMAC_SECCIONES`. Debe cargarse (vía `<script>`) **antes** que los módulos que lo consumen (ver `detail1.html`).
+
+- La **clave canónica** es el acrónimo, que coincide con el emblema `images/secciones/<ACRONIMO>.gif`: `CC`, `MG`, `ML`, `TMS`, `TS`, `CP`, `CR`, `J`.
+- Cada entrada expone `nombre` (nombre completo para tooltips/`title`/`alt`) e `imagen` (ruta del emblema). El **orden por edad** (orden de inserción de `SECCIONES`) se expone vía `AGSMAC_SECCIONES.orden(clave)`, para que los consumidores ordenen sus filtros sin hardcodear su propia lista.
+- Consumidores con esquemas de clave propios (heredados de sus JSON o de proyectos externos) resuelven vía el índice `ALIASES`:
+  - **Calendario** (`calendario.js` / `calendario.json`) usa acrónimos directamente.
+  - **Álbum Fotográfico** (`album-fotografico.js`) usa slugs (`castores`, `manada-gacelas`, …); `'general'` no es una sección real y se maneja localmente (flor de lis).
+  - **Biblioteca** (`biblioteca.js`) usa nombres completos (idénticos a los canónicos) y ordena sus chips con `orden()`; `'Todas las secciones'` es universal (no genera chip).
+- Usa `AGSMAC_SECCIONES.nombre(clave)` / `.imagen(clave)` / `.orden(clave)` (aceptan acrónimo, slug o nombre completo) o `.resolve(clave)` → `{ acr, nombre, imagen }`.
+
+**Al agregar una sección o un alias nuevo**, edita únicamente `assets/js/secciones.js` (mapa `SECCIONES` y/o índice `ALIASES`). Los `data-filter`/`data-section` y los valores en los JSON siguen siendo la clave propia de cada módulo; solo el nombre mostrado y el emblema salen del catálogo.
 
 ---
 

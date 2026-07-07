@@ -1,7 +1,7 @@
 /* Animación de cumpleaños embebida en el tile.
    - Reemplaza la animación original en Flash (birthday.swf).
    - Muestra los nombres apareciendo letra por letra mientras globos suben.
-   - Fuente principal: Apps Script Web App (ver docs/apps-script-cumpleanos.gs).
+   - Fuente principal: Apps Script Web App (ver docs/apps-script-combinado.gs, ?tipo=cumpleanos).
    - Fallback: lista 'birthdays' inline en includes/data/cumpleanos.json.
    - Último recurso: mensaje genérico si nada carga.
 */

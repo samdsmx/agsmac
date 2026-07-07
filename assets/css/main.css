@@ -3439,7 +3439,7 @@ table.alt tbody tr td {
 .cal-patch-desc { position: relative; z-index: 1; margin: 0; font-size: 0.88em; line-height: 1.4; color: rgba(255,255,255,0.95); overflow-wrap: break-word; text-shadow: 0 1px 1px rgba(0,0,0,0.35); }
 .cal-secs { position: relative; z-index: 1; clear: both; display: flex; gap: 0.3em; margin-top: 0.55em; flex-wrap: wrap; justify-content: flex-start; padding: 0; border: 0; }
 .cal-secs img { width: 24px; height: 24px; object-fit: contain; border-radius: 50%; background: rgba(255,255,255,0.9); box-shadow: 0 0 0 2px rgba(255,255,255,0.4); }
-.cal-secs img.cal-sec-all { background: #fff; padding: 3px; box-sizing: border-box; }
+.cal-secs img.cal-sec-all { background: #2E2270; padding: 3px; box-sizing: border-box; }
 /* listón "Próxima" en la esquina inferior derecha */
 .cal-ribbon-tag {
 	position: absolute; z-index: 3; font-size: 0.56em; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;

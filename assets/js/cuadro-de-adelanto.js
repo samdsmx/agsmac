@@ -4,7 +4,7 @@
  *
  * Cascada de fuentes (igual que el tile de cumpleaños):
  *   1. Google Apps Script Web App (fuente principal, Sheet privada).
- *      Ver docs/apps-script-cuadro-de-adelanto.gs.
+ *      Ver docs/apps-script-combinado.gs (?tipo=cuadro).
  *   2. Arreglo 'awards' inline en includes/data/cuadro-de-adelanto.json
  *      (fallback editable manualmente).
  *   3. Mensaje de "sin datos" — el contenedor nunca queda roto.
