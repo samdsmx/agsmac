@@ -79,7 +79,7 @@
       "fichaPdf": "pdfs/concuscout/gastronomia.pdf",
       "material": "Opcional (no obligatorio): si gustas, trae una proteína al gusto para acompañar tu platillo.",
       "talleres": [
-        { "nombre": "Cocina", "descripcion": "Prepara recetas sencillas y ricas en equipo." },
+        { "nombre": "Repostería", "descripcion": "Prepara deliciosos postres y dulces." },
         { "nombre": "Cocina fría", "descripcion": "Comida japonesa sin fuego: aprende a preparar sushi y onigiri." }
       ]
     },
