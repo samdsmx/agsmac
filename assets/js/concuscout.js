@@ -474,8 +474,7 @@
 	function renderMaterial(mat) {
 		var html = '';
 		if (mat.porSeccion && mat.porSeccion.length) {
-			html += '<p class="cc-mat-hint">👇 Busca tu sección y trae solo lo que te toca:</p>';
-			html += '<ul class="cc-mat-list">';
+			html += '<ul class="cc-mat-list"><br/>';
 			mat.porSeccion.forEach(function (s) {
 				html += '<li><span class="cc-mat-sec">' + esc(s.label) + ':</span> ' + esc(s.text) + '</li>';
 			});

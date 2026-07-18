@@ -1,0 +1,190 @@
+/* ConCuScout 2026 — Panel de Jefes de Grupo
+   Estilos extra para academias-jefes.html. Reutiliza variables y clases cc-*
+   de concuscout.css (botones, campos, spinner, mensajes). Página temporal del
+   evento; se puede borrar tras la actividad. */
+
+.jf-card {
+	background: rgba(255, 255, 255, 0.97);
+	border-radius: var(--cc-radius);
+	box-shadow: var(--cc-shadow);
+	padding: 20px 22px;
+	margin-top: 20px;
+	max-width: 560px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.jf-card h2 { margin: 0 0 8px; font-size: 20px; }
+.jf-lead { margin: 0 0 16px; font-size: 14px; color: var(--cc-muted); line-height: 1.45; }
+.jf-status-msg { margin: 0; font-size: 15px; line-height: 1.5; text-align: center; color: var(--cc-ink); }
+.jf-status-msg.err { color: var(--cc-danger); }
+
+/* ── Resultados ───────────────────────────────────────────── */
+.jf-results {
+	background: rgba(255, 255, 255, 0.97);
+	border-radius: var(--cc-radius);
+	box-shadow: var(--cc-shadow);
+	padding: 18px 20px 24px;
+	margin-top: 20px;
+}
+
+.jf-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 14px;
+	padding-bottom: 14px;
+	margin-bottom: 14px;
+	border-bottom: 1px solid #e6e9ee;
+}
+.jf-summary { font-size: 15px; flex: 1 1 auto; }
+.jf-pill {
+	display: inline-block;
+	background: #eef2f7;
+	color: #374151;
+	border-radius: 999px;
+	padding: 2px 10px;
+	font-size: 13px;
+	font-weight: 700;
+	margin-left: 4px;
+}
+.jf-pill-mat { background: #fff1e0; color: #b45309; }
+
+.jf-tabs { display: flex; gap: 6px; background: #eef2f7; border-radius: 999px; padding: 4px; }
+.jf-tab {
+	border: 0;
+	background: transparent;
+	color: #374151;
+	font-weight: 700;
+	font-size: 13px;
+	padding: 7px 14px;
+	border-radius: 999px;
+	cursor: pointer;
+}
+.jf-tab.is-active { background: #fff; color: var(--cc-ink); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); }
+.jf-refresh { padding: 8px 14px !important; font-size: 13px !important; }
+
+/* ── Vista por sección (tabla) ───────────────────────────── */
+.jf-name { font-weight: 700; }
+
+.jf-print-title {
+	display: none;
+	font-weight: 800;
+	font-size: 15px;
+	margin: 0 0 10px;
+	color: var(--cc-ink);
+}
+.jf-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+.jf-table th,
+.jf-table td {
+	text-align: left;
+	padding: 8px 10px;
+	border-bottom: 1px solid #e6e9ee;
+}
+.jf-table thead th {
+	background: #f6f8fa;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	color: #6b7280;
+	border-bottom: 2px solid #d9dee5;
+}
+.jf-th-num, .jf-td-num { width: 40px; text-align: right; color: var(--cc-muted); }
+.jf-trow-sec td {
+	background: #eef7f0;
+	font-weight: 800;
+	color: #1f6f54;
+	border-bottom: 1px solid #cfe6d6;
+}
+.jf-table tbody tr:nth-child(even):not(.jf-trow-sec) td { background: #fbfcfd; }
+
+/* Botón de alerta de material junto al nombre */
+.jf-alert {
+	border: 1px solid #f0c98a;
+	background: #fff4e2;
+	color: #b45309;
+	border-radius: 8px;
+	font-size: 13px;
+	line-height: 1;
+	padding: 3px 7px;
+	margin-right: 2px;
+	cursor: pointer;
+	vertical-align: middle;
+}
+.jf-alert:hover { background: #ffe9c9; }
+.jf-alert:active { transform: translateY(1px); }
+
+/* Popup de material por muchacho */
+#jf-modal-body { margin: 4px 0 8px; }
+.jf-modal-acad { margin: 0 0 12px; }
+.jf-modal-acad:last-child { margin-bottom: 0; }
+.jf-modal-acad-title { font-weight: 800; color: #b45309; font-size: 15px; margin-bottom: 2px; }
+.jf-hint {
+	background: #fff8e1;
+	border: 1px solid #f0d98a;
+	color: #7a5d00;
+	border-radius: 10px;
+	padding: 8px 12px;
+	font-size: 13px;
+	margin: 0 0 16px;
+}
+.jf-mat-acad {
+	border: 1px solid #f0e2cf;
+	border-radius: 14px;
+	padding: 12px 14px;
+	margin: 0 0 14px;
+	background: #fffdf9;
+}
+.jf-mat-title { margin: 0 0 10px; font-size: 16px; color: #b45309; }
+
+.jf-mat-full {
+	background: #fffdf9;
+	border: 1px dashed #e6c99a;
+	border-radius: 10px;
+	padding: 8px 12px;
+	margin: 0 0 10px;
+}
+.jf-mat-full-label { font-weight: 800; color: #b45309; font-size: 13px; margin-bottom: 4px; }
+.jf-mat-lines { margin: 4px 0 0; padding-left: 18px; }
+.jf-mat-lines li { font-size: 13px; margin: 2px 0; line-height: 1.4; }
+.jf-mat-general { margin: 6px 0 0; font-size: 13px; color: var(--cc-muted); }
+
+.jf-mat-sub { margin: 6px 0 4px; font-size: 13px; font-weight: 700; color: #4b5563; }
+.jf-mat-table { width: auto; border: 1px solid #f0e6d5; border-radius: 10px; overflow: hidden; }
+.jf-mat-table td { border-bottom: 1px solid #f4eee2; }
+.jf-td-sec { white-space: nowrap; color: var(--cc-muted); }
+
+/* ── Estados vacíos / navegación ─────────────────────────── */
+.jf-empty { color: var(--cc-muted); font-size: 14px; padding: 20px 0; text-align: center; }
+.jf-empty-sm { color: var(--cc-muted); font-size: 13px; margin: 0; }
+
+@media (max-width: 560px) {
+	.jf-toolbar { flex-direction: column; align-items: stretch; }
+	.jf-tabs { justify-content: center; }
+	.jf-refresh { align-self: center; }
+	.jf-table th, .jf-table td { padding: 8px 6px; }
+}
+
+/* ── Impresión ────────────────────────────────────────────
+   El jefe imprime la pestaña activa. Ocultamos cromo (encabezado con
+   degradado, barra de herramientas) y dejamos la tabla en blanco y negro. */
+@media print {
+	body.cc-body { background: #fff !important; }
+	.cc-wrap { padding: 0; max-width: none; }
+	.cc-header { color: #000; padding: 0 0 8px; }
+	.cc-header h1 { text-shadow: none; font-size: 22px; }
+	.jf-results { box-shadow: none; border-radius: 0; padding: 0; }
+	.jf-toolbar, .jf-refresh, .jf-tabs { display: none !important; }
+	.jf-alert { display: none !important; }
+	.jf-summary { color: #000; margin-bottom: 8px; }
+	.jf-print-title { display: block; }
+	.jf-hint { display: none; }
+	.jf-table { font-size: 12px; }
+	.jf-table thead th { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.jf-trow-sec td { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+	.jf-table tbody tr { break-inside: avoid; }
+	.jf-mat-acad { break-inside: avoid; border-color: #ccc; }
+}

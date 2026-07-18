@@ -8,6 +8,15 @@
   "countsCacheMinutes": 5,
   "grupos": ["Grupo 54", "Grupo 96", "Grupo 133", "Grupo 136", "Grupo 729"],
   "secciones": ["Castor", "Gacela", "Lobato", "Muchacha Scout", "Scout", "Precursora", "Rover"],
+  "seccionRama": {
+    "Castor": "Castores",
+    "Gacela": "Manadas",
+    "Lobato": "Manadas",
+    "Muchacha Scout": "Tropas y Clanes",
+    "Scout": "Tropas y Clanes",
+    "Precursora": "Tropas y Clanes",
+    "Rover": "Tropas y Clanes"
+  },
   "academias": [
     {
       "id": "escenicas",
@@ -27,6 +36,12 @@
       "color": "#e74c3c",
       "icono": "🎨",
       "descripcion": "Color, brillo y mucha creatividad sobre materiales diversos.",
+      "material": {
+        "porSeccion": {
+          "Castores, Gacelas y Lobatos": "una crayola blanca y Tijeras escolares",
+          "Tropas y Clanes": "Tijeras escolares"
+        }
+      },
       "talleres": [
         { "nombre": "Acuarelas", "descripcion": "Pinta con acuarelas y descubre cómo mezclar colores y aguadas." },
         { "nombre": "Decoración con glitter", "descripcion": "Dale brillo a tus creaciones decorando con diamantina." },
@@ -60,8 +75,7 @@
           "Castores": "tijeras de punta roma y medio palo de escoba.",
           "Manadas": "costurero, tijeras, jabón Zote, pluma o lápiz y medio palo de escoba.",
           "Tropas y Clanes": "costurero, gis, tijeras y tu bordón."
-        },
-        "general": "Duración del taller: 90 minutos."
+        }
       },
       "talleres": [
         { "nombre": "Alebrijes scout", "descripcion": "Crea tu alebrije aplicando este gran arte mexicano." },
@@ -77,7 +91,13 @@
       "icono": "👨‍🍳",
       "descripcion": "Cocina, prueba y comparte. ¡A poner las manos en la masa!",
       "fichaPdf": "pdfs/concuscout/gastronomia.pdf",
-      "material": "Opcional (no obligatorio): si gustas, trae una proteína al gusto para acompañar tu platillo.",
+      "material": {
+        "porSeccion": {
+          "TODOS": "Un tupper o recipiente con tapa.",
+          "Manadas, Tropas y Clanes": "Una cuchara y un tenedor"
+        },
+        "general": "Opcional (no obligatorio): si gustas, trae una proteína al gusto para acompañar tu platillo."
+      },
       "talleres": [
         { "nombre": "Repostería", "descripcion": "Prepara deliciosos postres y dulces." },
         { "nombre": "Cocina fría", "descripcion": "Comida japonesa sin fuego: aprende a preparar sushi y onigiri." }
@@ -89,6 +109,9 @@
       "color": "#2980b9",
       "icono": "♟️",
       "descripcion": "Pon a prueba tu mente y tu destreza con retos divertidos.",
+      "material": {
+        "general": "Tijeras escolares y un Pritt (Lapiz adhesivo)"
+      },
       "talleres": [
         { "nombre": "Ajedrez", "descripcion": "Aprende y juega ajedrez, pieza por pieza." },
         { "nombre": "Papiroflexia", "descripcion": "Crea figuras doblando papel (origami)." }

@@ -582,6 +582,9 @@ academias** de la Convivencia Cultural Scout. No reutiliza el mecanismo de
 | `concuscout.html` | Página del registro (comparte el link directo, p. ej. `…/concuscout.html`). |
 | `assets/css/concuscout.css` | Estilos propios (no toca `main.css`). |
 | `assets/js/concuscout.js` | Carga academias, muestra cupos en vivo y envía el registro. |
+| `academias-jefes.html` | **Panel de Jefes**: consulta de registrados por grupo/sección + material (comparte `…/academias-jefes.html` solo con jefes). |
+| `assets/css/academias-jefes.css` | Estilos del panel (reutiliza clases `cc-*` de `concuscout.css`). |
+| `assets/js/academias-jefes.js` | Lógica del panel: pide grupo + clave y lista los registrados. |
 | `includes/data/academias.json` | Configuración: academias, talleres, cupo, secciones y `appsScriptUrl`. |
 | `docs/apps-script-academias.gs` | Backend (Google Apps Script + Google Sheet). |
 
@@ -699,6 +702,48 @@ en `academias.json`:
   prepararon los dirigentes**; las correcciones de texto se hacen en el campo
   `material` (limpio), no en el PDF.
 - Pendientes de material por confirmar: ver `helpers/notes.txt`.
+
+### Panel de Jefes (consulta de registros)
+
+Página aparte (`academias-jefes.html`) para que **cada jefe de grupo** consulte
+quién de su grupo ya se registró —agrupado por sección— y a quiénes recordarles
+el material que deben llevar.
+
+- **Un enlace secreto por grupo (sin clave ni selector).** Cada grupo tiene un
+  **token único e imposible de adivinar**; el jefe abre su URL privada
+  `…/academias-jefes.html?g=<token>` y ve **solo** los registros de su grupo. No
+  se elige grupo ni se escribe contraseña: el enlace único **es** el control de
+  acceso, así que compártelo únicamente con el jefe de cada grupo.
+- **El mapeo token→grupo vive solo en el servidor** (`CONFIG.GROUP_TOKENS` en
+  `docs/apps-script-academias.gs`), **nunca** en un JSON del sitio. Así nadie
+  puede leer ni adivinar los tokens de otros grupos. Pon un token largo y
+  aleatorio por grupo (genera con `Utilities.getUuid()` o cualquier cadena larga)
+  **en el editor de Apps Script**, no en el repo.
+- **Endpoint.** El token viaja por **POST** `{action:'list', token}` al mismo
+  `/exec` (por POST, para no exponerlo en la URL ni en los logs). Lo atiende
+  `handleList()` en el `.gs`, que resuelve el grupo con `tokenToGroup()` y
+  devuelve solo sus registros. Tras editar el `.gs`, **redeploy** (Nueva versión).
+- **Dos vistas:**
+  - **Por sección:** una **tabla** con los registrados del grupo agrupados por
+    sección (nombres numerados). Junto a cada muchacho que requiere material
+    aparece un botón **🧰** que abre un popup con **el material que le toca según
+    su sección** (resuelto con `seccionRama` + el resolutor por tokens de
+    `academias-jefes.js`, que entiende etiquetas compuestas como
+    "Castores, Gacelas y Lobatos" o universales como "TODOS"). Pensada para verse
+    en celular o imprimirse (estilos `@media print`; el botón 🧰 se oculta al
+    imprimir).
+  - **Recordatorios de material:** solo las academias con `material` (hoy
+    Escultura y Gastronomía). Muestra la **lista completa de material de la
+    academia** (todas las secciones, tal cual en `academias.json`) y debajo, en
+    **una sola tabla con la sección como columna**, los inscritos del grupo (un
+    nombre por fila). El jefe le dice a cada muchacho lo que le toca según su
+    sección.
+- No requiere datos nuevos: reutiliza `academias.json` (academias, `secciones`,
+  `material`, `appsScriptUrl`) y la misma hoja de registros.
+
+**Dar de alta un grupo en el panel:** agrega su entrada a `CONFIG.GROUP_TOKENS`
+en el `.gs` (grupo → token), redeploy, y comparte `…/academias-jefes.html?g=<token>`
+con su jefe.
 
 ---
 

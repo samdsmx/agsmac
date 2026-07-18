@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<title>Panel de Jefes · Academias ConCuScout 2026 · AGSMAC</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="robots" content="noindex, nofollow" />
+	<meta name="description" content="Panel para jefes de grupo: consulta quién se registró a las academias y a quién recordarle material." />
+	<link rel="stylesheet" href="assets/css/concuscout.css" />
+	<link rel="stylesheet" href="assets/css/academias-jefes.css" />
+</head>
+
+<body class="cc-body">
+	<div class="cc-wrap">
+
+		<!-- Encabezado -->
+		<header class="cc-header">
+			<h1>Panel de Jefes</h1>
+			<p id="jf-subtitulo" class="cc-fecha"></p>
+		</header>
+
+		<!-- Estado (cargando / enlace inválido) -->
+		<section id="jf-status" class="jf-card" style="display:none">
+			<div id="jf-status-body"></div>
+		</section>
+
+		<!-- Resultados -->
+		<main id="jf-results" class="jf-results" style="display:none">
+
+			<div class="jf-toolbar">
+				<div id="jf-summary" class="jf-summary"></div>
+				<div class="jf-tabs" role="tablist">
+					<button type="button" class="jf-tab is-active" data-view="secciones">Por sección</button>
+					<button type="button" class="jf-tab" data-view="material">Recordatorios de material</button>
+				</div>
+				<button type="button" id="jf-refresh" class="cc-btn ghost jf-refresh">↻ Actualizar</button>
+			</div>
+
+			<!-- Vista: por sección -->
+			<section id="jf-view-secciones" class="jf-view"></section>
+
+			<!-- Vista: recordatorios de material -->
+			<section id="jf-view-material" class="jf-view" style="display:none"></section>
+
+		</main>
+
+	</div>
+
+	<!-- Popup: material que debe llevar un muchacho -->
+	<div id="jf-modal" class="cc-modal" role="dialog" aria-modal="true" aria-labelledby="jf-modal-title">
+		<div class="cc-dialog">
+			<h2 id="jf-modal-title"></h2>
+			<p id="jf-modal-sub" class="cc-sub"></p>
+			<div id="jf-modal-body"></div>
+			<div class="cc-actions">
+				<button type="button" id="jf-modal-close" class="cc-btn">Entendido</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="assets/js/academias-jefes.js"></script>
+</body>
+
+</html>

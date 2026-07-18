@@ -3,11 +3,15 @@
  * ================================================================
  * Backend para el pre-registro a academias de la Convivencia Cultural Scout.
  *
- * Hace dos cosas sobre una hoja PRIVADA de Google Sheets:
+ * Hace tres cosas sobre una hoja PRIVADA de Google Sheets:
  *   - GET  ?action=counts   → devuelve cuántos lugares lleva cada academia.
  *   - POST {name,group,section,academies:[id,id,id]} → registra un participante,
  *          validando cupo (máx. CONFIG.MAX por academia) y duplicados, de forma
  *          ATÓMICA con LockService (a prueba de envíos simultáneos).
+ *   - POST {action:'list', token} → lista los registrados del grupo dueño de ese
+ *          token (para que cada jefe consulte SOLO su grupo desde un enlace
+ *          secreto: academias-jefes.html?g=<token>). El token→grupo vive en
+ *          CONFIG.GROUP_TOKENS; va por POST para no exponerlo en la URL/logs.
  *
  * El sitio en GitHub Pages hace fetch() a la URL pública de este Web App.
  * La hoja sigue siendo privada — solo este script (corriendo como tú) la escribe.
@@ -45,6 +49,25 @@ var CONFIG = {
   SHEET_NAME: 'Registros',
   MAX: 60, // Cupo máximo por academia (luego se divide en 3 bloques de 20)
   PICK: 3, // Academias que cada participante debe elegir
+  // Enlace secreto POR GRUPO para el panel de jefes (academias-jefes.html).
+  // Cada grupo tiene un token único e imposible de adivinar; el jefe abre
+  //   academias-jefes.html?g=<token>
+  // y ve SOLO los registros de su grupo (el token identifica el grupo en el
+  // servidor; el cliente nunca elige grupo ni envía clave).
+  // ── IMPORTANTE ──────────────────────────────────────────────────────────
+  // Pon aquí, en el editor de Apps Script (NO en ningún JSON del sitio), un
+  // token largo y aleatorio por grupo, y comparte cada URL solo con su jefe.
+  // ¿No sabes qué poner? Corre la función generarTokensJefes() (Ejecutar →
+  // generarTokensJefes), copia el bloque que imprime en los Registros/Logs y
+  // pégalo aquí reemplazando este GROUP_TOKENS. Si un token queda vacío, ese
+  // grupo no tiene acceso.
+  GROUP_TOKENS: {
+    'Grupo 54':  'PON-UN-TOKEN-UNICO-Y-LARGO-54',
+    'Grupo 96':  'PON-UN-TOKEN-UNICO-Y-LARGO-96',
+    'Grupo 133': 'PON-UN-TOKEN-UNICO-Y-LARGO-133',
+    'Grupo 136': 'PON-UN-TOKEN-UNICO-Y-LARGO-136',
+    'Grupo 729': 'PON-UN-TOKEN-UNICO-Y-LARGO-729'
+  },
   // IDs válidos de academia — deben coincidir con includes/data/academias.json
   ACADEMY_IDS: ['escenicas', 'plasticas', 'textiles', 'escultura', 'gastronomia', 'logica', 'letras'],
   // Nombres legibles por id (solo para mostrar en la hoja). Opcional.
@@ -64,7 +87,7 @@ var CONFIG = {
 var HEADERS = ['Marca de tiempo', 'Nombre(s)', 'Apellido paterno', 'Apellido materno', 'Grupo', 'Sección', 'Academia 1', 'Academia 2', 'Academia 3', 'Clave'];
 // Marca de versión: aparece en la respuesta GET para verificar qué versión
 // está REALMENTE desplegada (la URL /exec usa la última versión publicada).
-var SCRIPT_VERSION = 'academias-2-nombre-estructurado';
+var SCRIPT_VERSION = 'academias-4-lista-por-token';
 // ═════════════════════════════════════════════════════════════════════════════
 
 /** Ejecuta esto UNA vez a mano para crear la hoja y sus encabezados. */
@@ -85,6 +108,31 @@ function getSheet() {
   return sheet;
 }
 
+/**
+ * Genera un token aleatorio y largo por cada grupo y lo imprime en el registro
+ * de ejecución (menú Ver → Registros / Logs), listo para PEGAR dentro de
+ * CONFIG.GROUP_TOKENS. Córrela a mano UNA vez desde el editor
+ * (Ejecutar → generarTokensJefes), copia el bloque impreso, pégalo arriba en
+ * GROUP_TOKENS y vuelve a implementar (Nueva versión).
+ *
+ * No cambia nada por sí sola: solo imprime; tú decides pegarlos.
+ */
+function generarTokensJefes() {
+  var grupos = Object.keys(CONFIG.GROUP_TOKENS || {});
+  if (!grupos.length) grupos = ['Grupo 54', 'Grupo 96', 'Grupo 133', 'Grupo 136', 'Grupo 729'];
+  var lines = grupos.map(function (g) {
+    return "    '" + g + "': '" + nuevoToken() + "',";
+  });
+  var bloque = 'GROUP_TOKENS: {\n' + lines.join('\n') + '\n  },';
+  Logger.log('Pega esto dentro de CONFIG (reemplazando GROUP_TOKENS):\n\n' + bloque);
+  return bloque; // también se ve en el panel de resultados
+}
+
+/** Un token corto pero imposible de adivinar (2 UUID sin guiones). */
+function nuevoToken() {
+  return (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, '');
+}
+
 // ─── GET: conteos por academia ───────────────────────────────────────────────
 function doGet(e) {
   try {
@@ -102,8 +150,13 @@ function doGet(e) {
   }
 }
 
-// ─── POST: registrar participante ────────────────────────────────────────────
+// ─── POST: registrar participante · o listar (jefes) ─────────────────────────
 function doPost(e) {
+  // El listado para jefes viaja por POST (no GET) para que la clave no quede
+  // en la URL ni en los logs de referrer. Se atiende antes de tomar el lock.
+  var pre = parseBody(e);
+  if (pre && String(pre.action || '').trim() === 'list') return handleList(pre);
+
   var lock = LockService.getScriptLock();
   try {
     // Espera hasta 20s por el lock para serializar envíos simultáneos.
@@ -192,6 +245,60 @@ function doPost(e) {
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
+// Listado de registrados para el jefe de un grupo. El grupo se determina por el
+// token secreto del enlace (CONFIG.GROUP_TOKENS); el cliente NO elige grupo.
+function handleList(body) {
+  try {
+    var token = String(body.token || '').trim();
+    var group = tokenToGroup(token);
+    if (!group) {
+      return jsonResponse({ ok: false, code: 'auth', error: 'Enlace no válido o vencido.' });
+    }
+
+    var data = readAll();
+    var rows = [];
+    data.rows.forEach(function (r) {
+      var g = String(r[4] || '').trim();
+      if (normalize(g) !== normalize(group)) return; // otro grupo
+      var fullName = [r[1], r[2], r[3]].filter(function (x) { return x; }).join(' ');
+      var academies = [r[6], r[7], r[8]]
+        .map(function (a) { return String(a || '').trim(); })
+        .filter(function (a) { return a; });
+      rows.push({
+        timestamp: (r[0] instanceof Date) ? r[0].toISOString() : String(r[0] || ''),
+        nombre: fullName,
+        group: g,
+        section: String(r[5] || '').trim(),
+        academies: academies
+      });
+    });
+
+    return jsonResponse({
+      ok: true,
+      version: SCRIPT_VERSION,
+      group: group,
+      total: rows.length,
+      rows: rows
+    });
+  } catch (err) {
+    return jsonResponse({ ok: false, code: 'error', error: String(err && err.message || err) });
+  }
+}
+
+// Devuelve el grupo dueño de un token, o '' si no coincide con ninguno.
+function tokenToGroup(token) {
+  token = String(token || '').trim();
+  if (!token) return '';
+  var map = CONFIG.GROUP_TOKENS || {};
+  for (var g in map) {
+    if (map.hasOwnProperty(g)) {
+      var t = String(map[g] || '').trim();
+      if (t && t === token) return g;
+    }
+  }
+  return '';
+}
+
 function readAll() {
   var sheet = getSheet();
   var lastRow = sheet.getLastRow();
