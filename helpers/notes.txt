@@ -1,72 +1,19 @@
 Super arreglar secciones
+Nuestra Historia  (antes "Constitucion" — ahora línea del tiempo con hitos, datos en includes/data/historia.json)
 
-- Cuadritos.
+OK Cuadritos.
 OK Galeria
 OK Embeber video
-- Quienes somos 
-	Nuestra Historia  (antes "Constitucion" — ahora línea del tiempo con hitos, datos en includes/data/historia.json)
-	Seguro
+OK Quienes somos (Bandera)
+OK Seguro
+OK Biblioteca (Literatura, y fichas??)
+OK Cuadro de adelanto
+OK Grupos! Panoletas
+OK Calendario de actividades
+OK Cumpleanos
 
-
-Grupos! Panoletas
-Marco Simbolico
-- Bandera (Quienes somos, Nuestra Historia)
-- Álbum Fotográfico (Fotos, galeria)
-OK Biblioteca (Literatura, y fichas)
-- Cuadro de adelanto
+- Marco Simbolico
 - Ruta Critica (Mostrar adelantos)
 - Tagbox  (Twiter, Facebook)
 
-- Calendario de actividades
-
-- Seguro
-- Cumpleanos
-
 Bugs: Que pex con las panoletas, derepente se cortan
-
-
-=== ConCuScout 2026 — Materiales por CONFIRMAR (academias) ===
-Decision pendiente por academia: que pone la organizacion vs que llevan los muchachos.
-Politica: minimizar lo que llevan los muchachos. Solo publicar en academias.json
-(campo "material"/"preparacion" del taller) cuando sea 100% necesario y confirmado.
-
-=== REGLA DE SECCIONES (mapeo material) ===
-Si una academia NO especifica material para una seccion, los CLANES (Rover) usan
-el mismo material que TROPAS. (Indicacion del organizador.)
-Ramas del poster de Escultura: Castores, Manadas, Tropas.
-
-=== PUBLICADO (fichas PDF + material en la app) ===
-ESCULTURA: ficha oficial en pdfs/concuscout/escultura.pdf (poster de los jefes).
-  Material PUBLICADO (academia, includes/data/academias.json -> "material"):
-    Castores: tijeras punta roma + medio palo de escoba.
-    Manadas: costurero, tijeras, jabon Zote, pluma o lapiz, medio palo de escoba.
-    Tropas: costurero, gis, tijeras, tu bordon. (Taller 90 min)
-  OJO / por revisar:
-    - El poster PDF tiene MUCHAS erratas (TALLE/POBRAS/ELADORAR/CASCORES/CONFOMI/
-      PASLOS DE SEMAFORO/PRUEVA/PERONALISA/COSCURERO/LAPIS...). Se publica tal cual
-      (los jefes lo prepararon). Si se quiere, recrear el poster limpio.
-    - Material alto vs meta de minimizar lo que llevan. Valorar si la organizacion
-      aporta palo de escoba / costurero / gis para no condicionar la eleccion.
-GASTRONOMIA: ficha en pdfs/concuscout/gastronomia.pdf (convertido del docx,
-  erratas corregidas: Ingedientes->Ingredientes, Aguate->Aguacate).
-  Material PUBLICADO: solo "opcional, proteina al gusto (no obligatorio)".
-  PENDIENTE: confirmar quien aporta los ingredientes base (alga, arroz, surimi,
-  philadelphia, etc). Si los traen los muchachos, actualizar "material".
-
-=== INFO CRUDA recibida (chats), por academia ===
-GASTRONOMIA — Cocina fria (sushi y onigiri, 45 min):
-  - Ingredientes: alga, arroz, pepino, surimi, philadelphia, aguacate, zanahoria,
-    mayonesa, cebolla.  Opcional por muchacho: proteina al gusto. (NO obligatorio)
-
-ESCULTURA (otros mensajes de jefes, pueden no coincidir con el poster final):
-  - Alebrijes scout (Xochitl): foami moldeable, pinturas acrilicas, pinceles,
-    masking tape, papel aluminio. Duda: papel aluminio -> CONFIRMAR quien lo pone.
-  - Tallado (Liz 133): Castor foami; Tropa gis+aguja; Lobato/Gacela jabon zote +
-    pluma/lapiz. (El poster oficial dice otra combinacion -> se uso el poster.)
-  - (Sin academia clara) Pollete: costureros, tijeras, telas recicladas, pinceles.
-    -> Verificar si va a Textiles, no Escultura.
-
-Para agregar/actualizar la ficha de OTRA academia:
-  1. Poner el PDF en pdfs/concuscout/<id>.pdf
-  2. En includes/data/academias.json, al objeto de la academia: "fichaPdf" y/o "material".
-  3. (Opcional) recordatorio en pantalla de confirmacion del registro -> pedir a Copilot.
