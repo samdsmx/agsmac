@@ -39,6 +39,7 @@
     {
       "titulo": "ConcuScout",
       "mes": 7,
+      "dia": 25,
       "icono": "fa-star",
       "descripcion": "Convivencia Cultural Scout: encuentro de todas las secciones con actividades culturales.",
       "secciones": "todas"
