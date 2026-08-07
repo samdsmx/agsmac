@@ -725,14 +725,16 @@ textarea.finput { resize: vertical; min-height: 76px; }
 	line-height: 1.7;
 }
 
-.folio {
+/* Identidad de la patrulla: es la referencia del depósito, debe verse */
+#done-patrulla {
 	display: inline-block;
 	font-family: var(--pixel);
-	font-size: 1rem;
+	font-size: 0.62rem;
 	color: var(--gold);
 	border: 2px dashed var(--gold);
-	padding: 15px 24px;
-	margin: 14px 0 24px;
+	padding: 14px 22px;
+	margin: 10px 0 24px;
+	line-height: 1.7;
 }
 
 .next-steps { text-align: left; margin: 0 auto; display: grid; gap: 10px; padding: 0; }

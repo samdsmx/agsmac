@@ -639,7 +639,6 @@
 		var b = (CFG && CFG.banco) || {};
 		return 'VIII RALLY VIRTUAL — DEPÓSITO DE LA PATRULLA\n\n' +
 			'Patrulla: ' + res.patrulla + ' · ' + res.grupo + '\n' +
-			'Folio: ' + (res.folio || '') + '\n' +
 			'Integrantes: ' + (res.integrantes || 0) + '\n' +
 			'MONTO A DEPOSITAR: $' + (res.total || 0) + '\n\n' +
 			'DATOS DE LA CUENTA\n' +
@@ -648,9 +647,9 @@
 			'Cuenta: ' + (b.cuenta || '') + '\n' +
 			'CLABE: ' + (b.clabe || '') + '\n' +
 			'Tarjeta: ' + (b.tarjeta || '') + '\n\n' +
-			'Pon el folio como referencia o concepto.\n' +
+			'Pon el nombre de la patrulla y el grupo como referencia o concepto.\n' +
 			'Al depositar, manda la foto o el PDF del comprobante a ' + correoComite() +
-			' con el folio en el asunto. Fecha límite: 29 de agosto.';
+			' indicando la patrulla y el grupo. Fecha límite: 29 de agosto.';
 	}
 
 	function showDone(res, payload) {
@@ -661,12 +660,6 @@
 		form.style.display = 'none';
 		done.style.display = 'block';
 
-		var f = $('#done-folio');
-		if (f) f.textContent = res.folio || '—';
-
-		var fr = $('#done-folio-ref');
-		if (fr) fr.textContent = res.folio || '—';
-
 		var t = $('#done-total');
 		if (t) t.textContent = res.total || 0;
 
@@ -676,7 +669,7 @@
 		// La cuenta se pinta hasta aquí: es lo que el Secretario le pasa al Tesorero
 		renderBanco();
 
-		// Botón para copiar folio, monto y cuenta de un jalón
+		// Botón para copiar monto y cuenta de un jalón
 		var copy = $('#done-copy');
 		if (copy) {
 			copy.addEventListener('click', function () {
@@ -685,16 +678,15 @@
 			});
 		}
 
-		// Enlace listo para mandar el comprobante con el folio en el asunto
+		// Enlace listo para mandar el comprobante ya identificado
 		var link = $('#done-comprobante');
 		if (link) {
-			var body = 'Folio: ' + (res.folio || '') + '\n' +
-				'Patrulla: ' + res.patrulla + ' · ' + res.grupo + '\n' +
+			var body = 'Patrulla: ' + res.patrulla + ' · ' + res.grupo + '\n' +
 				'Monto depositado: $' + (res.total || 0) + '\n' +
 				'Integrantes: ' + (res.integrantes || (payload && payload.roster.length)) + '\n\n' +
 				'ADJUNTA AQUÍ la foto o el PDF del comprobante de depósito.';
 			link.href = 'mailto:' + correoComite() +
-				'?subject=' + encodeURIComponent('Comprobante ' + (res.folio || '') + ' - ' + res.patrulla) +
+				'?subject=' + encodeURIComponent('Comprobante - ' + res.patrulla + ' ' + res.grupo) +
 				'&body=' + encodeURIComponent(body);
 		}
 
@@ -709,8 +701,14 @@
 
 		var invite = CFG.evento && CFG.evento.discordInvite;
 		$all('[data-discord]').forEach(function (a) {
-			if (invite) { a.href = invite; a.style.display = ''; }
+			// Guardamos el display original: algunos botones traen display:block inline
+			if (a.dataset.dispOrig === undefined) a.dataset.dispOrig = a.style.display || '';
+			if (invite) { a.href = invite; a.style.display = a.dataset.dispOrig || 'inline-block'; }
 			else { a.style.display = 'none'; }
+		});
+		// Aviso que ocupa el lugar del enlace mientras el servidor no abre
+		$all('[data-discord-pending]').forEach(function (el) {
+			el.style.display = invite ? 'none' : '';
 		});
 
 		$all('[data-correo]').forEach(function (a) {

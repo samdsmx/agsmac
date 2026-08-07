@@ -248,25 +248,6 @@ html.no-fx #stars { display: none; }
 	text-transform: uppercase;
 }
 
-.hud-tools { display: flex; gap: 8px; }
-
-.hud-btn {
-	font-family: var(--pixel);
-	font-size: 0.5rem;
-	color: var(--cyan);
-	background: transparent;
-	border: 1px solid var(--line);
-	padding: 9px 11px;
-	text-decoration: none;
-	display: inline-block;
-	line-height: 1.7;
-	cursor: pointer;
-	transition: all 0.15s ease;
-}
-
-.hud-btn:hover { background: var(--cyan); color: var(--bg); }
-.hud-btn[aria-pressed="true"] { background: rgba(0, 229, 255, 0.2); }
-
 /* ============================================================
    CONTENIDO
    ============================================================ */
@@ -677,6 +658,37 @@ html.no-fx #stars { display: none; }
 
 .cta a.big:active { transform: translateY(5px); box-shadow: 0 1px 0 #a3175a; }
 
+/* Acceso al Discord: solo aparece cuando la invitación ya existe en rally.json.
+   Oculto por defecto para que no parpadee mientras carga la configuración. */
+[data-discord] { display: none; }
+
+.cta .discord {
+	margin-top: 20px;
+	font-family: var(--pixel);
+	font-size: clamp(0.5rem, 2vw, 0.66rem);
+	color: #cfe3ff;
+	text-decoration: none;
+	padding: 15px 26px;
+	background: rgba(88, 101, 242, 0.16);
+	border: 2px solid #5865f2;
+	line-height: 1.7;
+	transition: background 0.12s ease;
+}
+
+.cta .discord:hover { background: rgba(88, 101, 242, 0.34); }
+
+.discord-wait {
+	max-width: 620px;
+	margin: 20px auto 0;
+	padding: 14px 18px;
+	font-size: 1.04rem;
+	color: var(--muted);
+	border: 1px dashed rgba(88, 101, 242, 0.55);
+	background: rgba(88, 101, 242, 0.07);
+}
+
+.discord-wait b { color: #cfe3ff; }
+
 .cta .mail {
 	display: block;
 	margin-top: 22px;
@@ -697,6 +709,30 @@ footer.gm {
 }
 
 footer.gm a { color: var(--cyan); text-decoration: none; }
+
+/* Controles de vista: viven aquí abajo para no competir con el contenido */
+.foot-tools {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+}
+
+.foot-btn {
+	font-family: var(--pixel);
+	font-size: 0.36rem;
+	color: var(--muted);
+	background: transparent;
+	border: 1px solid rgba(127, 147, 187, 0.3);
+	padding: 7px 10px;
+	line-height: 1.7;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.foot-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.foot-btn[aria-pressed="true"] { color: var(--cyan); border-color: rgba(0, 229, 255, 0.4); }
 
 /* ---------- Aviso de copiado ---------- */
 #toast {
@@ -724,9 +760,9 @@ footer.gm a { color: var(--cyan); text-decoration: none; }
 	#game { padding: 20px 14px 60px; }
 	#hud { justify-content: center; text-align: center; padding: 10px 12px; }
 	.hud-left { width: 100%; }
-	.hud-tools { width: 100%; display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; }
-	.hud-btn { flex: 1 1 auto; text-align: center; }
 	.tbox { min-width: 48px; padding: 4px 6px; }
+	.foot-tools { gap: 6px; }
+	.foot-btn { font-size: 0.34rem; padding: 6px 9px; }
 	.phase { grid-template-columns: 1fr; gap: 8px; }
 	.phase .num { text-align: left; }
 	.copy-row { flex-direction: column; align-items: flex-start; }

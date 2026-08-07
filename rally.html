@@ -56,11 +56,6 @@
 			<div class="tbox"><b id="cd-s">--</b><span>seg</span></div>
 		</div>
 
-		<div class="hud-tools">
-			<button class="hud-btn" id="mode-btn" type="button"
-				title="Ver la convocatoria completa de corrido">VER TODO</button>
-			<button class="hud-btn" id="fx-btn" type="button" aria-pressed="true">FX: ON</button>
-		</div>
 	</div>
 
 	<!-- ============================================================
@@ -170,7 +165,7 @@
 					<div>
 						<h4>30 AGO AL 4 SEP · BASE 0</h4>
 						<p>Entran al Discord, resuelven un reto de práctica y suben su evidencia.
-							<b>Es obligatoria.</b></p>
+							<b>Es obligatoria. (Lo puede hacer cualquier integrante de la patrulla)</b></p>
 					</div>
 				</div>
 				<div class="phase live">
@@ -182,13 +177,6 @@
 				</div>
 			</div>
 
-			<div class="alert">
-				<h4>&#9888; SIN BASE 0 NO HAY RALLY</h4>
-				<p>
-					Sirve para comprobar que su cuenta, su computadora y su conexión funcionan
-					<b>antes</b> del evento. La patrulla que no la complete no podrá participar.
-				</p>
-			</div>
 		</section>
 
 		<!-- ---------- 04 · CARGOS ---------- -->
@@ -216,7 +204,7 @@
 				</div>
 				<div class="role">
 					<span class="ic">&#128221;</span>
-					<div><b>Secretario</b> — Registra a la patrulla y le pasa el folio y el monto al
+					<div><b>Secretario</b> — Registra a la patrulla y le pasa el monto y la cuenta al
 						Tesorero.</div>
 				</div>
 				<div class="role">
@@ -261,8 +249,7 @@
 				<div class="card">
 					<div class="ico">&#128172;</div>
 					<h4>DISCORD</h4>
-					<p>Al menos un integrante con cuenta propia. Le damos el rol de la patrulla y él
-						invita a los demás.</p>
+					<p>Al menos un integrante con cuenta propia. Entran con el enlace publicado en esta página.</p>
 				</div>
 				<div class="card">
 					<div class="ico">&#128248;</div>
@@ -317,7 +304,7 @@
 				</div>
 				<div class="step">
 					<span class="n">2</span>
-					<p>Recibe el <b>folio</b> y el monto, y se los pasa al <b>Tesorero</b></p>
+					<p>Recibe el <b>monto exacto</b> y la cuenta, y se los pasa al <b>Tesorero</b></p>
 				</div>
 				<div class="step">
 					<span class="n">3</span>
@@ -325,13 +312,13 @@
 				</div>
 				<div class="step ok">
 					<span class="n">4</span>
-					<p>Les confirmamos y les mandamos el acceso al <b>Discord</b></p>
+					<p>Les confirmamos su lugar. El <b>Discord</b> lo abren desde esta página</p>
 				</div>
 			</div>
 
 			<p class="note">
 				No hace falta depositar antes de registrarse: el registro aparta su lugar y les da
-				el folio. El pago tiene que llegar <b>antes del 29 de agosto</b>.
+				el monto exacto. El pago tiene que llegar <b>antes del 29 de agosto</b>.
 			</p>
 		</section>
 
@@ -377,6 +364,11 @@
 
 			<div class="cta">
 				<a class="big" href="#scene-registro">INSCRIBIR A MI PATRULLA</a>
+				<a class="discord" data-discord href="#" target="_blank" rel="noopener">&#128172; ENTRAR AL DISCORD</a>
+				<p class="discord-wait" data-discord-pending>
+					&#128172; El enlace del <b>Discord</b> se publica <b>aquí mismo</b> en cuanto abra el
+					servidor. También se los mandamos por mensaje al Instagram de su patrulla.
+				</p>
 				<a class="mail" href="mailto:contacto@agsmac.org">¿Dudas? contacto@agsmac.org</a>
 			</div>
 		</section>
@@ -566,9 +558,9 @@
 
 				<div class="dialog">
 					<span class="who">ANTES DE EMPEZAR</span>
-					<p>Lo llena el <b>Secretario</b>, con la patrulla enfrente: va a necesitar el nombre
+					<p>Lo llena el <b>Secretario</b>: va a necesitar el nombre
 						de cada integrante y el reparto de los cargos ya acordado.</p>
-					<p><b>Todavía no hay que depositar.</b> Al enviar aparece el folio, el monto exacto
+					<p><b>Todavía no hay que depositar.</b> Al enviar aparecen el monto exacto
 						y la cuenta: eso se lo pasa al <b>Tesorero</b>, que deposita y manda el
 						comprobante.</p>
 					<p>Inscripciones <b>del 7 al 29 de agosto</b>. No habrá prórroga.</p>
@@ -664,7 +656,6 @@
 					<div class="dico">&#127881;</div>
 					<h4>¡PATRULLA REGISTRADA!</h4>
 					<p id="done-patrulla"></p>
-					<div class="folio" id="done-folio">—</div>
 
 					<div class="handoff">
 						<h4>&#129309; SECRETARIO &#8594; TESORERO</h4>
@@ -681,8 +672,8 @@
 						<div class="bank" data-banco></div>
 
 						<p class="ho-ref">
-							Al depositar, pongan como referencia o concepto su folio:
-							<b id="done-folio-ref">—</b>
+							Al depositar, pongan como referencia o concepto el
+							<b>nombre de la patrulla y su grupo</b>.
 						</p>
 
 						<button class="ho-copy" id="done-copy" type="button">
@@ -695,7 +686,8 @@
 						<p>
 							Su lugar queda <b>apartado pero pendiente</b> hasta que recibamos el
 							comprobante. Cuando el Tesorero deposite, que le dé clic al botón: se abre
-							un correo con el folio ya escrito y solo adjunta la foto o el PDF.
+							un correo con la patrulla y el grupo ya escritos y solo adjunta la foto
+							o el PDF.
 						</p>
 						<p><b>Tienen hasta el 29 de agosto.</b></p>
 					</div>
@@ -706,16 +698,27 @@
 					</a>
 
 					<ul class="next-steps" style="margin-top:22px">
-						<li>Al confirmar el pago les enviamos el enlace del <b>Discord</b>.</li>
+						<li>Entren al <b>Discord</b>: el enlace está en esta misma página, en
+							<b>¿LISTOS?</b>. Si todavía no aparece, se los mandamos por mensaje al Instagram de su patrulla.</li>
 						<li>Completen la <b>Base 0</b> entre el 30 de agosto y el 4 de septiembre.</li>
 						<li>Nos vemos el <b>5 de septiembre a las 12:00 p.m.</b></li>
 					</ul>
+
+					<a class="submit-btn" data-discord href="#" target="_blank" rel="noopener"
+						style="display:block;text-decoration:none;text-align:center;margin-top:14px">
+						&#128172; ENTRAR AL DISCORD
+					</a>
 				</div>
 
 			</div>
 		</section>
 
 		<footer class="gm">
+			<div class="foot-tools">
+				<button class="foot-btn" id="mode-btn" type="button"
+					title="Ver la convocatoria completa de corrido">VER TODO</button>
+				<button class="foot-btn" id="fx-btn" type="button" aria-pressed="true">FX: ON</button>
+			</div>
 			Asociación de Grupos de Scouts de México, A.C.<br />
 			<a href="index.html">agsmac.org</a>
 		</footer>

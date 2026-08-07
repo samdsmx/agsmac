@@ -38,7 +38,7 @@
     { "id": "tesorero",  "nombre": "Tesorero",             "icono": "🪙",
       "desc": "Recolecta la cooperación, deposita y manda el comprobante" },
     { "id": "secretario","nombre": "Secretario",           "icono": "📝",
-      "desc": "Registra a la patrulla y le pasa el folio y el monto al Tesorero" },
+      "desc": "Registra a la patrulla y le pasa el monto y la cuenta al Tesorero" },
     { "id": "cocinero",  "nombre": "Cocinero",             "icono": "🍳",
       "desc": "Diseña el menú de la comida, cena y desayuno" },
     { "id": "histrion",  "nombre": "Histrión",             "icono": "🎭",
@@ -101,7 +101,7 @@
       "pasos": [
         {
           "t": "Al menos uno cree su cuenta en discord.com",
-          "d": "Es gratis y funciona desde el navegador, sin instalar nada. Ese usuario es el que anotan en el registro. Los demás pueden entrar después con el mismo enlace."
+          "d": "Es gratis y funciona desde el navegador, sin instalar nada. Los demás pueden entrar después con el mismo enlace."
         },
         {
           "t": "Pongan su nombre real como apodo",
@@ -110,7 +110,7 @@
         },
         {
           "t": "Abran el enlace de invitación",
-          "d": "Se los enviamos por correo al confirmar su pago. Solo denle clic y acepten unirse."
+          "d": "Está publicado en esta misma página, en la sección ¿LISTOS?. También se los mandamos por mensaje al Instagram de su patrulla. Solo denle clic y acepten unirse."
         },
         {
           "t": "Esperen su rol de patrulla",
@@ -175,11 +175,11 @@
       "titulo": "La Base 0",
       "responsable": "Toda la patrulla",
       "duracion": "Del 30 de agosto al 4 de septiembre",
-      "intro": "Es un reto de práctica para comprobar que todo funciona antes del evento. Es obligatoria: la patrulla que no la complete no participa.",
+      "intro": "Es un reto de práctica para comprobar que todo funciona antes del evento. Es obligatoria (lo puede hacer cualquier integrante de la patrulla).",
       "pasos": [
         {
           "t": "Entren al Discord",
-          "d": "Con el enlace que les enviamos al confirmar su pago."
+          "d": "Con el enlace publicado en esta página, en la sección ¿LISTOS?."
         },
         {
           "t": "Abran el canal Base 0",

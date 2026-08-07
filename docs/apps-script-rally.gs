@@ -76,7 +76,7 @@ var HEADERS = [
   'Marca de tiempo', 'Patrulla', 'Grupo', 'Sección', 'Integrantes',
   'Instagram',
   'Dirección del rincón', 'Padre o madre que los hospeda', 'Su teléfono',
-  'Roster (nombre · cargos)', 'Folio', 'Pago', 'Base 0'
+  'Roster (nombre · cargos)', 'Pago', 'Base 0'
 ];
 
 var SCRIPT_VERSION = 'rally-1';
@@ -172,7 +172,7 @@ function handleList(data) {
       patrulla: r[1], grupo: r[2], seccion: r[3], integrantes: r[4],
       instagram: r[5],
       direccion: r[6], responsable: r[7], telLocal: r[8],
-      roster: r[9], folio: r[10], pago: r[11], base0: r[12]
+      roster: r[9], pago: r[10], base0: r[11]
     };
   });
   return jsonResponse({ ok: true, rows: rows });
@@ -292,7 +292,6 @@ function handleRegistro(data) {
       });
     }
 
-    var folio = 'RV8-' + Utilities.formatString('%03d', last);
     var rosterTxt = limpio.map(function (m) {
       return m.nombre + ' · ' +
         (m.cargos.length ? m.cargos.join(' + ') : 'sin cargo');
@@ -302,14 +301,13 @@ function handleRegistro(data) {
       new Date(), patrulla, grupo, seccion, limpio.length,
       '@' + instagram,
       direccion, responsable, telLocal,
-      rosterTxt, folio, 'Pendiente', 'Pendiente'
+      rosterTxt, 'Pendiente', 'Pendiente'
     ]);
 
-    notificar(patrulla, grupo, seccion, limpio.length, folio);
+    notificar(patrulla, grupo, seccion, limpio.length);
 
     return jsonResponse({
       ok: true,
-      folio: folio,
       patrulla: patrulla,
       grupo: grupo,
       integrantes: limpio.length,
@@ -328,22 +326,21 @@ function err(code, msg) {
 }
 
 /** Aviso por correo al Comité (silencioso si falla). */
-function notificar(patrulla, grupo, seccion, integrantes, folio) {
+function notificar(patrulla, grupo, seccion, integrantes) {
   if (!CONFIG.AVISO_EMAIL) return;
   try {
     MailApp.sendEmail({
       to: CONFIG.AVISO_EMAIL,
       subject: '[VIII Rally] Registro: ' + patrulla + ' · ' + grupo,
       body: 'Nueva patrulla registrada.\n\n' +
-        'Folio: ' + folio + '\n' +
         'Patrulla: ' + patrulla + '\n' +
         'Grupo: ' + grupo + '\n' +
         'Sección: ' + seccion + '\n' +
         'Integrantes: ' + integrantes + '\n' +
         'Total a depositar: $' + (integrantes * 25) + '\n\n' +
         'Los datos completos están en la hoja de cálculo.\n' +
-        'El pago va aparte: el Tesorero manda el comprobante por correo con el folio\n' +
-        'en el asunto. Marca "Pago" en la hoja cuando llegue.'
+        'El pago va aparte: el Tesorero manda el comprobante por correo indicando\n' +
+        'la patrulla y el grupo. Marca "Pago" en la hoja cuando llegue.'
     });
   } catch (e) { /* no bloquear el registro por un fallo de correo */ }
 }
