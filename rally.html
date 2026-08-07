@@ -1,0 +1,732 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>VIII Rally Virtual Tropas · AGSMAC</title>
+	<meta name="description"
+		content="VIII Rally Virtual Tropas AGSMAC. 5 y 6 de septiembre del 2026. Reúne a tu patrulla, resuelve los retos y demuestra de qué está hecho tu equipo." />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="VIII Rally Virtual Tropas · AGSMAC" />
+	<meta property="og:description"
+		content="5 y 6 de septiembre del 2026. Un fin de semana completo, tu patrulla, un rincón de patrulla y un reto nuevo cada hora." />
+	<meta property="og:url" content="https://agsmac.org/rally.html" />
+	<meta name="twitter:card" content="summary_large_image" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="assets/css/rally.css" />
+	<link rel="stylesheet" href="assets/css/rally-adventure.css" />
+</head>
+
+<body class="locked">
+
+	<div id="bg-grid"></div>
+	<canvas id="stars"></canvas>
+	<div id="crt"></div>
+
+	<!-- ============================================================
+	     PANTALLA DE ARRANQUE
+	     ============================================================ -->
+	<div id="boot">
+		<pre class="boot-log" id="boot-log"></pre>
+		<h1 class="boot-title">VIII RALLY<br />VIRTUAL</h1>
+		<p class="boot-sub">TROPAS AGSMAC<br />5 y 6 DE SEPTIEMBRE 2026</p>
+		<button id="start-btn" type="button">ENTRAR</button>
+		<p class="boot-hint">o presiona ENTER</p>
+	</div>
+
+	<!-- ============================================================
+	     HUD
+	     ============================================================ -->
+	<div id="hud">
+		<div class="hud-left">
+			VIII RALLY VIRTUAL
+			<small>Tropas AGSMAC</small>
+		</div>
+
+		<div class="hud-timer" id="countdown" aria-live="polite">
+			<div class="tbox"><b id="cd-d">--</b><span>días</span></div>
+			<div class="tbox"><b id="cd-h">--</b><span>hrs</span></div>
+			<div class="tbox"><b id="cd-m">--</b><span>min</span></div>
+			<div class="tbox"><b id="cd-s">--</b><span>seg</span></div>
+		</div>
+
+		<div class="hud-tools">
+			<button class="hud-btn" id="mode-btn" type="button"
+				title="Ver la convocatoria completa de corrido">VER TODO</button>
+			<button class="hud-btn" id="fx-btn" type="button" aria-pressed="true">FX: ON</button>
+		</div>
+	</div>
+
+	<!-- ============================================================
+	     BARRA DE PROGRESO (solo modo aventura)
+	     ============================================================ -->
+	<div id="adv-bar">
+		<div class="track"><div class="fill" id="adv-fill"></div></div>
+		<div class="meta">
+			<button class="nav-btn" id="adv-back" type="button">&#9664; ATRÁS</button>
+			<span id="adv-label">PASO 1 DE 8</span>
+			<span class="xp" id="adv-xp">0 / 6 INSIGNIAS</span>
+			<button class="nav-btn" id="adv-next" type="button">SIGUIENTE &#9654;</button>
+		</div>
+		<div id="badges">
+			<span class="badge" id="badge-mision" title="La Misión">&#127919;</span>
+			<span class="badge" id="badge-equipo" title="El Equipo">&#129309;</span>
+			<span class="badge" id="badge-cargos" title="Los Cargos">&#127942;</span>
+			<span class="badge" id="badge-herramientas" title="El Inventario">&#127890;</span>
+			<span class="badge" id="badge-reglas" title="El Código">&#128220;</span>
+			<span class="badge" id="badge-listo" title="Listos">&#11088;</span>
+		</div>
+	</div>
+
+	<!-- ============================================================
+	     CONTENIDO
+	     ============================================================ -->
+	<main id="game">
+
+		<section class="hero">
+			<p class="assoc">ASOCIACIÓN DE GRUPOS<br />DE SCOUTS DE MÉXICO, A.C.</p>
+			<h1>VIII RALLY<br />VIRTUAL</h1>
+			<h2>TROPAS · 2026</h2>
+			<p class="tag">
+				Un fin de semana. Tu patrulla. Un rincón.<br />
+				Y un reto nuevo cada hora.
+			</p>
+		</section>
+
+		<!-- ---------- 01 · LA MISIÓN ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">01</span> LA MISIÓN</h3>
+
+			<p class="big-text">
+				Toda la patrulla se reúne en un mismo rincón de patrulla del <b>sábado 5 a las 12:00 p.m.</b> al
+				<b>domingo 6 a las 10:00 a.m.</b> Cada hora llega un reto nuevo: cocinar, construir,
+				investigar, actuar. Ustedes lo resuelven y un jefe de base los retroalimenta.
+			</p>
+			<p class="big-text hi">
+				Nadie les va a decir cómo organizarse. Ese es justamente el reto.
+			</p>
+		</section>
+
+		<!-- ---------- 02 · CÓMO SE JUEGA ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">02</span> CÓMO SE JUEGA</h3>
+			<p class="lead">El mismo ciclo, cada hora</p>
+
+			<div class="steps">
+				<div class="step">
+					<span class="n">1</span>
+					<p>Se publica el reto en <b>Discord</b></p>
+				</div>
+				<div class="step">
+					<span class="n">2</span>
+					<p>La patrulla lo resuelve <b>junta</b></p>
+				</div>
+				<div class="step">
+					<span class="n">3</span>
+					<p>Suben la foto o video a su <b>Instagram</b></p>
+				</div>
+				<div class="step">
+					<span class="n">4</span>
+					<p>Pegan el enlace en <b>Discord</b></p>
+				</div>
+				<div class="step ok">
+					<span class="n">5</span>
+					<p>El jefe de base <b>les responde</b></p>
+				</div>
+			</div>
+
+			<div class="two-cols">
+				<div class="card">
+					<h4>&#128247; INSTAGRAM</h4>
+					<p>Su portafolio. La cuenta es de la patrulla y se queda con ustedes al terminar.</p>
+				</div>
+				<div class="card">
+					<h4>&#128172; DISCORD</h4>
+					<p>El cuartel general. Retos, entregas y respuestas de los jefes.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ---------- 03 · RUTA ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">03</span> FECHAS CLAVE</h3>
+
+			<div class="timeline">
+				<div class="phase">
+					<div class="num">01</div>
+					<div>
+						<h4>7 AL 29 DE AGOSTO · INSCRIPCIÓN</h4>
+						<p>Registro y pago. <b>No habrá prórroga.</b></p>
+					</div>
+				</div>
+				<div class="phase key">
+					<div class="num">02</div>
+					<div>
+						<h4>30 AGO AL 4 SEP · BASE 0</h4>
+						<p>Entran al Discord, resuelven un reto de práctica y suben su evidencia.
+							<b>Es obligatoria.</b></p>
+					</div>
+				</div>
+				<div class="phase live">
+					<div class="num">03</div>
+					<div>
+						<h4>5 Y 6 DE SEPTIEMBRE · EL RALLY</h4>
+						<p>Sábado 12:00 p.m. a domingo 10:00 a.m.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="alert">
+				<h4>&#9888; SIN BASE 0 NO HAY RALLY</h4>
+				<p>
+					Sirve para comprobar que su cuenta, su computadora y su conexión funcionan
+					<b>antes</b> del evento. La patrulla que no la complete no podrá participar.
+				</p>
+			</div>
+		</section>
+
+		<!-- ---------- 04 · CARGOS ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">04</span> REPARTAN LOS CARGOS</h3>
+			<p class="lead">El Rally empieza cuando reparten el trabajo, no el 5 de septiembre</p>
+
+			<div class="roles">
+				<div class="role">
+					<span class="ic">&#127942;</span>
+					<div><b>Guía</b> — Coordina a la patrulla y consigue el rincón de patrulla.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#127894;</span>
+					<div><b>Subguía</b> — Apoya al Guía y lo suple cuando hace falta.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#128220;</span>
+					<div><b>Guardián de Leyendas</b> — Crea o recupera el Instagram de la patrulla y comparte
+						los accesos con todos.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#129689;</span>
+					<div><b>Tesorero</b> — Recolecta la cooperación, deposita y manda el comprobante.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#128221;</span>
+					<div><b>Secretario</b> — Registra a la patrulla y le pasa el folio y el monto al
+						Tesorero.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#127859;</span>
+					<div><b>Cocinero</b> — Diseña el menú y la lista de ingredientes.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#127917;</span>
+					<div><b>Histrión</b> — Prepara la porra, el grito y la animación.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#9877;</span>
+					<div><b>Enfermero</b> — Arma y lleva el botiquín.</div>
+				</div>
+				<div class="role">
+					<span class="ic">&#9978;</span>
+					<div><b>Intendente</b> — Cuida el equipo y que el rincón de patrulla quede impecable.</div>
+				</div>
+			</div>
+
+			<p class="note">Todos los cargos deben quedar repartidos. Un mismo scout puede llevar más de un cargo.</p>
+		</section>
+
+		<!-- ---------- 05 · INVENTARIO ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">05</span> QUÉ NECESITAN</h3>
+			<p class="lead">Consíganlo antes del 5 de septiembre</p>
+
+			<div class="grid">
+				<div class="card">
+					<div class="ico">&#128187;</div>
+					<h4>COMPUTADORA</h4>
+					<p>Con internet, disponible toda la actividad. Aquí trabajan <b>juntos</b>, no cada quien
+						en su celular.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#128247;</div>
+					<h4>INSTAGRAM DE PATRULLA</h4>
+					<p>Creado <b>antes del 29 de agosto</b>.</p>
+					<p class="warn">Público. No cuentas personales.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#128172;</div>
+					<h4>DISCORD</h4>
+					<p>Al menos un integrante con cuenta propia. Le damos el rol de la patrulla y él
+						invita a los demás.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#128248;</div>
+					<h4>CÁMARA</h4>
+					<p>Puede ser un celular, con forma de pasar fotos y videos a la computadora.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#127859;</div>
+					<h4>COCINA COMPLETA</h4>
+					<p>Utensilios e ingredientes para comida, cena y desayuno.</p>
+					<p class="warn">No lunch.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#9877;</div>
+					<h4>BOTIQUÍN</h4>
+					<p>Con los insumos básicos para cualquier eventualidad.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#129509;</div>
+					<h4>UNIFORME Y MARCOS</h4>
+					<p>Uniforme completo, equipo de bolsillo, banderín, libro de oro, etc.</p>
+				</div>
+				<div class="card">
+					<div class="ico">&#127968;</div>
+					<h4>RINCÓN DE PATRULLA</h4>
+					<p>Un hogar que los reciba —de algún integrante o familiar—, con permiso del padre o
+						madre que los hospeda y avisándole que cocinarán,
+						<b>pasarán la noche</b> y usarán el internet.</p>
+					<p class="warn">Dos patrullas no pueden compartir domicilio.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ---------- 06 · INSCRIPCIÓN ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">06</span> INSCRIPCIÓN</h3>
+			<p class="lead">Del 7 al 29 de agosto</p>
+
+			<div class="pay">
+				<div class="price">
+					<span class="amount">$25</span>
+					<small>por integrante</small>
+				</div>
+
+				<div class="bank" data-banco></div>
+			</div>
+
+			<div class="steps" style="margin-top:20px">
+				<div class="step">
+					<span class="n">1</span>
+					<p>El <b>Secretario</b> registra a la patrulla en esta página</p>
+				</div>
+				<div class="step">
+					<span class="n">2</span>
+					<p>Recibe el <b>folio</b> y el monto, y se los pasa al <b>Tesorero</b></p>
+				</div>
+				<div class="step">
+					<span class="n">3</span>
+					<p>El <b>Tesorero</b> deposita y manda el comprobante por correo</p>
+				</div>
+				<div class="step ok">
+					<span class="n">4</span>
+					<p>Les confirmamos y les mandamos el acceso al <b>Discord</b></p>
+				</div>
+			</div>
+
+			<p class="note">
+				No hace falta depositar antes de registrarse: el registro aparta su lugar y les da
+				el folio. El pago tiene que llegar <b>antes del 29 de agosto</b>.
+			</p>
+		</section>
+
+		<!-- ---------- 07 · REGLAS ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">07</span> REGLAS DEL JUEGO</h3>
+
+			<ul class="rules">
+				<li>Uniforme correctamente portado en todo momento.</li>
+				<li>Respeto y propiedad en toda acción, <b>también en línea y en los chats</b>.</li>
+				<li>La cuenta de Instagram debe permanecer pública durante todo el evento.</li>
+				<li>El rincón de patrulla queda impecable y ordenado al terminar.</li>
+				<li class="no">Por incumplir estas bases, la patrulla podrá ser dada de baja.</li>
+			</ul>
+		</section>
+
+		<!-- ---------- 08 · RECOMPENSAS ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">08</span> RECOMPENSAS</h3>
+
+			<div class="loot">
+				<div class="trophy">
+					<div class="ico">&#127894;</div>
+					<h4>ESCUDO</h4>
+					<p>Para todos los inscritos.</p>
+				</div>
+				<div class="trophy">
+					<div class="ico">&#128220;</div>
+					<h4>DIPLOMA</h4>
+					<p>Para todas las patrullas participantes.</p>
+				</div>
+				<div class="trophy">
+					<div class="ico">&#11088;</div>
+					<h4>MENCIÓN ESPECIAL</h4>
+					<p>Para quienes cumplan todos los retos.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- ---------- 09 · CTA ---------- -->
+		<section class="panel">
+			<h3><span class="lvl">09</span> ¿LISTOS?</h3>
+
+			<div class="cta">
+				<a class="big" href="#scene-registro">INSCRIBIR A MI PATRULLA</a>
+				<a class="mail" href="mailto:contacto@agsmac.org">¿Dudas? contacto@agsmac.org</a>
+			</div>
+		</section>
+
+		<!-- ============================================================
+		     ESCENAS
+		     Las marcadas con .narr solo aparecen en MODO AVENTURA.
+		     Las dos últimas (tutoriales y registro) aparecen en ambos modos.
+		     ============================================================ -->
+
+		<section class="scene narr" id="scene-inicio">
+			<p class="lvl-tag">PARTIDA NUEVA</p>
+			<h2>TU PATRULLA<br />RECIBE UN MENSAJE</h2>
+
+			<div class="dialog">
+				<span class="who">COMITÉ ORGANIZADOR</span>
+				<p>El <b>5 y 6 de septiembre</b> tu patrulla tendrá un fin de semana completo para
+					demostrar de qué está hecha.</p>
+				<p class="cursor">¿Aceptan la misión?</p>
+			</div>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="mision">Aceptamos. ¿De qué se trata?</button>
+			</div>
+		</section>
+
+		<section class="scene narr" id="scene-mision">
+			<p class="lvl-tag">MISIÓN 01</p>
+			<h2>EL FIN DE SEMANA</h2>
+
+			<div class="dialog">
+				<span class="who">LA MISIÓN</span>
+				<p>Reúnanse en su rincón de patrulla del <b>sábado 5 de septiembre a las 12:00 p.m.</b>
+					al <b>domingo 6 a las 10:00 a.m.</b></p>
+				<p>Cada hora llega un reto nuevo, que tendrán que resolver con su ingenio y subir la evidencia.</p>
+				<p><b>Trabajo en equipo!!!</b></p>
+			</div>
+
+			<div class="reward">
+				<span class="ri">&#127919;</span>
+				<div>
+					<span class="rt">INSIGNIA DESBLOQUEADA</span>
+					<p>Ya saben a qué van. Ahora falta lo importante: con qué llegan.</p>
+				</div>
+			</div>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="equipo" data-badge="mision">
+					Continuar
+				</button>
+			</div>
+		</section>
+
+		<section class="scene narr" id="scene-equipo">
+			<p class="lvl-tag">MISIÓN 02</p>
+			<h2>EL CICLO<br />DE CADA HORA</h2>
+
+			<div class="dialogs">
+				<div class="dialog">
+					<span class="who">CÓMO SE JUEGA</span>
+					<p><b>1.</b> Se publica el reto en Discord.</p>
+					<p><b>2.</b> La patrulla lo resuelve junta.</p>
+					<p><b>3.</b> Suben la foto o el video al Instagram de su patrulla</p>
+					<p><b>4.</b> Pegan el enlace del post en Discord.</p>
+					<p><b>5.</b> El jefe de la base lo revisa.</p>
+				</div>
+
+				<div class="dialog">
+					<span class="who">POR QUÉ ASÍ</span>
+					<p><b>Instagram</b> es su portafolio: la cuenta es de la patrulla y se queda con ustedes
+						al terminar el Rally.</p>
+					<p><b>Discord</b> es el cuartel general: retos, entregas, dudas y respuestas de los jefes.</p>
+				</div>
+			</div>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="cargos" data-badge="equipo">
+					Entendido. ¿Quién hace qué?
+				</button>
+			</div>
+		</section>
+
+		<section class="scene narr" id="scene-cargos">
+			<p class="lvl-tag">MISIÓN 03</p>
+			<h2>REPARTAN<br />LOS CARGOS</h2>
+
+			<div class="dialog">
+				<span class="who">SISTEMA DE PATRULLAS</span>
+				<p>El Rally empieza mucho antes del 5 de septiembre....</p>
+			</div>
+
+			<div class="roles" id="adv-roles"></div>
+
+			<p class="note">Todos los cargos deben quedar repartidos. Un mismo scout puede llevar más de un cargo.</p>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="herramientas" data-badge="cargos">
+					Cargos repartidos
+				</button>
+			</div>
+		</section>
+
+		<section class="scene narr" id="scene-herramientas">
+			<p class="lvl-tag">MISIÓN 04</p>
+			<h2>EL INVENTARIO</h2>
+
+			<div class="dialogs">
+				<div class="dialog">
+					<span class="who">LO DIGITAL</span>
+					<p><b>Computadora</b> con internet, disponible toda la actividad. Aquí trabajan juntos,
+						no cada quien en su celular.</p>
+					<p><b>Instagram de patrulla</b> creado antes del 29 de agosto, en modo público.</p>
+					<p><b>Discord</b>: basta con que un integrante tenga cuenta, aunque todos pueden entrar e interactuar.</p>
+					<p><b>Cámara</b> (puede ser un celular) que pase el material a la computadora o pueda publicar en el instagram de la patrulla.</p>
+				</div>
+
+				<div class="dialog">
+					<span class="who">LO FÍSICO</span>
+					<p><b>Cocina completa</b> para comida, cena y desayuno. No lunch.</p>
+					<p><b>Botiquín</b> con los insumos básicos.</p>
+					<p><b>Uniforme completo</b>, equipo de bolsillo, banderín, tótem y libro de oro.</p>
+					<p><b>Rincón de patrulla:</b> un hogar que los reciba —de algún integrante o familiar—
+						con permiso del padre o madre que los hospeda, avisándole que cocinarán, pasarán la
+						noche y usarán el internet.
+						Dos patrullas no pueden compartir domicilio.</p>
+				</div>
+			</div>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="reglas" data-badge="herramientas">
+					Inventario listo
+				</button>
+			</div>
+		</section>
+
+		<section class="scene narr" id="scene-reglas">
+			<p class="lvl-tag">MISIÓN 05</p>
+			<h2>EL CÓDIGO</h2>
+
+			<div class="dialog">
+				<span class="who">REGLAS DEL JUEGO</span>
+				<p>Uniforme correctamente portado en todo momento.</p>
+				<p>Respeto y propiedad en toda acción, <b>también en línea y en los chats</b>.</p>
+				<p>La cuenta de Instagram debe permanecer pública durante todo el evento.</p>
+				<p>El rincón de patrulla queda impecable y ordenado al terminar.</p>
+				<p><b>Por incumplir estas bases, la patrulla podrá ser dada de baja.</b></p>
+			</div>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="preparacion" data-badge="reglas">
+					De acuerdo
+				</button>
+			</div>
+		</section>
+
+		<!-- ---------- TUTORIALES (ambos modos) ---------- -->
+		<section class="scene" id="scene-preparacion">
+			<p class="lvl-tag">MISIÓN 06</p>
+			<h2>ENTRENAMIENTO</h2>
+
+			<p class="lead">Guías paso a paso. Ábranlas con la patrulla antes del evento.</p>
+
+			<div class="tut-list" id="tut-list">
+				<p class="note">Cargando guías…</p>
+			</div>
+
+			<p class="note" style="margin-top:18px">
+				<b>Base 0, del 30 de agosto al 4 de septiembre.</b> Es un ensayo obligatorio: entran al Discord,
+				resuelven un reto de práctica y suben su evidencia. Sirve para comprobar que su cuenta,
+				su computadora y su conexión funcionan <b>antes</b> del Rally. La patrulla que no la
+				complete no podrá participar.
+			</p>
+
+			<div class="choices">
+				<button class="choice go" type="button" data-go="registro" data-badge="listo">
+					Estamos listos. Inscribirnos
+				</button>
+			</div>
+		</section>
+
+		<!-- ---------- REGISTRO (ambos modos) ---------- -->
+		<section class="scene" id="scene-registro">
+			<p class="lvl-tag">MISIÓN FINAL</p>
+			<h2>INSCRIBAN<br />A SU PATRULLA</h2>
+
+			<div class="form-wrap">
+
+				<div class="dialog">
+					<span class="who">ANTES DE EMPEZAR</span>
+					<p>Lo llena el <b>Secretario</b>, con la patrulla enfrente: va a necesitar el nombre
+						de cada integrante y el reparto de los cargos ya acordado.</p>
+					<p><b>Todavía no hay que depositar.</b> Al enviar aparece el folio, el monto exacto
+						y la cuenta: eso se lo pasa al <b>Tesorero</b>, que deposita y manda el
+						comprobante.</p>
+					<p>Inscripciones <b>del 7 al 29 de agosto</b>. No habrá prórroga.</p>
+				</div>
+
+				<form id="reg-form" novalidate>
+
+					<div class="fgroup">
+						<label class="flabel" for="f-patrulla">NOMBRE DE LA PATRULLA</label>
+						<input class="finput" id="f-patrulla" type="text" placeholder="Águilas" />
+					</div>
+
+					<div class="fgroup frow">
+						<div>
+							<label class="flabel" for="f-grupo">GRUPO</label>
+							<select class="finput" id="f-grupo"></select>
+						</div>
+						<div>
+							<label class="flabel" for="f-seccion">SECCIÓN</label>
+							<select class="finput" id="f-seccion"></select>
+						</div>
+					</div>
+
+					<div class="fgroup">
+						<label class="flabel" for="f-instagram">INSTAGRAM DE LA PATRULLA</label>
+						<div class="prefix">
+							<span>@</span>
+							<input class="finput" id="f-instagram" type="text"
+								placeholder="chorlitos.g99" />
+						</div>
+						<span class="hint">
+							Formato <b>nombrepatrulla.g##</b> (el ## es su número de grupo). Sin la arroba
+							y en modo público.
+						</span>
+					</div>
+
+					<div class="fgroup">
+						<label class="flabel" for="f-direccion">DIRECCIÓN DEL RINCÓN DE PATRULLA</label>
+						<textarea class="finput" id="f-direccion"
+							placeholder="Calle, número, colonia, municipio"></textarea>
+						<span class="hint">Dos patrullas no pueden compartir domicilio.</span>
+					</div>
+
+					<div class="fgroup frow">
+						<div>
+							<label class="flabel" for="f-responsable">PADRE O MADRE QUE LOS HOSPEDA</label>
+							<input class="finput" id="f-responsable" type="text"
+								placeholder="Nombre completo" />
+						</div>
+						<div>
+							<label class="flabel" for="f-tellocal">SU TELÉFONO</label>
+							<input class="finput" id="f-tellocal" type="tel" placeholder="55 0000 0000" />
+						</div>
+					</div>
+
+					<div class="fgroup">
+						<label class="flabel">1 · ¿QUIÉNES SON?</label>
+						<span class="hint" style="margin:0 0 12px">
+							Escribe el nombre de cada integrante de la patrulla.
+						</span>
+						<div class="roster" id="roster"></div>
+						<button class="add-btn" id="add-member" type="button">+ AGREGAR INTEGRANTE</button>
+					</div>
+
+					<div class="total-box">
+						<span class="tnum" id="total-num">$0</span>
+						<small id="total-lbl">Escribe los nombres para calcular el total</small>
+					</div>
+
+					<div class="fgroup">
+						<label class="flabel">2 · REPARTAN LOS CARGOS</label>
+						<span class="hint" style="margin:0 0 12px">
+							<b>Todos</b> los cargos tienen que quedar repartidos. Cada cargo lo lleva
+							una sola persona, pero una persona puede llevar varios cargos.
+						</span>
+
+						<div class="cboard-status" id="cboard-status">
+							<div class="cbs-track"><div class="cbs-fill" id="cbs-fill"></div></div>
+							<span class="cbs-txt" id="cbs-txt">0 DE 9 CARGOS REPARTIDOS</span>
+						</div>
+
+						<div class="cboard" id="cargo-board"></div>
+
+						<div class="cboard-sum" id="cboard-sum"></div>
+					</div>
+
+					<div class="fmsg" id="f-msg"></div>
+
+					<button class="submit-btn" id="f-submit" type="submit">REGISTRAR A MI PATRULLA</button>
+				</form>
+
+				<div class="done-box" id="reg-done" style="display:none">
+					<div class="dico">&#127881;</div>
+					<h4>¡PATRULLA REGISTRADA!</h4>
+					<p id="done-patrulla"></p>
+					<div class="folio" id="done-folio">—</div>
+
+					<div class="handoff">
+						<h4>&#129309; SECRETARIO &#8594; TESORERO</h4>
+						<p class="ho-lead">
+							Tu trabajo terminó, Secretario. Pásale <b>esta pantalla</b> al Tesorero:
+							aquí está todo lo que necesita para depositar.
+						</p>
+
+						<div class="ho-amount">
+							<span>A DEPOSITAR</span>
+							<b>$<span id="done-total">0</span></b>
+						</div>
+
+						<div class="bank" data-banco></div>
+
+						<p class="ho-ref">
+							Al depositar, pongan como referencia o concepto su folio:
+							<b id="done-folio-ref">—</b>
+						</p>
+
+						<button class="ho-copy" id="done-copy" type="button">
+							&#128203; COPIAR TODO PARA MANDÁRSELO AL TESORERO
+						</button>
+					</div>
+
+					<div class="alert" style="text-align:left">
+						<h4>&#128206; ÚLTIMO PASO · LO HACE EL TESORERO</h4>
+						<p>
+							Su lugar queda <b>apartado pero pendiente</b> hasta que recibamos el
+							comprobante. Cuando el Tesorero deposite, que le dé clic al botón: se abre
+							un correo con el folio ya escrito y solo adjunta la foto o el PDF.
+						</p>
+						<p><b>Tienen hasta el 29 de agosto.</b></p>
+					</div>
+
+					<a class="submit-btn" id="done-comprobante" href="mailto:contacto@agsmac.org"
+						style="display:block;text-decoration:none;text-align:center">
+						&#128206; ENVIAR COMPROBANTE
+					</a>
+
+					<ul class="next-steps" style="margin-top:22px">
+						<li>Al confirmar el pago les enviamos el enlace del <b>Discord</b>.</li>
+						<li>Completen la <b>Base 0</b> entre el 30 de agosto y el 4 de septiembre.</li>
+						<li>Nos vemos el <b>5 de septiembre a las 12:00 p.m.</b></li>
+					</ul>
+				</div>
+
+			</div>
+		</section>
+
+		<footer class="gm">
+			Asociación de Grupos de Scouts de México, A.C.<br />
+			<a href="index.html">agsmac.org</a>
+		</footer>
+
+	</main>
+
+
+	<div id="toast">COPIADO</div>
+
+	<script src="assets/js/rally.js"></script>
+	<script src="assets/js/rally-adventure.js"></script>
+</body>
+
+</html>

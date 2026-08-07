@@ -1,0 +1,204 @@
+{
+  "_comentario": "Configuración del VIII Rally Virtual. La appsScriptUrl se obtiene al implementar docs/apps-script-rally.gs como aplicación web. Si se deja vacía, el formulario muestra el registro por correo como respaldo. La lista de grupos NO vive aquí: se toma de includes/data/grupos.json, la misma que usa el resto del sitio.",
+
+  "appsScriptUrl": "",
+
+  "minIntegrantes": 3,
+  "maxIntegrantes": 8,
+
+  "evento": {
+    "nombre": "VIII Rally Virtual Tropas",
+    "inicio": "2026-09-05T12:00:00-06:00",
+    "fin": "2026-09-06T10:00:00-06:00",
+    "cierreInscripcion": "2026-08-29T23:59:59-06:00",
+    "base0Inicio": "2026-08-30",
+    "base0Fin": "2026-09-04",
+    "costoPorIntegrante": 25,
+    "correo": "contacto@agsmac.org",
+    "discordInvite": ""
+  },
+
+  "banco": {
+    "banco": "BBVA",
+    "titular": "Sergio Antonio Márquez De Silva",
+    "cuenta": "146 615 3860",
+    "clabe": "012180014661538608",
+    "tarjeta": "4152 3139 0688 1847"
+  },
+
+  "secciones": ["Tropa de Muchachas Scouts", "Tropa Scout"],
+
+  "cargos": [
+    { "id": "guia",      "nombre": "Guía",                 "icono": "🏆",
+      "desc": "Coordina a la patrulla y consigue el rincón de patrulla." },
+    { "id": "subguia",   "nombre": "Subguía",              "icono": "🎖️",
+      "desc": "Apoya al Guía y lo suple cuando hace falta" },
+    { "id": "guardian",  "nombre": "Guardián de Leyendas", "icono": "📜",
+      "desc": "Crea el Instagram de la patrulla y comparte el acceso" },
+    { "id": "tesorero",  "nombre": "Tesorero",             "icono": "🪙",
+      "desc": "Recolecta la cooperación, deposita y manda el comprobante" },
+    { "id": "secretario","nombre": "Secretario",           "icono": "📝",
+      "desc": "Registra a la patrulla y le pasa el folio y el monto al Tesorero" },
+    { "id": "cocinero",  "nombre": "Cocinero",             "icono": "🍳",
+      "desc": "Diseña el menú de la comida, cena y desayuno" },
+    { "id": "histrion",  "nombre": "Histrión",             "icono": "🎭",
+      "desc": "Prepara la porra y el cancionero" },
+    { "id": "enfermero", "nombre": "Enfermero",            "icono": "⚕️",
+      "desc": "Revisa y lleva el botiquín de la patrulla" },
+    { "id": "intendente","nombre": "Intendente",           "icono": "⛺",
+      "desc": "Verifica el equipo, marcos simbólicos y que al final el lugar quede impecable" }
+  ],
+
+  "tutoriales": [
+    {
+      "id": "instagram",
+      "icono": "📸",
+      "titulo": "Crear la cuenta de Instagram de la patrulla",
+      "responsable": "Guardián de Leyendas",
+      "duracion": "10 minutos",
+      "intro": "La cuenta es de la patrulla, no de una persona. Al terminar el Rally se queda con ustedes como su portafolio.",
+      "pasos": [
+        {
+          "t": "Consigan un correo para la patrulla",
+          "d": "Si no tienen, creen uno gratis en Gmail. Úsenlo solo para la patrulla, así cualquiera puede recuperar la cuenta si se les olvida la contraseña."
+        },
+        {
+          "t": "Descarguen Instagram o entren desde la computadora",
+          "d": "Pueden hacerlo todo desde instagram.com en el navegador. No necesitan celular."
+        },
+        {
+          "t": "Elijan el nombre de usuario con este formato",
+          "d": "nombrepatrulla.g## — por ejemplo: \"chorlitos.g99\". Así los jefes reconocen de inmediato de quién es cada publicación.",
+          "destacado": true
+        },
+        {
+          "t": "Pongan foto de perfil y descripción",
+          "d": "Usen su tótem o su banderín. En la descripción: nombre de la patrulla, grupo y sección."
+        },
+        {
+          "t": "Revisen que la cuenta sea PÚBLICA",
+          "d": "Configuración → Privacidad de la cuenta → que NO esté activada la opción de cuenta privada. Si está privada, los jefes no podrán ver sus evidencias.",
+          "destacado": true
+        },
+        {
+          "t": "Compartan la contraseña con toda la patrulla",
+          "d": "Todos deben poder publicar durante el evento."
+        }
+      ],
+      "errores": [
+        "Dejar la cuenta privada: los jefes no verán nada.",
+        "Usar la cuenta personal de alguien: no se acepta.",
+        "Que solo una persona sepa la contraseña: si falta ese día, la patrulla no puede entregar."
+      ]
+    },
+    {
+      "id": "discord",
+      "icono": "💬",
+      "titulo": "Entrar al Discord del Rally",
+      "responsable": "Todos los integrantes",
+      "duracion": "5 minutos",
+      "intro": "Discord es el cuartel general: ahí se publican los retos, ahí entregan sus enlaces y ahí les responden los jefes de base. Basta con que un integrante tenga cuenta, pero entre más entren, mejor.",
+      "pasos": [
+        {
+          "t": "Al menos uno cree su cuenta en discord.com",
+          "d": "Es gratis y funciona desde el navegador, sin instalar nada. Ese usuario es el que anotan en el registro. Los demás pueden entrar después con el mismo enlace."
+        },
+        {
+          "t": "Pongan su nombre real como apodo",
+          "d": "Nombre y patrulla, por ejemplo: Ana · Águilas 54. Así los jefes saben con quién hablan.",
+          "destacado": true
+        },
+        {
+          "t": "Abran el enlace de invitación",
+          "d": "Se los enviamos por correo al confirmar su pago. Solo denle clic y acepten unirse."
+        },
+        {
+          "t": "Esperen su rol de patrulla",
+          "d": "El Comité valida su registro y les asigna el rol de su patrulla. Hasta entonces podrán escribir en los canales de las bases."
+        },
+        {
+          "t": "Reconozcan los canales",
+          "d": "Hay un canal por cada base, uno de avisos y uno de dudas. Cada reto se publica en su canal y ahí mismo entregan."
+        }
+      ],
+      "errores": [
+        "Entrar apenas el día del evento: si algo falla, no hay tiempo de arreglarlo.",
+        "Dejar el apodo por defecto: los jefes no sabrán quién eres.",
+        "Que el único con cuenta no pueda estar ese día: tengan un segundo integrante dentro por si acaso."
+      ]
+    },
+    {
+      "id": "entrega",
+      "icono": "🎯",
+      "titulo": "Cómo se entrega un reto",
+      "responsable": "Toda la patrulla",
+      "duracion": "El ciclo de cada base",
+      "intro": "Este es el ciclo que van a repetir cada hora durante el Rally. Practíquenlo en la Base 0.",
+      "pasos": [
+        {
+          "t": "Lean el reto en su canal de Discord",
+          "d": "Cada hora aparece una base nueva. Dice qué hacer y qué evidencia se pide (foto o video)."
+        },
+        {
+          "t": "Resuélvanlo entre todos",
+          "d": "Trabajen frente a la computadora. La idea es que participen todos."
+        },
+        {
+          "t": "Publiquen la evidencia en su Instagram",
+          "d": "Publicación normal en el feed. NO historias: desaparecen a las 24 horas y los jefes no podrán calificarlas.",
+          "destacado": true
+        },
+        {
+          "t": "Usen este formato en el pie de foto",
+          "d": "Base N — VIII Rally Virtual / Patrulla · Grupo / #AGSMAC #VIIIRallyVirtual #BaseN. Así los jefes filtran las entregas de su base.",
+          "destacado": true
+        },
+        {
+          "t": "Copien el enlace de la publicación",
+          "d": "En la publicación: los tres puntos → Copiar enlace."
+        },
+        {
+          "t": "Péguenlo en el canal de esa base en Discord",
+          "d": "Ahí el jefe responsable lo revisa, les retroalimenta y registra su entrega."
+        }
+      ],
+      "errores": [
+        "Subirlo como historia en vez de publicación.",
+        "Entregar en el canal equivocado: cada base tiene el suyo.",
+        "Videos de más de 2 minutos: tardan mucho en subir y se les va el tiempo.",
+        "Publicar y no pegar el enlace en Discord: si no lo entregan, no cuenta."
+      ]
+    },
+    {
+      "id": "base0",
+      "icono": "🚀",
+      "titulo": "La Base 0",
+      "responsable": "Toda la patrulla",
+      "duracion": "Del 30 de agosto al 4 de septiembre",
+      "intro": "Es un reto de práctica para comprobar que todo funciona antes del evento. Es obligatoria: la patrulla que no la complete no participa.",
+      "pasos": [
+        {
+          "t": "Entren al Discord",
+          "d": "Con el enlace que les enviamos al confirmar su pago."
+        },
+        {
+          "t": "Abran el canal Base 0",
+          "d": "Ahí está el reto de práctica con todas las instrucciones."
+        },
+        {
+          "t": "Resuélvanlo y entréguenlo",
+          "d": "Exactamente igual que en el Rally: publican en Instagram y pegan el enlace en Discord."
+        },
+        {
+          "t": "Esperen la confirmación del Comité",
+          "d": "Les avisamos si todo salió bien o si hay algo que corregir. Si algo falla, aún hay tiempo de arreglarlo.",
+          "destacado": true
+        }
+      ],
+      "errores": [
+        "Dejarla para el 4 de septiembre: si algo sale mal, ya no hay margen.",
+        "Que la haga solo el Guía: es para que toda la patrulla practique."
+      ]
+    }
+  ]
+}
