@@ -1,7 +1,7 @@
 {
   "_comentario": "Configuración del VIII Rally Virtual. La appsScriptUrl se obtiene al implementar docs/apps-script-rally.gs como aplicación web. Si se deja vacía, el formulario muestra el registro por correo como respaldo. La lista de grupos NO vive aquí: se toma de includes/data/grupos.json, la misma que usa el resto del sitio.",
 
-  "appsScriptUrl": "",
+  "appsScriptUrl": "https://script.google.com/macros/s/AKfycbyeVfP5BCERchtUORaGgIo7O1w6GJ_7joTpDdGYaUjX5XPhTID_0FJzgXdy5jX_vdBYsg/exec",
 
   "minIntegrantes": 3,
   "maxIntegrantes": 8,
