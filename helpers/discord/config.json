@@ -1,0 +1,40 @@
+{
+  "_comentario": "Configuración del servidor de Discord del Rally Virtual. La usan helpers/discord/setup.js (crea la estructura) y helpers/discord/abrir-base.js (abre cada base a su hora). El token del bot NUNCA va aquí: se pasa por la variable de entorno DISCORD_TOKEN.",
+
+  "guildId": "1535440444757114890",
+  "_guildId": "ID del servidor. Clic derecho sobre el servidor -> Copiar ID del servidor (requiere activar Modo desarrollador en Ajustes -> Avanzado).",
+
+  "edicion": "VIII RALLY 2026",
+  "_edicion": "Nombre de la categoría que agrupa las bases de esta edición. Al año siguiente se cambia y se corre el setup otra vez: los canales viejos se quedan como archivo.",
+
+  "roles": {
+    "comite": { "nombre": "Comité", "color": "#ffcc33" },
+    "jefeBase": { "nombre": "Jefe de Base", "color": "#4ea8ff" }
+  },
+
+  "patrullas": [],
+  "_patrullas": "YA NO SE USA. Se decidió no crear un rol por patrulla: basta con que cada quien ponga su apodo como 'Nombre · Patrulla · Grupo'. Se deja el campo por si algún día hace falta.",
+
+  "bases": [
+    {
+      "num": 0,
+      "slug": "base-00-ensayo",
+      "nombre": "Base 0 · Ensayo",
+      "responsable": "Comité",
+      "abre": "2026-08-30T09:00:00-06:00",
+      "reto": "Reto de práctica para comprobar que todo funciona. Publiquen en su Instagram una foto de la patrulla completa con el uniforme puesto y peguen aquí el enlace."
+    },
+    { "num": 1, "slug": "base-01", "nombre": "Base 1", "responsable": "", "abre": "2026-09-05T12:00:00-06:00", "reto": "" },
+    { "num": 2, "slug": "base-02", "nombre": "Base 2", "responsable": "", "abre": "2026-09-05T13:00:00-06:00", "reto": "" },
+    { "num": 3, "slug": "base-03", "nombre": "Base 3", "responsable": "", "abre": "2026-09-05T14:00:00-06:00", "reto": "" },
+    { "num": 4, "slug": "base-04", "nombre": "Base 4", "responsable": "", "abre": "2026-09-05T15:00:00-06:00", "reto": "" },
+    { "num": 5, "slug": "base-05", "nombre": "Base 5", "responsable": "", "abre": "2026-09-05T16:00:00-06:00", "reto": "" },
+    { "num": 6, "slug": "base-06", "nombre": "Base 6", "responsable": "", "abre": "2026-09-05T17:00:00-06:00", "reto": "" },
+    { "num": 7, "slug": "base-07", "nombre": "Base 7", "responsable": "", "abre": "2026-09-05T18:00:00-06:00", "reto": "" },
+    { "num": 8, "slug": "base-08", "nombre": "Base 8", "responsable": "", "abre": "2026-09-05T19:00:00-06:00", "reto": "" },
+    { "num": 9, "slug": "base-09", "nombre": "Base 9", "responsable": "", "abre": "2026-09-06T07:00:00-06:00", "reto": "" },
+    { "num": 10, "slug": "base-10", "nombre": "Base 10", "responsable": "", "abre": "2026-09-06T08:00:00-06:00", "reto": "" },
+    { "num": 11, "slug": "base-11", "nombre": "Base 11", "responsable": "", "abre": "2026-09-06T09:00:00-06:00", "reto": "" },
+    { "num": 12, "slug": "base-12", "nombre": "Base 12", "responsable": "", "abre": "2026-09-06T10:00:00-06:00", "reto": "" }
+  ]
+}

@@ -747,6 +747,57 @@ con su jefe.
 
 ---
 
+## 8.c. VIII Rally Virtual (evento temporal, septiembre 2026)
+
+Convocatoria como página estilo videojuego (`rally.html`) con registro integrado, más un
+servidor de Discord que funciona como cuartel general del evento.
+
+### Archivos
+
+| Archivo | Para qué |
+|---|---|
+| `rally.html` | La convocatoria. **Fuente de verdad del contenido.** |
+| `assets/js/rally-adventure.js` | Motor: modos de vista, tablero de cargos, registro. |
+| `assets/js/rally.js`, `assets/css/rally*.css` | Efectos y estilos. |
+| `includes/data/rally.json` | **Fuente única** de fechas, cargos, banco, tutoriales y `appsScriptUrl`. |
+| `docs/apps-script-rally.gs` | Backend del registro (Apps Script + Google Sheet). |
+| `helpers/discord/` | Scripts que arman y operan el servidor de Discord. |
+| `docs/discord-servidor.md` | Guía del servidor de Discord (con script y a mano). |
+| `Temp/VIIIRally/00-CONTEXTO.md` | Decisiones y acuerdos del evento. |
+
+### Servidor de Discord
+
+Todo el detalle está en **`docs/discord-servidor.md`**. Resumen:
+
+```powershell
+$env:DISCORD_TOKEN = "el-token-del-bot"   # nunca en un archivo del repo
+
+node helpers\discord\setup.js --dry       # ensayo, no toca nada
+node helpers\discord\setup.js             # crea roles, canales y permisos
+node helpers\discord\abrir-base.js        # durante el evento: abre cada base a su hora
+node helpers\discord\abrir-base.js 3      # abrir la base 3 a mano
+node helpers\discord\abrir-base.js --estado
+```
+
+- **Sin dependencias**: hablan directo con la API de Discord usando el `fetch` de Node 18+.
+- **Idempotentes**: `setup.js` sólo crea lo que falta, así que se puede correr las veces
+  que haga falta sin duplicar nada.
+- La configuración (servidor, bases, horarios) vive en `helpers/discord/config.json`.
+  **El token del bot no**: va por variable de entorno.
+- Los canales de las bases nacen **ocultos** y se abren a su hora, porque los retos se
+  revelan hora por hora.
+- **No hay roles por patrulla.** Cada participante se identifica con su apodo,
+  `Nombre · Patrulla · Grupo`. Sólo existen los roles **Comité** y **Jefe de Base**.
+
+### La invitación de Discord
+
+Se pone en `includes/data/rally.json` → `evento.discordInvite`. En cuanto tenga valor,
+los botones «ENTRAR AL DISCORD» aparecen solos en `rally.html` (elementos marcados con
+`data-discord`); mientras esté vacía se muestra un aviso de "próximamente" en su lugar.
+**No hay que tocar el HTML.**
+
+---
+
 ## 9. Convenciones de código
 
 - **JS**: jQuery 1.x + skel. Sin transpilación. Mantén compatibilidad ES5 en lo posible (las funciones flecha y `const` ya se usan, pero evita features muy nuevas si las metes en `main.js`).
