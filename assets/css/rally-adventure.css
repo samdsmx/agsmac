@@ -775,7 +775,7 @@ textarea.finput { resize: vertical; min-height: 76px; }
 	margin-bottom: 16px;
 }
 
-.ho-amount span {
+.ho-amount > span {
 	font-family: var(--pixel);
 	font-size: 0.45rem;
 	color: var(--muted);
@@ -812,6 +812,66 @@ textarea.finput { resize: vertical; min-height: 76px; }
 }
 
 .ho-copy:hover { background: rgba(0, 229, 255, 0.12); }
+
+/* ---------- Datos siempre abiertos (cuenta y Discord) ---------- */
+.open-data {
+	text-align: center;
+	border: 2px dashed var(--cyan);
+	background: rgba(0, 229, 255, 0.05);
+	padding: 20px 18px;
+	margin: 0 0 26px;
+}
+
+.open-data h4 {
+	color: var(--cyan);
+	font-size: 0.6rem;
+	margin: 0 0 12px;
+	text-align: center;
+}
+
+.od-lead { font-size: 1.04rem; color: var(--muted); margin: 0 0 18px; }
+.od-lead b { color: var(--text); font-weight: normal; }
+
+.od-price {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 12px;
+	border-bottom: 1px dashed rgba(0, 229, 255, 0.35);
+	padding-bottom: 16px;
+	margin-bottom: 16px;
+}
+
+.od-price .amount { font-family: var(--pixel); font-size: 1.4rem; color: var(--gold); }
+.od-price small { color: var(--muted); font-size: 1rem; }
+
+.od-ref {
+	font-size: 1.02rem;
+	color: var(--muted);
+	margin: 16px 0 0;
+	text-align: center;
+}
+
+.od-ref b { color: var(--gold); }
+.od-ref a { color: var(--cyan); }
+
+.od-discord {
+	display: block;
+	margin-top: 18px;
+	padding: 15px;
+	text-align: center;
+	text-decoration: none;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	color: #cfd4ff;
+	background: rgba(88, 101, 242, 0.22);
+	border: 2px solid #5865f2;
+	transition: background 0.14s ease;
+}
+
+.od-discord:hover { background: rgba(88, 101, 242, 0.34); }
+
+.open-data .discord-wait { margin-top: 18px; }
 
 /* ============================================================
    RESPONSIVE — el modo aventura es el que se ve en móvil por defecto

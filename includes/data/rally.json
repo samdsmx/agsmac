@@ -35,10 +35,10 @@
       "desc": "Apoya al Guía y lo suple cuando hace falta" },
     { "id": "guardian",  "nombre": "Guardián de Leyendas", "icono": "📜",
       "desc": "Crea el Instagram de la patrulla y comparte el acceso" },
-    { "id": "tesorero",  "nombre": "Tesorero",             "icono": "🪙",
-      "desc": "Recolecta la cooperación, deposita y manda el comprobante" },
     { "id": "secretario","nombre": "Secretario",           "icono": "📝",
       "desc": "Registra a la patrulla y le pasa el monto y la cuenta al Tesorero" },
+    { "id": "tesorero",  "nombre": "Tesorero",             "icono": "🪙",
+      "desc": "Recolecta la cooperación, deposita y manda el comprobante" },
     { "id": "cocinero",  "nombre": "Cocinero",             "icono": "🍳",
       "desc": "Diseña el menú de la comida, cena y desayuno" },
     { "id": "histrion",  "nombre": "Histrión",             "icono": "🎭",
@@ -53,7 +53,7 @@
     {
       "id": "instagram",
       "icono": "📸",
-      "titulo": "Crear la cuenta de Instagram de la patrulla",
+      "titulo": "Crear el Instagram de patrulla",
       "responsable": "Guardián de Leyendas",
       "duracion": "10 minutos",
       "intro": "La cuenta es de la patrulla, no de una persona. Al terminar el Rally se queda con ustedes como su portafolio.",
@@ -104,17 +104,14 @@
           "d": "Es gratis y funciona desde el navegador, sin instalar nada. Los demás pueden entrar después con el mismo enlace."
         },
         {
-          "t": "Pongan su nombre real como apodo",
-          "d": "Nombre y patrulla, por ejemplo: Ana · Águilas 54. Así los jefes saben con quién hablan.",
-          "destacado": true
+          "t": "Pongan su Nombre y patrulla como apodo",
+          "d": " Así los jefes saben con quién hablan."
         },
         {
           "t": "Abran el enlace de invitación",
-          "d": "Está publicado en esta misma página, en la sección ¿LISTOS?. También se los mandamos por mensaje al Instagram de su patrulla. Solo denle clic y acepten unirse."
-        },
-        {
-          "t": "Esperen su rol de patrulla",
-          "d": "El Comité valida su registro y les asigna el rol de su patrulla. Hasta entonces podrán escribir en los canales de las bases."
+          "d": "Está publicado en esta misma página, en el botón ENTRAR AL DISCORD.",
+          "destacado": true
+
         },
         {
           "t": "Reconozcan los canales",
@@ -173,13 +170,13 @@
       "id": "base0",
       "icono": "🚀",
       "titulo": "La Base 0",
-      "responsable": "Toda la patrulla",
+      "responsable": "",
       "duracion": "Del 30 de agosto al 4 de septiembre",
       "intro": "Es un reto de práctica para comprobar que todo funciona antes del evento. Es obligatoria (lo puede hacer cualquier integrante de la patrulla).",
       "pasos": [
         {
           "t": "Entren al Discord",
-          "d": "Con el enlace publicado en esta página, en la sección ¿LISTOS?."
+          "d": "Con el enlace publicado en esta página, en el botón ENTRAR AL DISCORD."
         },
         {
           "t": "Abran el canal Base 0",
@@ -196,8 +193,7 @@
         }
       ],
       "errores": [
-        "Dejarla para el 4 de septiembre: si algo sale mal, ya no hay margen.",
-        "Que la haga solo el Guía: es para que toda la patrulla practique."
+        "Dejarla para el 4 de septiembre: si algo sale mal, ya no hay margen."
       ]
     }
   ]

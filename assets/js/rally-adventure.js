@@ -718,6 +718,11 @@
 			}
 		});
 
+		// El costo por integrante vive en el JSON: lo pintamos donde se anuncia
+		// sin que la patrulla tenga que llenar el formulario.
+		var costo = (CFG.evento && CFG.evento.costoPorIntegrante) || 25;
+		$all('[data-costo]').forEach(function (s) { s.textContent = costo; });
+
 		// Sin hoja de cálculo conectada no se puede registrar: avisar de una vez
 		// en vez de dejar que lo descubran al presionar ENVIAR.
 		if (!CFG.appsScriptUrl) {
