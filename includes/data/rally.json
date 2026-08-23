@@ -9,8 +9,8 @@
   "evento": {
     "nombre": "VIII Rally Virtual Tropas",
     "inicio": "2026-09-05T12:00:00-06:00",
-    "fin": "2026-09-06T10:00:00-06:00",
-    "cierreInscripcion": "2026-08-29T23:59:59-06:00",
+    "fin": "2026-09-06T12:00:00-06:00",
+    "cierreInscripcion": "2026-08-31T23:59:59-06:00",
     "base0Inicio": "2026-08-30",
     "base0Fin": "2026-09-04",
     "costoPorIntegrante": 25,
