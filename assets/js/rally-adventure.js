@@ -649,7 +649,7 @@
 			'Tarjeta: ' + (b.tarjeta || '') + '\n\n' +
 			'Pon el nombre de la patrulla y el grupo como referencia o concepto.\n' +
 			'Al depositar, manda la foto o el PDF del comprobante a ' + correoComite() +
-			' indicando la patrulla y el grupo. Fecha límite: 29 de agosto.';
+			' indicando la patrulla y el grupo. Fecha límite: 5 de septiembre.';
 	}
 
 	function showDone(res, payload) {

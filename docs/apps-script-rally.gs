@@ -51,7 +51,8 @@ var CONFIG = {
 
   // Cierre de inscripciones. Después de esta fecha el formulario rechaza
   // registros nuevos. Formato: 'YYYY-MM-DDTHH:mm:ss-06:00' (hora del centro).
-  CIERRE_INSCRIPCION: '2026-08-29T23:59:59-06:00',
+  // El registro queda abierto hasta el arranque del evento.
+  CIERRE_INSCRIPCION: '2026-09-05T12:00:00-06:00',
 
   // Grupos válidos de la Asociación (misma lista que includes/data/grupos.json
   // en el sitio; si se da de alta un grupo nuevo hay que actualizarla aquí).
@@ -183,7 +184,7 @@ function handleRegistro(data) {
   if (!inscripcionAbierta()) {
     return jsonResponse({
       ok: false, code: 'closed',
-      error: 'El periodo de inscripción ya cerró (29 de agosto).'
+      error: 'El periodo de inscripción ya cerró (el Rally ya comenzó).'
     });
   }
 

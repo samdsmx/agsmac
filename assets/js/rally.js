@@ -123,6 +123,9 @@
 		if (btn) btn.addEventListener('click', start);
 		boot.addEventListener('click', start);
 		doc.addEventListener('keydown', function (e) {
+			// No arrancar si el aviso de materiales está abierto encima
+			var mat = doc.getElementById('mat-modal');
+			if (mat && mat.classList.contains('open')) return;
 			if (!started && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); start(); }
 		});
 	}
@@ -264,6 +267,55 @@
 	}
 
 	/* ------------------------------------------------------------
+	   Aviso emergente de materiales
+	   ------------------------------------------------------------ */
+	function initMaterialsModal() {
+		var modal = doc.getElementById('mat-modal');
+		if (!modal) return;
+
+		var openBtn = doc.getElementById('mat-btn');
+		var lastFocus = null;
+
+		function open() {
+			if (modal.classList.contains('open')) return;
+			lastFocus = doc.activeElement;
+			modal.hidden = false;
+			doc.body.classList.add('locked');
+			// Fuerza un reflow para que la transición de entrada corra
+			void modal.offsetWidth;
+			modal.classList.add('open');
+			var ok = modal.querySelector('.mat-ok');
+			if (ok) ok.focus();
+		}
+
+		function close() {
+			if (!modal.classList.contains('open')) return;
+			modal.classList.remove('open');
+			// Si la pantalla de arranque sigue arriba, el scroll debe seguir bloqueado
+			var boot = doc.getElementById('boot');
+			if (!boot || boot.classList.contains('done')) {
+				doc.body.classList.remove('locked');
+			}
+			setTimeout(function () { modal.hidden = true; }, 260);
+			if (lastFocus && lastFocus.focus) lastFocus.focus();
+		}
+
+		var closers = modal.querySelectorAll('[data-mat-close]');
+		for (var i = 0; i < closers.length; i++) {
+			closers[i].addEventListener('click', close);
+		}
+
+		doc.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape' && modal.classList.contains('open')) close();
+		});
+
+		if (openBtn) openBtn.addEventListener('click', open);
+
+		// Se despliega desde la pantalla de arranque, encima de ella
+		setTimeout(open, 600);
+	}
+
+	/* ------------------------------------------------------------
 	   Arranque
 	   ------------------------------------------------------------ */
 	function init() {
@@ -273,6 +325,7 @@
 		initReveal();
 		initCopy();
 		initHudTools();
+		initMaterialsModal();
 	}
 
 	if (doc.readyState === 'loading') {

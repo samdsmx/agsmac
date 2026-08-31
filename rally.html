@@ -237,7 +237,7 @@
 				<div class="card">
 					<div class="ico">&#128247;</div>
 					<h4>INSTAGRAM DE PATRULLA</h4>
-					<p>Creado <b>antes del 29 de agosto</b>.</p>
+					<p>Creado <b>antes de que arranque el Rally</b>.</p>
 					<p class="warn">Público. No cuentas personales.</p>
 				</div>
 				<div class="card">
@@ -406,7 +406,7 @@
 					<span class="who">LO DIGITAL</span>
 					<p><b>Computadora</b> con internet, disponible toda la actividad. Aquí trabajan juntos,
 						no cada quien en su celular.</p>
-					<p><b>Instagram de patrulla</b> creado antes del 29 de agosto, en modo público.</p>
+					<p><b>Instagram de patrulla</b> creado antes de que arranque el Rally, en modo público.</p>
 					<p><b>Discord</b>: basta con que un integrante tenga cuenta, aunque todos pueden entrar e interactuar.</p>
 					<p><b>Cámara</b> (puede ser un celular) que pase el material a la computadora o pueda publicar en el instagram de la patrulla.</p>
 				</div>
@@ -489,7 +489,8 @@
 						<span class="who">&#128221; EL SECRETARIO</span>
 						<p>Llena el formulario de abajo. Va a necesitar el nombre de cada integrante
 							y el reparto de los cargos ya acordado.</p>
-						<p>Inscripciones <b>del 7 al 29 de agosto</b>. No habrá prórroga.</p>
+						<p>Inscripciones <b>abiertas hasta el 5 de septiembre a las 12:00 p.m.</b>,
+							cuando arranca el Rally.</p>
 					</div>
 
 					<div class="dialog">
@@ -595,7 +596,7 @@
 						<p class="od-ref">
 							Pongan como referencia o concepto el <b>nombre de la patrulla y su grupo</b>.
 							Manden el comprobante a <a data-correo href="mailto:contacto@agsmac.org">contacto@agsmac.org</a>
-							antes del <b>29 de agosto</b>.
+							antes del <b>5 de septiembre</b>.
 						</p>
 					</div>
 
@@ -641,7 +642,7 @@
 							un correo con la patrulla y el grupo ya escritos y solo adjunta la foto
 							o el PDF.
 						</p>
-						<p><b>Tienen hasta el 29 de agosto.</b></p>
+						<p><b>Tienen hasta el 5 de septiembre.</b></p>
 					</div>
 
 
@@ -664,6 +665,8 @@
 			<div class="foot-tools">
 				<button class="foot-btn" id="mode-btn" type="button"
 					title="Ver la convocatoria completa de corrido">VER TODO</button>
+				<button class="foot-btn" id="mat-btn" type="button"
+					title="Ver la lista de materiales">MATERIALES</button>
 				<button class="foot-btn" id="fx-btn" type="button" aria-pressed="true">FX: ON</button>
 			</div>
 			Asociación de Grupos de Scouts de México, A.C.<br />
@@ -674,6 +677,110 @@
 
 
 	<div id="toast">COPIADO</div>
+
+	<!-- ============================================================
+	     AVISO EMERGENTE · MATERIALES
+	     ============================================================ -->
+	<div id="mat-modal" class="mat-modal" role="dialog" aria-modal="true"
+		aria-labelledby="mat-title" hidden>
+		<div class="mat-backdrop" data-mat-close></div>
+
+		<div class="mat-box" role="document">
+			<div class="mat-head">
+				<p class="mat-kicker">&#9888; AVISO IMPORTANTE</p>
+				<h2 id="mat-title">MATERIALES DEL RALLY</h2>
+				<p class="mat-sub">
+					Prepárenlos <b>antes</b> del 5 de septiembre.
+				</p>
+				<button class="mat-x" type="button" data-mat-close aria-label="Cerrar aviso">
+					&#10005; CERRAR
+				</button>
+			</div>
+
+			<div class="mat-body">
+
+				<!-- 1 · COCINERO -->
+				<section class="mat-card c-cocinero">
+					<h3><span class="mat-n">01</span> COCINERO · MENÚ</h3>
+
+					<p class="mat-lead">
+						<b>Comida del sábado:</b> el platillo se prepara <b>solo</b> con ingredientes
+						de estas listas.
+					</p>
+
+					<ul class="mat-tags">
+						<li><span class="mat-tag t-mag">PROTEÍNAS</span>
+							Pollo, res, cerdo, pescado.</li>
+						<li><span class="mat-tag t-neon">VEGETALES</span>
+							Calabaza, pimiento, jitomate, tomate, zanahoria, papa, limón, chayote,
+							espinaca, cebolla, chile verde, chile seco.</li>
+						<li><span class="mat-tag t-cyan">OTROS</span>
+							Arroz, harina, pasta para sopa, queso, fruta.</li>
+						<li><span class="mat-tag t-gold">LIBRE</span>
+							Cualquier especia y sazonador.</li>
+					</ul>
+
+					<div class="mat-notes">
+						<p><b>Cena del sábado:</b> libre.</p>
+						<p><b>Desayuno del domingo:</b> <b class="mat-warn">sin fuego ni estufa.</b></p>
+					</div>
+				</section>
+
+				<!-- 2 · POR SCOUT -->
+				<section class="mat-card c-scout">
+					<h3><span class="mat-n">02</span> CADA SCOUT · ARTE</h3>
+
+					<ul class="mat-list">
+						<li>Media cartulina.</li>
+						<li>Cada scout lleva <b>un solo tipo</b> de material de arte, a su elección,
+							para una manualidad.</li>
+					</ul>
+
+					<p class="mat-hint">
+						<b>Ejemplos:</b> plumones, lápices de colores, gises, pintura acrílica y pinceles,
+						acuarelas, revistas para recortar (con tijeras y lápiz adhesivo).
+					</p>
+				</section>
+
+				<!-- 3 · INTENDENTE -->
+				<section class="mat-card c-intendente">
+					<h3><span class="mat-n">03</span> INTENDENTE</h3>
+
+					<p class="mat-lead">La patrulla debe tener a la mano:</p>
+
+					<ul class="mat-list">
+						<li><b>1</b> linterna</li>
+						<li><b>20</b> palitos de madera</li>
+						<li>Hilo</li>
+						<li><b>10</b> ligas</li>
+					</ul>
+				</section>
+
+				<!-- 4 · GUARDIÁN -->
+				<section class="mat-card c-guardian">
+					<h3><span class="mat-n">04</span> GUARDIÁN DE LEYENDAS</h3>
+
+					<ul class="mat-list">
+						<li><b>Archivo histórico digital:</b> fotos de la patrulla, de sus marcos
+							simbólicos y de imágenes de su mística (tótems, estrellas, animales).</li>
+						<li><b>Software de diseño:</b> familiarizarse con alguna herramienta de diseño
+							o dibujo <em>(PowerPoint, Google Slides, Canva…)</em>.</li>
+						<li><b>Inteligencia artificial:</b> familiarizarse con alguna herramienta de IA
+							<em>(ChatGPT, Gemini, Claude…)</em>.</li>
+					</ul>
+				</section>
+
+			</div>
+
+			<div class="mat-foot">
+				<button class="mat-ok" type="button" data-mat-close>CERRAR Y CONTINUAR</button>
+				<p class="mat-foot-hint">
+					Puedes volver a esta lista cuando quieras con el botón
+					<b>MATERIALES</b> al final de la página.
+				</p>
+			</div>
+		</div>
+	</div>
 
 	<script src="assets/js/rally.js"></script>
 	<script src="assets/js/rally-adventure.js"></script>
