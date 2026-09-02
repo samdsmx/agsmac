@@ -61,10 +61,18 @@
 		toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2600);
 	}
 
+	/* Devuelve null si no se pudo leer. Quien llama DEBE avisar al usuario:
+	   un fallo silencioso aquí deja la página a medias sin explicación
+	   (fue exactamente lo que pasó con la lista de grupos vacía). */
 	function getJSON(url) {
 		return fetch(url, { cache: 'no-store' })
 			.then(function (r) { return r.ok ? r.json() : null; })
 			.catch(function () { return null; });
+	}
+
+	/** true si la página se abrió con doble clic (file://) en vez de por HTTP. */
+	function sinServidor() {
+		return location.protocol === 'file:';
 	}
 
 	/* Apps Script no responde a preflight OPTIONS: se manda el POST sin
@@ -116,8 +124,6 @@
 		var i = (CFG && CFG.intro) || {};
 		if (i.titulo) $('#tv-titulo').textContent = i.titulo;
 		if (i.subtitulo) $('#tv-subtitulo').textContent = i.subtitulo;
-		$('#tv-lead').textContent = i.lead || '';
-		$('#tv-cierre').textContent = i.cierre || '';
 	}
 
 	function pintarGrupos(grupos) {
@@ -146,7 +152,6 @@
 			return out;
 		});
 	}
-
 	// ── Render del juego ────────────────────────────────────────
 	function pintarHud() {
 		if (!ESTADO) { hide('#tv-hud-patrol'); hide('#tv-salir'); return; }
@@ -432,10 +437,26 @@
 		estrellas();
 		conectarEventos();
 
+		if (sinServidor()) {
+			msg('#tv-intro-msg',
+				'Esta página no funciona abriéndola con doble clic. Ábranla desde ' +
+				'la dirección que les compartió el Comité.', 'err');
+			$('#tv-entrar').disabled = true;
+			return;
+		}
+
 		Promise.all([getJSON(CONFIG_URL), cargarGrupos()])
 			.then(function (r) {
 				CFG = r[0] || {};
 				pintarIntro();
+
+				if (!r[1] || !r[1].length) {
+					msg('#tv-intro-msg',
+						'No pudimos cargar la lista de grupos. Recarguen la página; si sigue ' +
+						'vacía, avisen al Comité.', 'err');
+					$('#tv-entrar').disabled = true;
+					return null;
+				}
 
 				if (!CFG.appsScriptUrl) {
 					msg('#tv-intro-msg',

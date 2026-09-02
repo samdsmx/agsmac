@@ -74,15 +74,22 @@
 
 /* El PIN se ve como una casilla corta y espaciada, no como un campo de texto.
    Va en claro a propósito: con puntos no se alcanza a ver si ya escribieron
-   los 4 dígitos o les falta uno. */
+   los 4 dígitos o les falta uno.
+
+   Ojo con el ancho: el sitio usa box-sizing:border-box, así que max-width
+   incluye el padding. Se usa la fuente del cuerpo (VT323, estrecha) y no la
+   pixelada (Press Start 2P avanza 1em por glifo y no cabían los 4 dígitos).
+   El text-indent compensa el letter-spacing que sobra a la derecha del último
+   dígito, para que se vean centrados. */
 .tv-input-pin {
-	max-width: 190px;
-	letter-spacing: 0.55em;
+	width: 100%;
+	max-width: 260px;
+	font-family: var(--body);
+	font-size: 2rem;
+	letter-spacing: 0.4em;
+	text-indent: 0.4em;
 	text-align: center;
-	font-size: 1.7rem;
-	font-family: var(--pixel);
 	color: var(--gold);
-	padding-left: 0.55em;
 }
 
 .tv-hint {
