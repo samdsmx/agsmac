@@ -4,7 +4,8 @@ agsmac.iml
 package-lock.json
 
 # Backups creados por scripts/optimize-images.js cuando se usa --write
-images/_originals/
+# (el script los deja junto a la carpeta procesada, no solo en images/)
+_originals/
 
 # Carpeta de trabajo temporal (assets en proceso, scratch, etc.)
 Temp/

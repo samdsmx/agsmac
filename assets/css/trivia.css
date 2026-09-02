@@ -1,0 +1,372 @@
+/* ============================================================
+   TRIVIA · VIII Rally Virtual — AGSMAC
+   Complementa assets/css/rally.css (fondo, tipografías, .panel,
+   #hud, #toast). Aquí solo lo específico de la trivia.
+   ============================================================ */
+
+/* rally.css oculta los paneles hasta que el scroll los revela.
+   En la trivia el contenido cambia solo, así que siempre visibles. */
+#game .panel { opacity: 1; transform: none; }
+
+.tv-hide { display: none !important; }
+
+/* ---------- Cambio de pantalla ---------- */
+.tv-screen { animation: tv-in 0.35s ease both; }
+
+@keyframes tv-in {
+	from { opacity: 0; transform: translateY(14px); }
+	to   { opacity: 1; transform: none; }
+}
+
+/* ---------- HUD de la patrulla ---------- */
+.tv-hud-patrol {
+	font-family: var(--pixel);
+	font-size: 0.55rem;
+	color: var(--gold);
+	line-height: 2;
+	text-align: right;
+}
+
+.tv-hud-patrol small {
+	display: block;
+	color: var(--muted);
+	font-family: var(--body);
+	font-size: 1rem;
+	line-height: 1.2;
+}
+
+/* ---------- Formulario de acceso ---------- */
+.tv-form {
+	display: grid;
+	gap: 16px;
+	max-width: 520px;
+	margin: 26px auto 0;
+}
+
+.tv-field label {
+	display: block;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	color: var(--cyan);
+	margin-bottom: 9px;
+	line-height: 1.8;
+}
+
+.tv-input,
+.tv-select {
+	width: 100%;
+	background: rgba(0, 0, 0, 0.45);
+	border: 2px solid var(--line);
+	color: var(--text);
+	font-family: var(--body);
+	font-size: 1.25rem;
+	padding: 12px 14px;
+	outline: none;
+}
+
+.tv-input:focus,
+.tv-select:focus {
+	border-color: var(--neon);
+	box-shadow: 0 0 0 3px rgba(57, 255, 20, 0.16);
+}
+
+.tv-select option { background: var(--bg-2); color: var(--text); }
+
+/* El PIN se ve como una casilla corta y espaciada, no como un campo de texto. */
+.tv-input-pin {
+	max-width: 170px;
+	letter-spacing: 0.55em;
+	text-align: center;
+	font-size: 1.6rem;
+	padding-left: 0.55em;
+}
+
+.tv-hint {
+	margin: 9px 0 0;
+	font-size: 0.92rem;
+	line-height: 1.5;
+	color: var(--muted, #b9c2cc);
+}
+
+.tv-hint strong { color: var(--gold); }
+
+/* ---------- Botones ---------- */
+.tv-btn {
+	display: inline-block;
+	font-family: var(--pixel);
+	font-size: 0.62rem;
+	line-height: 1.9;
+	padding: 15px 26px;
+	border: 0;
+	cursor: pointer;
+	background: var(--neon);
+	color: var(--bg);
+	box-shadow: 0 5px 0 var(--neon-dim);
+	transition: filter 0.15s ease, transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.tv-btn:hover:not(:disabled) { filter: brightness(1.12); }
+
+.tv-btn:active:not(:disabled) {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 var(--neon-dim);
+}
+
+.tv-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.tv-btn.ghost {
+	background: transparent;
+	color: var(--cyan);
+	border: 2px solid var(--line);
+	box-shadow: none;
+	font-size: 0.52rem;
+	padding: 11px 18px;
+}
+
+.tv-btn.ghost:hover:not(:disabled) {
+	border-color: var(--cyan);
+	background: rgba(0, 229, 255, 0.09);
+}
+
+.tv-btn.ghost:active:not(:disabled) { transform: none; }
+
+.tv-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+	justify-content: center;
+	margin-top: 8px;
+}
+
+/* ---------- Barra de progreso ---------- */
+.tv-progress { margin: 0 0 26px; }
+
+.tv-progress .track {
+	height: 12px;
+	background: rgba(0, 0, 0, 0.5);
+	border: 2px solid var(--line);
+	overflow: hidden;
+}
+
+.tv-progress .fill {
+	height: 100%;
+	width: 0;
+	background: linear-gradient(90deg, var(--neon), var(--cyan));
+	transition: width 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.tv-progress .meta {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	flex-wrap: wrap;
+	margin-top: 10px;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	line-height: 2;
+	color: var(--muted);
+}
+
+.tv-progress .meta b { color: var(--neon); font-weight: normal; }
+
+/* ---------- Pregunta ---------- */
+.tv-kicker {
+	font-family: var(--pixel);
+	font-size: 0.55rem;
+	color: var(--magenta);
+	line-height: 2;
+	margin: 0 0 6px;
+	text-transform: uppercase;
+}
+
+.tv-level {
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	color: var(--cyan);
+	line-height: 2;
+	margin: 0 0 18px;
+}
+
+.tv-question {
+	font-size: 1.45rem;
+	line-height: 1.5;
+	color: var(--text);
+	margin: 0 0 22px;
+}
+
+.tv-figure {
+	margin: 0 0 24px;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.96);
+	border: 2px solid var(--line);
+	padding: 18px;
+}
+
+.tv-figure img {
+	max-width: 100%;
+	max-height: 420px;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+}
+
+/* ---------- Caja de respuesta ---------- */
+.tv-answer {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+
+.tv-answer .tv-input { flex: 1 1 260px; width: auto; font-size: 1.35rem; }
+
+.tv-answer .tv-btn { flex: 0 0 auto; }
+
+.tv-msg {
+	margin: 16px 0 0;
+	font-size: 1.15rem;
+	min-height: 1.6em;
+}
+
+.tv-msg.err  { color: var(--danger); }
+.tv-msg.ok   { color: var(--neon); }
+.tv-msg.warn { color: var(--gold); }
+
+.tv-shake { animation: tv-shake 0.4s ease; }
+
+@keyframes tv-shake {
+	0%, 100% { transform: translateX(0); }
+	20% { transform: translateX(-9px); }
+	40% { transform: translateX(9px); }
+	60% { transform: translateX(-5px); }
+	80% { transform: translateX(5px); }
+}
+
+/* ---------- Pantalla de acierto / dato curioso ---------- */
+.tv-correct {
+	text-align: center;
+	border-color: var(--neon);
+	background: rgba(57, 255, 20, 0.06);
+}
+
+.tv-correct .tv-stamp {
+	font-family: var(--pixel);
+	font-size: 1rem;
+	color: var(--neon);
+	line-height: 1.9;
+	margin: 0 0 18px;
+	animation: tv-pop 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+
+@keyframes tv-pop {
+	from { transform: scale(0.5); opacity: 0; }
+	to   { transform: scale(1); opacity: 1; }
+}
+
+.tv-fact {
+	text-align: left;
+	border-left: 4px solid var(--gold);
+	padding: 4px 0 4px 18px;
+	margin: 0 auto 26px;
+	max-width: 760px;
+	font-size: 1.2rem;
+	color: var(--text);
+}
+
+.tv-fact .tv-fact-title {
+	display: block;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	color: var(--gold);
+	line-height: 2;
+	margin-bottom: 8px;
+}
+
+/* ---------- Ranklist ---------- */
+.tv-rank-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 14px;
+	flex-wrap: wrap;
+	margin-bottom: 16px;
+}
+
+.tv-rank-head .tv-updated {
+	font-size: 1rem;
+	color: var(--muted);
+}
+
+.tv-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1.12rem;
+}
+
+.tv-table th {
+	font-family: var(--pixel);
+	font-size: 0.44rem;
+	line-height: 2.1;
+	color: var(--cyan);
+	text-align: left;
+	padding: 10px 8px;
+	border-bottom: 2px solid var(--line);
+	white-space: nowrap;
+}
+
+.tv-table td {
+	padding: 11px 8px;
+	border-bottom: 1px solid rgba(0, 229, 255, 0.16);
+	color: var(--text);
+}
+
+.tv-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.tv-table tr.me td {
+	background: rgba(57, 255, 20, 0.1);
+	color: var(--neon);
+}
+
+.tv-table tr.done td .tv-flag {
+	color: var(--gold);
+	margin-left: 8px;
+}
+
+.tv-table .pos {
+	font-family: var(--pixel);
+	font-size: 0.55rem;
+	color: var(--gold);
+	width: 1%;
+	white-space: nowrap;
+}
+
+.tv-table .grupo { color: var(--muted); font-size: 1rem; }
+
+.tv-empty {
+	color: var(--muted);
+	text-align: center;
+	padding: 26px 0;
+	font-size: 1.1rem;
+}
+
+/* ---------- Final ---------- */
+.tv-finish { text-align: center; }
+
+.tv-finish .tv-stamp {
+	font-family: var(--pixel);
+	font-size: 1.15rem;
+	color: var(--gold);
+	line-height: 1.9;
+	margin: 0 0 20px;
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 700px) {
+	.tv-question { font-size: 1.28rem; }
+	.tv-answer { flex-direction: column; }
+	.tv-answer .tv-btn { width: 100%; }
+	.tv-table th, .tv-table td { padding: 9px 5px; }
+	.tv-table .hide-sm { display: none; }
+	.tv-hud-patrol { text-align: left; }
+}

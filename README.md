@@ -41,6 +41,7 @@ El sitio queda disponible en <http://localhost:8082>.
 │       ├── cuadro-de-adelanto.json Cuadro de Honor (insignias máximas)
 │       ├── album-fotografico.json  Álbumes de Google Photos (galería)
 │       ├── calendario.json Calendario de Actividades (escudos bordados)
+│       ├── trivia.json     Trivia del Rally (SOLO backend y textos, sin preguntas)
 │       └── historia.json   Línea del tiempo (GENERADO — no editar a mano)
 ├── images/
 │   ├── grupos/             Pañoletas (PNG transparentes)
@@ -48,6 +49,7 @@ El sitio queda disponible en <http://localhost:8082>.
 │   ├── secciones/          Iconos animados de las secciones
 │   ├── biblioteca/         Portadas de libros (base/ + secciones/)
 │   ├── historia/           Imágenes de la línea del tiempo (<año>-agenda/cinta, etc.)
+│   ├── trivia/             Imágenes de las preguntas de la trivia del Rally
 │   └── pic*.jpg            Imágenes del mosaico de la home
 ├── pdfs/
 │   └── biblioteca/         PDFs descargables de la Biblioteca
@@ -764,6 +766,7 @@ servidor de Discord que funciona como cuartel general del evento.
 | `helpers/discord/` | Scripts que arman y operan el servidor de Discord. |
 | `docs/discord-servidor.md` | Guía del servidor de Discord (con script y a mano). |
 | `Temp/VIIIRally/00-CONTEXTO.md` | Decisiones y acuerdos del evento. |
+| `trivia.html` + `assets/js/trivia.js` + `assets/css/trivia.css` | La trivia de la base de conocimientos (ver 8.d). |
 
 ### Servidor de Discord
 
@@ -795,6 +798,152 @@ Se pone en `includes/data/rally.json` → `evento.discordInvite`. En cuanto teng
 los botones «ENTRAR AL DISCORD» aparecen solos en `rally.html` (elementos marcados con
 `data-discord`); mientras esté vacía se muestra un aviso de "próximamente" en su lugar.
 **No hay que tocar el HTML.**
+
+---
+
+## 8.d. Trivia del Rally (base de conocimientos)
+
+Trivia por niveles para una base del Rally: se presenta **una sola pregunta a la vez** y
+hasta que la patrulla la responde correctamente se desbloquea la siguiente. Hay un
+**ranklist en vivo** y al acertar se muestra un **dato curioso**. La respuesta es abierta
+(por lo general una o dos palabras).
+
+La página es interna: lleva `noindex` y **no está enlazada desde ningún menú**. Se comparte
+por el canal de la base en Discord.
+
+### Archivos
+
+| Archivo | Para qué |
+|---|---|
+| `trivia.html` | La página. |
+| `assets/js/trivia.js` | Motor: acceso, pregunta actual, intentos, ranklist. Sin jQuery. |
+| `assets/css/trivia.css` | Estilos propios. Hereda fondo y tipografías de `rally.css`. |
+| `includes/data/trivia.json` | `appsScriptUrl` y los textos de la portada. **No contiene preguntas.** |
+| `docs/apps-script-trivia.gs` | Backend **y banco de preguntas inicial** (Apps Script + Google Sheet). |
+| `images/trivia/` | Imágenes de las preguntas ilustradas. |
+
+### Por qué las respuestas NO viven en el repositorio
+
+Todo lo que se publica en GitHub Pages es público: un JSON con las respuestas se lee con
+«ver código fuente». Por eso las preguntas **y** sus respuestas viven en la Google Sheet
+privada, y el sitio solo pide la pregunta del nivel en el que va la patrulla y manda el
+intento al backend para que lo compare. Nunca se entrega la siguiente pregunta sin haber
+resuelto la de en medio.
+
+### Configurar (primera vez)
+
+1. Crea una Google Sheet nueva → Extensiones → Apps Script.
+2. Pega **todo** `docs/apps-script-trivia.gs` en `Code.gs`.
+3. Ajusta `CONFIG` (sobre todo `APERTURA` y `CIERRE`).
+4. Ejecuta la función `setup` una vez: crea las hojas `Preguntas`, `Avance` e `Intentos`
+   y carga las **69 preguntas** iniciales.
+5. Implementar → Nueva implementación → Aplicación web · Ejecutar como **yo** · Acceso
+   **cualquier persona**.
+6. Pega la URL `/exec` en `includes/data/trivia.json` → `appsScriptUrl`.
+
+Mientras `appsScriptUrl` esté vacía, la página carga pero avisa que la trivia no está
+habilitada y deshabilita el botón de entrar.
+
+### Configurar las preguntas
+
+Se editan **en la hoja `Preguntas`**, una fila por nivel. Los niveles se juegan en el orden
+de la columna `Nivel`; poner `Activa = NO` saca una pregunta sin borrarla y los niveles se
+renumeran solos.
+
+| Columna | Qué va |
+|---|---|
+| `Nivel` | Orden. |
+| `Activa` | `SI` / `NO`. |
+| `Pista` | Palabra corta que encabeza la pregunta (`Nudo`, `Fundador`…). Puede ir vacía. |
+| `Enunciado` | La pregunta. Puede ir vacía si la imagen se explica sola. |
+| `Imagen` | `images/trivia/xxx.png` o URL completa. Vacío = pregunta de solo texto. |
+| `Respuestas` | Respuestas aceptadas separadas por `\|`. |
+| `Explicacion` | Dato curioso que se muestra al acertar. |
+
+**Editar la hoja NO requiere volver a implementar el Apps Script** (se lee en vivo). Solo
+cambiar el código `.gs` obliga a publicar una versión nueva.
+
+### Cómo se compara una respuesta
+
+Siempre se ignoran mayúsculas, acentos, signos, espacios de sobra y artículos iniciales
+(`el`, `la`, `un`, `nudo de`, `insignia de`…). Además, cada opción de la columna
+`Respuestas` admite un prefijo:
+
+| Escribes | Significa |
+|---|---|
+| `ballestrinque` | Normal. Perdona erratas pequeñas según `CONFIG.TOLERANCIA`. |
+| `=1908` | Exacta, sin tolerancia. **Úsalo siempre para números** (si no, `1918` pasaría por `1908`). |
+| `~gilwell` | Acierta si la respuesta escrita contiene ese texto. |
+| `#lealtad abnegacion pureza` | Deben aparecer todas esas palabras, en cualquier orden. |
+
+Ejemplo: `rizo|nudo de rizo|llano|cuadrado`
+
+### Ranklist y desempate
+
+1. Más preguntas resueltas.
+2. Menos tiempo entre que entró y su último acierto.
+3. Menos intentos.
+
+Los intentos fallidos **no penalizan**, solo se cuentan y sirven de desempate. Se refresca
+solo cada `rankingRefrescoSegundos` (por defecto 45 s) y con el botón ACTUALIZAR.
+
+### Identificación de la patrulla y PIN
+
+La patrulla entra con **Grupo + nombre de patrulla + un PIN de 4 dígitos**. El PIN lo
+inventan ellas mismas en su primer ingreso y queda guardado en la hoja `Avance`. Sin ese
+PIN nadie puede entrar a su avance, aunque conozca el nombre y el grupo.
+
+El nombre se normaliza antes de buscar: se ignoran mayúsculas, acentos, espacios de sobra
+y los prefijos de `CONFIG.NOMBRE_PREFIJOS` (`los`, `las`, `la`, `el`, `patrulla de`). Así
+`Los Chorlitos`, `chorlitos` y `Patrulla de los Chorlitos` son la misma patrulla y no
+crean filas duplicadas con el avance en cero. Lo que **no** se aplica aquí es la
+tolerancia a erratas, a propósito: `Lobos` y `Lobas` deben poder coexistir como patrullas
+distintas del mismo grupo.
+
+Tras `CONFIG.PIN_MAX_FALLOS` (5) PIN incorrectos seguidos, el reingreso de esa patrulla se
+bloquea `CONFIG.PIN_BLOQUEO_MINUTOS` (10) minutos. Sin eso, un PIN de 4 dígitos se adivina
+con un script en segundos.
+
+Columnas de la hoja `Avance`:
+
+| Col | Campo | |
+|---|---|---|
+| A | `Token` | Credencial de sesión. Es lo que guarda el navegador, no el PIN. |
+| B | `Patrulla` | Nombre tal como lo escribieron la primera vez. |
+| C | `Grupo` | |
+| D | `PIN` | 4 dígitos, en texto plano. Formateada como texto para no perder el cero inicial. |
+| E | `Inicio` | Cuándo entró por primera vez. Base del desempate por tiempo. |
+| F | `Nivel` | Siguiente nivel por resolver. |
+| G–I | `Resueltas`, `Intentos`, `Fallos` | Contadores. |
+| J–K | `Ultimo acierto`, `Ultimo intento` | |
+| L | `Terminada` | Cuándo resolvió el último nivel. |
+| M–N | `Fallos PIN`, `Bloqueo PIN` | Control del bloqueo por fuerza bruta. Vaciarlas desbloquea a mano. |
+
+> El PIN está en texto plano **a propósito**: si una patrulla lo olvida en plena base, el
+> Comité lo lee en la hoja y se los dice. No protege nada sensible, solo evita que otra
+> patrulla se meta a su avance.
+
+### Durante el evento
+
+- Si una patrulla vuelve a entrar con los mismos datos (aunque sea desde otra computadora)
+  recupera su avance: el progreso vive en el servidor, no en el navegador. En el mismo
+  navegador ni siquiera tiene que teclear el PIN de nuevo, porque el token quedó guardado.
+- **Olvidaron su PIN**: búscala en la hoja `Avance` y díselos, o cámbiale la celda `PIN`
+  por uno nuevo. Toma efecto de inmediato.
+- **Quedó bloqueada por PIN**: vacía sus celdas `Fallos PIN` y `Bloqueo PIN`.
+- Hoja `Intentos`: bitácora de cada respuesta. Es la herramienta de oro para detectar una
+  respuesta válida que se esté rechazando. Si ves que varias patrullas escriben lo mismo y
+  falla, **agrégala como opción más** en la celda `Respuestas` de esa fila: toma efecto de
+  inmediato.
+- Hoja `Avance`: para reiniciar a una patrulla, borra su fila completa (perderá también su
+  PIN, así que podrá elegir uno nuevo).
+- `reiniciarAvance()` borra el avance y la bitácora de todas. Las preguntas no se tocan.
+
+### Imágenes de las preguntas
+
+Van en `images/trivia/` con nombre descriptivo en kebab-case
+(`nudo-ballestrinque.png`, `identificativo-lobatos.gif`). Ojo: el workflow
+`optimize-images.yml` recomprime `images/**` en cada push, así que se optimizan solas.
 
 ---
 

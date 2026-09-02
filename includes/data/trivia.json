@@ -1,0 +1,35 @@
+{
+  "_comentario": "Configuración de la Trivia del VIII Rally Virtual. IMPORTANTE: las PREGUNTAS y sus RESPUESTAS no viven aquí. Viven en la hoja privada de Google Sheets que atiende docs/apps-script-trivia.gs, porque todo lo que se publica en este repositorio es público y cualquiera podría leer las respuestas. Aquí solo van la URL del backend y los textos de la página.",
+
+  "_comoConfigurarPreguntas": "Abre la Google Sheet de la trivia, hoja 'Preguntas'. Una fila por nivel: Nivel | Activa (SI/NO) | Pista | Enunciado | Imagen | Respuestas | Explicacion. Las respuestas aceptadas se separan con | (barra). Prefijos: = exacta, ~ contiene, # conjunto de palabras en cualquier orden. Editar la hoja NO requiere volver a implementar el Apps Script.",
+
+  "appsScriptUrl": "https://script.google.com/a/macros/agsmac.org/s/AKfycbxyhde1g5GV4hoi6_hEb2-7UBQHb3cfWlzfkYOPX_irxRHBwPKYtc6pwXN6or-MIg0k/exec",
+
+  "evento": {
+    "nombre": "VIII Rally Virtual Tropas",
+    "base": "Base de Trivia",
+    "correo": "contacto@agsmac.org",
+    "discordInvite": "https://discord.gg/S6tWPeyeAv"
+  },
+
+  "intro": {
+    "titulo": "TRIVIA",
+    "subtitulo": "VIII Rally Virtual Tropas · AGSMAC",
+    "lead": "Como parte de los retos del Rally les presentamos una trivia de conocimientos, con el fin de divertirnos, aprender y demostrar ¡qué patrulla es la mejor!",
+    "bases": [
+      "La trivia está por niveles: se les presenta una sola pregunta a la vez.",
+      "Hasta que la resuelvan correctamente se desbloquea la siguiente.",
+      "Las respuestas son abiertas: por lo general una o dos palabras.",
+      "No importan los acentos, las mayúsculas ni una errata pequeña.",
+      "Pueden intentar las veces que quieran, pero cada intento se cuenta y sirve para desempatar.",
+      "El ranklist está disponible en todo momento para que vean cómo van.",
+      "Al entrar la primera vez eligen un PIN de 4 dígitos. ANÓTENLO: es lo que les permite volver a su avance y evita que alguien más entre en su lugar.",
+      "Su avance se guarda: pueden cerrar y volver desde otra computadora con el mismo nombre de patrulla, grupo y PIN."
+    ],
+    "cierre": "¿Cuál será la primera patrulla en resolverla? ¡Diviértanse, aprendan y participen!"
+  },
+
+  "desempate": "Primero gana quien resuelva más preguntas. Si empatan, gana quien haya tardado menos desde que entró. Si siguen empatadas, gana la que usó menos intentos.",
+
+  "rankingRefrescoSegundos": 45
+}
