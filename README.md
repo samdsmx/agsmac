@@ -766,7 +766,7 @@ servidor de Discord que funciona como cuartel general del evento.
 | `helpers/discord/` | Scripts que arman y operan el servidor de Discord. |
 | `docs/discord-servidor.md` | Guía del servidor de Discord (con script y a mano). |
 | `Temp/VIIIRally/00-CONTEXTO.md` | Decisiones y acuerdos del evento. |
-| `trivia.html` + `assets/js/trivia.js` + `assets/css/trivia.css` | La trivia de la base de conocimientos (ver 8.d). |
+| `trivia.html` + `ranklist-trivia.html` | La trivia de la base de conocimientos y su ranklist (ver 8.d). |
 
 ### Servidor de Discord
 
@@ -804,20 +804,23 @@ los botones «ENTRAR AL DISCORD» aparecen solos en `rally.html` (elementos marc
 ## 8.d. Trivia del Rally (base de conocimientos)
 
 Trivia por niveles para una base del Rally: se presenta **una sola pregunta a la vez** y
-hasta que la patrulla la responde correctamente se desbloquea la siguiente. Hay un
-**ranklist en vivo** y al acertar se muestra un **dato curioso**. La respuesta es abierta
-(por lo general una o dos palabras).
+hasta que la patrulla la responde correctamente se desbloquea la siguiente. Al acertar se
+muestra un **dato curioso**. La respuesta es abierta (por lo general una o dos palabras).
+El **ranklist en vivo** está en su propia página, para poder dejarlo abierto en otra
+pantalla durante el evento.
 
-La página es interna: lleva `noindex` y **no está enlazada desde ningún menú**. Se comparte
-por el canal de la base en Discord.
+Ambas páginas son internas: llevan `noindex` y **no están enlazadas desde ningún menú**. Se
+comparten por el canal de la base en Discord.
 
 ### Archivos
 
 | Archivo | Para qué |
 |---|---|
-| `trivia.html` | La página. |
-| `assets/js/trivia.js` | Motor: acceso, pregunta actual, intentos, ranklist. Sin jQuery. |
-| `assets/css/trivia.css` | Estilos propios. Hereda fondo y tipografías de `rally.css`. |
+| `trivia.html` | La trivia: acceso y juego. |
+| `ranklist-trivia.html` | El ranklist, como página aparte. No pide identificarse. |
+| `assets/js/trivia.js` | Motor del juego: acceso, pregunta actual, intentos. Sin jQuery. |
+| `assets/js/trivia-ranklist.js` | Solo el ranklist: consulta, tabla y refresco automático. |
+| `assets/css/trivia.css` | Estilos de ambas páginas. Hereda fondo y tipografías de `rally.css`. |
 | `includes/data/trivia.json` | `appsScriptUrl` y los textos de la portada. **No contiene preguntas.** |
 | `docs/apps-script-trivia.gs` | Backend **y banco de preguntas inicial** (Apps Script + Google Sheet). |
 | `images/trivia/` | Imágenes de las preguntas ilustradas. |
@@ -880,6 +883,14 @@ Ejemplo: `rizo|nudo de rizo|llano|cuadrado`
 
 ### Ranklist y desempate
 
+Vive en **`ranklist-trivia.html`**, aparte de la trivia, para poder proyectarlo o dejarlo
+abierto en otra pantalla mientras las patrullas juegan. No pide identificarse: cualquiera
+con el enlace lo ve. Si en ese navegador hay una sesión de trivia guardada, resalta la fila
+de esa patrulla. Desde `trivia.html` se llega con el botón **VER RANKLIST**, que lo abre en
+una pestaña nueva para no perder la partida.
+
+Orden:
+
 1. Más preguntas resueltas.
 2. Menos tiempo entre que entró y su último acierto.
 3. Menos intentos.
@@ -903,6 +914,9 @@ distintas del mismo grupo.
 Tras `CONFIG.PIN_MAX_FALLOS` (5) PIN incorrectos seguidos, el reingreso de esa patrulla se
 bloquea `CONFIG.PIN_BLOQUEO_MINUTOS` (10) minutos. Sin eso, un PIN de 4 dígitos se adivina
 con un script en segundos.
+
+El campo del PIN se muestra **en claro** (no como `password`) a propósito: con puntos no se
+alcanza a ver si ya escribieron los 4 dígitos o les falta uno.
 
 Columnas de la hoja `Avance`:
 

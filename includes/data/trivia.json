@@ -15,17 +15,7 @@
   "intro": {
     "titulo": "TRIVIA",
     "subtitulo": "VIII Rally Virtual Tropas · AGSMAC",
-    "lead": "Como parte de los retos del Rally les presentamos una trivia de conocimientos, con el fin de divertirnos, aprender y demostrar ¡qué patrulla es la mejor!",
-    "bases": [
-      "La trivia está por niveles: se les presenta una sola pregunta a la vez.",
-      "Hasta que la resuelvan correctamente se desbloquea la siguiente.",
-      "Las respuestas son abiertas: por lo general una o dos palabras.",
-      "No importan los acentos, las mayúsculas ni una errata pequeña.",
-      "Pueden intentar las veces que quieran, pero cada intento se cuenta y sirve para desempatar.",
-      "El ranklist está disponible en todo momento para que vean cómo van.",
-      "Al entrar la primera vez eligen un PIN de 4 dígitos. ANÓTENLO: es lo que les permite volver a su avance y evita que alguien más entre en su lugar.",
-      "Su avance se guarda: pueden cerrar y volver desde otra computadora con el mismo nombre de patrulla, grupo y PIN."
-    ],
+    "lead": "Como parte de los retos del Rally les presentamos una trivia de conocimientos, con el fin de divertirnos, aprender y demostrar ¡qué patrulla es la mejor! Se les presenta una pregunta a la vez y hasta que la resuelvan se desbloquea la siguiente. Al entrar la primera vez eligen un PIN de 4 dígitos: anótenlo, es lo que les permite volver a su avance desde cualquier computadora.",
     "cierre": "¿Cuál será la primera patrulla en resolverla? ¡Diviértanse, aprendan y participen!"
   },
 

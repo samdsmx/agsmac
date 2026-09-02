@@ -72,12 +72,16 @@
 
 .tv-select option { background: var(--bg-2); color: var(--text); }
 
-/* El PIN se ve como una casilla corta y espaciada, no como un campo de texto. */
+/* El PIN se ve como una casilla corta y espaciada, no como un campo de texto.
+   Va en claro a propósito: con puntos no se alcanza a ver si ya escribieron
+   los 4 dígitos o les falta uno. */
 .tv-input-pin {
-	max-width: 170px;
+	max-width: 190px;
 	letter-spacing: 0.55em;
 	text-align: center;
-	font-size: 1.6rem;
+	font-size: 1.7rem;
+	font-family: var(--pixel);
+	color: var(--gold);
 	padding-left: 0.55em;
 }
 
@@ -90,6 +94,13 @@
 
 .tv-hint strong { color: var(--gold); }
 
+/* Pie de trivia.html: enlace al ranklist y salida de la patrulla. */
+.tv-footer {
+	margin-top: 26px;
+	padding-top: 18px;
+	border-top: 1px solid var(--line);
+}
+
 /* ---------- Botones ---------- */
 .tv-btn {
 	display: inline-block;
@@ -99,11 +110,16 @@
 	padding: 15px 26px;
 	border: 0;
 	cursor: pointer;
+	text-decoration: none;
+	text-align: center;
 	background: var(--neon);
 	color: var(--bg);
 	box-shadow: 0 5px 0 var(--neon-dim);
 	transition: filter 0.15s ease, transform 0.08s ease, box-shadow 0.08s ease;
 }
+
+a.tv-btn:hover { color: var(--bg); }
+a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-btn:hover:not(:disabled) { filter: brightness(1.12); }
 

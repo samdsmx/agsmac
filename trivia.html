@@ -58,11 +58,9 @@
 			</div>
 
 			<div class="panel visible">
-				<h3>&#9654; BASES</h3>
+				<h3>&#9654; LA TRIVIA</h3>
 				<p class="lead" id="tv-lead"></p>
-				<ul class="rules" id="tv-bases"></ul>
 				<p class="big-text hi" id="tv-cierre"></p>
-				<p class="note" id="tv-desempate"></p>
 			</div>
 
 			<div class="panel visible">
@@ -88,9 +86,10 @@
 
 					<div class="tv-field">
 						<label for="tv-pin">PIN DE 4 DÍGITOS</label>
-						<input class="tv-input tv-input-pin" type="password" id="tv-pin"
+						<input class="tv-input tv-input-pin" type="text" id="tv-pin"
 							inputmode="numeric" pattern="[0-9]{4}" maxlength="4"
-							placeholder="••••" autocomplete="off" required />
+							placeholder="1234" autocomplete="off"
+							autocorrect="off" autocapitalize="off" spellcheck="false" required />
 						<p class="tv-hint">
 							Lo inventan ustedes la primera vez. <strong>Anótenlo:</strong> se los
 							vamos a pedir si cierran la página o cambian de computadora, y sin él
@@ -169,29 +168,19 @@
 				<p class="big-text" id="tv-finish-txt"></p>
 				<p class="note">
 					Presuman su marca en el canal de la base en Discord. El ranklist
-					de abajo sigue vivo hasta que cierre el Rally.
+					sigue vivo hasta que cierre el Rally.
 				</p>
 			</div>
 		</section>
 
 		<!-- ========================================================
-		     RANKLIST
+		     PIE
 		     ======================================================== -->
-		<section class="panel visible" id="tv-rank">
-			<div class="tv-rank-head">
-				<h3 style="margin:0">&#9654; RANKLIST</h3>
-				<span class="tv-updated" id="tv-rank-updated"></span>
-			</div>
-
-			<div id="tv-rank-body">
-				<p class="tv-empty">Cargando…</p>
-			</div>
-
-			<div class="tv-actions">
-				<button class="tv-btn ghost" type="button" id="tv-rank-refresh">ACTUALIZAR</button>
-				<button class="tv-btn ghost tv-hide" type="button" id="tv-salir">SALIR DE ESTA PATRULLA</button>
-			</div>
-		</section>
+		<div class="tv-actions tv-footer">
+			<a class="tv-btn ghost" href="ranklist-trivia.html" target="_blank"
+				rel="noopener">VER RANKLIST &#9654;</a>
+			<button class="tv-btn ghost tv-hide" type="button" id="tv-salir">SALIR DE ESTA PATRULLA</button>
+		</div>
 
 	</div>
 

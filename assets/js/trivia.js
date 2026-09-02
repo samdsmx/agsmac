@@ -24,16 +24,9 @@
 	var ESTADO = null;
 	var PREGUNTA = null;
 	var ENVIANDO = false;
-	var RANK_TIMER = null;
 
 	// ── Utilidades ──────────────────────────────────────────────
 	function $(sel) { return document.querySelector(sel); }
-
-	function esc(s) {
-		return String(s == null ? '' : s)
-			.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;');
-	}
 
 	function show(sel) { $(sel).classList.remove('tv-hide'); }
 	function hide(sel) { $(sel).classList.add('tv-hide'); }
@@ -98,15 +91,6 @@
 			});
 	}
 
-	function tiempo(segundos) {
-		var s = Math.max(0, Number(segundos) || 0);
-		var h = Math.floor(s / 3600);
-		var m = Math.floor((s % 3600) / 60);
-		var r = s % 60;
-		function dos(n) { return (n < 10 ? '0' : '') + n; }
-		return (h ? h + ':' + dos(m) : m) + ':' + dos(r);
-	}
-
 	// ── Sesión local ────────────────────────────────────────────
 	function guardarSesion(token, patrulla, grupo) {
 		try {
@@ -134,15 +118,6 @@
 		if (i.subtitulo) $('#tv-subtitulo').textContent = i.subtitulo;
 		$('#tv-lead').textContent = i.lead || '';
 		$('#tv-cierre').textContent = i.cierre || '';
-		$('#tv-desempate').textContent = CFG.desempate || '';
-
-		var ul = $('#tv-bases');
-		ul.innerHTML = '';
-		(i.bases || []).forEach(function (b) {
-			var li = document.createElement('li');
-			li.textContent = b;
-			ul.appendChild(li);
-		});
 	}
 
 	function pintarGrupos(grupos) {
@@ -228,7 +203,6 @@
 				'Resolvieron los ' + (ESTADO ? ESTADO.total : '') +
 				' niveles en ' + (ESTADO ? ESTADO.intentos : 0) + ' intentos.';
 			pantalla('#tv-finish');
-			cargarRanking();
 			return;
 		}
 
@@ -277,7 +251,6 @@
 			}
 
 			avanzar();
-			cargarRanking();
 			toast(res.nueva
 				? '¡Bienvenidas, ' + ESTADO.patrulla + '! No olviden su PIN.'
 				: '¡De vuelta, ' + ESTADO.patrulla + '!');
@@ -362,82 +335,12 @@
 
 				pantalla('#tv-correct');
 				window.scrollTo({ top: 0, behavior: 'smooth' });
-				cargarRanking();
 			});
 	}
 
 	// ── Ranklist ────────────────────────────────────────────────
-	function pintarRanking(lista) {
-		var cont = $('#tv-rank-body');
-
-		if (!lista || !lista.length) {
-			cont.innerHTML = '<p class="tv-empty">Todavía no hay patrullas en la trivia. ' +
-				'¡Sean las primeras!</p>';
-			return;
-		}
-
-		var yo = ESTADO ? (ESTADO.patrulla + '|' + ESTADO.grupo) : '';
-
-		var html = '<table class="tv-table"><thead><tr>' +
-			'<th class="pos">#</th>' +
-			'<th>PATRULLA</th>' +
-			'<th class="num">RESUELTAS</th>' +
-			'<th class="num hide-sm">TIEMPO</th>' +
-			'<th class="num hide-sm">INTENTOS</th>' +
-			'</tr></thead><tbody>';
-
-		lista.forEach(function (r) {
-			var esYo = (r.patrulla + '|' + r.grupo) === yo;
-			var clases = [];
-			if (esYo) clases.push('me');
-			if (r.terminada) clases.push('done');
-
-			html += '<tr' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + '>' +
-				'<td class="pos">' + r.pos + '</td>' +
-				'<td>' + esc(r.patrulla) +
-				(r.terminada ? '<span class="tv-flag">&#127942;</span>' : '') +
-				'<br /><span class="grupo">' + esc(r.grupo) + '</span></td>' +
-				'<td class="num">' + r.resueltas + '</td>' +
-				'<td class="num hide-sm">' + (r.segundos ? tiempo(r.segundos) : '—') + '</td>' +
-				'<td class="num hide-sm">' + r.intentos + '</td>' +
-				'</tr>';
-		});
-
-		html += '</tbody></table>';
-		cont.innerHTML = html;
-	}
-
-	function cargarRanking() {
-		if (!CFG || !CFG.appsScriptUrl) {
-			$('#tv-rank-body').innerHTML =
-				'<p class="tv-empty">El ranklist se habilita cuando arranque la trivia.</p>';
-			return Promise.resolve();
-		}
-
-		var url = CFG.appsScriptUrl +
-			(CFG.appsScriptUrl.indexOf('?') === -1 ? '?' : '&') + 'action=ranking';
-
-		return fetch(url, { cache: 'no-store', redirect: 'follow' })
-			.then(function (r) { return r.json(); })
-			.then(function (res) {
-				if (!res || !res.ok) return;
-				pintarRanking(res.ranking);
-				var d = new Date();
-				$('#tv-rank-updated').textContent = 'Actualizado ' +
-					d.getHours() + ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes() +
-					':' + (d.getSeconds() < 10 ? '0' : '') + d.getSeconds();
-			})
-			.catch(function () { /* silencioso: el ranklist no debe romper el juego */ });
-	}
-
-	function programarRanking() {
-		var seg = Number(CFG && CFG.rankingRefrescoSegundos) || 0;
-		if (seg < 15) return;
-		clearInterval(RANK_TIMER);
-		RANK_TIMER = setInterval(function () {
-			if (!document.hidden) cargarRanking();
-		}, seg * 1000);
-	}
+	/* El ranklist vive en su propia página (ranklist-trivia.html) para poder
+	   dejarlo abierto en otra pantalla durante el evento. Aquí solo se enlaza. */
 
 	// ── Fondo de estrellas ──────────────────────────────────────
 	function estrellas() {
@@ -514,15 +417,11 @@
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 		});
 
-		$('#tv-rank-refresh').addEventListener('click', function () {
-			cargarRanking().then(function () { toast('Ranklist actualizado'); });
-		});
-
 		$('#tv-salir').addEventListener('click', function () {
 			if (!window.confirm(
 				'¿Salir de esta patrulla en esta computadora?\n\n' +
 				'El avance NO se pierde: se guarda en el servidor. Pueden volver a ' +
-				'entrar con el mismo nombre de patrulla y grupo.')) return;
+				'entrar con el mismo nombre de patrulla, grupo y PIN.')) return;
 			borrarSesion();
 			location.reload();
 		});
@@ -545,8 +444,6 @@
 					$('#tv-entrar').disabled = true;
 				}
 
-				cargarRanking();
-				programarRanking();
 				return recuperarSesion();
 			})
 			.then(function (recuperada) {
