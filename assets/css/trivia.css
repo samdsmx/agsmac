@@ -20,12 +20,45 @@
 
 /* ---------- HUD de la patrulla ---------- */
 .tv-hud-patrol {
+	position: relative;
 	font-family: var(--pixel);
 	font-size: 0.55rem;
 	color: var(--gold);
 	line-height: 2;
 	text-align: right;
 }
+
+/* El bloque completo (nombre + grupo) es el disparador del menú. */
+.tv-hud-toggle {
+	display: block;
+	font: inherit;
+	color: inherit;
+	line-height: inherit;
+	text-align: inherit;
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	padding: 4px 10px;
+	cursor: pointer;
+	transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.tv-hud-toggle:hover,
+.tv-hud-toggle:focus-visible,
+.tv-hud-toggle[aria-expanded="true"] {
+	border-color: var(--line);
+	background: rgba(0, 229, 255, 0.08);
+	outline: none;
+}
+
+.tv-hud-caret {
+	font-family: var(--body);
+	font-size: 0.85rem;
+	color: var(--muted);
+	margin-left: 6px;
+}
+
+.tv-hud-toggle[aria-expanded="true"] .tv-hud-caret { color: var(--cyan); }
 
 .tv-hud-patrol small {
 	display: block;
@@ -35,40 +68,12 @@
 	line-height: 1.2;
 }
 
-/* Menú de la patrulla: guarda la salida de sesión fuera del alcance de un
-   clic distraído. El contenedor es relativo para anclar el desplegable. */
-.tv-hud-menu {
-	position: relative;
-	display: inline-block;
-	margin-top: 4px;
-}
-
-.tv-hud-toggle {
-	font-family: var(--pixel);
-	font-size: 0.4rem;
-	line-height: 1.8;
-	letter-spacing: 0.04em;
-	color: var(--muted);
-	background: transparent;
-	border: 1px solid var(--line);
-	border-radius: 3px;
-	padding: 3px 8px;
-	cursor: pointer;
-	transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.tv-hud-toggle:hover,
-.tv-hud-toggle[aria-expanded="true"] {
-	color: var(--cyan);
-	border-color: var(--cyan);
-}
-
 .tv-menu {
 	position: absolute;
 	top: calc(100% + 6px);
 	right: 0;
 	z-index: 60;
-	min-width: 210px;
+	min-width: 170px;
 	background: var(--bg);
 	border: 2px solid var(--line);
 	box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
@@ -431,18 +436,25 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 .tv-patrulla .nombre { min-width: 0; }
 
 .tv-escudo {
-	flex: 0 0 32px;
-	width: 32px;
-	height: 32px;
+	flex: 0 0 36px;
+	width: 36px;
+	height: 36px;
+	box-sizing: border-box;
 	object-fit: contain;
 	display: block;
+	/* Los escudos son PNG con fondo transparente y sobre el fondo oscuro se
+	   veían flotando: el disco blanco les da soporte. El padding no es adorno:
+	   el círculo recorta las esquinas del cuadro, así que el escudo se encoge
+	   lo justo para caber dentro del disco sin que se le corten las puntas. */
+	background: #ffffff;
+	border-radius: 50%;
+	padding: 6px;
 }
 
 /* Grupo sin escudo disponible: se conserva el hueco para no desalinear. */
 .tv-escudo-vacio {
+	background: rgba(255, 255, 255, 0.12);
 	border: 1px dashed rgba(0, 229, 255, 0.35);
-	border-radius: 4px;
-	box-sizing: border-box;
 }
 
 .tv-empty {
@@ -473,7 +485,7 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	.tv-answer .tv-btn { width: 100%; }
 	.tv-table th, .tv-table td { padding: 9px 5px; }
 	.tv-table .hide-sm { display: none; }
-	.tv-escudo { flex-basis: 26px; width: 26px; height: 26px; }
+	.tv-escudo { flex-basis: 30px; width: 30px; height: 30px; padding: 5px; }
 	.tv-patrulla { gap: 8px; }
 	.tv-hud-patrol { text-align: left; }
 	.tv-menu { left: 0; right: auto; }

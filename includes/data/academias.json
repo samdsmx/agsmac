@@ -6,7 +6,7 @@
   "cupoMaximo": 60,
   "seleccionRequerida": 3,
   "countsCacheMinutes": 5,
-  "grupos": ["Grupo 54", "Grupo 96", "Grupo 133", "Grupo 136", "Grupo 729"],
+  "grupos": ["Grupo 54", "Grupo 133", "Grupo 136", "Grupo 729"],
   "secciones": ["Castor", "Gacela", "Lobato", "Muchacha Scout", "Scout", "Precursora", "Rover"],
   "seccionRama": {
     "Castor": "Castores",

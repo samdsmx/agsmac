@@ -56,7 +56,7 @@ var CONFIG = {
 
   // Grupos válidos de la Asociación (misma lista que includes/data/grupos.json
   // en el sitio; si se da de alta un grupo nuevo hay que actualizarla aquí).
-  GRUPOS: ['Grupo 5', 'Grupo 22', 'Grupo 50', 'Grupo 54', 'Grupo 96',
+  GRUPOS: ['Grupo 5', 'Grupo 22', 'Grupo 50', 'Grupo 54',
            'Grupo 133', 'Grupo 136', 'Grupo 729'],
 
   SECCIONES: ['Tropa de Muchachas Scouts', 'Tropa Scout'],

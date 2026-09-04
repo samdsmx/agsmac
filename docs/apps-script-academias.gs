@@ -63,7 +63,6 @@ var CONFIG = {
   // grupo no tiene acceso.
   GROUP_TOKENS: {
     'Grupo 54':  'PON-UN-TOKEN-UNICO-Y-LARGO-54',
-    'Grupo 96':  'PON-UN-TOKEN-UNICO-Y-LARGO-96',
     'Grupo 133': 'PON-UN-TOKEN-UNICO-Y-LARGO-133',
     'Grupo 136': 'PON-UN-TOKEN-UNICO-Y-LARGO-136',
     'Grupo 729': 'PON-UN-TOKEN-UNICO-Y-LARGO-729'
@@ -119,7 +118,7 @@ function getSheet() {
  */
 function generarTokensJefes() {
   var grupos = Object.keys(CONFIG.GROUP_TOKENS || {});
-  if (!grupos.length) grupos = ['Grupo 54', 'Grupo 96', 'Grupo 133', 'Grupo 136', 'Grupo 729'];
+  if (!grupos.length) grupos = ['Grupo 54', 'Grupo 133', 'Grupo 136', 'Grupo 729'];
   var lines = grupos.map(function (g) {
     return "    '" + g + "': '" + nuevoToken() + "',";
   });

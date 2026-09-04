@@ -38,22 +38,21 @@
 			<small>VIII Rally Virtual · Tropas AGSMAC</small>
 		</div>
 
+		<!-- Todo el bloque de la patrulla funciona como avatar: al presionarlo
+		     abre el menú con la salida de sesión. Antes esa salida estaba en el
+		     pie, junto a los botones de juego, y se le daba clic sin querer. -->
 		<div class="tv-hud-patrol tv-hide" id="tv-hud-patrol">
-			<span id="tv-hud-nombre">—</span>
-			<small id="tv-hud-grupo"></small>
+			<button class="tv-hud-toggle" type="button" id="tv-menu-toggle"
+				aria-haspopup="true" aria-expanded="false" aria-controls="tv-menu">
+				<span class="tv-hud-nombre" id="tv-hud-nombre">—</span>
+				<span class="tv-hud-caret" aria-hidden="true">&#9662;</span>
+				<small id="tv-hud-grupo"></small>
+			</button>
 
-			<!-- La salida vive aquí, detrás de un menú, y no en el pie: junto a
-			     los botones de juego se le daba clic sin querer. -->
-			<div class="tv-hud-menu">
-				<button class="tv-hud-toggle" type="button" id="tv-menu-toggle"
-					aria-haspopup="true" aria-expanded="false" aria-controls="tv-menu">
-					OPCIONES <span aria-hidden="true">&#9662;</span>
+			<div class="tv-menu tv-hide" id="tv-menu" role="menu">
+				<button class="tv-menu-item" type="button" id="tv-salir" role="menuitem">
+					Salir
 				</button>
-				<div class="tv-menu tv-hide" id="tv-menu" role="menu">
-					<button class="tv-menu-item" type="button" id="tv-salir" role="menuitem">
-						Salir de esta patrulla
-					</button>
-				</div>
 			</div>
 		</div>
 	</div>

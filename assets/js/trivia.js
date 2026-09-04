@@ -450,7 +450,7 @@
 		/* Cerrar al hacer clic fuera o con Escape: si no, el menú se queda
 		   abierto encima del juego. */
 		document.addEventListener('click', function (e) {
-			if (!e.target.closest || !e.target.closest('.tv-hud-menu')) cerrarMenu();
+			if (!e.target.closest || !e.target.closest('.tv-hud-patrol')) cerrarMenu();
 		});
 
 		document.addEventListener('keydown', function (e) {
