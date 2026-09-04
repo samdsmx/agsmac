@@ -501,8 +501,8 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-escudo img {
 	display: block;
-	width: 28px;
-	height: 28px;
+	width: 32px;
+	height: 32px;
 	object-fit: contain;
 }
 

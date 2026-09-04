@@ -124,9 +124,15 @@ Cada vez que agregues o reemplaces un archivo en `images/grupos/Escudos/`.
 ### Cómo correrlo
 
 ```powershell
-# Desde la raíz del repo
+# Desde la raíz del repo — procesa toda la carpeta
 node helpers\procesarEscudos.js
+
+# Solo escudos concretos (por número o por nombre de archivo)
+node helpers\procesarEscudos.js 50
+node helpers\procesarEscudos.js 50.png 133.jpg
 ```
+
+Pasar argumentos evita reescribir —y volver a comprimir— los escudos que ya estaban bien.
 
 ### Qué hace
 

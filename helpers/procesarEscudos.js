@@ -83,7 +83,24 @@ async function processFile(file) {
 }
 
 (async () => {
-    const files = fs.readdirSync(srcDir).filter(f => /\.(jpe?g|png|webp)$/i.test(f));
+    // Sin argumentos procesa toda la carpeta. Con argumentos, solo esos
+    // escudos (por número o por nombre de archivo):
+    //   node helpers/procesarEscudos.js 50
+    //   node helpers/procesarEscudos.js 50.png 133.jpg
+    // Así se puede retocar un escudo recién agregado sin volver a escribir —
+    // y volver a comprimir— todos los demás.
+    const pedidos = process.argv.slice(2).map(a => path.parse(a).name);
+    const todos = fs.readdirSync(srcDir).filter(f => /\.(jpe?g|png|webp)$/i.test(f));
+    const files = pedidos.length
+        ? todos.filter(f => pedidos.includes(path.parse(f).name))
+        : todos;
+
+    if (pedidos.length && !files.length) {
+        console.error(`No se encontró ningún escudo para: ${pedidos.join(', ')}`);
+        process.exitCode = 1;
+        return;
+    }
+
     for (const f of files) {
         try {
             await processFile(f);
