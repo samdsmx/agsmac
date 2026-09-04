@@ -241,6 +241,15 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
+/* Al acertar, el foco salta solo a SIGUIENTE para poder encadenar con Enter.
+   El anillo se marca siempre en ese botón (no solo con :focus-visible) para
+   que se vea de dónde va a partir el Enter. */
+.tv-btn:focus-visible,
+#tv-siguiente:focus {
+	outline: 3px solid var(--cyan);
+	outline-offset: 3px;
+}
+
 .tv-btn.ghost {
 	background: transparent;
 	color: var(--cyan);

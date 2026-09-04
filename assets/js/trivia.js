@@ -200,7 +200,7 @@
 		if (!PREGUNTA) return;
 
 		$('#tv-nivel-label').textContent =
-			'NIVEL ' + PREGUNTA.n + ' DE ' + PREGUNTA.total;
+			'PREGUNTA ' + PREGUNTA.n + ' DE ' + PREGUNTA.total;
 
 		$('#tv-enunciado').textContent = PREGUNTA.enunciado || '';
 
@@ -225,8 +225,8 @@
 
 		if (!PREGUNTA) {
 			$('#tv-finish-txt').textContent =
-				'Resolvieron los ' + (ESTADO ? ESTADO.total : '') +
-				' niveles en ' + (ESTADO ? ESTADO.intentos : 0) + ' intentos.';
+				'Resolvieron las ' + (ESTADO ? ESTADO.total : '') +
+				' preguntas en ' + (ESTADO ? ESTADO.intentos : 0) + ' intentos.';
 			pantalla('#tv-finish');
 			return;
 		}
@@ -355,11 +355,15 @@
 				}
 
 				$('#tv-siguiente').textContent = PREGUNTA
-					? 'SIGUIENTE NIVEL \u25B6'
+					? 'SIGUIENTE \u25B6'
 					: 'VER MI MARCA \u25B6';
 
 				pantalla('#tv-correct');
 				window.scrollTo({ top: 0, behavior: 'smooth' });
+				/* El foco pasa al botón para poder encadenar con Enter sin soltar
+				   el teclado. `preventScroll` evita que el navegador cancele el
+				   desplazamiento suave de arriba. */
+				$('#tv-siguiente').focus({ preventScroll: true });
 			});
 	}
 
