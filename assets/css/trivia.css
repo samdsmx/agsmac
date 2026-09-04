@@ -8,6 +8,16 @@
    En la trivia el contenido cambia solo, así que siempre visibles. */
 #game .panel { opacity: 1; transform: none; }
 
+/* rally.css le da a #game `position: relative; z-index: 10`, y eso crea un
+   contexto de apilamiento: todo lo de adentro queda encerrado por debajo del
+   velo CRT (#crt, z-index 900), cuyas franjas oscuras ensuciaban los escudos.
+   Quitándole el z-index, #game deja de encerrar a sus hijos (sigue pintándose
+   sobre #bg-grid y #stars, que van en z-index 0) y los escudos pueden subir
+   por encima del velo. El HUD sube también para no quedar debajo de ellos al
+   hacer scroll; #toast (950) y #boot (1000) siguen mandando sobre todo. */
+#game { z-index: auto; }
+#hud { z-index: 930; }
+
 .tv-hide { display: none !important; }
 
 /* ---------- Cambio de pantalla ---------- */
@@ -462,13 +472,25 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-patrulla .nombre { min-width: 0; }
 
+/* Las patrullas se registran escribiendo a mano y muchas quedan en minúsculas.
+   Se corrige solo la inicial (no `capitalize`, que además tocaría el resto de
+   las palabras) y sin alterar el dato guardado en el servidor. */
+.tv-patrulla .nombre::first-letter,
+.tv-hud-nombre::first-letter { text-transform: uppercase; }
+
 /* Disco blanco de soporte: los escudos son PNG sin fondo y sobre el fondo
    oscuro se veían flotando. El disco NO recorta nada — la imagen va dentro y
-   se dibuja completa, así que ningún escudo pierde las puntas. */
+   se dibuja completa. El escudo se mantiene dentro del cuadrado inscrito en
+   el círculo (lado ≈ diámetro × 0.7), que es lo que evita que las esquinas
+   de los escudos más cuadrados se desborden del disco. */
 .tv-escudo {
-	flex: 0 0 34px;
-	width: 34px;
-	height: 34px;
+	position: relative;
+	/* Por encima del velo CRT (#crt, z-index 900): sus franjas oscuras
+	   ensuciaban los escudos. Ver la nota de #game más abajo. */
+	z-index: 910;
+	flex: 0 0 40px;
+	width: 40px;
+	height: 40px;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
@@ -479,8 +501,8 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-escudo img {
 	display: block;
-	width: 32px;
-	height: 32px;
+	width: 28px;
+	height: 28px;
 	object-fit: contain;
 }
 
@@ -517,8 +539,8 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	.tv-answer .tv-btn { width: 100%; }
 	.tv-table th, .tv-table td { padding: 9px 5px; }
 	.tv-table .hide-sm { display: none; }
-	.tv-escudo { flex-basis: 30px; width: 30px; height: 30px; }
-	.tv-escudo img { width: 28px; height: 28px; }
+	.tv-escudo { flex-basis: 34px; width: 34px; height: 34px; }
+	.tv-escudo img { width: 24px; height: 24px; }
 	.tv-patrulla { gap: 8px; }
 	.tv-hud-patrol { text-align: left; }
 	.tv-menu { left: 0; right: auto; }
