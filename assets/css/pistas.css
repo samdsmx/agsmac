@@ -1,0 +1,101 @@
+/* ===== Marcadores de rastreo ================================================
+   Marcadores discretos repartidos por varias páginas del sitio. Se dibuja un
+   círculo con un punto en CSS puro, sin imágenes, para que no dependa de
+   assets nuevos.
+
+   El marcador vive discreto (baja opacidad) hasta que alguien lo toca. NO se
+   oculta con display:none ni opacity:0 porque tiene que ser encontrable a
+   simple vista por quien lo busca — la idea es que pase desapercibido, no
+   que sea invisible.
+
+   El contenido revelado se inyecta desde assets/js/pistas.js en el atributo
+   `data-pista-letra`; en el HTML servido ese atributo no existe.
+   ========================================================================== */
+
+.pista-oculta {
+	display: inline-block;
+	position: relative;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	margin: 0 0.25em;
+	border-radius: 50%;
+	border: 2px solid currentColor;
+	color: inherit;
+	opacity: 0.22;
+	cursor: pointer;
+	background: none;
+	padding: 0;
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* El punto central de la señal. */
+.pista-oculta::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 5px;
+	height: 5px;
+	margin: -2.5px 0 0 -2.5px;
+	border-radius: 50%;
+	background: currentColor;
+}
+
+.pista-oculta:hover,
+.pista-oculta:focus-visible {
+	opacity: 0.75;
+	transform: scale(1.15);
+	outline: none;
+}
+
+/* --- Estado revelado --------------------------------------------------- */
+
+.pista-oculta.revelada {
+	opacity: 1;
+	color: #b8860b;
+	border-color: #b8860b;
+	transform: scale(1.1);
+}
+
+.pista-oculta.revelada::before { display: none; }
+
+.pista-oculta.revelada::after {
+	content: attr(data-pista-letra);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-family: Georgia, "Times New Roman", serif;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 1;
+	color: #b8860b;
+}
+
+/* Globito con el número de orden, para saber cómo ordenarlos. */
+.pista-oculta-nota {
+	display: inline-block;
+	margin-left: 0.4em;
+	font-size: 0.8em;
+	font-style: italic;
+	color: #b8860b;
+	vertical-align: middle;
+	animation: pista-aparece 0.4s ease;
+}
+
+@keyframes pista-aparece {
+	from { opacity: 0; transform: translateX(-6px); }
+	to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pista-oculta,
+	.pista-oculta-nota { transition: none; animation: none; }
+}
+
+/* En móvil el objetivo táctil debe ser cómodo sin agrandar el dibujo. */
+@media screen and (max-width: 736px) {
+	.pista-oculta { margin: 0 0.5em; }
+}

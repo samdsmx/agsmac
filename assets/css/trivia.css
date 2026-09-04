@@ -388,6 +388,9 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 @media screen and (max-width: 700px) {
 	.tv-question { font-size: 1.28rem; }
 	.tv-answer { flex-direction: column; }
+	/* En columna el flex-basis de 260px pasa a ser altura y el campo parecía
+	   un textarea. Se fija a auto para que crezca sólo lo que pide el texto. */
+	.tv-answer .tv-input { flex: 0 0 auto; width: 100%; }
 	.tv-answer .tv-btn { width: 100%; }
 	.tv-table th, .tv-table td { padding: 9px 5px; }
 	.tv-table .hide-sm { display: none; }

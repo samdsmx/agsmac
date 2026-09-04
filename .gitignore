@@ -9,3 +9,11 @@ _originals/
 
 # Carpeta de trabajo temporal (assets en proceso, scratch, etc.)
 Temp/
+
+# --- Material de la trivia: NO se sube ------------------------------------
+# Todo lo que se publica en GitHub Pages es público, y estos archivos
+# contienen preguntas, respuestas y notas que arruinarían el juego si
+# alguien los leyera en el repositorio. Se mantienen solo en local y se
+# pegan a mano en la Google Sheet / el proyecto de Apps Script privados.
+docs/apps-script-trivia.gs
+docs/trivia-preguntas-sitio.md

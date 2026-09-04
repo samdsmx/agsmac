@@ -822,7 +822,9 @@ comparten por el canal de la base en Discord.
 | `assets/js/trivia-ranklist.js` | Solo el ranklist: consulta, tabla y refresco automático. |
 | `assets/css/trivia.css` | Estilos de ambas páginas. Hereda fondo y tipografías de `rally.css`. |
 | `includes/data/trivia.json` | `appsScriptUrl` y los textos de la portada. **No contiene preguntas.** |
-| `docs/apps-script-trivia.gs` | Backend **y banco de preguntas inicial** (Apps Script + Google Sheet). |
+| `docs/apps-script-trivia.gs` | Backend **y banco de preguntas inicial** (Apps Script + Google Sheet). **Local, en el `.gitignore`.** |
+| `docs/trivia-preguntas-sitio.md` | Preguntas que se resuelven explorando el sitio, y la nota de los marcadores de rastreo. **Local, en el `.gitignore`.** |
+| `assets/css/pistas.css`, `assets/js/pistas.js` | Marcadores de rastreo repartidos por el sitio (ver 8.e). |
 | `images/trivia/` | Imágenes de las preguntas ilustradas. |
 
 ### Por qué las respuestas NO viven en el repositorio
@@ -958,6 +960,44 @@ Columnas de la hoja `Avance`:
 Van en `images/trivia/` con nombre descriptivo en kebab-case
 (`nudo-ballestrinque.png`, `identificativo-lobatos.gif`). Ojo: el workflow
 `optimize-images.yml` recomprime `images/**` en cada push, así que se optimizan solas.
+
+---
+
+## 8.e. Marcadores de rastreo
+
+Marcadores discretos repartidos por varias páginas del sitio. Cada uno guarda un
+dato que se revela al tocarlo, y sirven de apoyo a una actividad del rally.
+
+| Archivo | Para qué |
+|---|---|
+| `assets/css/pistas.css` | Dibujo del marcador (círculo con punto) en CSS puro, sin imágenes nuevas. |
+| `assets/js/pistas.js` | Revelado al tocar, contador y persistencia en `localStorage`. |
+
+**Qué guarda cada marcador y dónde está cada uno se documenta fuera del
+repositorio**, por la misma razón que la trivia: todo lo que se publica en
+GitHub Pages es público. Ver `docs/trivia-preguntas-sitio.md`, que está en el
+`.gitignore` y solo existe en local.
+
+Puntos a tener en cuenta si tocas el código:
+
+- El marcador vive al 22 % de opacidad. **No** se oculta con `display:none`: se ve
+  si lo buscas y pasa desapercibido si no. Ese es el juego.
+- El contenido va **codificado** en `data-pista-clave`, y `pistas.js` lo descifra
+  apenas al revelar. Así no se puede leer de un vistazo en el HTML servido ni
+  encontrarse buscando en el repositorio. Es ofuscación, no seguridad: al ser
+  código de cliente siempre es reversible. Lo que de verdad importa se valida en
+  el Apps Script.
+- El click se atiende **por delegación en `document`** y hay un `MutationObserver`.
+  Es obligatorio: las páginas internas se inyectan por AJAX (atributo `includedHtml`,
+  ver `assets/js/main.js`) y los marcadores no existen en el DOM cuando carga el script.
+- `localStorage` es solo apoyo visual para el contador.
+- No cuelgues un marcador de un nodo que algún `*.js` reescriba con `innerHTML` o
+  `textContent` (por eso en el Calendario va en `.cal-cover-kicker` y no en
+  `.cal-cover-intro`).
+- Si agregas uno, actualiza `TOTAL_PISTAS` en `assets/js/pistas.js` y verifica que
+  la página cargue `assets/css/pistas.css` y `assets/js/pistas.js` (hoy están
+  enlazados en `index.html` y `detail1.html`). Las claves se generan con la nota
+  de mantenimiento local.
 
 ---
 
