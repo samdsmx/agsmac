@@ -859,7 +859,6 @@ renumeran solos.
 |---|---|
 | `Nivel` | Orden. |
 | `Activa` | `SI` / `NO`. |
-| `Pista` | **Nota interna.** Ya no se muestra ni se envía al navegador; escribas lo que escribas, no sale del servidor. |
 | `Enunciado` | La pregunta. Puede ir vacía si la imagen se explica sola. |
 | `Imagen` | `images/trivia/xxx.png` o URL completa. Vacío = pregunta de solo texto. |
 | `Respuestas` | Respuestas aceptadas separadas por `\|`. |
