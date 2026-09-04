@@ -28,17 +28,20 @@
 	text-align: right;
 }
 
-/* El bloque completo (nombre + grupo) es el disparador del menú. */
+/* El bloque completo (nombre + grupo) es el disparador del menú. El chevron
+   va en su propia columna, alineado al centro vertical de las dos líneas: así
+   no se cuela entre el nombre y el grupo ni desacomoda el renglón. */
 .tv-hud-toggle {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	max-width: 46vw;
 	font: inherit;
 	color: inherit;
-	line-height: inherit;
-	text-align: inherit;
 	background: transparent;
 	border: 1px solid transparent;
 	border-radius: 4px;
-	padding: 4px 10px;
+	padding: 5px 10px;
 	cursor: pointer;
 	transition: background-color 0.15s ease, border-color 0.15s ease;
 }
@@ -51,17 +54,41 @@
 	outline: none;
 }
 
-.tv-hud-caret {
-	font-family: var(--body);
-	font-size: 0.85rem;
-	color: var(--muted);
-	margin-left: 6px;
+/* Las dos líneas de texto, en columna y pegadas a la derecha. `min-width: 0`
+   es lo que permite que el nombre largo se recorte en vez de empujar al
+   chevron fuera del botón. */
+.tv-hud-txt {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	min-width: 0;
+	line-height: 1.25;
 }
 
-.tv-hud-toggle[aria-expanded="true"] .tv-hud-caret { color: var(--cyan); }
-
+.tv-hud-nombre,
 .tv-hud-patrol small {
 	display: block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tv-hud-caret {
+	flex: 0 0 auto;
+	font-family: var(--body);
+	font-size: 0.8rem;
+	line-height: 1;
+	color: var(--muted);
+	transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.tv-hud-toggle[aria-expanded="true"] .tv-hud-caret {
+	color: var(--cyan);
+	transform: rotate(180deg);
+}
+
+.tv-hud-patrol small {
 	color: var(--muted);
 	font-family: var(--body);
 	font-size: 1rem;
@@ -435,26 +462,31 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 
 .tv-patrulla .nombre { min-width: 0; }
 
+/* Disco blanco de soporte: los escudos son PNG sin fondo y sobre el fondo
+   oscuro se veían flotando. El disco NO recorta nada — la imagen va dentro y
+   se dibuja completa, así que ningún escudo pierde las puntas. */
 .tv-escudo {
-	flex: 0 0 36px;
-	width: 36px;
-	height: 36px;
+	flex: 0 0 34px;
+	width: 34px;
+	height: 34px;
 	box-sizing: border-box;
-	object-fit: contain;
-	display: block;
-	/* Los escudos son PNG con fondo transparente y sobre el fondo oscuro se
-	   veían flotando: el disco blanco les da soporte. El padding no es adorno:
-	   el círculo recorta las esquinas del cuadro, así que el escudo se encoge
-	   lo justo para caber dentro del disco sin que se le corten las puntas. */
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	background: #ffffff;
 	border-radius: 50%;
-	padding: 6px;
+}
+
+.tv-escudo img {
+	display: block;
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
 }
 
 /* Grupo sin escudo disponible: se conserva el hueco para no desalinear. */
 .tv-escudo-vacio {
 	background: rgba(255, 255, 255, 0.12);
-	border: 1px dashed rgba(0, 229, 255, 0.35);
 }
 
 .tv-empty {
@@ -485,7 +517,8 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	.tv-answer .tv-btn { width: 100%; }
 	.tv-table th, .tv-table td { padding: 9px 5px; }
 	.tv-table .hide-sm { display: none; }
-	.tv-escudo { flex-basis: 30px; width: 30px; height: 30px; padding: 5px; }
+	.tv-escudo { flex-basis: 30px; width: 30px; height: 30px; }
+	.tv-escudo img { width: 28px; height: 28px; }
 	.tv-patrulla { gap: 8px; }
 	.tv-hud-patrol { text-align: left; }
 	.tv-menu { left: 0; right: auto; }

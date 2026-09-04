@@ -48,14 +48,20 @@
 
 	/* El escudo del grupo sustituye al texto "Grupo N" en la tabla. Los archivos
 	   viven en images/grupos/Escudos/<numero>.png (ver helpers/procesarEscudos.js),
-	   así que del valor guardado ("Grupo 54") solo se ocupa la cifra. */
+	   así que del valor guardado ("Grupo 54") solo se ocupa la cifra.
+
+	   El disco blanco va en un <span> aparte y NO en la propia imagen: al
+	   redondear el <img> el navegador recortaba sus esquinas y a varios escudos
+	   les cortaba las puntas. Con el disco detrás, el escudo se dibuja completo. */
 	function escudoHtml(grupo) {
 		var m = String(grupo == null ? '' : grupo).match(/\d+/);
 		var titulo = esc(grupo || '');
 		if (!m) return '<span class="tv-escudo tv-escudo-vacio" title="' + titulo + '"></span>';
-		return '<img class="tv-escudo" src="images/grupos/Escudos/' + m[0] + '.png" ' +
-			'alt="' + titulo + '" title="' + titulo + '" loading="lazy" ' +
-			'onerror="this.className=\'tv-escudo tv-escudo-vacio\';this.removeAttribute(\'src\')" />';
+		return '<span class="tv-escudo" title="' + titulo + '">' +
+			'<img src="images/grupos/Escudos/' + m[0] + '.png" ' +
+			'alt="' + titulo + '" loading="lazy" ' +
+			'onerror="this.parentNode.className=\'tv-escudo tv-escudo-vacio\';this.remove()" />' +
+			'</span>';
 	}
 
 	function getJSON(url) {
@@ -197,12 +203,10 @@
 			cargarRanking().then(function () { toast('Ranklist actualizado'); });
 		});
 
+		/* La sesión guardada aquí NO autentica nada: el ranklist es público. Solo
+		   se lee para resaltar la fila propia, así que no se muestra el nombre de
+		   la patrulla en el HUD ni se ofrece salir desde esta página. */
 		YO = leerSesion();
-		if (YO && YO.patrulla) {
-			$('#tv-hud-nombre').textContent = YO.patrulla;
-			$('#tv-hud-grupo').textContent = YO.grupo || '';
-			$('#tv-hud-patrol').classList.remove('tv-hide');
-		}
 
 		getJSON(CONFIG_URL).then(function (cfg) {
 			CFG = cfg || {};
