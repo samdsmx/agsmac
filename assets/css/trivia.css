@@ -194,15 +194,6 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 .tv-progress .meta b { color: var(--neon); font-weight: normal; }
 
 /* ---------- Pregunta ---------- */
-.tv-kicker {
-	font-family: var(--pixel);
-	font-size: 0.55rem;
-	color: var(--magenta);
-	line-height: 2;
-	margin: 0 0 6px;
-	text-transform: uppercase;
-}
-
 .tv-level {
 	font-family: var(--pixel);
 	font-size: 0.5rem;

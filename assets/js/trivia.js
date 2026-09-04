@@ -175,10 +175,6 @@
 	function pintarPregunta() {
 		if (!PREGUNTA) return;
 
-		var pista = $('#tv-pista');
-		pista.textContent = PREGUNTA.pista || '';
-		pista.style.display = PREGUNTA.pista ? '' : 'none';
-
 		$('#tv-nivel-label').textContent =
 			'NIVEL ' + PREGUNTA.n + ' DE ' + PREGUNTA.total;
 

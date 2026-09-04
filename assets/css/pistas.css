@@ -1,12 +1,16 @@
 /* ===== Marcadores de rastreo ================================================
-   Marcadores discretos repartidos por varias páginas del sitio. Se dibuja un
-   círculo con un punto en CSS puro, sin imágenes, para que no dependa de
-   assets nuevos.
+   Marcadores discretos repartidos por varias páginas del sitio. Se dibuja en
+   CSS puro, sin imágenes, para que no dependa de assets nuevos: un cuadrado
+   con una cifra dentro, que en el código clásico de señales de pista indica
+   "hay algo escondido a tantos pasos". Aquí la cifra es 0 porque lo escondido
+   está justo en ese punto.
 
-   El marcador vive discreto (baja opacidad) hasta que alguien lo toca. NO se
-   oculta con display:none ni opacity:0 porque tiene que ser encontrable a
-   simple vista por quien lo busca — la idea es que pase desapercibido, no
-   que sea invisible.
+   El marcador usa `currentColor`, es decir, el mismo color del texto que lo
+   rodea. Así contrasta bien en cualquier sección sin importar si el fondo es
+   claro (`#fbf8f3`) u oscuro (el marrón del Calendario o el footer): hereda un
+   color que ya es legible en ese contexto. No se le baja la opacidad, porque
+   así dejaba de verse sobre varios fondos. Pasa desapercibido por su tamaño y
+   por lo discreto del trazo, no por transparencia.
 
    El contenido revelado se inyecta desde assets/js/pistas.js en el atributo
    `data-pista-letra`; en el HTML servido ese atributo no existe.
@@ -19,43 +23,49 @@
 	height: 22px;
 	vertical-align: middle;
 	margin: 0 0.25em;
-	border-radius: 50%;
+	border-radius: 2px;
 	border: 2px solid currentColor;
 	color: inherit;
-	opacity: 0.22;
+	opacity: 1;
 	cursor: pointer;
 	background: none;
 	padding: 0;
-	transition: opacity 0.25s ease, transform 0.25s ease;
+	transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
 	-webkit-tap-highlight-color: transparent;
 }
 
-/* El punto central de la señal. */
+/* La cifra dentro del cuadro: 0 pasos, o sea, aquí mismo. */
 .pista-oculta::before {
-	content: "";
+	content: "0";
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 5px;
-	height: 5px;
-	margin: -2.5px 0 0 -2.5px;
-	border-radius: 50%;
-	background: currentColor;
+	transform: translate(-50%, -50%);
+	font-family: Georgia, "Times New Roman", serif;
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 1;
+	color: currentColor;
 }
 
+/* En hover no se cambia el color del trazo (perdería contraste sobre algunos
+   fondos): solo crece un poco y se insinúa un relleno cálido. */
 .pista-oculta:hover,
 .pista-oculta:focus-visible {
-	opacity: 0.75;
+	background-color: rgba(184, 134, 11, 0.22);
 	transform: scale(1.15);
 	outline: none;
 }
 
 /* --- Estado revelado --------------------------------------------------- */
 
+/* Al revelarse se pinta como un cuadro dorado sólido con la letra oscura
+   encima. Al llevar su propio fondo, ya no depende del color de la sección:
+   destaca igual sobre el crema del sitio que sobre el marrón del Calendario. */
 .pista-oculta.revelada {
-	opacity: 1;
-	color: #b8860b;
-	border-color: #b8860b;
+	color: #241a00;
+	background: #b8860b;
+	border-color: #8a6508;
 	transform: scale(1.1);
 }
 
@@ -71,16 +81,18 @@
 	font-weight: bold;
 	font-size: 14px;
 	line-height: 1;
-	color: #b8860b;
+	color: #241a00;
 }
 
-/* Globito con el número de orden, para saber cómo ordenarlos. */
+/* Nota con el contador. También hereda el color del texto de la sección para
+   que se lea igual de bien sobre fondo claro que sobre fondo oscuro. */
 .pista-oculta-nota {
 	display: inline-block;
 	margin-left: 0.4em;
 	font-size: 0.8em;
 	font-style: italic;
-	color: #b8860b;
+	font-weight: bold;
+	color: inherit;
 	vertical-align: middle;
 	animation: pista-aparece 0.4s ease;
 }

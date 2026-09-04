@@ -859,7 +859,7 @@ renumeran solos.
 |---|---|
 | `Nivel` | Orden. |
 | `Activa` | `SI` / `NO`. |
-| `Pista` | Palabra corta que encabeza la pregunta (`Nudo`, `Fundador`…). Puede ir vacía. |
+| `Pista` | **Nota interna.** Ya no se muestra ni se envía al navegador; escribas lo que escribas, no sale del servidor. |
 | `Enunciado` | La pregunta. Puede ir vacía si la imagen se explica sola. |
 | `Imagen` | `images/trivia/xxx.png` o URL completa. Vacío = pregunta de solo texto. |
 | `Respuestas` | Respuestas aceptadas separadas por `\|`. |
@@ -970,7 +970,7 @@ dato que se revela al tocarlo, y sirven de apoyo a una actividad del rally.
 
 | Archivo | Para qué |
 |---|---|
-| `assets/css/pistas.css` | Dibujo del marcador (círculo con punto) en CSS puro, sin imágenes nuevas. |
+| `assets/css/pistas.css` | Dibujo del marcador (cuadrado con un `0`) en CSS puro, sin imágenes nuevas. |
 | `assets/js/pistas.js` | Revelado al tocar, contador y persistencia en `localStorage`. |
 
 **Qué guarda cada marcador y dónde está cada uno se documenta fuera del
