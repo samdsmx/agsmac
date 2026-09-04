@@ -5,67 +5,67 @@
    "hay algo escondido a tantos pasos". Aquí la cifra es 0 porque lo escondido
    está justo en ese punto.
 
-   El marcador usa `currentColor`, es decir, el mismo color del texto que lo
-   rodea. Así contrasta bien en cualquier sección sin importar si el fondo es
-   claro (`#fbf8f3`) u oscuro (el marrón del Calendario o el footer): hereda un
-   color que ya es legible en ese contexto. No se le baja la opacidad, porque
-   así dejaba de verse sobre varios fondos. Pasa desapercibido por su tamaño y
-   por lo discreto del trazo, no por transparencia.
+   El marcador se pinta SIEMPRE igual (trazo y cifra negros sobre un fondo
+   claro propio), sin heredar el color del texto. Así se reconoce como el mismo
+   símbolo en todas las secciones y no se confunde con el texto ni parece un
+   glitch. Al llevar su propio fondo tampoco se pierde sobre los fondos oscuros
+   (el marrón del Calendario o el footer). Pasa desapercibido por su tamaño, no
+   por transparencia.
 
    El contenido revelado se inyecta desde assets/js/pistas.js en el atributo
    `data-pista-letra`; en el HTML servido ese atributo no existe.
    ========================================================================== */
 
 .pista-oculta {
-	display: inline-block;
-	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	width: 22px;
 	height: 22px;
+	box-sizing: border-box;
 	vertical-align: middle;
 	margin: 0 0.25em;
 	border-radius: 2px;
-	border: 2px solid currentColor;
-	color: inherit;
+	border: 2px solid #111111;
+	background: #fbf8f3;
+	color: #111111;
 	opacity: 1;
 	cursor: pointer;
-	background: none;
 	padding: 0;
-	transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-	-webkit-tap-highlight-color: transparent;
-}
-
-/* La cifra dentro del cuadro: 0 pasos, o sea, aquí mismo. */
-.pista-oculta::before {
-	content: "0";
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	font-family: Georgia, "Times New Roman", serif;
 	font-weight: bold;
 	font-size: 13px;
 	line-height: 1;
-	color: currentColor;
+	transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+	-webkit-tap-highlight-color: transparent;
 }
 
-/* En hover no se cambia el color del trazo (perdería contraste sobre algunos
-   fondos): solo crece un poco y se insinúa un relleno cálido. */
+/* La cifra dentro del cuadro: 0 pasos, o sea, aquí mismo. Se centra con flex
+   (no con translate) para que no la desalinee la métrica de la serif. */
+.pista-oculta::before {
+	content: "0";
+	display: block;
+	color: inherit;
+	font: inherit;
+}
+
+/* En hover se mantiene el trazo negro (es el mismo símbolo en todos lados):
+   solo crece un poco y se insinúa un relleno cálido. */
 .pista-oculta:hover,
 .pista-oculta:focus-visible {
-	background-color: rgba(184, 134, 11, 0.22);
+	background-color: #f0d68a;
 	transform: scale(1.15);
 	outline: none;
 }
 
 /* --- Estado revelado --------------------------------------------------- */
 
-/* Al revelarse se pinta como un cuadro dorado sólido con la letra oscura
-   encima. Al llevar su propio fondo, ya no depende del color de la sección:
-   destaca igual sobre el crema del sitio que sobre el marrón del Calendario. */
+/* Al revelarse se pinta como un cuadro dorado sólido con la letra negra
+   encima, conservando el trazo y el color de la cifra. */
 .pista-oculta.revelada {
-	color: #241a00;
+	color: #111111;
 	background: #b8860b;
-	border-color: #8a6508;
+	border-color: #111111;
 	transform: scale(1.1);
 }
 
@@ -73,15 +73,10 @@
 
 .pista-oculta.revelada::after {
 	content: attr(data-pista-letra);
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-family: Georgia, "Times New Roman", serif;
-	font-weight: bold;
+	display: block;
+	font: inherit;
 	font-size: 14px;
-	line-height: 1;
-	color: #241a00;
+	color: inherit;
 }
 
 /* Nota con el contador. También hereda el color del texto de la sección para
