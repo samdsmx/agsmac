@@ -63,7 +63,7 @@
 
 	function textoNota(orden, encontradas) {
 		var n = encontradas.length;
-		var base = 'señal ' + orden;
+		var base = 'pista ' + orden;
 		if (n >= TOTAL_PISTAS) return base + ' · ¡las tienes todas!';
 		return base + ' · llevas ' + n + '/' + TOTAL_PISTAS;
 	}
