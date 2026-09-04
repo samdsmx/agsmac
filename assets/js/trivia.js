@@ -154,11 +154,23 @@
 	}
 	// ── Render del juego ────────────────────────────────────────
 	function pintarHud() {
-		if (!ESTADO) { hide('#tv-hud-patrol'); hide('#tv-salir'); return; }
+		if (!ESTADO) { hide('#tv-hud-patrol'); cerrarMenu(); return; }
 		$('#tv-hud-nombre').textContent = ESTADO.patrulla;
 		$('#tv-hud-grupo').textContent = ESTADO.grupo;
 		show('#tv-hud-patrol');
-		show('#tv-salir');
+	}
+
+	// ── Menú de la patrulla ─────────────────────────────────────
+	function cerrarMenu() {
+		hide('#tv-menu');
+		$('#tv-menu-toggle').setAttribute('aria-expanded', 'false');
+	}
+
+	function alternarMenu() {
+		var abierto = !$('#tv-menu').classList.contains('tv-hide');
+		if (abierto) { cerrarMenu(); return; }
+		show('#tv-menu');
+		$('#tv-menu-toggle').setAttribute('aria-expanded', 'true');
 	}
 
 	function pintarProgreso() {
@@ -172,6 +184,18 @@
 		$('#tv-meta-nivel').textContent = Math.min(ESTADO.nivel, total || ESTADO.nivel);
 	}
 
+	/* La figura solo se muestra si el backend mandó algo que de verdad parece
+	   una imagen (URL o ruta). Si la hoja de cálculo trae las columnas
+	   recorridas, `imagen` puede llegar con texto suelto; pintarlo como <img>
+	   deja la pregunta en blanco y un icono roto en su lugar. */
+	function esImagen(v) {
+		var s = String(v == null ? '' : v).trim();
+		if (!s) return false;
+		return /^(https?:)?\/\//i.test(s) ||
+			/^(data:image\/|\/|\.{0,2}\/)/i.test(s) ||
+			/\.(png|jpe?g|gif|webp|svg|avif)(\?|#|$)/i.test(s);
+	}
+
 	function pintarPregunta() {
 		if (!PREGUNTA) return;
 
@@ -180,7 +204,7 @@
 
 		$('#tv-enunciado').textContent = PREGUNTA.enunciado || '';
 
-		if (PREGUNTA.imagen) {
+		if (esImagen(PREGUNTA.imagen)) {
 			$('#tv-imagen').src = PREGUNTA.imagen;
 			$('#tv-imagen').alt = PREGUNTA.enunciado || 'Imagen de la pregunta';
 			show('#tv-figure');
@@ -418,7 +442,23 @@
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 		});
 
+		$('#tv-menu-toggle').addEventListener('click', function (e) {
+			e.stopPropagation();
+			alternarMenu();
+		});
+
+		/* Cerrar al hacer clic fuera o con Escape: si no, el menú se queda
+		   abierto encima del juego. */
+		document.addEventListener('click', function (e) {
+			if (!e.target.closest || !e.target.closest('.tv-hud-menu')) cerrarMenu();
+		});
+
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') cerrarMenu();
+		});
+
 		$('#tv-salir').addEventListener('click', function () {
+			cerrarMenu();
 			if (!window.confirm(
 				'¿Salir de esta patrulla en esta computadora?\n\n' +
 				'El avance NO se pierde: se guarda en el servidor. Pueden volver a ' +

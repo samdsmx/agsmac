@@ -46,6 +46,18 @@
 		return (h ? h + ':' + dos(m) : m) + ':' + dos(r);
 	}
 
+	/* El escudo del grupo sustituye al texto "Grupo N" en la tabla. Los archivos
+	   viven en images/grupos/Escudos/<numero>.png (ver helpers/procesarEscudos.js),
+	   así que del valor guardado ("Grupo 54") solo se ocupa la cifra. */
+	function escudoHtml(grupo) {
+		var m = String(grupo == null ? '' : grupo).match(/\d+/);
+		var titulo = esc(grupo || '');
+		if (!m) return '<span class="tv-escudo tv-escudo-vacio" title="' + titulo + '"></span>';
+		return '<img class="tv-escudo" src="images/grupos/Escudos/' + m[0] + '.png" ' +
+			'alt="' + titulo + '" title="' + titulo + '" loading="lazy" ' +
+			'onerror="this.className=\'tv-escudo tv-escudo-vacio\';this.removeAttribute(\'src\')" />';
+	}
+
 	function getJSON(url) {
 		return fetch(url, { cache: 'no-store' })
 			.then(function (r) { return r.ok ? r.json() : null; })
@@ -87,9 +99,11 @@
 
 			html += '<tr' + (clases.length ? ' class="' + clases.join(' ') + '"' : '') + '>' +
 				'<td class="pos">' + r.pos + '</td>' +
-				'<td>' + esc(r.patrulla) +
+				'<td class="patrulla"><span class="tv-patrulla">' +
+				escudoHtml(r.grupo) +
+				'<span class="nombre">' + esc(r.patrulla) +
 				(r.terminada ? '<span class="tv-flag">&#127942;</span>' : '') +
-				'<br /><span class="grupo">' + esc(r.grupo) + '</span></td>' +
+				'</span></span></td>' +
 				'<td class="num">' + r.resueltas + '</td>' +
 				'<td class="num hide-sm">' + (r.segundos ? tiempo(r.segundos) : '—') + '</td>' +
 				'<td class="num hide-sm">' + r.intentos + '</td>' +

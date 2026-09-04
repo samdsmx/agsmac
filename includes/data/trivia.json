@@ -1,7 +1,7 @@
 {
   "_comentario": "Configuración de la Trivia del VIII Rally Virtual. IMPORTANTE: las PREGUNTAS y sus RESPUESTAS no viven aquí. Viven en la hoja privada de Google Sheets que atiende docs/apps-script-trivia.gs, porque todo lo que se publica en este repositorio es público y cualquiera podría leer las respuestas. Aquí solo van la URL del backend y los textos de la página.",
 
-  "_comoConfigurarPreguntas": "Abre la Google Sheet de la trivia, hoja 'Preguntas'. Una fila por nivel: Nivel | Activa (SI/NO) | Pista | Enunciado | Imagen | Respuestas | Explicacion. Las respuestas aceptadas se separan con | (barra). Prefijos: = exacta, ~ contiene, # conjunto de palabras en cualquier orden. Editar la hoja NO requiere volver a implementar el Apps Script.",
+  "_comoConfigurarPreguntas": "Abre la Google Sheet de la trivia, hoja 'Preguntas'. Una fila por nivel, con estos encabezados: Nivel | Activa (SI/NO) | Enunciado | Imagen | Respuestas | Explicacion. El Apps Script busca las columnas por el nombre del encabezado, así que el orden puede variar, pero los nombres NO deben cambiarse. Las respuestas aceptadas se separan con | (barra). Prefijos: = exacta, ~ contiene, # conjunto de palabras en cualquier orden. Editar la hoja NO requiere volver a implementar el Apps Script.",
 
   "appsScriptUrl": "https://script.google.com/a/macros/agsmac.org/s/AKfycbxyhde1g5GV4hoi6_hEb2-7UBQHb3cfWlzfkYOPX_irxRHBwPKYtc6pwXN6or-MIg0k/exec",
 

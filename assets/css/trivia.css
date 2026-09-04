@@ -35,6 +35,68 @@
 	line-height: 1.2;
 }
 
+/* Menú de la patrulla: guarda la salida de sesión fuera del alcance de un
+   clic distraído. El contenedor es relativo para anclar el desplegable. */
+.tv-hud-menu {
+	position: relative;
+	display: inline-block;
+	margin-top: 4px;
+}
+
+.tv-hud-toggle {
+	font-family: var(--pixel);
+	font-size: 0.4rem;
+	line-height: 1.8;
+	letter-spacing: 0.04em;
+	color: var(--muted);
+	background: transparent;
+	border: 1px solid var(--line);
+	border-radius: 3px;
+	padding: 3px 8px;
+	cursor: pointer;
+	transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tv-hud-toggle:hover,
+.tv-hud-toggle[aria-expanded="true"] {
+	color: var(--cyan);
+	border-color: var(--cyan);
+}
+
+.tv-menu {
+	position: absolute;
+	top: calc(100% + 6px);
+	right: 0;
+	z-index: 60;
+	min-width: 210px;
+	background: var(--bg);
+	border: 2px solid var(--line);
+	box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+	padding: 6px;
+	text-align: left;
+}
+
+.tv-menu-item {
+	display: block;
+	width: 100%;
+	font-family: var(--body);
+	font-size: 1rem;
+	line-height: 1.3;
+	text-align: left;
+	color: var(--text);
+	background: transparent;
+	border: 0;
+	padding: 10px 12px;
+	cursor: pointer;
+}
+
+.tv-menu-item:hover,
+.tv-menu-item:focus-visible {
+	background: rgba(0, 229, 255, 0.12);
+	color: var(--cyan);
+	outline: none;
+}
+
 /* ---------- Formulario de acceso ---------- */
 .tv-form {
 	display: grid;
@@ -333,9 +395,11 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	padding: 11px 8px;
 	border-bottom: 1px solid rgba(0, 229, 255, 0.16);
 	color: var(--text);
+	vertical-align: middle;
 }
 
 .tv-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tv-table th.num { text-align: right; }
 
 .tv-table tr.me td {
 	background: rgba(57, 255, 20, 0.1);
@@ -353,9 +417,33 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	color: var(--gold);
 	width: 1%;
 	white-space: nowrap;
+	text-align: center;
 }
 
-.tv-table .grupo { color: var(--muted); font-size: 1rem; }
+/* Nombre de la patrulla precedido por el escudo del grupo. El flex mantiene
+   escudo y texto alineados aunque el nombre ocupe dos renglones. */
+.tv-patrulla {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.tv-patrulla .nombre { min-width: 0; }
+
+.tv-escudo {
+	flex: 0 0 32px;
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
+	display: block;
+}
+
+/* Grupo sin escudo disponible: se conserva el hueco para no desalinear. */
+.tv-escudo-vacio {
+	border: 1px dashed rgba(0, 229, 255, 0.35);
+	border-radius: 4px;
+	box-sizing: border-box;
+}
 
 .tv-empty {
 	color: var(--muted);
@@ -385,5 +473,8 @@ a.tv-btn.ghost:hover { color: var(--cyan); }
 	.tv-answer .tv-btn { width: 100%; }
 	.tv-table th, .tv-table td { padding: 9px 5px; }
 	.tv-table .hide-sm { display: none; }
+	.tv-escudo { flex-basis: 26px; width: 26px; height: 26px; }
+	.tv-patrulla { gap: 8px; }
 	.tv-hud-patrol { text-align: left; }
+	.tv-menu { left: 0; right: auto; }
 }
