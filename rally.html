@@ -21,6 +21,7 @@
 		rel="stylesheet" />
 	<link rel="stylesheet" href="assets/css/rally.css" />
 	<link rel="stylesheet" href="assets/css/rally-adventure.css" />
+	<link rel="stylesheet" href="assets/css/rally-resultados.css" />
 </head>
 
 <body class="locked">
@@ -35,7 +36,7 @@
 	<div id="boot">
 		<pre class="boot-log" id="boot-log"></pre>
 		<h1 class="boot-title">VIII RALLY<br />VIRTUAL</h1>
-		<p class="boot-sub">TROPAS AGSMAC<br />5 y 6 DE SEPTIEMBRE 2026</p>
+		<p class="boot-sub">TROPAS AGSMAC<br />5 y 6 DE SEPTIEMBRE 2026<br />EVENTO CONCLUIDO</p>
 		<button id="start-btn" type="button">ENTRAR</button>
 		<p class="boot-hint">o presiona ENTER</p>
 	</div>
@@ -93,6 +94,15 @@
 				Y un reto nuevo cada hora.
 			</p>
 		</section>
+
+		<!-- ---------- AVISO · EVENTO CONCLUIDO ---------- -->
+		<div class="rr-banner">
+			<p class="rr-kicker">&#127937; EVENTO CONCLUIDO</p>
+			<p>
+				El VIII Rally Virtual Tropas se realizó el <b>5 y 6 de septiembre de 2026</b>.
+			</p>
+			<button class="rr-btn" type="button" data-res-open>&#127942; TABLA DE BASES</button>
+		</div>
 
 		<!-- ---------- 01 · LA MISIÓN ---------- -->
 		<section class="panel">
@@ -294,7 +304,8 @@
 			<h3><span class="lvl">07</span> ¿LISTOS?</h3>
 
 			<div class="cta">
-				<a class="big" href="#scene-registro">INSCRIBIR A MI PATRULLA</a>
+				<button class="big" type="button" data-res-open
+					style="border:none;cursor:pointer">TABLA DE BASES</button>
 				<a class="mail" href="mailto:contacto@agsmac.org">¿Dudas? contacto@agsmac.org</a>
 			</div>
 		</section>
@@ -484,6 +495,14 @@
 			<h2>INSCRIBAN<br />A SU PATRULLA</h2>
 
 			<div class="form-wrap">
+				<div class="rr-banner" style="margin-bottom:24px">
+					<p class="rr-kicker">&#128274; INSCRIPCIONES CERRADAS</p>
+					<p>
+						El Rally ya se realizó. <b>Ya no se reciben inscripciones</b>.
+					</p>
+					<button class="rr-btn" type="button" data-res-open>&#127942; TABLA DE BASES</button>
+				</div>
+
 				<div class="dialogs">
 					<div class="dialog">
 						<span class="who">&#128221; EL SECRETARIO</span>
@@ -600,7 +619,8 @@
 						</p>
 					</div>
 
-					<button class="submit-btn" id="f-submit" type="submit">REGISTRAR A MI PATRULLA</button>
+					<button class="submit-btn" id="f-submit" type="submit" disabled
+						title="Las inscripciones cerraron el 5 de septiembre de 2026">INSCRIPCIONES CERRADAS</button>
 				</form>
 
 				
@@ -665,8 +685,10 @@
 			<div class="foot-tools">
 				<button class="foot-btn" id="mode-btn" type="button"
 					title="Ver la convocatoria completa de corrido">VER TODO</button>
+				<button class="foot-btn" id="res-btn" type="button" data-res-open
+					title="Ver la tabla de bases">BASES</button>
 				<button class="foot-btn" id="mat-btn" type="button"
-					title="Ver la lista de materiales">MATERIALES</button>
+					title="Ver la lista de materiales que se pidieron">MATERIALES</button>
 				<button class="foot-btn" id="fx-btn" type="button" aria-pressed="true">FX: ON</button>
 			</div>
 			Asociación de Grupos de Scouts de México, A.C.<br />
@@ -677,6 +699,46 @@
 
 
 	<div id="toast">COPIADO</div>
+
+	<!-- ============================================================
+	     AVISO EMERGENTE · RESULTADOS
+	     Se abre solo al entrar. Datos en includes/data/rally-resultados.json
+	     ============================================================ -->
+	<div id="res-modal" class="rr-modal" role="dialog" aria-modal="true"
+		aria-labelledby="rr-title" hidden>
+		<div class="rr-backdrop" data-res-close></div>
+
+		<div class="rr-box" role="document">
+			<div class="rr-head">
+				<div class="rr-title-wrap">
+					<h2 id="rr-title">&#127942; TABLA DE BASES</h2>
+					<p class="rr-sub" id="rr-sub">VIII Rally Virtual Tropas</p>
+				</div>
+
+				<div class="rr-filters" role="tablist" aria-label="Filtrar por sección">
+					<button class="rr-tab" type="button" role="tab" data-seccion="TODAS"
+						aria-selected="true" title="Todas las patrullas">GENERAL</button>
+					<button class="rr-tab" type="button" role="tab" data-seccion="TMS"
+						aria-selected="false" title="Tropa de Muchachas Scouts">TMS</button>
+					<button class="rr-tab" type="button" role="tab" data-seccion="TS"
+						aria-selected="false" title="Tropa Scout">TS</button>
+				</div>
+
+				<button class="rr-x" type="button" data-res-close aria-label="Cerrar resultados">
+					&#10005;
+				</button>
+			</div>
+
+			<div class="rr-body" id="rr-body">
+				<p class="rr-empty">Cargando resultados…</p>
+			</div>
+
+			<div class="rr-foot">
+				<div class="rr-legend" id="rr-legend"></div>
+				<p class="rr-note" id="rr-note"></p>
+			</div>
+		</div>
+	</div>
 
 	<!-- ============================================================
 	     AVISO EMERGENTE · MATERIALES
@@ -784,6 +846,7 @@
 
 	<script src="assets/js/rally.js"></script>
 	<script src="assets/js/rally-adventure.js"></script>
+	<script src="assets/js/rally-resultados.js"></script>
 </body>
 
 </html>

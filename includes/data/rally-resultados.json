@@ -1,0 +1,160 @@
+{
+  "_comentario": "Resultados finales del VIII Rally Virtual Tropas (5 y 6 de septiembre de 2026). Datos capturados de la hoja de calificación de los jefes de base. Por cada patrulla, 'bases' trae 15 valores (Base 1 a Base 15) con la escala 2 = completa, 1 = incompleta, 0 = sin entregar. La Base 0 no se incluye porque era de preparación previa al evento. 'instagram' es el handle sin arroba: el nombre de la patrulla se vuelve enlace a esa cuenta. 'triviaPos' es la posición final en el ranklist de la trivia (ranklist-trivia.html) y SOLO se usa para desempatar patrullas con el mismo total.",
+
+  "evento": {
+    "nombre": "VIII Rally Virtual Tropas",
+    "fechas": "5 y 6 de septiembre de 2026",
+    "bases": 15
+  },
+
+  "_comentarioBases": "Nombres de las bases, en orden de la Base 1 a la Base 15. Salen de helpers/discord/config.json (los canales del Discord del evento). Se muestran en el tooltip de cada casilla de la tabla.",
+
+  "nombresBases": [
+    "Nos presentamos",
+    "Construcción",
+    "Trivia",
+    "Desafío en la comida",
+    "La colonia habla",
+    "Infomercial de campamento",
+    "Kim de vista",
+    "Conoce a nuestra patrulla",
+    "La vuelta al mundo",
+    "Luces en la noche",
+    "Velada de fogata",
+    "El tótem",
+    "Propio Scout",
+    "Desayuno sin fuego",
+    "Propaganda Scout"
+  ],
+
+  "leyenda": [
+    { "valor": 2, "icono": "\u2705", "texto": "Completa" },
+    { "valor": 1, "icono": "\u26A0\uFE0F", "texto": "Incompleta" },
+    { "valor": 0, "icono": "\uD83D\uDE22", "texto": "Sin entregar" }
+  ],
+
+  "desempate": "A igual número de bases, queda arriba la patrulla que haya terminado mejor posicionada en el ranklist de la trivia.",
+
+  "patrullas": [
+    {
+      "patrulla": "Cihualpilli",
+      "grupo": "Grupo 22",
+      "seccion": "TMS",
+      "instagram": "22tropapegaso",
+      "triviaPos": 7,
+      "bases": [2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Leo",
+      "grupo": "Grupo 50",
+      "seccion": "TMS",
+      "instagram": "leo_grup50",
+      "triviaPos": 4,
+      "bases": [2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Jaguares",
+      "grupo": "Grupo 50",
+      "seccion": "TS",
+      "instagram": "jagua_rez_.50",
+      "triviaPos": 5,
+      "bases": [2, 2, 2, 2, 2, 2, 2, 0, 1, 1, 1, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Alkaid",
+      "grupo": "Grupo 54",
+      "seccion": "TMS",
+      "instagram": "alkaid_54",
+      "triviaPos": 9,
+      "bases": [2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 0]
+    },
+    {
+      "patrulla": "Cuervos",
+      "grupo": "Grupo 54",
+      "seccion": "TS",
+      "instagram": "cuervos.g54",
+      "triviaPos": 15,
+      "bases": [1, 1, 1, 1, 0, 2, 2, 0, 1, 0, 0, 0, 2, 0, 0]
+    },
+    {
+      "patrulla": "Draco / Apus",
+      "grupo": "Grupo 133",
+      "seccion": "TMS",
+      "instagram": "draco_apus.g133",
+      "triviaPos": 6,
+      "bases": [2, 2, 2, 2, 2, 2, 2, 1, 2, 0, 2, 2, 2, 2, 0]
+    },
+    {
+      "patrulla": "Ehinerjer",
+      "grupo": "Grupo 133",
+      "seccion": "TS",
+      "instagram": "Ehinerje.g133",
+      "triviaPos": 8,
+      "bases": [2, 2, 2, 1, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Fenrir",
+      "grupo": "Grupo 133",
+      "seccion": "TS",
+      "instagram": "patrullascoutfenrir133",
+      "triviaPos": 12,
+      "bases": [2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Orión",
+      "grupo": "Grupo 136",
+      "seccion": "TMS",
+      "instagram": "orion_g136",
+      "triviaPos": 11,
+      "bases": [2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Andrómeda",
+      "grupo": "Grupo 136",
+      "seccion": "TMS",
+      "instagram": "andro_meda.g136",
+      "triviaPos": 13,
+      "bases": [2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2]
+    },
+    {
+      "patrulla": "Osa Mayor",
+      "grupo": "Grupo 136",
+      "seccion": "TMS",
+      "instagram": "osa_mayor.g136",
+      "triviaPos": 14,
+      "bases": [2, 2, 1, 1, 2, 2, 2, 1, 2, 2, 1, 0, 2, 1, 2]
+    },
+    {
+      "patrulla": "Panteras",
+      "grupo": "Grupo 136",
+      "seccion": "TS",
+      "instagram": "Panteras.136",
+      "triviaPos": 2,
+      "bases": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Águilas",
+      "grupo": "Grupo 136",
+      "seccion": "TS",
+      "instagram": "patrulla.aguilas.136",
+      "triviaPos": 3,
+      "bases": [2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    },
+    {
+      "patrulla": "Patrulla Osos",
+      "grupo": "Grupo 136",
+      "seccion": "TS",
+      "instagram": "Osos._136",
+      "triviaPos": 10,
+      "bases": [2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2, 1, 2, 2, 2]
+    },
+    {
+      "patrulla": "Phoenix",
+      "grupo": "Grupo 729",
+      "seccion": "TMS",
+      "instagram": "phoeni.x_729",
+      "triviaPos": 1,
+      "bases": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+    }
+  ]
+}

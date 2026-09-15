@@ -123,9 +123,11 @@
 		if (btn) btn.addEventListener('click', start);
 		boot.addEventListener('click', start);
 		doc.addEventListener('keydown', function (e) {
-			// No arrancar si el aviso de materiales está abierto encima
+			// No arrancar si hay un aviso emergente abierto encima
 			var mat = doc.getElementById('mat-modal');
 			if (mat && mat.classList.contains('open')) return;
+			var res = doc.getElementById('res-modal');
+			if (res && res.classList.contains('open')) return;
 			if (!started && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); start(); }
 		});
 	}
@@ -149,7 +151,7 @@
 			if (diff <= 0) {
 				if (box) {
 					box.innerHTML = '<div class="tbox" style="min-width:auto;padding:8px 14px">' +
-						'<b style="color:var(--magenta)">¡EN CURSO!</b></div>';
+						'<b style="color:var(--gold)">CONCLUIDO</b></div>';
 				}
 				return;
 			}
@@ -311,8 +313,9 @@
 
 		if (openBtn) openBtn.addEventListener('click', open);
 
-		// Se despliega desde la pantalla de arranque, encima de ella
-		setTimeout(open, 600);
+		// Ya no se abre solo: al entrar se muestra el aviso de resultados
+		// (assets/js/rally-resultados.js). Los materiales quedan como consulta
+		// histórica desde el botón MATERIALES del pie.
 	}
 
 	/* ------------------------------------------------------------

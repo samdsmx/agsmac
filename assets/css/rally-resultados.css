@@ -1,0 +1,354 @@
+/* ============================================================
+   RESULTADOS DEL RALLY · VIII Rally Virtual Tropas — AGSMAC
+   ------------------------------------------------------------
+   Aviso emergente con la tabla final de bases. Se apoya en las
+   variables de color y tipografía de rally.css.
+
+   El bloque de patrulla (disco blanco + escudo del grupo) es el
+   mismo diseño del ranklist de la trivia (assets/css/trivia.css,
+   sección "Ranklist"). Se duplica aquí en vez de cargar
+   trivia.css porque ese archivo también redefine #game y .panel
+   y rompería la aparición por scroll de rally.html.
+   ============================================================ */
+
+/* ---------- Contenedor emergente ---------- */
+.rr-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 1200;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 12px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s ease;
+}
+
+.rr-modal.open { opacity: 1; pointer-events: auto; }
+.rr-modal[hidden] { display: none; }
+
+.rr-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(3, 5, 12, 0.88);
+	backdrop-filter: blur(3px);
+}
+
+.rr-box {
+	position: relative;
+	width: min(1060px, 100%);
+	max-height: 96vh;
+	display: flex;
+	flex-direction: column;
+	background: var(--panel);
+	border: 2px solid var(--gold);
+	box-shadow: 0 0 0 4px rgba(255, 212, 0, 0.12), 0 24px 60px rgba(0, 0, 0, 0.7);
+	transform: translateY(18px) scale(0.98);
+	transition: transform 0.25s ease;
+}
+
+.rr-modal.open .rr-box { transform: translateY(0) scale(1); }
+
+/* ---------- Encabezado ----------
+   Una sola franja: título + filtros + cerrar. Se evita repetir "resultados"
+   en un kicker y un subtítulo, y se libera alto para la tabla. */
+.rr-head {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+	padding: 12px 14px 12px 18px;
+	border-bottom: 2px solid var(--line);
+	flex: 0 0 auto;
+}
+
+.rr-title-wrap { flex: 1 1 auto; min-width: 0; }
+
+.rr-head h2 {
+	margin: 0;
+	font-family: var(--pixel);
+	font-size: 0.8rem;
+	line-height: 1.5;
+	color: var(--neon);
+}
+
+.rr-sub {
+	margin: 2px 0 0;
+	font-size: 1.05rem;
+	color: var(--muted);
+}
+
+.rr-x {
+	flex: 0 0 auto;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	line-height: 1;
+	color: var(--muted);
+	background: transparent;
+	border: 1px solid var(--line);
+	padding: 10px 11px;
+	cursor: pointer;
+}
+
+.rr-x:hover { color: var(--cyan); border-color: var(--cyan); }
+
+/* ---------- Filtros ---------- */
+.rr-filters { display: flex; gap: 6px; flex-wrap: wrap; flex: 0 0 auto; }
+
+.rr-tab {
+	font-family: var(--pixel);
+	font-size: 0.45rem;
+	line-height: 1.8;
+	color: var(--muted);
+	background: transparent;
+	border: 1px solid var(--line);
+	padding: 8px 11px;
+	cursor: pointer;
+}
+
+.rr-tab:hover { color: var(--cyan); }
+
+.rr-tab[aria-selected="true"] {
+	color: var(--bg);
+	background: var(--neon);
+	border-color: var(--neon);
+}
+
+.rr-legend {
+	display: flex;
+	gap: 16px;
+	flex-wrap: wrap;
+	justify-content: center;
+	font-size: 1.02rem;
+	color: var(--muted);
+}
+
+.rr-legend span { white-space: nowrap; }
+.rr-legend i { font-style: normal; margin-right: 5px; }
+
+/* ---------- Cuerpo ---------- */
+.rr-body {
+	padding: 4px 18px 10px;
+	overflow: auto;
+	flex: 1 1 auto;
+}
+
+.rr-empty {
+	color: var(--muted);
+	text-align: center;
+	padding: 26px 0;
+	font-size: 1.1rem;
+}
+
+/* ---------- Tabla ---------- */
+/* La tabla no lleva encabezado: las columnas se entienden solas. */
+.rr-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1.12rem;
+}
+
+.rr-table td {
+	padding: 9px 8px;
+	border-bottom: 1px solid rgba(0, 229, 255, 0.16);
+	color: var(--text);
+	vertical-align: middle;
+}
+
+.rr-table tr:last-child td { border-bottom: none; }
+
+.rr-table .pos {
+	font-family: var(--pixel);
+	font-size: 0.55rem;
+	color: var(--gold);
+	width: 1%;
+	white-space: nowrap;
+	text-align: center;
+}
+
+/* ---------- Bloque de patrulla ----------
+   Escudo, nombre y etiqueta de sección van en una sola línea: la etiqueta
+   queda pegada al nombre en vez de colgar en un renglón aparte. */
+.rr-patrulla {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.rr-patrulla .nombre {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	min-width: 0;
+	line-height: 1.25;
+}
+
+.rr-patrulla .nombre b {
+	font-weight: normal;
+	color: var(--text);
+}
+
+.rr-patrulla .nombre b::first-letter { text-transform: uppercase; }
+
+.rr-seccion {
+	font-family: var(--pixel);
+	font-size: 0.38rem;
+	line-height: 1.6;
+	color: var(--gold);
+	border: 1px solid rgba(255, 212, 0, 0.45);
+	padding: 3px 5px;
+	cursor: help;
+	white-space: nowrap;
+}
+
+/* El nombre de la patrulla es el enlace a su Instagram, pero conserva el color
+   del texto normal: solo se subraya al pasar el mouse, para no romper la
+   lectura de la tabla. */
+.rr-ig {
+	color: inherit;
+	text-decoration: none;
+}
+
+.rr-ig:hover,
+.rr-ig:focus-visible {
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+/* Disco blanco de soporte del escudo: mismo criterio que el ranklist de la
+   trivia. El PNG va DENTRO del disco (no se recorta con border-radius) para
+   que a los escudos cuadrados no se les corten las puntas. */
+.rr-escudo {
+	position: relative;
+	z-index: 1210;
+	flex: 0 0 40px;
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #ffffff;
+	border-radius: 50%;
+}
+
+.rr-escudo img {
+	display: block;
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
+}
+
+.rr-escudo-vacio { background: rgba(255, 255, 255, 0.12); }
+
+/* ---------- Rejilla de bases ---------- */
+.rr-bases {
+	display: grid;
+	grid-template-columns: repeat(15, 1fr);
+	gap: 3px;
+	min-width: 330px;
+}
+
+.rr-base {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 3px 0;
+	border: 1px solid transparent;
+	cursor: help;
+}
+
+.rr-base .n {
+	font-family: var(--pixel);
+	font-size: 0.32rem;
+	line-height: 1.6;
+	color: var(--muted);
+}
+
+.rr-base .ic { font-size: 0.95rem; line-height: 1.2; }
+
+.rr-base.v2 { background: rgba(57, 255, 20, 0.12); border-color: rgba(57, 255, 20, 0.3); }
+.rr-base.v1 { background: rgba(255, 212, 0, 0.12); border-color: rgba(255, 212, 0, 0.3); }
+.rr-base.v0 { background: rgba(255, 59, 59, 0.1); border-color: rgba(255, 59, 59, 0.28); }
+
+/* ---------- Pie · leyenda y nota de desempate ---------- */
+.rr-foot {
+	padding: 10px 18px 12px;
+	border-top: 1px solid rgba(0, 229, 255, 0.2);
+	text-align: center;
+	flex: 0 0 auto;
+}
+
+.rr-note {
+	margin: 8px 0 0;
+	font-size: 0.98rem;
+	color: var(--muted);
+}
+
+.rr-btn {
+	display: inline-block;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	line-height: 1.9;
+	color: var(--bg);
+	background: var(--neon);
+	border: none;
+	padding: 12px 16px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.rr-btn:hover { filter: brightness(1.12); }
+
+/* ---------- Aviso de evento concluido en la página ---------- */
+.rr-banner {
+	margin: 0 auto 30px;
+	max-width: 900px;
+	padding: 20px;
+	border: 2px solid var(--gold);
+	background: rgba(255, 212, 0, 0.07);
+	text-align: center;
+}
+
+.rr-kicker {
+	margin: 0 0 8px;
+	font-family: var(--pixel);
+	font-size: 0.5rem;
+	line-height: 2;
+	color: var(--gold);
+}
+
+.rr-banner p {
+	margin: 0 0 14px;
+	font-size: 1.15rem;
+	color: var(--text);
+}
+
+/* ---------- Responsive ---------- */
+@media screen and (max-width: 860px) {
+	.rr-modal { padding: 6px 6px; }
+	.rr-box { max-height: 97vh; }
+	.rr-head, .rr-body, .rr-foot { padding-left: 10px; padding-right: 10px; }
+	.rr-head { gap: 10px; }
+	.rr-head h2 { font-size: 0.66rem; }
+	.rr-sub { font-size: 0.98rem; }
+	.rr-title-wrap { flex: 1 1 100%; order: 1; }
+	.rr-x { order: 2; margin-left: auto; }
+	.rr-filters { order: 3; flex: 1 1 100%; }
+	.rr-table { font-size: 1rem; }
+	.rr-table td { padding: 8px 4px; }
+	.rr-escudo { flex-basis: 34px; width: 34px; height: 34px; }
+	.rr-escudo img { width: 24px; height: 24px; }
+	.rr-patrulla { gap: 8px; }
+	.rr-legend { gap: 10px; font-size: 0.95rem; }
+	/* En pantallas chicas las 15 bases se acomodan en tres renglones de cinco
+	   en lugar de forzar un scroll horizontal muy largo. */
+	.rr-bases { grid-template-columns: repeat(5, 1fr); min-width: 150px; }
+}
+
+@media print {
+	.rr-modal { display: none !important; }
+}

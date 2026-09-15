@@ -58,6 +58,7 @@ El sitio queda disponible en <http://localhost:8082>.
 │   └── generar-historia-json.js    Genera includes/data/historia.json
 └── helpers/
     ├── procesarEscudos.js          Script de procesado de escudos
+    ├── quitarRojo.js               Quita trazos rojos de una imagen (sopas resueltas)
     └── generar_portadas_cards.py   Genera portadas-card de libros sin cover real
 ```
 
@@ -164,6 +165,27 @@ Causas comunes:
 ### Convención de nombres
 
 `<numero-de-grupo>.png`, por ejemplo `54.png`, `729.png`. Sin prefijos ni sufijos. Si el archivo viene como `133_2.png`, renómbralo a `133.png` antes (o después) de procesar.
+
+### Quitar marcas rojas de una imagen (`helpers/quitarRojo.js`)
+
+Para "desresolver" sopas de letras y crucigramas: la versión resuelta trae los hallazgos marcados en rojo y este script devuelve la hoja limpia para poder imprimirla como actividad.
+
+```powershell
+node helpers\quitarRojo.js Temp\VIIIRally\Sopa_Res.jpeg
+node helpers\quitarRojo.js entrada.jpg salida.png
+```
+
+Sin salida explícita escribe junto al original como `<nombre>-sin-rojo.png`, siempre en PNG (reguardar en JPEG volvería a meter halos de compresión).
+
+Solo toca píxeles con **tinte rojo**; lo neutro —letras, dibujo, grises— no se altera. De los rojos: el trazo pleno y sus bordes se van a blanco, y los rojos apagados que tocan una letra se conservan quitándoles solo el color, para no morder el antialias. Aparte limpia el halo rosa pálido del JPEG, pero únicamente en píxeles casi blancos.
+
+Constantes ajustables al inicio del script si algún original viene distinto:
+
+- `DOMINANCIA_ROJO` (28): cuánto debe dominar el canal rojo para contar como trazo.
+- `ROJO_VIVO` (150): valor del canal rojo desde el que se considera trazo pleno. **Ojo:** el umbral va sobre el canal rojo, no sobre la luminosidad — el rojo de estos trazos (237,28,36) tiene luminosidad ≈ 91 y por luminosidad se clasificaría como "oscuro", dejando el trazo convertido en una línea gris.
+- `HALO_TINTE` / `HALO_CLARO` (4 / 190): qué tan pálido puede ser el halo que aún se limpia.
+
+No sirve sobre fotografías ni sobre dibujos donde el rojo sea parte del contenido: los borraría.
 
 ---
 
@@ -769,10 +791,41 @@ servidor de Discord que funciona como cuartel general del evento.
 | `assets/js/rally.js`, `assets/css/rally*.css` | Efectos y estilos. |
 | `includes/data/rally.json` | **Fuente única** de fechas, cargos, banco, tutoriales y `appsScriptUrl`. |
 | `docs/apps-script-rally.gs` | Backend del registro (Apps Script + Google Sheet). |
+| `assets/js/rally-resultados.js` + `assets/css/rally-resultados.css` | Aviso emergente con la tabla final de bases (ver más abajo). |
+| `includes/data/rally-resultados.json` | Resultados finales capturados de la hoja de calificación. |
 | `helpers/discord/` | Scripts que arman y operan el servidor de Discord. |
 | `docs/discord-servidor.md` | Guía del servidor de Discord (con script y a mano). |
 | `Temp/VIIIRally/00-CONTEXTO.md` | Decisiones y acuerdos del evento. |
 | `trivia.html` + `ranklist-trivia.html` | La trivia de la base de conocimientos y su ranklist (ver 8.d). |
+
+### Tabla de BASES (el evento ya pasó)
+
+Terminado el Rally, `rally.html` abre de entrada el aviso emergente de **TABLA DE BASES**
+(antes abría el de materiales, que ahora solo se consulta con el botón `MATERIALES` del
+pie). El resto de la página se conserva como **archivo histórico**: se muestra un banner de
+«evento concluido» y el formulario de inscripción queda deshabilitado, pero no se borró
+nada.
+
+Los datos viven en `includes/data/rally-resultados.json`, una entrada por patrulla:
+
+| Campo | Para qué |
+|---|---|
+| `patrulla`, `grupo`, `seccion` | `grupo` debe traer el número (`"Grupo 136"`): de ahí sale el escudo. `seccion` es `TMS` o `TS` y alimenta el filtro. |
+| `instagram` | Handle sin `@`. El **nombre de la patrulla** se vuelve el enlace a esa cuenta (mismo color, se subraya al hacer hover). |
+| `bases` | 15 valores (Base 1 → Base 15). `2` = completa ✅, `1` = incompleta ⚠️, `0` = sin entregar 😢. La Base 0 no se incluye. |
+| `triviaPos` | Posición final en el ranklist de la trivia. **Solo** se usa para desempatar patrullas con el mismo total. |
+
+Aparte de `patrullas`, el JSON trae `nombresBases`: 15 cadenas (Base 1 → Base 15) tomadas de
+`helpers/discord/config.json`, que se muestran en el tooltip de cada casilla
+(«Base 3 · Conoce tu Asociación»). Si una queda vacía, el tooltip cae a solo «Base N». El
+estado (completa / incompleta / sin entregar) no va en el tooltip: lo dice el icono y la
+leyenda del pie, y queda en el `aria-label` para lectores de pantalla.
+
+El orden es total de puntos de mayor a menor; los empates se rompen con `triviaPos`. La suma
+no se muestra a propósito. El bloque de patrulla (disco blanco + escudo del grupo) reusa el
+diseño del ranklist de la trivia; el CSS se duplica en `rally-resultados.css` porque cargar
+`trivia.css` en `rally.html` redefiniría `#game` y `.panel` y rompería la aparición por
+scroll.
 
 ### Servidor de Discord
 
