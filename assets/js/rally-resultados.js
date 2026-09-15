@@ -132,6 +132,27 @@
 		cont.innerHTML = html + '</tbody></table>';
 	}
 
+	/* La nota del pie es texto plano, pero si 'desempateEnlace.texto' aparece
+	   dentro de ella se convierte en enlace (lleva al ranklist de la trivia). */
+	function pintarNota(d) {
+		var host = $('#rr-note');
+		if (!host) return;
+
+		var texto = String(d.desempate || '');
+		var enlace = d.desempateEnlace || {};
+		var frase = String(enlace.texto || '');
+		var i = frase ? texto.indexOf(frase) : -1;
+
+		if (i === -1 || !enlace.url) {
+			host.textContent = texto;
+			return;
+		}
+
+		host.innerHTML = esc(texto.slice(0, i)) +
+			'<a class="rr-link" href="' + esc(enlace.url) + '">' + esc(frase) + '</a>' +
+			esc(texto.slice(i + frase.length));
+	}
+
 	function pintarLeyenda() {
 		var host = $('#rr-legend');
 		if (!host || !DATOS) return;
@@ -220,7 +241,7 @@
 				if (d.evento && d.evento.fechas) {
 					$('#rr-sub').textContent = d.evento.nombre + ' · ' + d.evento.fechas;
 				}
-				if (d.desempate) $('#rr-note').textContent = d.desempate;
+				if (d.desempate) pintarNota(d);
 				pintarLeyenda();
 				pintar();
 			})

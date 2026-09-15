@@ -821,6 +821,10 @@ Aparte de `patrullas`, el JSON trae `nombresBases`: 15 cadenas (Base 1 → Base 
 estado (completa / incompleta / sin entregar) no va en el tooltip: lo dice el icono y la
 leyenda del pie, y queda en el `aria-label` para lectores de pantalla.
 
+La nota del pie sale de `desempate`. Si la frase de `desempateEnlace.texto` aparece dentro
+de ella, se convierte en enlace a `desempateEnlace.url` (por defecto `ranklist-trivia.html`);
+si no coincide, la nota se muestra como texto plano.
+
 El orden es total de puntos de mayor a menor; los empates se rompen con `triviaPos`. La suma
 no se muestra a propósito. El bloque de patrulla (disco blanco + escudo del grupo) reusa el
 diseño del ranklist de la trivia; el CSS se duplica en `rally-resultados.css` porque cargar

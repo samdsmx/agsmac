@@ -288,6 +288,14 @@
 	color: var(--muted);
 }
 
+.rr-link {
+	color: var(--cyan);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.rr-link:hover { color: var(--neon); }
+
 .rr-btn {
 	display: inline-block;
 	font-family: var(--pixel);

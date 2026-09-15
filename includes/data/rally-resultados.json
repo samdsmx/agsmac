@@ -35,6 +35,12 @@
 
   "desempate": "A igual número de bases, queda arriba la patrulla que haya terminado mejor posicionada en el ranklist de la trivia.",
 
+  "_comentarioDesempateEnlace": "Si 'texto' aparece dentro de 'desempate', se convierte en enlace a 'url'. Si no coincide, la nota se muestra como texto plano.",
+  "desempateEnlace": {
+    "texto": "ranklist",
+    "url": "ranklist-trivia.html"
+  },
+
   "patrullas": [
     {
       "patrulla": "Cihualpilli",
