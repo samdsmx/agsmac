@@ -1,0 +1,348 @@
+/* Panel responsivo para la información de las secciones del home. */
+
+body.section-dialog-open {
+	overflow: hidden;
+}
+
+body.section-dialog-open .mostrarInfoH > .mostrarMas:not(.interno) {
+	visibility: hidden;
+	pointer-events: none;
+}
+
+body.section-dialog-open .wrapper {
+	visibility: hidden;
+}
+
+.section-dialog-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 7900;
+	background: rgba(14, 18, 24, 0.66);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 180ms ease, visibility 180ms ease;
+}
+
+.section-dialog-backdrop.is-visible {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.mostrarInfoH .content {
+	box-sizing: border-box;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.mostrarInfoH.show .content {
+	position: fixed !important;
+	top: 50% !important;
+	left: 50% !important;
+	z-index: 8100;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	margin: 0 !important;
+	opacity: 1 !important;
+	visibility: visible;
+	pointer-events: auto;
+	transform: translate(-50%, -50%);
+	overflow: hidden;
+	transition: opacity 180ms ease, transform 180ms ease !important;
+}
+
+.mostrarInfoH.show .content > h2 {
+	flex: 0 0 auto;
+	width: 72%;
+	margin: 0 0 0.75rem !important;
+	padding: 0;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.mostrarInfoH .content .circle-close {
+	position: absolute !important;
+	z-index: 5;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
+	margin: 0 !important;
+	border: 0;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.22);
+	color: #fff !important;
+	font-family: Arial, sans-serif;
+	font-size: 1.5rem !important;
+	font-weight: 400;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.mostrarInfoH .content .interno {
+	flex: 1 1 auto;
+	min-height: 0;
+	margin: 0 !important;
+}
+
+.section-dialog-nav {
+	display: flex;
+	flex: 0 0 auto;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	width: 100%;
+	margin-bottom: 0.7rem;
+}
+
+.section-dialog-nav button {
+	width: auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0.55rem 1rem;
+	border: 1px solid rgba(255, 255, 255, 0.48);
+	border-radius: 999px;
+	background: rgba(0, 0, 0, 0.12);
+	box-shadow: none;
+	color: #fff;
+	font-family: "Work Sans", sans-serif;
+	font-size: 0.84rem;
+	font-weight: 600;
+	line-height: 1.15;
+	letter-spacing: 0;
+	text-transform: none;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background-color 140ms ease, color 140ms ease, transform 140ms ease;
+}
+
+.section-dialog-nav button:hover,
+.section-dialog-nav button:focus-visible {
+	background: rgba(255, 255, 255, 0.2);
+	transform: translateY(-1px);
+}
+
+.section-dialog-nav button.is-active {
+	border-color: var(--sec-accent);
+	background: var(--sec-accent);
+	color: var(--sec-bg);
+}
+
+.mostrarInfoH .contenido {
+	display: block;
+	width: 100% !important;
+	height: calc(100% - 3.25rem);
+	min-height: 0;
+	margin: 0 !important;
+	padding: 0 !important;
+	overflow: hidden;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel {
+	display: none !important;
+	box-sizing: border-box;
+	width: 100% !important;
+	max-width: none !important;
+	height: 100% !important;
+	max-height: none !important;
+	margin: 0 !important;
+	padding: 0.4rem 0.9rem 1rem 0.35rem !important;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel.is-active {
+	display: block !important;
+}
+
+.mostrarInfoH .contenido > .contenedorTabs.section-dialog-panel {
+	padding-top: 0 !important;
+}
+
+.mostrarInfoH .contenedorTabs .tab {
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	margin: 0 0 0.75rem;
+	padding: 0.35rem 0 0.55rem;
+	background: color-mix(in srgb, var(--sec-bg) 88%, transparent);
+	backdrop-filter: blur(7px);
+	-webkit-backdrop-filter: blur(7px);
+}
+
+.mostrarInfoH .contenedorTabs .tabcontent,
+.mostrarInfoH .contenedorTabs .tabcontent-small {
+	max-height: none !important;
+	padding: 0.65rem 0.5rem 1rem !important;
+	overflow: visible !important;
+}
+
+.mostrarInfoH .contenidoLargoCirculos p,
+.mostrarInfoH .contenidoLargoCirculos li {
+	font-size: 1rem !important;
+	line-height: 1.58 !important;
+}
+
+.mostrarInfoH .adelanto-seccion .insignia-max {
+	margin-bottom: 1.2rem;
+}
+
+.mostrarInfoH .adelanto-seccion .insignia-grid {
+	gap: 0.75rem;
+}
+
+.mostrarInfoH .adelanto-seccion .insignia-grid figure {
+	box-sizing: border-box;
+	padding: 0.65rem 0.4rem;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel,
+.mostrarInfoH .contenido > .section-dialog-panel * {
+	scrollbar-color: color-mix(in srgb, var(--sec-accent) 78%, transparent) transparent;
+	scrollbar-width: thin;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel::-webkit-scrollbar {
+	width: 7px;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel::-webkit-scrollbar-thumb {
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--sec-accent) 78%, transparent);
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.mostrarInfoH .content img.leftArrow,
+.mostrarInfoH .content img.rigthArrow {
+	display: none !important;
+}
+
+@media screen and (min-width: 901px) {
+	.mostrarInfoH.show .content {
+		width: 86vmin !important;
+		height: 86vmin !important;
+		max-width: 1100px;
+		max-height: 1100px;
+		padding: 7.5% 0 8% !important;
+		border-radius: 50%;
+	}
+
+	.mostrarInfoH.show .content > h2 {
+		font-size: clamp(1.35rem, 2.15vmin, 2rem);
+	}
+
+	.mostrarInfoH .content .circle-close {
+		top: 9% !important;
+		right: 19% !important;
+		left: auto !important;
+		width: 2.3rem !important;
+		height: 2.3rem !important;
+		font-size: 1.45rem !important;
+	}
+
+	.mostrarInfoH .content .interno {
+		display: flex !important;
+		flex: 0 1 68%;
+		flex-direction: column;
+		width: 72%;
+		height: 68%;
+		max-width: 790px;
+	}
+
+	.mostrarInfoH .adelanto-seccion .insignia-grid figure {
+		flex-basis: calc((100% - 2 * 0.75rem) / 3);
+		max-width: calc((100% - 2 * 0.75rem) / 3);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	body.section-dialog-open .mostrarInfoH.show > .content {
+		top: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		left: 0 !important;
+		width: auto !important;
+		height: auto !important;
+		max-width: none;
+		max-height: none;
+		padding: max(1rem, env(safe-area-inset-top)) 1rem max(0.75rem, env(safe-area-inset-bottom)) !important;
+		border-radius: 0 !important;
+		transform: none !important;
+		box-shadow: inset 0 6px 0 var(--sec-ring), 0 20px 70px rgba(0, 0, 0, 0.45) !important;
+	}
+
+	.mostrarInfoH.show .content > h2 {
+		width: calc(100% - 5rem);
+		margin: 0.25rem 0 0.85rem !important;
+		font-size: clamp(1.3rem, 5vw, 1.8rem);
+	}
+
+	.mostrarInfoH .content .circle-close {
+		top: max(0.8rem, env(safe-area-inset-top)) !important;
+		right: 0.85rem !important;
+		left: auto !important;
+		width: 2.5rem !important;
+		height: 2.5rem !important;
+		font-size: 1.55rem !important;
+	}
+
+	.mostrarInfoH .content .interno {
+		display: flex !important;
+		flex: 1 1 auto;
+		flex-direction: column;
+		width: 100%;
+		height: calc(100% - 3.5rem);
+	}
+
+	.section-dialog-nav {
+		justify-content: flex-start;
+		gap: 0.4rem;
+		padding: 0 0.15rem 0.3rem;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+
+	.section-dialog-nav::-webkit-scrollbar {
+		display: none;
+	}
+
+	.section-dialog-nav button {
+		flex: 0 0 auto;
+		padding: 0.55rem 0.85rem;
+		font-size: 0.8rem;
+	}
+
+	.mostrarInfoH .contenido {
+		height: calc(100% - 3.2rem);
+	}
+
+	.mostrarInfoH .contenido > .section-dialog-panel {
+		padding: 0.4rem 0.55rem 1.5rem 0.2rem !important;
+	}
+
+	.mostrarInfoH .adelanto-seccion .insignia-max img {
+		width: 82px !important;
+		height: 82px !important;
+	}
+
+	.mostrarInfoH .adelanto-seccion .insignia-grid figure,
+	.mostrarInfoH .adelanto-seccion .insignia-grid.cols-2 figure,
+	.mostrarInfoH .adelanto-seccion .insignia-grid.cols-4 figure {
+		flex-basis: calc((100% - 0.75rem) / 2);
+		max-width: calc((100% - 0.75rem) / 2);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.section-dialog-backdrop,
+	.mostrarInfoH.show .content,
+	.section-dialog-nav button {
+		transition: none;
+	}
+}
