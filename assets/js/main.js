@@ -121,60 +121,219 @@ function afterIncluded(){
 			}
 		});
 	});
-	// Cerrar el círculo expandido sólo si el click ocurre fuera de cualquier
-	// `.mostrarInfoH` (es decir, fuera del propio círculo). Cualquier click
-	// dentro del círculo no debe cerrarlo — para eso está el botón X.
-	$(document).on('click', function(e){
-		var $target = jQuery(e.target);
-		// Si el click es sobre el botón X o sobre el ícono interno, dejamos
-		// que su propio handler lo cierre.
-		if ($target.closest('.circle-close').length) { return; }
-		// Si el click ocurre dentro de un círculo abierto o sobre los
-		// disparadores (round / mostrarMas) no cerramos nada.
-		if ($target.closest('.mostrarInfoH').length) { return; }
-		var count = 0;
-		$('.mostrarInfoH').each(function(){
-			if( $(this).hasClass("show") )
-			{
-				$(this).removeClass("show");
-				$(this).addClass("hide");
-				count++;
-			}
+
+	var $sectionBackdrop = $('<div class="section-dialog-backdrop" aria-hidden="true"></div>').appendTo('body');
+	var $ultimoDisparadorSeccion = $();
+	var sectionDialogTimer = null;
+
+	function seleccionarPanelSeccion($circle, indice, direccion) {
+		var $panels = $circle.find('.interno > .contenido > .section-dialog-panel');
+		var $buttons = $circle.find('.section-dialog-nav button');
+		var indiceActual = $buttons.index($buttons.filter('.is-active').first());
+		if (!$panels.length) { return; }
+		if (indice < 0 || indice >= $panels.length) { indice = 0; }
+		if (indiceActual === indice && $panels.eq(indice).hasClass('is-active')) { return; }
+		if (!direccion && indiceActual >= 0) { direccion = indice > indiceActual ? 1 : -1; }
+
+		$buttons.removeClass('is-active').attr({
+			'aria-selected': 'false',
+			'tabindex': '-1'
 		});
-		if (count !== 0) { e.preventDefault(); }
+		$buttons.eq(indice).addClass('is-active').attr({
+			'aria-selected': 'true',
+			'tabindex': '0'
+		});
+
+		$panels
+			.removeClass('is-active panel-enter-left panel-enter-right')
+			.attr('hidden', 'hidden');
+		$panels.eq(indice)
+			.addClass('is-active' + (direccion ? (direccion > 0 ? ' panel-enter-right' : ' panel-enter-left') : ''))
+			.removeAttr('hidden')
+			.scrollTop(0);
+	}
+
+	function moverPanelSeccion($circle, direccion) {
+		var $buttons = $circle.find('.section-dialog-nav button');
+		var actual = $buttons.index($buttons.filter('.is-active').first());
+		var siguiente;
+		if (!$buttons.length) { return; }
+		if (actual < 0) { actual = 0; }
+		siguiente = (actual + direccion + $buttons.length) % $buttons.length;
+		seleccionarPanelSeccion($circle, siguiente, direccion);
+	}
+
+	function finalizarCierreCirculos($circles, devolverFoco) {
+		$circles
+			.removeClass('show is-opening is-closing')
+			.addClass('hide')
+			.children('.content')
+			.attr('aria-hidden', 'true');
+		$body.removeClass('section-dialog-open');
+
+		if (devolverFoco && $ultimoDisparadorSeccion.length) {
+			window.setTimeout(function () {
+				$ultimoDisparadorSeccion.trigger('focus');
+			}, 0);
+		}
+	}
+
+	function cerrarCirculos(devolverFoco, inmediato) {
+		var $abiertos = $('.mostrarInfoH.show');
+		if (!$abiertos.length) { return; }
+		if (sectionDialogTimer) {
+			window.clearTimeout(sectionDialogTimer);
+			sectionDialogTimer = null;
+		}
+		$sectionBackdrop.removeClass('is-visible').attr('aria-hidden', 'true');
+		if (inmediato) {
+			finalizarCierreCirculos($abiertos, devolverFoco);
+			return;
+		}
+		$abiertos.removeClass('is-opening').addClass('is-closing');
+		sectionDialogTimer = window.setTimeout(function () {
+			finalizarCierreCirculos($abiertos, devolverFoco);
+			sectionDialogTimer = null;
+		}, 560);
+	}
+
+	function abrirCirculo($circle) {
+		cerrarCirculos(false, true);
+		seleccionarPanelSeccion($circle, 0, 0);
+		$circle.removeClass('hide is-closing').addClass('show is-opening');
+		$circle.children('.content').attr('aria-hidden', 'false');
+		$sectionBackdrop.addClass('is-visible').attr('aria-hidden', 'false');
+		$body.addClass('section-dialog-open');
+		window.setTimeout(function () {
+			$circle.removeClass('is-opening');
+		}, 720);
+		window.setTimeout(function () {
+			$circle.find('.circle-close').trigger('focus');
+		}, 380);
+	}
+
+	$sectionBackdrop.on('click', function () {
+		cerrarCirculos(true);
 	});
+
+	$(document).off('keydown.sectionDialog').on('keydown.sectionDialog', function (e) {
+		var $circle = $('.mostrarInfoH.show').first();
+		if (e.key === 'Escape' && $circle.length) {
+			e.preventDefault();
+			cerrarCirculos(true);
+		} else if ($circle.length && e.key === 'ArrowLeft' && !$(e.target).is('input, textarea, select')) {
+			e.preventDefault();
+			moverPanelSeccion($circle, -1);
+		} else if ($circle.length && e.key === 'ArrowRight' && !$(e.target).is('input, textarea, select')) {
+			e.preventDefault();
+			moverPanelSeccion($circle, 1);
+		}
+	});
+
 	//Efecto imágenes laterales
-	$('.mostrarInfoH').each( function() {
+	$('.mostrarInfoH').each( function(indiceCirculo) {
 		var t 		= jQuery(this);
-		var enlace 	= t.find('.mostrarMas');
-		// Inyectamos un botón X de cerrar junto al título de la sección.
+		var enlace 	= t.children('.mostrarMas').not('.interno');
 		var $content = t.children('.content');
 		var $title = $content.children('h2').first();
+		var $interno = $content.children('.interno').first();
+		var $panels = $interno.children('.contenido').children('div');
+		var $leftArrow = $interno.children('.leftArrow').detach().appendTo($content);
+		var $rightArrow = $interno.children('.rigthArrow').detach().appendTo($content);
+		var $emblema = $panels.first().find('.seccion-decor').first().detach();
+		var tituloId = 'section-dialog-title-' + indiceCirculo;
+		var etiquetas = ['Información', 'Promesa y Ley', $content.hasClass('SD') ? 'Formación' : 'Adelanto'];
+
 		if (!$title.length) { $title = $content.children('h1, h2').first(); }
+		$title.attr('id', tituloId);
+		$content.attr({
+			'role': 'dialog',
+			'aria-modal': 'true',
+			'aria-labelledby': tituloId,
+			'aria-hidden': 'true'
+		});
+
 		if ($title.length && !$title.find('.circle-close').length) {
-			$title.append('<a href="#" class="circle-close" aria-label="Cerrar"><i class="fa fa-times"></i></a>');
+			$title.append('<button type="button" class="circle-close" aria-label="Cerrar">&times;</button>');
 		}
+		if ($emblema.length) {
+			$emblema
+				.addClass('section-dialog-emblem')
+				.attr('aria-hidden', 'true')
+				.appendTo($content);
+		}
+
+		$panels.addClass('section-dialog-panel').each(function(indicePanel) {
+			var panelId = 'section-dialog-panel-' + indiceCirculo + '-' + indicePanel;
+			$(this).attr({
+				'id': panelId,
+				'role': 'tabpanel',
+				'aria-labelledby': 'section-dialog-tab-' + indiceCirculo + '-' + indicePanel
+			});
+		});
+
+		$leftArrow.add($rightArrow).attr({
+			'role': 'button',
+			'tabindex': '0'
+		});
+		$leftArrow.attr('aria-label', 'Contenido anterior');
+		$rightArrow.attr('aria-label', 'Contenido siguiente');
+
+		if ($interno.length && !$interno.children('.section-dialog-nav').length) {
+			var $nav = $('<div class="section-dialog-nav" role="tablist" aria-label="Contenido de la sección"></div>');
+			$panels.each(function(indicePanel) {
+				var etiqueta = etiquetas[indicePanel] || ('Sección ' + (indicePanel + 1));
+				var panelId = $(this).attr('id');
+				$('<button type="button" role="tab"></button>')
+					.text(etiqueta)
+					.attr({
+						'id': 'section-dialog-tab-' + indiceCirculo + '-' + indicePanel,
+						'aria-controls': panelId
+					})
+					.on('click', function() {
+						seleccionarPanelSeccion(t, indicePanel, 0);
+					})
+					.appendTo($nav);
+			});
+			$nav.insertBefore($interno.children('.contenido').first());
+		}
+
+		seleccionarPanelSeccion(t, 0, 0);
+
+		$leftArrow
+			.off('.sectionDialog')
+			.on('click.sectionDialog', function() {
+				moverPanelSeccion(t, -1);
+			})
+			.on('keydown.sectionDialog', function(e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					moverPanelSeccion(t, -1);
+				}
+			});
+		$rightArrow
+			.off('.sectionDialog')
+			.on('click.sectionDialog', function() {
+				moverPanelSeccion(t, 1);
+			})
+			.on('keydown.sectionDialog', function(e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					moverPanelSeccion(t, 1);
+				}
+			});
+
 		$content.find('.circle-close').on('click', function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			t.removeClass('show').addClass('hide');
+			cerrarCirculos(true);
 		});
-		enlace.click( function(){
-			// Eliminamos todos los que tengan esta cla
-			$('.mostrarInfoH').each(function(){
-				if( $(this).hasClass("show") )
-				{
-					$(this).removeClass("show");
-					$(this).addClass("hide");
-				}
-			});
-			t.toggleClass('hide');
-			t.toggleClass('show');
-			/*if ( t.hasClass('preview') ) {
-                return true;
-            } else {
-                e.preventDefault();
-            }*/
+		enlace.on('click', function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			$ultimoDisparadorSeccion = $(this).find('a, button').first();
+			if (!$ultimoDisparadorSeccion.length) { $ultimoDisparadorSeccion = $(this); }
+			abrirCirculo(t);
 		} );
 	} );
 	// Footer.
@@ -191,59 +350,6 @@ function afterIncluded(){
 }
 
 function afterAfterInclude(){
-	// Declararemos una funcion que nos ayudará a mostrar el content.
-	$(".leftArrow").click(function () {
-		// Primero tenemos que obtener el padre para obtener toda la info y manipularla
-		$(this).animate({
-			height:'15px',
-			width:'25px'
-		}, 100);
-		var info = $(this).siblings('.contenido').children('div');
-		var contador = 0;
-		info.each(function(){
-			if( $(this).is(':visible') ){
-				$(this).hide();
-				if( contador === 0 ){
-					contador = info.length-1;
-				} else {
-					--contador;
-				}
-				$(info[contador]).show();
-				return false;
-			}
-			contador++;
-		});
-		$(this).animate({
-			height:'25px',
-			width:'30px'
-		}, 100);
-	});
-
-	// Declararemos una funcion que nos ayudará a mostrar el content.
-	$(".rigthArrow").click(function () {
-		$(this).animate({
-			height:'15px',
-			width:'25px'
-		}, 100);
-		// Primero tenemos que obtener el padre para obtener toda la info y manipularla
-		var info = $(this).siblings('.contenido').children('div');
-		var contador = 0;
-		info.each(function(){
-			contador++;
-			if( $(this).is(':visible') ){
-				$(this).hide();
-				if( contador === info.length ){
-					contador = 0;
-				}
-				$(info[contador]).show();
-				return false;
-			}
-		});
-		$(this).animate({
-			height:'25px',
-			width:'30px'
-		}, 100);
-	});
 	$('.str3').liMarquee({
 		direction: 'left',
 		loop: -1,
@@ -510,8 +616,8 @@ function afterAfterInclude(){
 			return $(this).children('.content').hasClass(code);
 		}).first();
 		if (!$circle.length) return;
-		$('.mostrarInfoH').removeClass('show').addClass('hide');
-		$circle.removeClass('hide').addClass('show');
+		$ultimoDisparadorSeccion = $();
+		abrirCirculo($circle);
 	}
 	abrirSeccionDesdeHash();
 	$(window).off('hashchange.seccion').on('hashchange.seccion', abrirSeccionDesdeHash);

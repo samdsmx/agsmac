@@ -1,27 +1,26 @@
-/* Panel responsivo para la información de las secciones del home. */
+/* Panel híbrido para la información de las secciones del home. */
 
 body.section-dialog-open {
 	overflow: hidden;
 }
 
-body.section-dialog-open .mostrarInfoH > .mostrarMas:not(.interno) {
-	visibility: hidden;
-	pointer-events: none;
-}
-
+body.section-dialog-open .mostrarInfoH > .mostrarMas:not(.interno),
 body.section-dialog-open .wrapper {
 	visibility: hidden;
+	pointer-events: none;
 }
 
 .section-dialog-backdrop {
 	position: fixed;
 	inset: 0;
 	z-index: 7900;
-	background: rgba(14, 18, 24, 0.66);
+	background:
+		radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.08), transparent 42%),
+		rgba(8, 12, 18, 0.76);
 	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;
-	transition: opacity 180ms ease, visibility 180ms ease;
+	transition: opacity 320ms ease, visibility 320ms ease;
 }
 
 .section-dialog-backdrop.is-visible {
@@ -45,40 +44,58 @@ body.section-dialog-open .wrapper {
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
+	box-sizing: border-box;
 	margin: 0 !important;
-	opacity: 1 !important;
+	opacity: 1;
 	visibility: visible;
 	pointer-events: auto;
-	transform: translate(-50%, -50%);
 	overflow: hidden;
-	transition: opacity 180ms ease, transform 180ms ease !important;
+}
+
+.mostrarInfoH.show .content > * {
+	position: relative;
+	z-index: 2;
 }
 
 .mostrarInfoH.show .content > h2 {
 	flex: 0 0 auto;
-	width: 72%;
-	margin: 0 0 0.75rem !important;
+	width: 82%;
+	margin: 0 0 0.7rem !important;
 	padding: 0;
 	text-align: center;
-	line-height: 1.2;
+	line-height: 1.15;
 }
 
 .mostrarInfoH .content .circle-close {
 	position: absolute !important;
-	z-index: 5;
+	z-index: 8;
 	display: inline-flex !important;
 	align-items: center;
 	justify-content: center;
+	width: 2.15rem !important;
+	height: 2.15rem !important;
 	margin: 0 !important;
-	border: 0;
+	padding: 0 !important;
+	border: 1px solid rgba(255, 255, 255, 0.52);
 	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.22);
+	background: rgba(0, 0, 0, 0.08);
+	box-shadow: none;
 	color: #fff !important;
 	font-family: Arial, sans-serif;
-	font-size: 1.5rem !important;
-	font-weight: 400;
+	font-size: 1.35rem !important;
+	font-weight: 300;
 	line-height: 1;
+	text-decoration: none;
 	cursor: pointer;
+	transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
+}
+
+.mostrarInfoH .content .circle-close:hover,
+.mostrarInfoH .content .circle-close:focus-visible {
+	border-color: var(--sec-accent);
+	background: rgba(255, 255, 255, 0.12);
+	transform: rotate(90deg) scale(1.08);
+	outline: none;
 }
 
 .mostrarInfoH .content .interno {
@@ -94,46 +111,48 @@ body.section-dialog-open .wrapper {
 	justify-content: center;
 	gap: 0.55rem;
 	width: 100%;
-	margin-bottom: 0.7rem;
+	margin-bottom: 0.65rem;
 }
 
 .section-dialog-nav button {
 	width: auto;
 	min-width: 0;
 	margin: 0;
-	padding: 0.55rem 1rem;
+	padding: 0.55rem 1.15rem;
 	border: 1px solid rgba(255, 255, 255, 0.48);
 	border-radius: 999px;
 	background: rgba(0, 0, 0, 0.12);
 	box-shadow: none;
 	color: #fff;
 	font-family: "Work Sans", sans-serif;
-	font-size: 0.84rem;
+	font-size: 0.86rem;
 	font-weight: 600;
 	line-height: 1.15;
 	letter-spacing: 0;
 	text-transform: none;
 	white-space: nowrap;
 	cursor: pointer;
-	transition: background-color 140ms ease, color 140ms ease, transform 140ms ease;
+	transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
 }
 
 .section-dialog-nav button:hover,
 .section-dialog-nav button:focus-visible {
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.18);
 	transform: translateY(-1px);
+	outline: none;
 }
 
 .section-dialog-nav button.is-active {
 	border-color: var(--sec-accent);
 	background: var(--sec-accent);
+	box-shadow: 0 0 20px color-mix(in srgb, var(--sec-accent) 30%, transparent);
 	color: var(--sec-bg);
 }
 
 .mostrarInfoH .contenido {
 	display: block;
 	width: 100% !important;
-	height: calc(100% - 3.25rem);
+	height: calc(100% - 3.1rem);
 	min-height: 0;
 	margin: 0 !important;
 	padding: 0 !important;
@@ -148,7 +167,7 @@ body.section-dialog-open .wrapper {
 	height: 100% !important;
 	max-height: none !important;
 	margin: 0 !important;
-	padding: 0.4rem 0.9rem 1rem 0.35rem !important;
+	padding: 0.45rem 1.2rem 1.2rem 0.6rem !important;
 	overflow-x: hidden;
 	overflow-y: auto;
 	scrollbar-gutter: stable;
@@ -158,32 +177,281 @@ body.section-dialog-open .wrapper {
 	display: block !important;
 }
 
+.mostrarInfoH .contenido > .section-dialog-panel.panel-enter-right {
+	animation: section-panel-from-right 340ms cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
+.mostrarInfoH .contenido > .section-dialog-panel.panel-enter-left {
+	animation: section-panel-from-left 340ms cubic-bezier(0.22, 0.8, 0.3, 1) both;
+}
+
 .mostrarInfoH .contenido > .contenedorTabs.section-dialog-panel {
 	padding-top: 0 !important;
+}
+
+.mostrarInfoH .contenido > .contenedorTabs.section-dialog-panel.is-active {
+	display: flex !important;
+	flex-direction: column;
 }
 
 .mostrarInfoH .contenedorTabs .tab {
 	position: sticky;
 	top: 0;
-	z-index: 2;
-	margin: 0 0 0.75rem;
-	padding: 0.35rem 0 0.55rem;
-	background: color-mix(in srgb, var(--sec-bg) 88%, transparent);
-	backdrop-filter: blur(7px);
-	-webkit-backdrop-filter: blur(7px);
+	z-index: 3;
+	flex: 0 0 auto;
+	margin: 0 0 0.8rem;
+	padding: 0.4rem 0 0.6rem;
+	background: transparent !important;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.mostrarInfoH .contenedorTabs .tab > button {
+	white-space: nowrap;
 }
 
 .mostrarInfoH .contenedorTabs .tabcontent,
 .mostrarInfoH .contenedorTabs .tabcontent-small {
 	max-height: none !important;
-	padding: 0.65rem 0.5rem 1rem !important;
+	padding: 0.7rem 0.6rem 1rem !important;
 	overflow: visible !important;
+}
+
+.mostrarInfoH .contenedorTabs [id^="Promesa"][style*="display: block"],
+.mostrarInfoH .contenedorTabs [id^="Oración"][style*="display: block"] {
+	display: flex !important;
+	flex: 1 1 auto;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 0;
+	padding: 1.5rem 1rem 2.25rem !important;
+	text-align: center;
+}
+
+.mostrarInfoH .contenedorTabs [id^="Promesa"] p,
+.mostrarInfoH .contenedorTabs [id^="Oración"] p {
+	max-width: 38rem;
+	margin: auto !important;
+	color: #fff !important;
+	font-size: clamp(1.08rem, 1.7vmin, 1.3rem) !important;
+	font-weight: 650;
+	line-height: 1.7 !important;
+	letter-spacing: 0.015em;
+	text-align: center;
+	text-wrap: balance;
+	text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.mostrarInfoH .contenedorTabs .ley-manada[style*="display: block"],
+.mostrarInfoH .contenedorTabs .ley-castor[style*="display: block"] {
+	display: flex !important;
+	flex: 1 1 auto;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.ley-manada-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	width: min(100%, 54rem);
+	margin: auto;
+}
+
+.ley-manada .ley-bloque {
+	padding: 0.5rem 1.7rem;
+	text-align: left;
+}
+
+.ley-manada .ley-bloque + .ley-bloque {
+	border-left: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ley-manada .ley-bloque h3 {
+	margin: 0 0 0.8rem !important;
+	padding: 0 !important;
+	color: var(--sec-accent) !important;
+	font-size: 1.25rem !important;
+	font-weight: 750;
+	letter-spacing: 0.04em;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.ley-manada .ley-lista,
+.ley-manada .normas-lista {
+	display: grid !important;
+	gap: 0.65rem;
+	margin: 0 !important;
+	padding: 0 !important;
+	color: #fff !important;
+	list-style: none !important;
+}
+
+.ley-manada .ley-lista {
+	counter-reset: ley-manada;
+}
+
+.ley-manada .ley-lista li,
+.ley-manada .normas-lista li {
+	position: relative;
+	margin: 0;
+	padding-left: 2rem;
+	font-size: 1rem;
+	line-height: 1.45;
+}
+
+.ley-manada .ley-lista li {
+	counter-increment: ley-manada;
+}
+
+.ley-manada .ley-lista li::before {
+	content: counter(ley-manada);
+	position: absolute;
+	top: 0.05rem;
+	left: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.4rem;
+	height: 1.4rem;
+	border: 1px solid var(--sec-accent);
+	border-radius: 50%;
+	color: var(--sec-accent);
+	font-size: 0.75rem;
+	font-weight: 800;
+}
+
+.ley-manada .normas-lista li::before {
+	content: "";
+	position: absolute;
+	top: 0.58rem;
+	left: 0.45rem;
+	width: 0.42rem;
+	height: 0.42rem;
+	border-radius: 50%;
+	background: var(--sec-accent);
+	box-shadow: 0 0 8px color-mix(in srgb, var(--sec-accent) 55%, transparent);
+}
+
+.obligacion-castor {
+	width: min(100%, 34rem);
+	margin: auto;
+	text-align: center;
+}
+
+.obligacion-castor strong {
+	display: block;
+	margin-bottom: 1.1rem;
+	color: var(--sec-accent) !important;
+	font-size: 1.2rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.obligacion-castor p {
+	position: relative;
+	margin: 0 !important;
+	padding: 1.15rem 0;
+	color: #fff !important;
+	font-size: clamp(1.25rem, 2.1vmin, 1.65rem) !important;
+	font-weight: 650;
+	line-height: 1.55 !important;
+	text-wrap: balance;
+}
+
+.obligacion-castor p::before,
+.obligacion-castor p::after {
+	content: "";
+	display: block;
+	width: 4.5rem;
+	height: 1px;
+	margin: 0 auto 1.15rem;
+	background: linear-gradient(to right, transparent, var(--sec-accent), transparent);
+}
+
+.obligacion-castor p::after {
+	margin: 1.15rem auto 0;
+}
+
+#LeyNormasTMS > ul,
+#LeyNormasTS > ul,
+#LeyNormasSD > ul,
+#LeyNormasCP > ul,
+#LeyNormasCR > ul {
+	display: grid !important;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.65rem 0.9rem;
+	counter-reset: ley-scout;
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+#LeyNormasTMS > ul > li,
+#LeyNormasTS > ul > li,
+#LeyNormasSD > ul > li,
+#LeyNormasCP > ul > li,
+#LeyNormasCR > ul > li {
+	position: relative;
+	counter-increment: ley-scout;
+	margin: 0;
+	padding: 0.65rem 0.75rem 0.65rem 2.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 0.7rem;
+	background: rgba(0, 0, 0, 0.08);
+	font-size: 0.92rem;
+	line-height: 1.4;
+}
+
+#LeyNormasTMS > ul > li::before,
+#LeyNormasTS > ul > li::before,
+#LeyNormasSD > ul > li::before,
+#LeyNormasCP > ul > li::before,
+#LeyNormasCR > ul > li::before {
+	content: counter(ley-scout);
+	position: absolute;
+	top: 0.65rem;
+	left: 0.65rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.35rem;
+	height: 1.35rem;
+	border-radius: 50%;
+	background: var(--sec-accent);
+	color: var(--sec-bg);
+	font-size: 0.72rem;
+	font-weight: 850;
 }
 
 .mostrarInfoH .contenidoLargoCirculos p,
 .mostrarInfoH .contenidoLargoCirculos li {
-	font-size: 1rem !important;
-	line-height: 1.58 !important;
+	font-size: 1.04rem !important;
+	line-height: 1.62 !important;
+}
+
+/* Emblema persistente: flota debajo del contenido en las tres vistas. */
+.mostrarInfoH.show .content > img.section-dialog-emblem {
+	position: absolute;
+	z-index: 6;
+	display: block;
+	float: none;
+	width: 66px !important;
+	height: 66px !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	background: none !important;
+	box-shadow: none !important;
+	object-fit: contain;
+	filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.34));
+	pointer-events: none;
 }
 
 .mostrarInfoH .adelanto-seccion .insignia-max {
@@ -199,8 +467,7 @@ body.section-dialog-open .wrapper {
 	padding: 0.65rem 0.4rem;
 }
 
-.mostrarInfoH .contenido > .section-dialog-panel,
-.mostrarInfoH .contenido > .section-dialog-panel * {
+.mostrarInfoH .contenido > .section-dialog-panel {
 	scrollbar-color: color-mix(in srgb, var(--sec-accent) 78%, transparent) transparent;
 	scrollbar-width: thin;
 }
@@ -218,46 +485,146 @@ body.section-dialog-open .wrapper {
 	background: transparent;
 }
 
+/* Las flechas y las pestañas controlan los mismos tres paneles. */
 .mostrarInfoH .content img.leftArrow,
 .mostrarInfoH .content img.rigthArrow {
-	display: none !important;
+	position: absolute !important;
+	z-index: 7;
+	display: block !important;
+	box-sizing: content-box;
+	width: 23px !important;
+	height: 15px !important;
+	padding: 0.72rem 0.88rem !important;
+	border: 1px solid rgba(255, 255, 255, 0.24) !important;
+	border-radius: 999px !important;
+	background: rgba(0, 0, 0, 0.08) !important;
+	box-shadow: none !important;
+	opacity: 0.82;
+	cursor: pointer;
+	filter: none !important;
+	transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease, border-color 180ms ease !important;
+}
+
+.mostrarInfoH .content img.leftArrow {
+	content: url("../../images/leftArrow-white.png");
+}
+
+.mostrarInfoH .content img.rigthArrow {
+	content: url("../../images/rigtArrow-white.png");
+}
+
+.mostrarInfoH .content img.leftArrow:hover,
+.mostrarInfoH .content img.leftArrow:focus-visible,
+.mostrarInfoH .content img.rigthArrow:hover,
+.mostrarInfoH .content img.rigthArrow:focus-visible {
+	border-color: var(--sec-accent) !important;
+	background: color-mix(in srgb, var(--sec-accent) 24%, rgba(0, 0, 0, 0.2)) !important;
+	opacity: 1;
+	outline: none;
 }
 
 @media screen and (min-width: 901px) {
 	.mostrarInfoH.show .content {
-		width: 86vmin !important;
-		height: 86vmin !important;
-		max-width: 1100px;
-		max-height: 1100px;
-		padding: 7.5% 0 8% !important;
+		width: 92vmin !important;
+		height: 92vmin !important;
+		max-width: 1280px;
+		max-height: 1280px;
+		padding: 5.8% 0 6.4% !important;
 		border-radius: 50%;
+		transform: translate(-50%, -50%);
+		will-change: transform, opacity, clip-path, filter;
+	}
+
+	.mostrarInfoH.show:not(.is-closing) .content {
+		animation: section-circle-open 680ms cubic-bezier(0.16, 0.86, 0.24, 1.08) both !important;
+	}
+
+	.mostrarInfoH.show.is-closing .content {
+		animation: section-circle-close 520ms cubic-bezier(0.55, 0, 0.85, 0.35) both !important;
+	}
+
+	/* Destellos orbitales discretos alrededor del filo. */
+	.mostrarInfoH.show .content::after {
+		content: "";
+		position: absolute;
+		inset: -1px;
+		z-index: 1;
+		border-radius: 50%;
+		pointer-events: none;
+		background: conic-gradient(
+			from 0deg,
+			transparent 0deg 65deg,
+			color-mix(in srgb, var(--sec-accent) 78%, white) 82deg,
+			transparent 102deg 235deg,
+			rgba(255, 255, 255, 0.5) 252deg,
+			transparent 270deg 360deg
+		);
+		-webkit-mask: radial-gradient(circle, transparent 0 96.2%, #000 96.5% 97.2%, transparent 97.5%);
+		mask: radial-gradient(circle, transparent 0 96.2%, #000 96.5% 97.2%, transparent 97.5%);
+		opacity: 0.65;
+		animation: section-orbit 13s linear infinite;
 	}
 
 	.mostrarInfoH.show .content > h2 {
-		font-size: clamp(1.35rem, 2.15vmin, 2rem);
+		font-size: clamp(1.45rem, 2.25vmin, 2.1rem);
 	}
 
 	.mostrarInfoH .content .circle-close {
-		top: 9% !important;
-		right: 19% !important;
+		top: 7.8% !important;
+		right: 15.8% !important;
 		left: auto !important;
-		width: 2.3rem !important;
-		height: 2.3rem !important;
-		font-size: 1.45rem !important;
 	}
 
 	.mostrarInfoH .content .interno {
 		display: flex !important;
-		flex: 0 1 68%;
+		flex: 0 1 76%;
 		flex-direction: column;
-		width: 72%;
-		height: 68%;
-		max-width: 790px;
+		width: 82%;
+		height: 76%;
+		max-width: 1080px;
+	}
+
+	.mostrarInfoH .content img.leftArrow,
+	.mostrarInfoH .content img.rigthArrow {
+		top: 50% !important;
+		margin: 0 !important;
+	}
+
+	.mostrarInfoH .content img.leftArrow {
+		left: 2.6% !important;
+		transform: translateY(-50%) !important;
+	}
+
+	.mostrarInfoH .content img.rigthArrow {
+		right: 2.6% !important;
+		transform: translateY(-50%) !important;
+	}
+
+	.mostrarInfoH .content img.leftArrow:hover,
+	.mostrarInfoH .content img.leftArrow:focus-visible {
+		transform: translateY(-50%) translateX(-4px) scale(1.06) !important;
+	}
+
+	.mostrarInfoH .content img.rigthArrow:hover,
+	.mostrarInfoH .content img.rigthArrow:focus-visible {
+		transform: translateY(-50%) translateX(4px) scale(1.06) !important;
 	}
 
 	.mostrarInfoH .adelanto-seccion .insignia-grid figure {
-		flex-basis: calc((100% - 2 * 0.75rem) / 3);
-		max-width: calc((100% - 2 * 0.75rem) / 3);
+		flex-basis: calc((100% - 3 * 0.75rem) / 4);
+		max-width: calc((100% - 3 * 0.75rem) / 4);
+	}
+
+	.mostrarInfoH .adelanto-seccion .insignia-grid.cols-2 figure {
+		flex-basis: calc((100% - 0.75rem) / 2);
+		max-width: calc((100% - 0.75rem) / 2);
+	}
+
+	.mostrarInfoH.show .content > img.section-dialog-emblem {
+		bottom: 2.25%;
+		left: 50%;
+		transform: translateX(-50%);
+		animation: section-emblem-float 4.8s ease-in-out infinite;
 	}
 }
 
@@ -271,25 +638,30 @@ body.section-dialog-open .wrapper {
 		height: auto !important;
 		max-width: none;
 		max-height: none;
-		padding: max(1rem, env(safe-area-inset-top)) 1rem max(0.75rem, env(safe-area-inset-bottom)) !important;
+		padding: max(0.9rem, env(safe-area-inset-top)) 0.85rem max(0.75rem, env(safe-area-inset-bottom)) !important;
 		border-radius: 0 !important;
 		transform: none !important;
-		box-shadow: inset 0 6px 0 var(--sec-ring), 0 20px 70px rgba(0, 0, 0, 0.45) !important;
+		box-shadow: inset 0 5px 0 var(--sec-ring), 0 20px 70px rgba(0, 0, 0, 0.45) !important;
+	}
+
+	body.section-dialog-open .mostrarInfoH.show:not(.is-closing) > .content {
+		animation: section-sheet-open 360ms cubic-bezier(0.2, 0.82, 0.3, 1) both !important;
+	}
+
+	body.section-dialog-open .mostrarInfoH.show.is-closing > .content {
+		animation: section-sheet-close 300ms ease-in both !important;
 	}
 
 	.mostrarInfoH.show .content > h2 {
 		width: calc(100% - 5rem);
-		margin: 0.25rem 0 0.85rem !important;
+		margin: 0.2rem 0 0.75rem !important;
 		font-size: clamp(1.3rem, 5vw, 1.8rem);
 	}
 
 	.mostrarInfoH .content .circle-close {
-		top: max(0.8rem, env(safe-area-inset-top)) !important;
-		right: 0.85rem !important;
+		top: max(0.7rem, env(safe-area-inset-top)) !important;
+		right: 0.75rem !important;
 		left: auto !important;
-		width: 2.5rem !important;
-		height: 2.5rem !important;
-		font-size: 1.55rem !important;
 	}
 
 	.mostrarInfoH .content .interno {
@@ -297,13 +669,13 @@ body.section-dialog-open .wrapper {
 		flex: 1 1 auto;
 		flex-direction: column;
 		width: 100%;
-		height: calc(100% - 3.5rem);
+		height: calc(100% - 3.3rem);
 	}
 
 	.section-dialog-nav {
 		justify-content: flex-start;
 		gap: 0.4rem;
-		padding: 0 0.15rem 0.3rem;
+		padding: 0 2rem 0.3rem;
 		overflow-x: auto;
 		scrollbar-width: none;
 	}
@@ -314,16 +686,61 @@ body.section-dialog-open .wrapper {
 
 	.section-dialog-nav button {
 		flex: 0 0 auto;
-		padding: 0.55rem 0.85rem;
+		padding: 0.5rem 0.8rem;
 		font-size: 0.8rem;
 	}
 
 	.mostrarInfoH .contenido {
-		height: calc(100% - 3.2rem);
+		height: calc(100% - 3rem);
 	}
 
 	.mostrarInfoH .contenido > .section-dialog-panel {
-		padding: 0.4rem 0.55rem 1.5rem 0.2rem !important;
+		padding: 0.35rem 2.15rem 1.5rem !important;
+	}
+
+	.ley-manada-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.ley-manada .ley-bloque {
+		padding: 0.55rem 0.25rem;
+	}
+
+	.ley-manada .ley-bloque + .ley-bloque {
+		margin-top: 0.65rem;
+		padding-top: 1.1rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.22);
+		border-left: 0;
+	}
+
+	#LeyNormasTMS > ul,
+	#LeyNormasTS > ul,
+	#LeyNormasSD > ul,
+	#LeyNormasCP > ul,
+	#LeyNormasCR > ul {
+		grid-template-columns: 1fr;
+	}
+
+	.mostrarInfoH.show .content > img.section-dialog-emblem {
+		display: none;
+	}
+
+	.mostrarInfoH .content img.leftArrow,
+	.mostrarInfoH .content img.rigthArrow {
+		top: 50% !important;
+		width: 15px !important;
+		height: 10px !important;
+		padding: 0.55rem 0.62rem !important;
+		opacity: 0.72;
+		transform: translateY(-50%) !important;
+	}
+
+	.mostrarInfoH .content img.leftArrow {
+		left: 0.25rem !important;
+	}
+
+	.mostrarInfoH .content img.rigthArrow {
+		right: 0.25rem !important;
 	}
 
 	.mostrarInfoH .adelanto-seccion .insignia-max img {
@@ -339,10 +756,113 @@ body.section-dialog-open .wrapper {
 	}
 }
 
+@keyframes section-circle-open {
+	0% {
+		opacity: 0;
+		clip-path: circle(4% at 50% 50%);
+		filter: blur(9px) saturate(0.45);
+		transform: translate(-50%, -50%) scale(0.12) rotate(-10deg);
+	}
+	62% {
+		opacity: 1;
+		clip-path: circle(74% at 50% 50%);
+		filter: blur(0) saturate(1.08);
+		transform: translate(-50%, -50%) scale(1.035) rotate(0.7deg);
+	}
+	100% {
+		opacity: 1;
+		clip-path: circle(72% at 50% 50%);
+		filter: blur(0) saturate(1);
+		transform: translate(-50%, -50%) scale(1) rotate(0);
+	}
+}
+
+@keyframes section-circle-close {
+	0% {
+		opacity: 1;
+		clip-path: circle(72% at 50% 50%);
+		filter: blur(0);
+		transform: translate(-50%, -50%) scale(1) rotate(0);
+	}
+	30% {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1.035) rotate(-0.7deg);
+	}
+	100% {
+		opacity: 0;
+		clip-path: circle(3% at 50% 50%);
+		filter: blur(8px) saturate(0.5);
+		transform: translate(-50%, -50%) scale(0.1) rotate(9deg);
+	}
+}
+
+@keyframes section-sheet-open {
+	0% {
+		opacity: 0;
+		transform: translateY(7%) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes section-sheet-close {
+	0% {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: translateY(5%) scale(0.985);
+	}
+}
+
+@keyframes section-panel-from-right {
+	0% {
+		opacity: 0;
+		transform: translateX(3.2rem) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+@keyframes section-panel-from-left {
+	0% {
+		opacity: 0;
+		transform: translateX(-3.2rem) scale(0.985);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0) scale(1);
+	}
+}
+
+@keyframes section-orbit {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes section-emblem-float {
+	0%, 100% {
+		transform: translateX(-50%) translateY(0);
+	}
+	50% {
+		transform: translateX(-50%) translateY(-5px);
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.section-dialog-backdrop,
 	.mostrarInfoH.show .content,
+	.mostrarInfoH .contenido > .section-dialog-panel,
+	.mostrarInfoH .content::after,
+	.mostrarInfoH .section-dialog-emblem,
 	.section-dialog-nav button {
-		transition: none;
+		animation: none !important;
+		transition: none !important;
 	}
 }
